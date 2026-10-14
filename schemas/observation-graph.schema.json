@@ -1,0 +1,217 @@
+{
+  "$defs": {
+    "Action": {
+      "additionalProperties": false,
+      "description": "An inferred temporal action with grounded object references.",
+      "properties": {
+        "evidence_frame_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Frame Ids",
+          "type": "array"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "interpretation": {
+          "minLength": 1,
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "minLength": 1,
+          "title": "Action",
+          "type": "string"
+        },
+        "object_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Object Ids",
+          "type": "array"
+        },
+        "start_s": {
+          "minimum": 0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "minimum": 0,
+          "title": "End S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "evidence_frame_ids",
+        "confidence",
+        "interpretation",
+        "id",
+        "action",
+        "object_ids",
+        "start_s",
+        "end_s"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "StateChange": {
+      "additionalProperties": false,
+      "description": "An inferred before/after change, separate from physical measurements.",
+      "properties": {
+        "evidence_frame_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Frame Ids",
+          "type": "array"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "interpretation": {
+          "minLength": 1,
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "object_id": {
+          "title": "Object Id",
+          "type": "string"
+        },
+        "before": {
+          "minLength": 1,
+          "title": "Before",
+          "type": "string"
+        },
+        "after": {
+          "minLength": 1,
+          "title": "After",
+          "type": "string"
+        },
+        "action_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Action Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "evidence_frame_ids",
+        "confidence",
+        "interpretation",
+        "id",
+        "object_id",
+        "before",
+        "after",
+        "action_ids"
+      ],
+      "title": "StateChange",
+      "type": "object"
+    },
+    "VisualObject": {
+      "additionalProperties": false,
+      "description": "An inferred object identity; this is not a YOLO track or annotation ID.",
+      "properties": {
+        "evidence_frame_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Frame Ids",
+          "type": "array"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "interpretation": {
+          "minLength": 1,
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_frame_ids",
+        "confidence",
+        "interpretation",
+        "id",
+        "description"
+      ],
+      "title": "VisualObject",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Video-derived inference only; ground truth is stored outside this graph.",
+  "properties": {
+    "objects": {
+      "items": {
+        "$ref": "#/$defs/VisualObject"
+      },
+      "title": "Objects",
+      "type": "array"
+    },
+    "actions": {
+      "items": {
+        "$ref": "#/$defs/Action"
+      },
+      "title": "Actions",
+      "type": "array"
+    },
+    "state_changes": {
+      "items": {
+        "$ref": "#/$defs/StateChange"
+      },
+      "title": "State Changes",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "objects",
+    "actions",
+    "state_changes",
+    "limitations"
+  ],
+  "title": "ObservationGraph",
+  "type": "object"
+}

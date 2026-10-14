@@ -1,0 +1,96 @@
+{
+  "$defs": {
+    "EngineeringValue": {
+      "additionalProperties": false,
+      "description": "An explicitly supplied measurement, specification or planning assumption.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "unknown",
+            "measured",
+            "supplier_specification",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "unit",
+        "basis"
+      ],
+      "title": "EngineeringValue",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Supplementary inputs kept separate from original annotations and inference.",
+  "properties": {
+    "parameters": {
+      "additionalProperties": {
+        "$ref": "#/$defs/EngineeringValue"
+      },
+      "title": "Parameters",
+      "type": "object"
+    },
+    "costs": {
+      "additionalProperties": {
+        "$ref": "#/$defs/EngineeringValue"
+      },
+      "title": "Costs",
+      "type": "object"
+    },
+    "labor": {
+      "additionalProperties": {
+        "$ref": "#/$defs/EngineeringValue"
+      },
+      "title": "Labor",
+      "type": "object"
+    },
+    "power": {
+      "additionalProperties": {
+        "$ref": "#/$defs/EngineeringValue"
+      },
+      "title": "Power",
+      "type": "object"
+    },
+    "byproducts": {
+      "additionalProperties": {
+        "$ref": "#/$defs/EngineeringValue"
+      },
+      "title": "Byproducts",
+      "type": "object"
+    }
+  },
+  "title": "EngineeringInputs",
+  "type": "object"
+}

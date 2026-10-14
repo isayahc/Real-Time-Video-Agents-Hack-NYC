@@ -1,0 +1,201 @@
+{
+  "$defs": {
+    "Capability": {
+      "additionalProperties": false,
+      "description": "An apparatus requirement mapped to source operations.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "operation_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Operation Ids",
+          "type": "array"
+        },
+        "rationale": {
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "operation_ids",
+        "rationale"
+      ],
+      "title": "Capability",
+      "type": "object"
+    },
+    "Operation": {
+      "additionalProperties": false,
+      "description": "An embodiment-independent operation derived from visual action evidence.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "intent": {
+          "minLength": 1,
+          "title": "Intent",
+          "type": "string"
+        },
+        "physical_operation": {
+          "minLength": 1,
+          "title": "Physical Operation",
+          "type": "string"
+        },
+        "object_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Object Ids",
+          "type": "array"
+        },
+        "source_action_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Action Ids",
+          "type": "array"
+        },
+        "preconditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "postconditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Postconditions",
+          "type": "array"
+        },
+        "constraints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Constraints",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "intent",
+        "physical_operation",
+        "object_ids",
+        "source_action_ids",
+        "preconditions",
+        "postconditions",
+        "constraints"
+      ],
+      "title": "Operation",
+      "type": "object"
+    },
+    "PreparationCandidate": {
+      "additionalProperties": false,
+      "description": "A hypothesized prerequisite outside the observed clip, not a new fact.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "frequency": {
+          "enum": [
+            "per_batch",
+            "per_unit",
+            "initial_deployment",
+            "unknown"
+          ],
+          "title": "Frequency",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "verification_needed": {
+          "minLength": 1,
+          "title": "Verification Needed",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "frequency",
+        "reason",
+        "verification_needed"
+      ],
+      "title": "PreparationCandidate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Derived protocol/capabilities plus separately labeled preparation hypotheses.",
+  "properties": {
+    "operations": {
+      "items": {
+        "$ref": "#/$defs/Operation"
+      },
+      "title": "Operations",
+      "type": "array"
+    },
+    "required_capabilities": {
+      "items": {
+        "$ref": "#/$defs/Capability"
+      },
+      "title": "Required Capabilities",
+      "type": "array"
+    },
+    "preprocessing_candidates": {
+      "items": {
+        "$ref": "#/$defs/PreparationCandidate"
+      },
+      "title": "Preprocessing Candidates",
+      "type": "array"
+    },
+    "unresolved_requirements": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unresolved Requirements",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "operations",
+    "required_capabilities",
+    "preprocessing_candidates",
+    "unresolved_requirements",
+    "limitations"
+  ],
+  "title": "ProtocolPlan",
+  "type": "object"
+}

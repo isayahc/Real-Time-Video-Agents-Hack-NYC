@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mapped-procedure-pipeline"
+version = "0.1.0"
+description = "Evidence-grounded CREOLab protocol and apparatus planning"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.12,<3"]
+
+[tool.setuptools.packages.find]
+include = ["protocol_pipeline*"]
