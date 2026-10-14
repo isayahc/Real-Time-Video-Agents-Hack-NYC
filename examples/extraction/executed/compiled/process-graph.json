@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "protocol_id": "empty-tube-transfer-unmeasured",
+  "operations": [
+    {
+      "id": "prepare_racks",
+      "phase": "preparation",
+      "intent": "Prepare source and destination racks",
+      "physical_operation": "Check fixture stability and coordinate references",
+      "object_ids": [
+        "source_rack",
+        "destination_rack"
+      ],
+      "frequency": "per_batch",
+      "source_refs": [
+        "text:L1-L1"
+      ],
+      "basis": "model_inference",
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Prepare source and destination racks checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ],
+      "attended_range_s": null
+    },
+    {
+      "id": "identify_tube",
+      "phase": "processing",
+      "intent": "Identify a selected empty capped tube",
+      "physical_operation": "Resolve tube ID and source/destination positions",
+      "object_ids": [
+        "tube",
+        "source_rack",
+        "destination_rack"
+      ],
+      "frequency": "per_attempt",
+      "source_refs": [
+        "text:L2-L2"
+      ],
+      "basis": "model_inference",
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Identify a selected empty capped tube checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ],
+      "attended_range_s": null
+    },
+    {
+      "id": "grip_tube",
+      "phase": "processing",
+      "intent": "Grip the selected tube",
+      "physical_operation": "Secure the tube without opening or deforming it",
+      "object_ids": [
+        "tube",
+        "gripper"
+      ],
+      "frequency": "per_attempt",
+      "source_refs": [
+        "text:L3-L3"
+      ],
+      "basis": "model_inference",
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Grip the selected tube checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ],
+      "attended_range_s": null
+    },
+    {
+      "id": "transfer_tube",
+      "phase": "processing",
+      "intent": "Move the tube between racks",
+      "physical_operation": "Transport through a reviewed clear path",
+      "object_ids": [
+        "tube",
+        "gripper",
+        "motion_stage"
+      ],
+      "frequency": "per_attempt",
+      "source_refs": [
+        "text:L4-L4"
+      ],
+      "basis": "model_inference",
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Move the tube between racks checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ],
+      "attended_range_s": null
+    },
+    {
+      "id": "place_release",
+      "phase": "processing",
+      "intent": "Place and release at destination",
+      "physical_operation": "Seat the tube in the destination position",
+      "object_ids": [
+        "tube",
+        "destination_rack",
+        "gripper"
+      ],
+      "frequency": "per_attempt",
+      "source_refs": [
+        "text:L5-L5"
+      ],
+      "basis": "model_inference",
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Place and release at destination checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ],
+      "attended_range_s": null
+    },
+    {
+      "id": "verify_destination",
+      "phase": "finishing",
+      "intent": "Verify identity, presence and placement",
+      "physical_operation": "Check tube position and intact cap",
+      "object_ids": [
+        "tube",
+        "destination_rack"
+      ],
+      "frequency": "per_attempt",
+      "source_refs": [
+        "text:L6-L6"
+      ],
+      "basis": "model_inference",
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Verify identity, presence and placement checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ],
+      "attended_range_s": null
+    },
+    {
+      "id": "reset_station",
+      "phase": "finishing",
+      "intent": "Reset the station and record exceptions",
+      "physical_operation": "Return motion hardware to a reviewed state",
+      "object_ids": [
+        "motion_stage",
+        "gripper"
+      ],
+      "frequency": "per_attempt",
+      "source_refs": [
+        "text:L7-L7"
+      ],
+      "basis": "model_inference",
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Reset the station and record exceptions checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ],
+      "attended_range_s": null
+    }
+  ],
+  "links": [
+    {
+      "source": "prepare_racks",
+      "target": "identify_tube",
+      "relation": "before",
+      "basis": "model_inference"
+    },
+    {
+      "source": "identify_tube",
+      "target": "grip_tube",
+      "relation": "before",
+      "basis": "model_inference"
+    },
+    {
+      "source": "grip_tube",
+      "target": "transfer_tube",
+      "relation": "before",
+      "basis": "model_inference"
+    },
+    {
+      "source": "transfer_tube",
+      "target": "place_release",
+      "relation": "before",
+      "basis": "model_inference"
+    },
+    {
+      "source": "place_release",
+      "target": "verify_destination",
+      "relation": "before",
+      "basis": "model_inference"
+    },
+    {
+      "source": "verify_destination",
+      "target": "reset_station",
+      "relation": "before",
+      "basis": "model_inference"
+    }
+  ]
+}

@@ -168,3 +168,13 @@ python -m protocol_pipeline compile-protocol \
 
 The [shared protocol format](examples/protocols/README.md) compiles both coil winding and conceptual empty-tube transfer into the same apparatus and resource contracts. Inputs explicitly supply operations, dependencies, candidate equipment, preparation and acceptance checks; no task-specific inference or physical measurements are invented.
 
+## Automatic extraction providers
+
+```bash
+python -m protocol_pipeline extract-protocol \
+  --text /path/to/procedure.txt --provider nebius \
+  --model YOUR_TEXT_MODEL_ID --output runs/text-extraction-001
+```
+
+[Extraction](examples/extraction/README.md) supports text and sampled-video input, explicit Nebius model selection, source-grounding checks, and direct compiler handoff. A separate recorded-response replay exercises the integration without credits. Live inference quality and physical validation remain unverified.
+

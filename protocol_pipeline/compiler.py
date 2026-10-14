@@ -26,7 +26,7 @@ class PlannedOperation(StrictModel):
     object_ids: list[str] = Field(min_length=1)
     frequency: str = Field(min_length=1)
     source_refs: list[str] = Field(min_length=1)
-    basis: Literal["planning", "workflow_hypothesis", "reviewed_source"]
+    basis: Literal["planning", "workflow_hypothesis", "reviewed_source", "model_inference"]
     preconditions: list[str]
     postconditions: list[str]
     constraints: list[str]
@@ -48,7 +48,7 @@ class PlannedLink(StrictModel):
     source: str
     target: str
     relation: Literal["before", "during"]
-    basis: Literal["planning", "reviewed_source"] = "planning"
+    basis: Literal["planning", "reviewed_source", "model_inference"] = "planning"
 
 
 class PlannedCapability(StrictModel):

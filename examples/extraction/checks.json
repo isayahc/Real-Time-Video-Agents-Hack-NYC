@@ -1,0 +1,27 @@
+{
+  "local_tests": {
+    "passed": 83,
+    "failed": 0,
+    "skipped": 0
+  },
+  "offline_workflows": 8,
+  "network_connections_blocked": true,
+  "live_nebius_run": "not_executed",
+  "nebius_transport_tests": "mocked HTTP via actual adapter; text and two-stage video",
+  "physical_validation": false,
+  "artifacts_sha256": {
+    "README.md": "6be519f4f2f488fb5bde2e35b8f99ccee16fa5dd3e609a813d0bcdda440a028c",
+    "executed/compiled/apparatus-requirements.json": "9c1239a1c0a7060f07242cac951c728a0cd14f3b61a1bc04380da7173f361256",
+    "executed/compiled/process-graph.json": "34617417871d9adf4f796e1822faae218875a2a79bcf403a6fc59a605f56a62e",
+    "executed/compiled/process-input.json": "1d6d1c1ecf1a01f596aab25d8fd535aa2c6ad963ac7e1386ad660e4b771c77b3",
+    "executed/compiled/protocol-input.json": "9066bcc9ce57af981d359b696ff7bf27b78eb88aa5ebfcad1345058122c6b2aa",
+    "executed/compiled/report.md": "5a23f4ea1d8079c7579dd9bc263c658bdeafb2dfc0cd48c4d5d82a50b00b1c0c",
+    "executed/compiled/summary.json": "8757e6f14b775b660b647c896a67133d21c2d2906aa346bbe425baf486d9b7a6",
+    "executed/extracted-protocol.json": "9066bcc9ce57af981d359b696ff7bf27b78eb88aa5ebfcad1345058122c6b2aa",
+    "executed/extraction-summary.json": "ea9e68d2da213bd84faadf7bc8dfa344b5ab887acf0704398eeeefb1b83c53af",
+    "executed/source-manifest.json": "b809c1e02b095f4aa54cb32d31e3cadb000745ad798bde0aabc69e0f4b29f936",
+    "executed/source.txt": "578884be7f0af6b6bf29a25e3e4aaa3e3fdeeadaebabca4e9ae008b43cb0f51f",
+    "procedure.txt": "578884be7f0af6b6bf29a25e3e4aaa3e3fdeeadaebabca4e9ae008b43cb0f51f",
+    "recorded-response.json": "c5b1132f5435345456891c24ddc6aad878425dcd7a37d55879925df9c3e7abfa"
+  }
+}

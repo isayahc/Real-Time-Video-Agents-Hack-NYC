@@ -1,0 +1,7 @@
+Prepare a source rack and a destination rack for empty capped inert demonstration tubes.
+Identify the selected tube and its intended destination.
+Grip the tube without opening its cap.
+Move it between racks through a reviewed clear path.
+Place and release it at the intended destination position.
+Verify tube identity, position and intact cap.
+Reset the station and log exceptions.
