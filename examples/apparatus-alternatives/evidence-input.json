@@ -1,0 +1,635 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "unmeasured_concepts",
+  "description": "Actual evidence lane: proposed manual, simple motorized and CW-02 configurations. Full-process quantities are unknown. The CW-02 equipment midpoint is an existing concept assumption, not installed cost.",
+  "options": [
+    {
+      "id": "manual",
+      "label": "Manual fixture",
+      "equipment": [
+        "Screwdriver/mandrel",
+        "Manual wire-handling/cutting tools",
+        "Released-coil dimensional inspection",
+        "Product/scrap containers"
+      ],
+      "controls": [
+        "Operator supplies rotation, pitch and tension",
+        "Operator inspects and releases every coil"
+      ],
+      "measurement_gaps": [
+        "Full-cycle attended time and elapsed time",
+        "Released-coil acceptance and repeatability",
+        "Actual tooling cost",
+        "Full stock/scrap and utility accounting"
+      ],
+      "option": {
+        "process": {
+          "schema_version": 1,
+          "configuration_id": "manual-full-boundary-unmeasured",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": null,
+              "unit": "count",
+              "basis": "unknown",
+              "source": null
+            },
+            "attempted_count": {
+              "value": null,
+              "unit": "count",
+              "basis": "unknown",
+              "source": null
+            },
+            "elapsed_s": {
+              "value": null,
+              "unit": "s",
+              "basis": "unknown",
+              "source": null
+            },
+            "labor_s": {
+              "value": null,
+              "unit": "operator-s",
+              "basis": "unknown",
+              "source": null
+            },
+            "electricity_wh": {
+              "value": null,
+              "unit": "Wh",
+              "basis": "unknown",
+              "source": null
+            },
+            "consumed_stock_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "recoverable_scrap_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "unrecovered_waste_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "loaded_labor_rate": {
+              "value": null,
+              "unit": "USD/operator-hour",
+              "basis": "unknown",
+              "source": null
+            },
+            "electricity_rate": {
+              "value": null,
+              "unit": "USD/kWh",
+              "basis": "unknown",
+              "source": null
+            },
+            "stock_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "consumables_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "allocated_tooling_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "maintenance_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "facility_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "other_utilities_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "paid_coverage_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "recovery_credit": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        },
+        "cost_model_source": "Collect full workflow costs; annual fixed allocations unresolved",
+        "capacity_model_source": "Collect full cycle, utilization and downtime measurements",
+        "upfront": {
+          "equipment": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          },
+          "installation": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          },
+          "integration": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          },
+          "training": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          }
+        },
+        "annual_fixed_cost": {
+          "value": null,
+          "unit": "USD/year",
+          "basis": "unknown",
+          "source": null
+        },
+        "scheduled_hours": {
+          "value": null,
+          "unit": "h/year",
+          "basis": "unknown",
+          "source": null
+        },
+        "utilization": {
+          "value": null,
+          "unit": "fraction",
+          "basis": "unknown",
+          "source": null
+        },
+        "downtime": {
+          "value": null,
+          "unit": "fraction",
+          "basis": "unknown",
+          "source": null
+        },
+        "useful_life": {
+          "value": null,
+          "unit": "years",
+          "basis": "unknown",
+          "source": null
+        }
+      }
+    },
+    {
+      "id": "motorized",
+      "label": "Simple motorized winder",
+      "equipment": [
+        "Low-speed motor and speed controller",
+        "Mandrel/chuck with guarded drive and stop",
+        "Manual guide and tension adjustment",
+        "Manual cutting and released-coil inspection"
+      ],
+      "controls": [
+        "Motor supplies rotation only",
+        "Operator guides pitch, handles tension and stops at target turns",
+        "Operator cuts, releases and inspects"
+      ],
+      "measurement_gaps": [
+        "Motor/drive procurement and integration costs",
+        "Operator attendance while guiding and stopping",
+        "Safe torque/speed and wire tension",
+        "Quality, full-cycle energy and scrap"
+      ],
+      "option": {
+        "process": {
+          "schema_version": 1,
+          "configuration_id": "motorized-full-boundary-unmeasured",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": null,
+              "unit": "count",
+              "basis": "unknown",
+              "source": null
+            },
+            "attempted_count": {
+              "value": null,
+              "unit": "count",
+              "basis": "unknown",
+              "source": null
+            },
+            "elapsed_s": {
+              "value": null,
+              "unit": "s",
+              "basis": "unknown",
+              "source": null
+            },
+            "labor_s": {
+              "value": null,
+              "unit": "operator-s",
+              "basis": "unknown",
+              "source": null
+            },
+            "electricity_wh": {
+              "value": null,
+              "unit": "Wh",
+              "basis": "unknown",
+              "source": null
+            },
+            "consumed_stock_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "recoverable_scrap_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "unrecovered_waste_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "loaded_labor_rate": {
+              "value": null,
+              "unit": "USD/operator-hour",
+              "basis": "unknown",
+              "source": null
+            },
+            "electricity_rate": {
+              "value": null,
+              "unit": "USD/kWh",
+              "basis": "unknown",
+              "source": null
+            },
+            "stock_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "consumables_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "allocated_tooling_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "maintenance_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "facility_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "other_utilities_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "paid_coverage_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "recovery_credit": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        },
+        "cost_model_source": "Collect full workflow costs; annual fixed allocations unresolved",
+        "capacity_model_source": "Collect full cycle, utilization and downtime measurements",
+        "upfront": {
+          "equipment": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          },
+          "installation": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          },
+          "integration": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          },
+          "training": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          }
+        },
+        "annual_fixed_cost": {
+          "value": null,
+          "unit": "USD/year",
+          "basis": "unknown",
+          "source": null
+        },
+        "scheduled_hours": {
+          "value": null,
+          "unit": "h/year",
+          "basis": "unknown",
+          "source": null
+        },
+        "utilization": {
+          "value": null,
+          "unit": "fraction",
+          "basis": "unknown",
+          "source": null
+        },
+        "downtime": {
+          "value": null,
+          "unit": "fraction",
+          "basis": "unknown",
+          "source": null
+        },
+        "useful_life": {
+          "value": null,
+          "unit": "years",
+          "basis": "unknown",
+          "source": null
+        }
+      }
+    },
+    {
+      "id": "cw02",
+      "label": "CW-02 coordinated winder",
+      "equipment": [
+        "Stepper spindle and synchronized traverse",
+        "Removable mandrel clamp and wire guide",
+        "Passive dancer/spool brake and tension sensor",
+        "Camera/backlight and manual cutting/release tools"
+      ],
+      "controls": [
+        "Proposed controller coordinates spindle and traverse",
+        "Proposed sensing supports tension/inspection",
+        "Manual loading, cutting, removal and acceptance remain"
+      ],
+      "measurement_gaps": [
+        "Pitch/tension calibration and springback",
+        "Full-boundary labor, energy and accepted output",
+        "Installed cost, software/integration effort and reliability",
+        "Actual equivalent coil acceptance and maintenance"
+      ],
+      "option": {
+        "process": {
+          "schema_version": 1,
+          "configuration_id": "cw02-full-boundary-unmeasured",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": null,
+              "unit": "count",
+              "basis": "unknown",
+              "source": null
+            },
+            "attempted_count": {
+              "value": null,
+              "unit": "count",
+              "basis": "unknown",
+              "source": null
+            },
+            "elapsed_s": {
+              "value": null,
+              "unit": "s",
+              "basis": "unknown",
+              "source": null
+            },
+            "labor_s": {
+              "value": null,
+              "unit": "operator-s",
+              "basis": "unknown",
+              "source": null
+            },
+            "electricity_wh": {
+              "value": null,
+              "unit": "Wh",
+              "basis": "unknown",
+              "source": null
+            },
+            "consumed_stock_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "recoverable_scrap_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "unrecovered_waste_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "loaded_labor_rate": {
+              "value": null,
+              "unit": "USD/operator-hour",
+              "basis": "unknown",
+              "source": null
+            },
+            "electricity_rate": {
+              "value": null,
+              "unit": "USD/kWh",
+              "basis": "unknown",
+              "source": null
+            },
+            "stock_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "consumables_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "allocated_tooling_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "maintenance_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "facility_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "other_utilities_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "paid_coverage_cost": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            },
+            "recovery_credit": {
+              "value": null,
+              "unit": "USD/batch",
+              "basis": "unknown",
+              "source": null
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        },
+        "cost_model_source": "Collect full workflow costs; annual fixed allocations unresolved",
+        "capacity_model_source": "Collect full cycle, utilization and downtime measurements",
+        "upfront": {
+          "equipment": {
+            "value": 877.6,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "snapshots/v2/README.md: conceptual apparatus BOM midpoint only; installation and bench excluded, no procurement quote"
+          },
+          "installation": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          },
+          "integration": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          },
+          "training": {
+            "value": null,
+            "unit": "USD",
+            "basis": "unknown",
+            "source": null
+          }
+        },
+        "annual_fixed_cost": {
+          "value": null,
+          "unit": "USD/year",
+          "basis": "unknown",
+          "source": null
+        },
+        "scheduled_hours": {
+          "value": null,
+          "unit": "h/year",
+          "basis": "unknown",
+          "source": null
+        },
+        "utilization": {
+          "value": null,
+          "unit": "fraction",
+          "basis": "unknown",
+          "source": null
+        },
+        "downtime": {
+          "value": null,
+          "unit": "fraction",
+          "basis": "unknown",
+          "source": null
+        },
+        "useful_life": {
+          "value": null,
+          "unit": "years",
+          "basis": "unknown",
+          "source": null
+        }
+      }
+    }
+  ],
+  "horizon_years": {
+    "value": null,
+    "unit": "years",
+    "basis": "unknown",
+    "source": null
+  },
+  "equivalence_verified": false,
+  "equivalence_source": null,
+  "scenarios": [
+    {
+      "name": "current-evidence",
+      "annual_demand": {
+        "value": null,
+        "unit": "accepted outputs/year",
+        "basis": "unknown",
+        "source": null
+      }
+    }
+  ],
+  "limitations": [
+    "Source video and annotation are not reviewed; alternative architectures are proposed concepts.",
+    "Every alternative targets the same released-coil geometry/material/function; actual acceptance targets and equivalence remain unresolved.",
+    "No investment recommendation can be made from unverified acceptance or hypothetical inputs.",
+    "Preparation ranges and winding-only estimates are not summed or transferred into these full-boundary options.",
+    "No yield/waste advantage is assumed for automation; shared hypothetical counts and stock are used to isolate labor/capital/energy effects."
+  ]
+}

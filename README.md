@@ -138,3 +138,15 @@ python -m protocol_pipeline coil-offline --output runs/coil-offline-001
 
 See the [executed report and measurement workflow](examples/coil-offline/README.md). Full-process measurements remain unknown; winding-only estimates are reported separately.
 
+## Apparatus alternatives
+
+Compare manual, simple motorized and CW-02 candidate architectures without model calls:
+
+```bash
+python -m protocol_pipeline compare-alternatives \
+  --input examples/apparatus-alternatives/illustrative-input.json \
+  --output runs/apparatus-illustrative-001
+```
+
+The [comparison](examples/apparatus-alternatives/README.md) includes a separate current-evidence report with unknown full-process values and explicitly hypothetical volume/labor scenarios. It exposes tradeoffs without declaring verified savings or a procurement recommendation.
+
