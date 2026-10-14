@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "added_date": "2026-10-13",
+  "status": "illustrative_unmeasured_preprocessing_estimate",
+  "basis": "Candidate upstream work inferred from the proposed workflow; not confirmed CREOLab annotation or measured operator times",
+  "confidence": "low",
+  "time_metric": "operator-attended time; not necessarily wall-clock duration",
+  "batch_steps": [
+    {
+      "id": "verify_stock",
+      "operation": "Select and verify wire stock/specification",
+      "minutes_low": 2,
+      "minutes_high": 5,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    },
+    {
+      "id": "prepare_mandrel",
+      "operation": "Inspect and prepare mandrel/fixture; clean if required",
+      "minutes_low": 2,
+      "minutes_high": 5,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    },
+    {
+      "id": "prepare_containers",
+      "operation": "Prepare labels, accepted-part trays and scrap container",
+      "minutes_low": 1,
+      "minutes_high": 3,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    },
+    {
+      "id": "thread_and_tension",
+      "operation": "Load/thread stock and establish initial tension",
+      "minutes_low": 3,
+      "minutes_high": 8,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    },
+    {
+      "id": "home_and_calibrate",
+      "operation": "Home axes and calibrate inspection, where applicable",
+      "minutes_low": 5,
+      "minutes_high": 15,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    },
+    {
+      "id": "trial_coil",
+      "operation": "Produce/inspect a trial coil and adjust settings",
+      "minutes_low": 5,
+      "minutes_high": 15,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    }
+  ],
+  "per_attempt_steps": [
+    {
+      "id": "measure_cut",
+      "operation": "Measure and cut/pre-position wire",
+      "seconds_low": 10,
+      "seconds_high": 30,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    },
+    {
+      "id": "prepare_ends",
+      "operation": "Straighten/prepare ends if required",
+      "seconds_low": 5,
+      "seconds_high": 20,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    },
+    {
+      "id": "orient_secure",
+      "operation": "Orient and secure wire for winding",
+      "seconds_low": 5,
+      "seconds_high": 15,
+      "applicability": "verify for actual manual baseline and candidate apparatus"
+    }
+  ],
+  "totals": {
+    "batch_minutes_low": 18,
+    "batch_minutes_high": 51,
+    "per_attempt_seconds_low": 20,
+    "per_attempt_seconds_high": 65
+  },
+  "batch_size_examples": [
+    {
+      "attempts_per_batch": 100,
+      "assumed_accepted_fraction": 0.95,
+      "preprocessing_seconds_per_accepted_coil_low": 32.42105263157895,
+      "preprocessing_seconds_per_accepted_coil_high": 100.63157894736842
+    },
+    {
+      "attempts_per_batch": 1000,
+      "assumed_accepted_fraction": 0.95,
+      "preprocessing_seconds_per_accepted_coil_low": 22.189473684210526,
+      "preprocessing_seconds_per_accepted_coil_high": 71.6421052631579
+    }
+  ],
+  "loaded_hourly_rate_usd": null,
+  "preprocessing_labor_cost_usd": null,
+  "preprocessing_energy_wh": null,
+  "preprocessing_material_loss_g": null,
+  "initial_engineering_included": false,
+  "winding_inspection_release_and_postprocessing_included": false,
+  "double_counting_note": "Threading, clamping and inspection can overlap existing setup/loading/inspection categories and v2's illustrative 15-second touch allowance. Decompose and reconcile actual tasks before adding estimates.",
+  "formulas": {
+    "preprocessing_seconds_per_accepted_coil": "(60 * batch_minutes / attempts_per_batch + per_attempt_seconds) / accepted_fraction",
+    "preprocessing_labor_cost_per_accepted_coil": "preprocessing_seconds_per_accepted_coil / 3600 * loaded_hourly_rate_usd"
+  },
+  "validation_needed": [
+    "Observe full workflow before/after the filmed operation",
+    "Confirm which tasks are required and their repetition frequency",
+    "Measure operator time and batch sizes",
+    "Separate waiting time from attended labor",
+    "Measure power, startup/sample losses and preparation scrap",
+    "Reconcile task boundaries against existing labor assumptions"
+  ],
+  "note": "Original v1 hardware prices/scene are unchanged. These hypotheses add upstream scope; they do not complete total labor costing or validate throughput."
+}
