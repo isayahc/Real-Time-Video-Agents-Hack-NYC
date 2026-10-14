@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "snapshot_version": "v1",
+  "snapshot_date": "2026-10-13",
+  "timezone": "America/New_York",
+  "status": "authored_concept_with_preliminary_cost_estimate",
+  "epic_url": "https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/16",
+  "benchmark": {
+    "dataset": "CREOLab",
+    "scenario": "T1",
+    "task": "Winding platinum wire into a coil using a screwdriver as a forming surface",
+    "source_repository": "https://github.com/ToyotaCRDL/CREOLab",
+    "paper_doi": "10.1039/D5DD00542F",
+    "basis": "Published task description; video and captions not ingested",
+    "split": "test",
+    "held_out_eligible": false,
+    "held_out_note": "This scenario and its decoy variants are now used for design development. Choose a separate procedure for held-out evaluation.",
+    "dataset_assets_bundled": false,
+    "usage_note": "CREOLab code/data license limits use to noncommercial research; confirm permission before public competition/commercial reuse of dataset assets."
+  },
+  "scene": {
+    "room_id": "b9798f13-6517-49f2-b3ee-557b617900c8",
+    "units": "m",
+    "up_axis": "Y",
+    "dimensions": {
+      "width": 8,
+      "depth": 6,
+      "height": 3
+    },
+    "stations": [
+      "wire_feed_and_preparation",
+      "tension_controlled_mandrel_winding",
+      "optical_inspection",
+      "collection_and_material_recovery"
+    ],
+    "instances": [
+      {
+        "id": "cell",
+        "name": "Coil-winding pilot cell / 8 × 6 m",
+        "asset_id": "cell",
+        "position": [
+          -0.029999971389770508,
+          -0.1599999964237213,
+          -0.029999971389770508
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "feed-bench",
+        "name": "01 / Wire feed and preparation",
+        "asset_id": "feed-bench",
+        "position": [
+          -2.65,
+          1.1920929132713809e-08,
+          -1.3362499952316285
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "winding-bench",
+        "name": "02 / Tension-controlled mandrel winding",
+        "asset_id": "winding-bench",
+        "position": [
+          -0.7,
+          1.1920929132713809e-08,
+          -1.3362499952316285
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "inspection-bench",
+        "name": "03 / Optical coil inspection",
+        "asset_id": "inspection-bench",
+        "position": [
+          1.35,
+          1.1920929132713809e-08,
+          -1.3362499952316285
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "collection-bench",
+        "name": "04 / Collection and material recovery",
+        "asset_id": "collection-bench",
+        "position": [
+          2.75,
+          1.1920929132713809e-08,
+          0.7137500047683716
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "feed",
+        "name": "Wire supply spool and feed rollers",
+        "asset_id": "feed",
+        "position": [
+          -2.65,
+          0.9499999998509884,
+          -1.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "winder",
+        "name": "Servo mandrel / feeder / tensioner / guard",
+        "asset_id": "winder",
+        "position": [
+          -0.7,
+          0.9500000008940697,
+          -1.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "inspect",
+        "name": "Camera and backlight measurement station",
+        "asset_id": "inspect",
+        "position": [
+          1.35,
+          0.9500000006705522,
+          -1.3074999928474427
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "trays",
+        "name": "Accepted parts and recoverable wire trays",
+        "asset_id": "trays",
+        "position": [
+          2.75,
+          0.9600000007078051,
+          0.75
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      },
+      {
+        "id": "carrier",
+        "name": "Illustrative part-transfer carrier",
+        "asset_id": "carrier",
+        "position": [
+          -0.7,
+          0.9600000013411045,
+          -0.9
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visible": true
+      }
+    ],
+    "animation_duration_seconds": 12,
+    "animation_note": "Illustrative transfer carrier animation; no automatic transfer mechanism has been engineered or costed."
+  },
+  "generation": {
+    "room_creation": "Actual OpenIndustries local stdio MCP astra.create_room",
+    "geometry": "Original authored parametric geometry using OpenIndustries native asset/scene libraries",
+    "completed_scene_readback": "Actual astra.read_room after writing enriched local room document",
+    "cloud_saved": false,
+    "live_forma_generation": false,
+    "live_nebius_inference": false,
+    "video_derived_design": false
+  },
+  "verification": {
+    "native_portable_round_trip": true,
+    "workbench_import_instances": 10,
+    "missing_geometry": 0,
+    "gif": {
+      "width": 640,
+      "height": 640,
+      "frames": 40,
+      "workbenchItems": 10,
+      "pageErrors": []
+    }
+  },
+  "unresolved": [
+    "wire diameter, temper and coil geometry",
+    "required tension, torque and tolerances",
+    "cycle times, queues, throughput and reject rates",
+    "custom fabrication quotations",
+    "human deployment and operating costs",
+    "automated material transfer design",
+    "physical feasibility and inspection calibration"
+  ],
+  "next_step": "Bind specified equipment to Forma projects and its existing BOM/cost outputs, then evaluate the baseline plant."
+}

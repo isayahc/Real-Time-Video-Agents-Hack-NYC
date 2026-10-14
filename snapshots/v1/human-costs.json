@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "currency": "USD",
+  "status": "not_estimated",
+  "initial_deployment": [
+    {
+      "category": "mechanical_design",
+      "hours": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "fabrication",
+      "hours": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "assembly",
+      "hours": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "controls_programming",
+      "hours": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "integration",
+      "hours": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "testing",
+      "hours": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "operator_training",
+      "hours": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    }
+  ],
+  "recurring_operation": [
+    {
+      "category": "loading_and_unloading",
+      "operator_hours_per_period": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "material_transfer",
+      "operator_hours_per_period": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "setup_and_changeovers",
+      "operator_hours_per_period": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "inspection",
+      "operator_hours_per_period": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "supervision",
+      "operator_hours_per_period": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "maintenance",
+      "operator_hours_per_period": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    },
+    {
+      "category": "exception_handling",
+      "operator_hours_per_period": null,
+      "loaded_hourly_rate_usd": null,
+      "total_usd": null
+    }
+  ],
+  "accepted_units_per_period": null,
+  "manual_baseline_operator_hours": null,
+  "automated_cell_operator_hours": null,
+  "formulas": {
+    "labor_cost_per_unit": "sum(operator_hours * loaded_hourly_rate) / accepted_units",
+    "deployment_labor_total": "sum(deployment_hours * loaded_hourly_rate)"
+  },
+  "constraints": [
+    "All null values are unknown and must not be treated as zero.",
+    "Compare manual and proposed cell at equal production volume and product quality.",
+    "Illustrative material transfer does not establish autonomous operation or labor savings."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "filename": "coil-winding-cell.oi.json",
+      "library_file_id": "libfile_f47c1b3792188191b1b564c7de79a496",
+      "sha256": "4f3383f974c5585e8c59e907a2dd72a2d5ffc6bfb6cff5b1d9388bd245ed37a8",
+      "size_bytes": 400615
+    },
+    {
+      "filename": "coil-winding-cell.gif",
+      "library_file_id": "libfile_05404532af9c8191b570b35dff6c01d8",
+      "sha256": "0bcf2ace3ca694d701efc4c884b8452c2b6a3edf5bbf9ec3947c164e02fcb251",
+      "size_bytes": 605486
+    },
+    {
+      "filename": "coil-winding-cell-package.zip",
+      "library_file_id": "libfile_6ca5f6b46ac48191bf1dbe0ea62a84ff",
+      "sha256": "25f27af02125877c28b31ffc8466c7208c4ba2460b943e252c5581f146d40f81",
+      "size_bytes": 855552
+    }
+  ],
+  "note": "Original scene, GIF and creation package were saved separately. This directory snapshots metadata and costs; it does not duplicate dataset or binary assets."
+}
