@@ -1,0 +1,15 @@
+{
+  "local_tests": {
+    "passed": 73,
+    "failed": 0,
+    "skipped": 0
+  },
+  "offline_workflows": 5,
+  "network_connections_blocked": true,
+  "physical_validation": false,
+  "hosted_ci_status": "pending_initial_run",
+  "artifacts_sha256": {
+    "report.md": "57b9270c510f4b0c3b90291ca38da1a7188f4a4b47adcac5a1266014379be79f",
+    "summary.json": "995c996878ed826a4e911ab04d43e91edda5225b5f443468d2dec15f4e0beb78"
+  }
+}

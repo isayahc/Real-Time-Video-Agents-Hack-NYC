@@ -13,12 +13,16 @@ from .design import SceneRequest, build_design
 from .demo import run_demo
 from .offline import run_coil_offline
 from .alternatives import run_alternatives
+from .failures import run_failures
 
 
 def main() -> None:
     """Parse commands and execute one pipeline stage with clear failure status."""
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    failures = commands.add_parser("failure-replay", help="Replay illustrative skipped steps, delays, rejects and incomplete observations offline")
+    failures.add_argument("--repo-root", type=Path, default=Path("."))
+    failures.add_argument("--output", type=Path, required=True)
     alternatives = commands.add_parser("compare-alternatives", help="Compare apparatus concepts using shared boundaries and explicitly supplied assumptions")
     alternatives.add_argument("--input", type=Path, required=True)
     alternatives.add_argument("--output", type=Path, required=True)
@@ -77,7 +81,11 @@ def main() -> None:
             command.add_argument("--outcome", required=True)
     args = parser.parse_args()
     try:
-        if args.command == "compare-alternatives":
+        if args.command == "failure-replay":
+            result = run_failures(args.repo_root, args.output)
+            print(json.dumps({"evidence_kind": "illustrative", "cases": len(result["cases"]),
+                              "report": str(args.output / "report.md"), "physical_validation": False}))
+        elif args.command == "compare-alternatives":
             result = run_alternatives(args.input, args.output)
             print(json.dumps({"evidence_kind": result["evidence_kind"], "recommendation": result["overall_recommendation"],
                               "report": str(args.output / "report.md"), "physical_validation": False}))

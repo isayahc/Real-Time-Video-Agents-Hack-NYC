@@ -1,0 +1,2975 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "illustrative",
+  "physical_validation": false,
+  "required_steps_basis": "Selected candidate requirements for this fabricated replay, not a verified source protocol",
+  "source_workflow_hashes": {
+    "snapshots/v2/protocol.json": {
+      "sha256": "252d5d1d9601b09dfc704084842256a090701cc9a8903aceb5cf4f6e4e9f966b"
+    },
+    "snapshots/v1/preprocessing-estimates.json": {
+      "sha256": "e22e151ee40ddfb5b9256c8b51895c9758cc065b5cde78e56b3f43a7c34421f4"
+    },
+    "benchmarks/coil-winding/baseline.json": {
+      "sha256": "090a66b39f60764b8bf9dcbb84b196bb4876e9f7f57700ded9ff1ae7c6edc0c5"
+    },
+    "examples/process-evaluation/coil-v2-partial.json": {
+      "sha256": "72802041da68fbf4fc2950ed7ca0468e5438ca3f6e2630ce72d38dd5d989dcb9"
+    }
+  },
+  "reference_input": {
+    "schema_version": 1,
+    "configuration_id": "cw02-hypothetical-full-boundary",
+    "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+    "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+    "acceptance_verified": false,
+    "acceptance_source": null,
+    "inputs": {
+      "accepted_count": {
+        "value": 95.0,
+        "unit": "count",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "attempted_count": {
+        "value": 100.0,
+        "unit": "count",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "elapsed_s": {
+        "value": 6000.0,
+        "unit": "s",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "labor_s": {
+        "value": 5000.0,
+        "unit": "operator-s",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "electricity_wh": {
+        "value": 50.0,
+        "unit": "Wh",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "consumed_stock_g": {
+        "value": 13.834700552157031,
+        "unit": "g",
+        "basis": "assumed",
+        "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+      },
+      "recoverable_scrap_g": {
+        "value": 1.0080066103733156,
+        "unit": "g",
+        "basis": "assumed",
+        "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+      },
+      "unrecovered_waste_g": {
+        "value": 0.2,
+        "unit": "g",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "loaded_labor_rate": {
+        "value": 18.0,
+        "unit": "USD/operator-hour",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "electricity_rate": {
+        "value": 0.2,
+        "unit": "USD/kWh",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "stock_cost": {
+        "value": 3472.398166766645,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+      },
+      "consumables_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "allocated_tooling_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "maintenance_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "facility_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "other_utilities_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "paid_coverage_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "recovery_credit": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      }
+    },
+    "attendance": null,
+    "attendance_source": null
+  },
+  "reference_report": {
+    "schema_version": 1,
+    "evaluator_version": "1.0",
+    "configuration_id": "cw02-hypothetical-full-boundary",
+    "status": "partial",
+    "acceptance_verified": false,
+    "metrics": {
+      "labor_s_per_accepted": {
+        "value": 52.63157894736842,
+        "unit": "operator-s/accepted output",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "labor_s",
+          "accepted_count"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "electricity_wh_per_accepted": {
+        "value": 0.5263157894736842,
+        "unit": "Wh/accepted output",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "electricity_wh",
+          "accepted_count"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "stock_g_per_accepted": {
+        "value": 0.14562842686481084,
+        "unit": "g/accepted output",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "consumed_stock_g",
+          "accepted_count"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "recoverable_scrap_g_per_accepted": {
+        "value": 0.01061059589866648,
+        "unit": "g/accepted output",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "recoverable_scrap_g",
+          "accepted_count"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "unrecovered_waste_g_per_accepted": {
+        "value": 0.002105263157894737,
+        "unit": "g/accepted output",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "unrecovered_waste_g",
+          "accepted_count"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "accepted_outputs_per_hour": {
+        "value": 57.0,
+        "unit": "accepted outputs/hour",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "accepted_count",
+          "elapsed_s"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "accepted_fraction": {
+        "value": 0.95,
+        "unit": "fraction",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "accepted_count",
+          "attempted_count"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "total_cost_usd_per_batch": {
+        "value": 3497.408166766645,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "stock_cost",
+          "consumables_cost",
+          "allocated_tooling_cost",
+          "maintenance_cost",
+          "facility_cost",
+          "other_utilities_cost",
+          "paid_coverage_cost",
+          "recovery_credit",
+          "labor_s",
+          "loaded_labor_rate",
+          "electricity_wh",
+          "electricity_rate"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "cost_usd_per_accepted": {
+        "value": 36.81482280806995,
+        "unit": "USD/accepted output",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "stock_cost",
+          "consumables_cost",
+          "allocated_tooling_cost",
+          "maintenance_cost",
+          "facility_cost",
+          "other_utilities_cost",
+          "paid_coverage_cost",
+          "recovery_credit",
+          "labor_s",
+          "loaded_labor_rate",
+          "electricity_wh",
+          "electricity_rate",
+          "accepted_count"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      }
+    },
+    "costs_usd_per_batch": {
+      "stock_cost": {
+        "value": 3472.398166766645,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "stock_cost"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "consumables_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "consumables_cost"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "allocated_tooling_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "allocated_tooling_cost"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "maintenance_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "maintenance_cost"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "facility_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "facility_cost"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "other_utilities_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "other_utilities_cost"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "paid_coverage_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "paid_coverage_cost"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "recovery_credit": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "recovery_credit"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "labor_cost": {
+        "value": 25.0,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "labor_s",
+          "loaded_labor_rate"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      },
+      "electricity_cost": {
+        "value": 0.01,
+        "unit": "USD/batch",
+        "status": "calculated",
+        "basis": "includes_assumptions",
+        "dependencies": [
+          "electricity_wh",
+          "electricity_rate"
+        ],
+        "missing_inputs": [],
+        "reason": null
+      }
+    },
+    "known_cost_subtotal_usd_per_batch": 3497.408166766645,
+    "unknown_cost_components": [],
+    "warnings": [
+      "Completeness applies only to the declared boundary; capital investment and payback are not evaluated.",
+      "Output acceptance/equivalence is unverified; results are conditional and not ready for a validated comparison.",
+      "Results include planning assumptions, not exclusively measured performance."
+    ],
+    "input_snapshot": {
+      "schema_version": 1,
+      "configuration_id": "cw02-hypothetical-full-boundary",
+      "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+      "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+      "acceptance_verified": false,
+      "acceptance_source": null,
+      "inputs": {
+        "accepted_count": {
+          "value": 95.0,
+          "unit": "count",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "attempted_count": {
+          "value": 100.0,
+          "unit": "count",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "elapsed_s": {
+          "value": 6000.0,
+          "unit": "s",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "labor_s": {
+          "value": 5000.0,
+          "unit": "operator-s",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "electricity_wh": {
+          "value": 50.0,
+          "unit": "Wh",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "consumed_stock_g": {
+          "value": 13.834700552157031,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+        },
+        "recoverable_scrap_g": {
+          "value": 1.0080066103733156,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+        },
+        "unrecovered_waste_g": {
+          "value": 0.2,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "loaded_labor_rate": {
+          "value": 18.0,
+          "unit": "USD/operator-hour",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "electricity_rate": {
+          "value": 0.2,
+          "unit": "USD/kWh",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "stock_cost": {
+          "value": 3472.398166766645,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+        },
+        "consumables_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "allocated_tooling_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "maintenance_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "facility_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "other_utilities_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "paid_coverage_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "recovery_credit": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        }
+      },
+      "attendance": null,
+      "attendance_source": null
+    }
+  },
+  "cases": {
+    "missed_preparation": {
+      "evidence_kind": "illustrative",
+      "step_observations": [
+        {
+          "operation_id": "prep_verify_stock",
+          "status": "skipped",
+          "evidence_refs": [
+            "Fabricated replay scenario: missed_preparation"
+          ]
+        },
+        {
+          "operation_id": "relative_rotation",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: missed_preparation"
+          ]
+        },
+        {
+          "operation_id": "verify_and_release",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: missed_preparation"
+          ]
+        }
+      ],
+      "steps": {
+        "skipped_required": [
+          "prep_verify_stock"
+        ],
+        "unknown_required": [],
+        "completed_required": [
+          "relative_rotation",
+          "verify_and_release"
+        ]
+      },
+      "process_input": {
+        "schema_version": 1,
+        "configuration_id": "cw02-hypothetical-full-boundary",
+        "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+        "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+        "acceptance_verified": false,
+        "acceptance_source": null,
+        "inputs": {
+          "accepted_count": {
+            "value": 95.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "attempted_count": {
+            "value": 100.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "elapsed_s": {
+            "value": 6000.0,
+            "unit": "s",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "labor_s": {
+            "value": 5000.0,
+            "unit": "operator-s",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "electricity_wh": {
+            "value": 50.0,
+            "unit": "Wh",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "consumed_stock_g": {
+            "value": 13.834700552157031,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+          },
+          "recoverable_scrap_g": {
+            "value": 1.0080066103733156,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+          },
+          "unrecovered_waste_g": {
+            "value": 0.2,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "loaded_labor_rate": {
+            "value": 18.0,
+            "unit": "USD/operator-hour",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "electricity_rate": {
+            "value": 0.2,
+            "unit": "USD/kWh",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "stock_cost": {
+            "value": 3472.398166766645,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          }
+        },
+        "attendance": null,
+        "attendance_source": null
+      },
+      "process_report": {
+        "schema_version": 1,
+        "evaluator_version": "1.0",
+        "configuration_id": "cw02-hypothetical-full-boundary",
+        "status": "partial",
+        "acceptance_verified": false,
+        "metrics": {
+          "labor_s_per_accepted": {
+            "value": 52.63157894736842,
+            "unit": "operator-s/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "labor_s",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "electricity_wh_per_accepted": {
+            "value": 0.5263157894736842,
+            "unit": "Wh/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "electricity_wh",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "stock_g_per_accepted": {
+            "value": 0.14562842686481084,
+            "unit": "g/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "consumed_stock_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "recoverable_scrap_g_per_accepted": {
+            "value": 0.01061059589866648,
+            "unit": "g/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "recoverable_scrap_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "unrecovered_waste_g_per_accepted": {
+            "value": 0.002105263157894737,
+            "unit": "g/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "unrecovered_waste_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "accepted_outputs_per_hour": {
+            "value": 57.0,
+            "unit": "accepted outputs/hour",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "accepted_count",
+              "elapsed_s"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "accepted_fraction": {
+            "value": 0.95,
+            "unit": "fraction",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "accepted_count",
+              "attempted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "total_cost_usd_per_batch": {
+            "value": 3497.408166766645,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost",
+              "consumables_cost",
+              "allocated_tooling_cost",
+              "maintenance_cost",
+              "facility_cost",
+              "other_utilities_cost",
+              "paid_coverage_cost",
+              "recovery_credit",
+              "labor_s",
+              "loaded_labor_rate",
+              "electricity_wh",
+              "electricity_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "cost_usd_per_accepted": {
+            "value": 36.81482280806995,
+            "unit": "USD/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost",
+              "consumables_cost",
+              "allocated_tooling_cost",
+              "maintenance_cost",
+              "facility_cost",
+              "other_utilities_cost",
+              "paid_coverage_cost",
+              "recovery_credit",
+              "labor_s",
+              "loaded_labor_rate",
+              "electricity_wh",
+              "electricity_rate",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "costs_usd_per_batch": {
+          "stock_cost": {
+            "value": 3472.398166766645,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "consumables_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "allocated_tooling_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "maintenance_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "facility_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "other_utilities_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "paid_coverage_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "recovery_credit"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "labor_cost": {
+            "value": 25.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "labor_s",
+              "loaded_labor_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "electricity_cost": {
+            "value": 0.01,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "electricity_wh",
+              "electricity_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "known_cost_subtotal_usd_per_batch": 3497.408166766645,
+        "unknown_cost_components": [],
+        "warnings": [
+          "Completeness applies only to the declared boundary; capital investment and payback are not evaluated.",
+          "Output acceptance/equivalence is unverified; results are conditional and not ready for a validated comparison.",
+          "Results include planning assumptions, not exclusively measured performance."
+        ],
+        "input_snapshot": {
+          "schema_version": 1,
+          "configuration_id": "cw02-hypothetical-full-boundary",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": 95.0,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "attempted_count": {
+              "value": 100.0,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "elapsed_s": {
+              "value": 6000.0,
+              "unit": "s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "labor_s": {
+              "value": 5000.0,
+              "unit": "operator-s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_wh": {
+              "value": 50.0,
+              "unit": "Wh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "consumed_stock_g": {
+              "value": 13.834700552157031,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "recoverable_scrap_g": {
+              "value": 1.0080066103733156,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+            },
+            "unrecovered_waste_g": {
+              "value": 0.2,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "loaded_labor_rate": {
+              "value": 18.0,
+              "unit": "USD/operator-hour",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_rate": {
+              "value": 0.2,
+              "unit": "USD/kWh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "stock_cost": {
+              "value": 3472.398166766645,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "consumables_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "allocated_tooling_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "maintenance_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "facility_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "other_utilities_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "paid_coverage_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "recovery_credit": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        }
+      },
+      "deviations": {
+        "metrics": {
+          "cost_usd_per_accepted": {
+            "reference_value": 36.81482280806995,
+            "compared_value": 36.81482280806995,
+            "unit": "USD/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "labor_s_per_accepted": {
+            "reference_value": 52.63157894736842,
+            "compared_value": 52.63157894736842,
+            "unit": "operator-s/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "electricity_wh_per_accepted": {
+            "reference_value": 0.5263157894736842,
+            "compared_value": 0.5263157894736842,
+            "unit": "Wh/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "stock_g_per_accepted": {
+            "reference_value": 0.14562842686481084,
+            "compared_value": 0.14562842686481084,
+            "unit": "g/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "unrecovered_waste_g_per_accepted": {
+            "reference_value": 0.002105263157894737,
+            "compared_value": 0.002105263157894737,
+            "unit": "g/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "accepted_outputs_per_hour": {
+            "reference_value": 57.0,
+            "compared_value": 57.0,
+            "unit": "accepted outputs/hour",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          }
+        },
+        "warnings": [
+          "Output acceptance is unverified; apparent improvements are conditional.",
+          "Comparison includes assumed inputs; differences do not establish demonstrated physical improvement."
+        ],
+        "reference_role": "prediction",
+        "compared_role": "outcome"
+      }
+    },
+    "delayed_batch": {
+      "evidence_kind": "illustrative",
+      "step_observations": [
+        {
+          "operation_id": "prep_verify_stock",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: delayed_batch"
+          ]
+        },
+        {
+          "operation_id": "relative_rotation",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: delayed_batch"
+          ]
+        },
+        {
+          "operation_id": "verify_and_release",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: delayed_batch"
+          ]
+        }
+      ],
+      "steps": {
+        "skipped_required": [],
+        "unknown_required": [],
+        "completed_required": [
+          "prep_verify_stock",
+          "relative_rotation",
+          "verify_and_release"
+        ]
+      },
+      "process_input": {
+        "schema_version": 1,
+        "configuration_id": "cw02-hypothetical-full-boundary",
+        "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+        "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+        "acceptance_verified": false,
+        "acceptance_source": null,
+        "inputs": {
+          "accepted_count": {
+            "value": 95.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "attempted_count": {
+            "value": 100.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "elapsed_s": {
+            "value": 9000.0,
+            "unit": "s",
+            "basis": "assumed",
+            "source": "Fabricated delayed full batch, not a measured winding-stage duration"
+          },
+          "labor_s": {
+            "value": 5000.0,
+            "unit": "operator-s",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "electricity_wh": {
+            "value": 50.0,
+            "unit": "Wh",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "consumed_stock_g": {
+            "value": 13.834700552157031,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+          },
+          "recoverable_scrap_g": {
+            "value": 1.0080066103733156,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+          },
+          "unrecovered_waste_g": {
+            "value": 0.2,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "loaded_labor_rate": {
+            "value": 18.0,
+            "unit": "USD/operator-hour",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "electricity_rate": {
+            "value": 0.2,
+            "unit": "USD/kWh",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "stock_cost": {
+            "value": 3472.398166766645,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          }
+        },
+        "attendance": null,
+        "attendance_source": null
+      },
+      "process_report": {
+        "schema_version": 1,
+        "evaluator_version": "1.0",
+        "configuration_id": "cw02-hypothetical-full-boundary",
+        "status": "partial",
+        "acceptance_verified": false,
+        "metrics": {
+          "labor_s_per_accepted": {
+            "value": 52.63157894736842,
+            "unit": "operator-s/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "labor_s",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "electricity_wh_per_accepted": {
+            "value": 0.5263157894736842,
+            "unit": "Wh/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "electricity_wh",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "stock_g_per_accepted": {
+            "value": 0.14562842686481084,
+            "unit": "g/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "consumed_stock_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "recoverable_scrap_g_per_accepted": {
+            "value": 0.01061059589866648,
+            "unit": "g/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "recoverable_scrap_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "unrecovered_waste_g_per_accepted": {
+            "value": 0.002105263157894737,
+            "unit": "g/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "unrecovered_waste_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "accepted_outputs_per_hour": {
+            "value": 38.0,
+            "unit": "accepted outputs/hour",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "accepted_count",
+              "elapsed_s"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "accepted_fraction": {
+            "value": 0.95,
+            "unit": "fraction",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "accepted_count",
+              "attempted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "total_cost_usd_per_batch": {
+            "value": 3497.408166766645,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost",
+              "consumables_cost",
+              "allocated_tooling_cost",
+              "maintenance_cost",
+              "facility_cost",
+              "other_utilities_cost",
+              "paid_coverage_cost",
+              "recovery_credit",
+              "labor_s",
+              "loaded_labor_rate",
+              "electricity_wh",
+              "electricity_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "cost_usd_per_accepted": {
+            "value": 36.81482280806995,
+            "unit": "USD/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost",
+              "consumables_cost",
+              "allocated_tooling_cost",
+              "maintenance_cost",
+              "facility_cost",
+              "other_utilities_cost",
+              "paid_coverage_cost",
+              "recovery_credit",
+              "labor_s",
+              "loaded_labor_rate",
+              "electricity_wh",
+              "electricity_rate",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "costs_usd_per_batch": {
+          "stock_cost": {
+            "value": 3472.398166766645,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "consumables_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "allocated_tooling_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "maintenance_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "facility_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "other_utilities_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "paid_coverage_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "recovery_credit"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "labor_cost": {
+            "value": 25.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "labor_s",
+              "loaded_labor_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "electricity_cost": {
+            "value": 0.01,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "electricity_wh",
+              "electricity_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "known_cost_subtotal_usd_per_batch": 3497.408166766645,
+        "unknown_cost_components": [],
+        "warnings": [
+          "Completeness applies only to the declared boundary; capital investment and payback are not evaluated.",
+          "Output acceptance/equivalence is unverified; results are conditional and not ready for a validated comparison.",
+          "Results include planning assumptions, not exclusively measured performance."
+        ],
+        "input_snapshot": {
+          "schema_version": 1,
+          "configuration_id": "cw02-hypothetical-full-boundary",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": 95.0,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "attempted_count": {
+              "value": 100.0,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "elapsed_s": {
+              "value": 9000.0,
+              "unit": "s",
+              "basis": "assumed",
+              "source": "Fabricated delayed full batch, not a measured winding-stage duration"
+            },
+            "labor_s": {
+              "value": 5000.0,
+              "unit": "operator-s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_wh": {
+              "value": 50.0,
+              "unit": "Wh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "consumed_stock_g": {
+              "value": 13.834700552157031,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "recoverable_scrap_g": {
+              "value": 1.0080066103733156,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+            },
+            "unrecovered_waste_g": {
+              "value": 0.2,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "loaded_labor_rate": {
+              "value": 18.0,
+              "unit": "USD/operator-hour",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_rate": {
+              "value": 0.2,
+              "unit": "USD/kWh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "stock_cost": {
+              "value": 3472.398166766645,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "consumables_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "allocated_tooling_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "maintenance_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "facility_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "other_utilities_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "paid_coverage_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "recovery_credit": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        }
+      },
+      "deviations": {
+        "metrics": {
+          "cost_usd_per_accepted": {
+            "reference_value": 36.81482280806995,
+            "compared_value": 36.81482280806995,
+            "unit": "USD/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "labor_s_per_accepted": {
+            "reference_value": 52.63157894736842,
+            "compared_value": 52.63157894736842,
+            "unit": "operator-s/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "electricity_wh_per_accepted": {
+            "reference_value": 0.5263157894736842,
+            "compared_value": 0.5263157894736842,
+            "unit": "Wh/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "stock_g_per_accepted": {
+            "reference_value": 0.14562842686481084,
+            "compared_value": 0.14562842686481084,
+            "unit": "g/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "unrecovered_waste_g_per_accepted": {
+            "reference_value": 0.002105263157894737,
+            "compared_value": 0.002105263157894737,
+            "unit": "g/accepted output",
+            "absolute_delta": 0.0,
+            "relative_delta": 0.0,
+            "outside_tolerance": false,
+            "direction": "unchanged",
+            "reason": null
+          },
+          "accepted_outputs_per_hour": {
+            "reference_value": 57.0,
+            "compared_value": 38.0,
+            "unit": "accepted outputs/hour",
+            "absolute_delta": -19.0,
+            "relative_delta": -0.3333333333333333,
+            "outside_tolerance": true,
+            "direction": "worsened",
+            "reason": null
+          }
+        },
+        "warnings": [
+          "Output acceptance is unverified; apparent improvements are conditional.",
+          "Comparison includes assumed inputs; differences do not establish demonstrated physical improvement."
+        ],
+        "reference_role": "prediction",
+        "compared_role": "outcome"
+      }
+    },
+    "excess_rejects": {
+      "evidence_kind": "illustrative",
+      "step_observations": [
+        {
+          "operation_id": "prep_verify_stock",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: excess_rejects"
+          ]
+        },
+        {
+          "operation_id": "relative_rotation",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: excess_rejects"
+          ]
+        },
+        {
+          "operation_id": "verify_and_release",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: excess_rejects"
+          ]
+        }
+      ],
+      "steps": {
+        "skipped_required": [],
+        "unknown_required": [],
+        "completed_required": [
+          "prep_verify_stock",
+          "relative_rotation",
+          "verify_and_release"
+        ]
+      },
+      "process_input": {
+        "schema_version": 1,
+        "configuration_id": "cw02-hypothetical-full-boundary",
+        "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+        "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+        "acceptance_verified": false,
+        "acceptance_source": null,
+        "inputs": {
+          "accepted_count": {
+            "value": 50.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Fabricated 50 accepted of 100 attempts"
+          },
+          "attempted_count": {
+            "value": 100.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "elapsed_s": {
+            "value": 6000.0,
+            "unit": "s",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "labor_s": {
+            "value": 5000.0,
+            "unit": "operator-s",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "electricity_wh": {
+            "value": 50.0,
+            "unit": "Wh",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "consumed_stock_g": {
+            "value": 13.834700552157031,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+          },
+          "recoverable_scrap_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "unrecovered_waste_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "loaded_labor_rate": {
+            "value": 18.0,
+            "unit": "USD/operator-hour",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "electricity_rate": {
+            "value": 0.2,
+            "unit": "USD/kWh",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "stock_cost": {
+            "value": 3472.398166766645,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          }
+        },
+        "attendance": null,
+        "attendance_source": null
+      },
+      "process_report": {
+        "schema_version": 1,
+        "evaluator_version": "1.0",
+        "configuration_id": "cw02-hypothetical-full-boundary",
+        "status": "partial",
+        "acceptance_verified": false,
+        "metrics": {
+          "labor_s_per_accepted": {
+            "value": 100.0,
+            "unit": "operator-s/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "labor_s",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "electricity_wh_per_accepted": {
+            "value": 1.0,
+            "unit": "Wh/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "electricity_wh",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "stock_g_per_accepted": {
+            "value": 0.2766940110431406,
+            "unit": "g/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "consumed_stock_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "recoverable_scrap_g_per_accepted": {
+            "value": null,
+            "unit": "g/accepted output",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "recoverable_scrap_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [
+              "recoverable_scrap_g"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "unrecovered_waste_g_per_accepted": {
+            "value": null,
+            "unit": "g/accepted output",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "unrecovered_waste_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [
+              "unrecovered_waste_g"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "accepted_outputs_per_hour": {
+            "value": 30.0,
+            "unit": "accepted outputs/hour",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "accepted_count",
+              "elapsed_s"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "accepted_fraction": {
+            "value": 0.5,
+            "unit": "fraction",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "accepted_count",
+              "attempted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "total_cost_usd_per_batch": {
+            "value": 3497.408166766645,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost",
+              "consumables_cost",
+              "allocated_tooling_cost",
+              "maintenance_cost",
+              "facility_cost",
+              "other_utilities_cost",
+              "paid_coverage_cost",
+              "recovery_credit",
+              "labor_s",
+              "loaded_labor_rate",
+              "electricity_wh",
+              "electricity_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "cost_usd_per_accepted": {
+            "value": 69.94816333533291,
+            "unit": "USD/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost",
+              "consumables_cost",
+              "allocated_tooling_cost",
+              "maintenance_cost",
+              "facility_cost",
+              "other_utilities_cost",
+              "paid_coverage_cost",
+              "recovery_credit",
+              "labor_s",
+              "loaded_labor_rate",
+              "electricity_wh",
+              "electricity_rate",
+              "accepted_count"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "costs_usd_per_batch": {
+          "stock_cost": {
+            "value": 3472.398166766645,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "consumables_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "allocated_tooling_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "maintenance_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "facility_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "other_utilities_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "paid_coverage_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "recovery_credit"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "labor_cost": {
+            "value": 25.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "labor_s",
+              "loaded_labor_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "electricity_cost": {
+            "value": 0.01,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "electricity_wh",
+              "electricity_rate"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "known_cost_subtotal_usd_per_batch": 3497.408166766645,
+        "unknown_cost_components": [],
+        "warnings": [
+          "Completeness applies only to the declared boundary; capital investment and payback are not evaluated.",
+          "Output acceptance/equivalence is unverified; results are conditional and not ready for a validated comparison.",
+          "Results include planning assumptions, not exclusively measured performance."
+        ],
+        "input_snapshot": {
+          "schema_version": 1,
+          "configuration_id": "cw02-hypothetical-full-boundary",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": 50.0,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Fabricated 50 accepted of 100 attempts"
+            },
+            "attempted_count": {
+              "value": 100.0,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "elapsed_s": {
+              "value": 6000.0,
+              "unit": "s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "labor_s": {
+              "value": 5000.0,
+              "unit": "operator-s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_wh": {
+              "value": 50.0,
+              "unit": "Wh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "consumed_stock_g": {
+              "value": 13.834700552157031,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "recoverable_scrap_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "unrecovered_waste_g": {
+              "value": null,
+              "unit": "g",
+              "basis": "unknown",
+              "source": null
+            },
+            "loaded_labor_rate": {
+              "value": 18.0,
+              "unit": "USD/operator-hour",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_rate": {
+              "value": 0.2,
+              "unit": "USD/kWh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "stock_cost": {
+              "value": 3472.398166766645,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "consumables_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "allocated_tooling_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "maintenance_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "facility_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "other_utilities_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "paid_coverage_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "recovery_credit": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        }
+      },
+      "deviations": {
+        "metrics": {
+          "cost_usd_per_accepted": {
+            "reference_value": 36.81482280806995,
+            "compared_value": 69.94816333533291,
+            "unit": "USD/accepted output",
+            "absolute_delta": 33.13334052726296,
+            "relative_delta": 0.9000000000000001,
+            "outside_tolerance": true,
+            "direction": "worsened",
+            "reason": null
+          },
+          "labor_s_per_accepted": {
+            "reference_value": 52.63157894736842,
+            "compared_value": 100.0,
+            "unit": "operator-s/accepted output",
+            "absolute_delta": 47.36842105263158,
+            "relative_delta": 0.9000000000000001,
+            "outside_tolerance": true,
+            "direction": "worsened",
+            "reason": null
+          },
+          "electricity_wh_per_accepted": {
+            "reference_value": 0.5263157894736842,
+            "compared_value": 1.0,
+            "unit": "Wh/accepted output",
+            "absolute_delta": 0.4736842105263158,
+            "relative_delta": 0.9000000000000001,
+            "outside_tolerance": true,
+            "direction": "worsened",
+            "reason": null
+          },
+          "stock_g_per_accepted": {
+            "reference_value": 0.14562842686481084,
+            "compared_value": 0.2766940110431406,
+            "unit": "g/accepted output",
+            "absolute_delta": 0.13106558417832978,
+            "relative_delta": 0.9000000000000001,
+            "outside_tolerance": true,
+            "direction": "worsened",
+            "reason": null
+          },
+          "unrecovered_waste_g_per_accepted": {
+            "reference_value": 0.002105263157894737,
+            "compared_value": null,
+            "unit": "g/accepted output",
+            "absolute_delta": null,
+            "relative_delta": null,
+            "outside_tolerance": null,
+            "direction": "unknown",
+            "reason": "A required metric is unknown or undefined; no deviation can be calculated"
+          },
+          "accepted_outputs_per_hour": {
+            "reference_value": 57.0,
+            "compared_value": 30.0,
+            "unit": "accepted outputs/hour",
+            "absolute_delta": -27.0,
+            "relative_delta": -0.47368421052631576,
+            "outside_tolerance": true,
+            "direction": "worsened",
+            "reason": null
+          }
+        },
+        "warnings": [
+          "Output acceptance is unverified; apparent improvements are conditional.",
+          "Comparison includes assumed inputs; differences do not establish demonstrated physical improvement.",
+          "Some objectives are unknown; this is a partial tradeoff assessment."
+        ],
+        "reference_role": "prediction",
+        "compared_role": "outcome"
+      }
+    },
+    "incomplete_observations": {
+      "evidence_kind": "illustrative",
+      "step_observations": [
+        {
+          "operation_id": "relative_rotation",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: incomplete_observations"
+          ]
+        },
+        {
+          "operation_id": "verify_and_release",
+          "status": "completed",
+          "evidence_refs": [
+            "Fabricated replay scenario: incomplete_observations"
+          ]
+        }
+      ],
+      "steps": {
+        "skipped_required": [],
+        "unknown_required": [
+          "prep_verify_stock"
+        ],
+        "completed_required": [
+          "relative_rotation",
+          "verify_and_release"
+        ]
+      },
+      "process_input": {
+        "schema_version": 1,
+        "configuration_id": "cw02-hypothetical-full-boundary",
+        "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+        "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+        "acceptance_verified": false,
+        "acceptance_source": null,
+        "inputs": {
+          "accepted_count": {
+            "value": null,
+            "unit": "count",
+            "basis": "unknown",
+            "source": null
+          },
+          "attempted_count": {
+            "value": 100.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "elapsed_s": {
+            "value": 6000.0,
+            "unit": "s",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "labor_s": {
+            "value": null,
+            "unit": "operator-s",
+            "basis": "unknown",
+            "source": null
+          },
+          "electricity_wh": {
+            "value": null,
+            "unit": "Wh",
+            "basis": "unknown",
+            "source": null
+          },
+          "consumed_stock_g": {
+            "value": 13.834700552157031,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+          },
+          "recoverable_scrap_g": {
+            "value": 1.0080066103733156,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+          },
+          "unrecovered_waste_g": {
+            "value": 0.2,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "loaded_labor_rate": {
+            "value": 18.0,
+            "unit": "USD/operator-hour",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "electricity_rate": {
+            "value": 0.2,
+            "unit": "USD/kWh",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "stock_cost": {
+            "value": 3472.398166766645,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          }
+        },
+        "attendance": null,
+        "attendance_source": null
+      },
+      "process_report": {
+        "schema_version": 1,
+        "evaluator_version": "1.0",
+        "configuration_id": "cw02-hypothetical-full-boundary",
+        "status": "partial",
+        "acceptance_verified": false,
+        "metrics": {
+          "labor_s_per_accepted": {
+            "value": null,
+            "unit": "operator-s/accepted output",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "labor_s",
+              "accepted_count"
+            ],
+            "missing_inputs": [
+              "labor_s",
+              "accepted_count"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "electricity_wh_per_accepted": {
+            "value": null,
+            "unit": "Wh/accepted output",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "electricity_wh",
+              "accepted_count"
+            ],
+            "missing_inputs": [
+              "electricity_wh",
+              "accepted_count"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "stock_g_per_accepted": {
+            "value": null,
+            "unit": "g/accepted output",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "consumed_stock_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [
+              "accepted_count"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "recoverable_scrap_g_per_accepted": {
+            "value": null,
+            "unit": "g/accepted output",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "recoverable_scrap_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [
+              "accepted_count"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "unrecovered_waste_g_per_accepted": {
+            "value": null,
+            "unit": "g/accepted output",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "unrecovered_waste_g",
+              "accepted_count"
+            ],
+            "missing_inputs": [
+              "accepted_count"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "accepted_outputs_per_hour": {
+            "value": null,
+            "unit": "accepted outputs/hour",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "accepted_count",
+              "elapsed_s"
+            ],
+            "missing_inputs": [
+              "accepted_count"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "accepted_fraction": {
+            "value": null,
+            "unit": "fraction",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "accepted_count",
+              "attempted_count"
+            ],
+            "missing_inputs": [
+              "accepted_count"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "total_cost_usd_per_batch": {
+            "value": null,
+            "unit": "USD/batch",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "stock_cost",
+              "consumables_cost",
+              "allocated_tooling_cost",
+              "maintenance_cost",
+              "facility_cost",
+              "other_utilities_cost",
+              "paid_coverage_cost",
+              "recovery_credit",
+              "labor_s",
+              "loaded_labor_rate",
+              "electricity_wh",
+              "electricity_rate"
+            ],
+            "missing_inputs": [
+              "labor_s",
+              "electricity_wh"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "cost_usd_per_accepted": {
+            "value": null,
+            "unit": "USD/accepted output",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "stock_cost",
+              "consumables_cost",
+              "allocated_tooling_cost",
+              "maintenance_cost",
+              "facility_cost",
+              "other_utilities_cost",
+              "paid_coverage_cost",
+              "recovery_credit",
+              "labor_s",
+              "loaded_labor_rate",
+              "electricity_wh",
+              "electricity_rate",
+              "accepted_count"
+            ],
+            "missing_inputs": [
+              "labor_s",
+              "electricity_wh",
+              "accepted_count"
+            ],
+            "reason": "Required inputs are unknown"
+          }
+        },
+        "costs_usd_per_batch": {
+          "stock_cost": {
+            "value": 3472.398166766645,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "stock_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "consumables_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "allocated_tooling_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "maintenance_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "facility_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "other_utilities_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "paid_coverage_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "recovery_credit"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "labor_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "labor_s",
+              "loaded_labor_rate"
+            ],
+            "missing_inputs": [
+              "labor_s"
+            ],
+            "reason": "Required inputs are unknown"
+          },
+          "electricity_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "status": "unknown",
+            "basis": "unknown",
+            "dependencies": [
+              "electricity_wh",
+              "electricity_rate"
+            ],
+            "missing_inputs": [
+              "electricity_wh"
+            ],
+            "reason": "Required inputs are unknown"
+          }
+        },
+        "known_cost_subtotal_usd_per_batch": 3472.398166766645,
+        "unknown_cost_components": [
+          "labor_cost",
+          "electricity_cost"
+        ],
+        "warnings": [
+          "Completeness applies only to the declared boundary; capital investment and payback are not evaluated.",
+          "Output acceptance/equivalence is unverified; results are conditional and not ready for a validated comparison.",
+          "Known cost subtotal is partial and is not the total cost or necessarily a lower bound.",
+          "Results include planning assumptions, not exclusively measured performance."
+        ],
+        "input_snapshot": {
+          "schema_version": 1,
+          "configuration_id": "cw02-hypothetical-full-boundary",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": null,
+              "unit": "count",
+              "basis": "unknown",
+              "source": null
+            },
+            "attempted_count": {
+              "value": 100.0,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "elapsed_s": {
+              "value": 6000.0,
+              "unit": "s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "labor_s": {
+              "value": null,
+              "unit": "operator-s",
+              "basis": "unknown",
+              "source": null
+            },
+            "electricity_wh": {
+              "value": null,
+              "unit": "Wh",
+              "basis": "unknown",
+              "source": null
+            },
+            "consumed_stock_g": {
+              "value": 13.834700552157031,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "recoverable_scrap_g": {
+              "value": 1.0080066103733156,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+            },
+            "unrecovered_waste_g": {
+              "value": 0.2,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "loaded_labor_rate": {
+              "value": 18.0,
+              "unit": "USD/operator-hour",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_rate": {
+              "value": 0.2,
+              "unit": "USD/kWh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "stock_cost": {
+              "value": 3472.398166766645,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "consumables_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "allocated_tooling_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "maintenance_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "facility_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "other_utilities_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "paid_coverage_cost": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "recovery_credit": {
+              "value": 0.0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        }
+      },
+      "deviations": {
+        "metrics": {
+          "cost_usd_per_accepted": {
+            "reference_value": 36.81482280806995,
+            "compared_value": null,
+            "unit": "USD/accepted output",
+            "absolute_delta": null,
+            "relative_delta": null,
+            "outside_tolerance": null,
+            "direction": "unknown",
+            "reason": "A required metric is unknown or undefined; no deviation can be calculated"
+          },
+          "labor_s_per_accepted": {
+            "reference_value": 52.63157894736842,
+            "compared_value": null,
+            "unit": "operator-s/accepted output",
+            "absolute_delta": null,
+            "relative_delta": null,
+            "outside_tolerance": null,
+            "direction": "unknown",
+            "reason": "A required metric is unknown or undefined; no deviation can be calculated"
+          },
+          "electricity_wh_per_accepted": {
+            "reference_value": 0.5263157894736842,
+            "compared_value": null,
+            "unit": "Wh/accepted output",
+            "absolute_delta": null,
+            "relative_delta": null,
+            "outside_tolerance": null,
+            "direction": "unknown",
+            "reason": "A required metric is unknown or undefined; no deviation can be calculated"
+          },
+          "stock_g_per_accepted": {
+            "reference_value": 0.14562842686481084,
+            "compared_value": null,
+            "unit": "g/accepted output",
+            "absolute_delta": null,
+            "relative_delta": null,
+            "outside_tolerance": null,
+            "direction": "unknown",
+            "reason": "A required metric is unknown or undefined; no deviation can be calculated"
+          },
+          "unrecovered_waste_g_per_accepted": {
+            "reference_value": 0.002105263157894737,
+            "compared_value": null,
+            "unit": "g/accepted output",
+            "absolute_delta": null,
+            "relative_delta": null,
+            "outside_tolerance": null,
+            "direction": "unknown",
+            "reason": "A required metric is unknown or undefined; no deviation can be calculated"
+          },
+          "accepted_outputs_per_hour": {
+            "reference_value": 57.0,
+            "compared_value": null,
+            "unit": "accepted outputs/hour",
+            "absolute_delta": null,
+            "relative_delta": null,
+            "outside_tolerance": null,
+            "direction": "unknown",
+            "reason": "A required metric is unknown or undefined; no deviation can be calculated"
+          }
+        },
+        "warnings": [
+          "Output acceptance is unverified; apparent improvements are conditional.",
+          "Comparison includes assumed inputs; differences do not establish demonstrated physical improvement.",
+          "Some objectives are unknown; this is a partial tradeoff assessment."
+        ],
+        "reference_role": "prediction",
+        "compared_role": "outcome"
+      }
+    }
+  },
+  "limitations": [
+    "Full-batch delay does not locate a winding-stage cause.",
+    "Explicit skip is distinct from missing evidence.",
+    "Counts alone do not measure reject material mass or recovery.",
+    "No failed step automatically triggers physical corrective action."
+  ]
+}
