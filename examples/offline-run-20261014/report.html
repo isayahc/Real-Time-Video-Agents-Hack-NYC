@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resource-efficiency loop demo</title><style>
+body{font:16px/1.6 system-ui,sans-serif;color:#15283b;background:#f5f7fa;margin:0}main{max-width:1080px;margin:auto;padding:32px 20px}
+h1{font-size:2.2rem;line-height:1.2}.notice{background:#fff1cb;border-left:5px solid #af7000;padding:16px;border-radius:4px}
+.card{background:white;border:1px solid #dbe3eb;border-radius:12px;padding:20px;margin:24px 0}.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:650px}th,td{padding:12px;text-align:left;border-bottom:1px solid #dbe3eb}td{text-align:right}thead{background:#ecf2f7}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 ui-monospace,monospace}a{color:#145d92}
+</style><main><h1>Resource-efficiency loop</h1><p class="notice"><strong>Illustrative evidence only.</strong> The arithmetic fixture and coil concept are separate. No physical run, live inference or demonstrated coil savings.</p>
+<section class="card"><h2>Predict → compare → revise</h2><div class="scroll"><table><thead><tr><th>Metric</th><th>Prediction v1</th><th>Illustrative outcome</th><th>Revision v2 prediction</th></tr></thead><tbody><tr><th scope="row">Cost per accepted output (USD)</th><td>2</td><td>2.05</td><td>1.976</td></tr><tr><th scope="row">Attended labor per accepted output (operator-s)</th><td>9</td><td>18</td><td>4.5</td></tr><tr><th scope="row">Electricity per accepted output (Wh)</th><td>0</td><td>0</td><td>5</td></tr><tr><th scope="row">Consumed stock per accepted output (g)</th><td>0</td><td>0</td><td>0</td></tr><tr><th scope="row">Unrecovered waste per accepted output (g)</th><td>0</td><td>0</td><td>0</td></tr><tr><th scope="row">Accepted outputs per hour</th><td>100</td><td>80</td><td>100</td></tr></tbody></table></div></section>
+<section class="card"><h2>Illustrative investment comparison</h2><p>Fabricated arithmetic fixture; these savings do not describe the coil apparatus.</p><div class="scroll"><table><thead><tr><th>Metric</th><th>Prediction v1</th><th>Illustrative outcome update</th><th>Revision v2</th></tr></thead><tbody><tr><th scope="row">Annual operating saving (USD/year)</th><td>28,000</td><td>27,500</td><td>28,240</td></tr><tr><th scope="row">Simple payback (years)</th><td>0.3571</td><td>0.3636</td><td>0.3541</td></tr><tr><th scope="row">Undiscounted horizon saving (USD)</th><td>130,000</td><td>127,500</td><td>131,200</td></tr></tbody></table></div></section>
+<section class="card"><h2>CW-02: measurement pending</h2><p>Actual coil cost: <strong>Unknown</strong>. Investment decision: <strong>undetermined</strong>.</p><p>Scene/MCP handoff explicitly skipped in accounting-only mode.</p><p>Output equivalence, full-process measurements and design completion remain unresolved.</p></section>
+<section class="card"><h2>Complete evidence report</h2><p><a href="report.md">Markdown report</a> · <a href="demo-summary.json">Structured summary</a></p><details><summary>Read provenance, tradeoffs and remaining evidence</summary><pre># Resource-efficiency loop demo
+
+**Evidence: illustrative arithmetic plus an existing coil concept. No physical experiment, live model inference or demonstrated coil savings.**
+
+## Illustrative accounting loop
+
+The financial fixture exercises predict → attach outcome → compare → revise → reevaluate. Its numbers are fabricated examples and do not describe CW-02.
+
+| Metric | Prediction v1 | Illustrative outcome | Revision v2 prediction |
+| --- | ---: | ---: | ---: |
+| Cost per accepted output (USD) | 2 | 2.05 | 1.976 |
+| Attended labor per accepted output (operator-s) | 9 | 18 | 4.5 |
+| Electricity per accepted output (Wh) | 0 | 0 | 5 |
+| Consumed stock per accepted output (g) | 0 | 0 | 0 |
+| Unrecovered waste per accepted output (g) | 0 | 0 | 0 |
+| Accepted outputs per hour | 100 | 80 | 100 |
+
+Revision assessment: **predicted tradeoff**.
+
+Flagged deviations: cost_usd_per_accepted, labor_s_per_accepted, accepted_outputs_per_hour.
+
+Predicted improvements versus illustrative outcome: cost_usd_per_accepted, labor_s_per_accepted, accepted_outputs_per_hour.
+
+Predicted regressions versus illustrative outcome: electricity_wh_per_accepted.
+
+The revised result remains a prediction. Lower labor and cost can coexist with higher electricity use.
+
+### Illustrative investment results
+
+| Metric | Prediction v1 | Illustrative outcome update | Revision v2 |
+| --- | ---: | ---: | ---: |
+| Annual operating saving (USD/year) | 28,000 | 27,500 | 28,240 |
+| Simple payback (years) | 0.3571 | 0.3636 | 0.3541 |
+| Undiscounted horizon saving (USD) | 130,000 | 127,500 | 131,200 |
+
+These figures are conditional synthetic calculations. The outcome update retains the prediction’s fixed costs, demand, baseline and capacity factors.
+
+## CW-02 coil concept and scene
+
+**This is a separate evidence lane. The illustrative cost/savings figures above are not assigned to the coil apparatus.**
+
+Actual coil investment decision: **undetermined**.
+
+Actual coil unit cost: **Unknown**. Output equivalence and full-process measurements remain unresolved.
+
+Scene handoff: **explicitly skipped in accounting-only mode**. No scene import/MCP execution is claimed.
+
+## Record lineage and artifacts
+
+| Record | Meaning | SHA-256 |
+| --- | --- | --- |
+| [p1](records/p1.json) | Illustrative prediction v1 | `8bdc8309580ddb58c18fcc6f33ad23ef98244267795f4c107144ffe10eba1822` |
+| [o1](records/o1.json) | Fabricated illustrative outcome | `17221df12d69f1669a00a6700c41b791f737e5b58593edea131f58ca09199306` |
+| [p2](records/p2.json) | Illustrative revision v2 | `5a7ccb451cf8303e657fb30dfdfa8ee58af89fb7afa8cbb938c46e358a26f3bd` |
+| [coil-p1](records/coil-p1.json) | Actual coil concept: unknown operating inputs | `48c65f6107ae806189f92ba4e2aeb9ec008f4b47171bf294b36a19894c4119ed` |
+
+[Machine-readable summary](demo-summary.json)
+
+## Remaining evidence
+
+- Review the actual video and source protocol, including off-camera preparation.
+- Verify released-coil acceptance criteria and downstream functional equivalence.
+- Measure the full manual/apparatus workflow: labor, elapsed time, energy, input material and waste.
+- Source deployment, maintenance, facility and labor prices and verify production demand/capacity.
+- Configure a live generation provider for actual synthesis; record another measured run to test revisions.
+
+No fabricated observation is promoted to physical evidence. Original predictions remain unchanged.
+</pre></details></section></main></html>

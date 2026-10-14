@@ -1,0 +1,2398 @@
+{
+  "schema_version": 1,
+  "sha256": "8bdc8309580ddb58c18fcc6f33ad23ef98244267795f4c107144ffe10eba1822",
+  "record": {
+    "kind": "prediction",
+    "id": "p1",
+    "version": 1,
+    "created_at": "2026-10-14T19:06:18.345471+00:00",
+    "parent": null,
+    "responding_to": null,
+    "request": {
+      "process": {
+        "schema_version": 1,
+        "configuration_id": "machine",
+        "functional_unit": "One accepted test part",
+        "boundary": "Complete recurring production process",
+        "acceptance_verified": true,
+        "acceptance_source": "Synthetic shared quality specification",
+        "inputs": {
+          "accepted_count": {
+            "value": 100.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "attempted_count": {
+            "value": 100.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "elapsed_s": {
+            "value": 3600.0,
+            "unit": "s",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "labor_s": {
+            "value": 900.0,
+            "unit": "operator-s",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "electricity_wh": {
+            "value": 0.0,
+            "unit": "Wh",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "consumed_stock_g": {
+            "value": 0.0,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "recoverable_scrap_g": {
+            "value": 0.0,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "unrecovered_waste_g": {
+            "value": 0.0,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "loaded_labor_rate": {
+            "value": 20.0,
+            "unit": "USD/operator-hour",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "electricity_rate": {
+            "value": 0.0,
+            "unit": "USD/kWh",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "stock_cost": {
+            "value": 195.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          }
+        },
+        "attendance": null,
+        "attendance_source": null
+      },
+      "investment": {
+        "schema_version": 1,
+        "baseline": {
+          "process": {
+            "schema_version": 1,
+            "configuration_id": "manual",
+            "functional_unit": "One accepted test part",
+            "boundary": "Complete recurring production process",
+            "acceptance_verified": true,
+            "acceptance_source": "Synthetic shared quality specification",
+            "inputs": {
+              "accepted_count": {
+                "value": 100.0,
+                "unit": "count",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "attempted_count": {
+                "value": 100.0,
+                "unit": "count",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "elapsed_s": {
+                "value": 3600.0,
+                "unit": "s",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "labor_s": {
+                "value": 0.0,
+                "unit": "operator-s",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "electricity_wh": {
+                "value": 0.0,
+                "unit": "Wh",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "consumed_stock_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "recoverable_scrap_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "unrecovered_waste_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "loaded_labor_rate": {
+                "value": 0.0,
+                "unit": "USD/operator-hour",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "electricity_rate": {
+                "value": 0.0,
+                "unit": "USD/kWh",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "stock_cost": {
+                "value": 500.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "consumables_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "allocated_tooling_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "maintenance_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "facility_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "other_utilities_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "paid_coverage_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "recovery_credit": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            },
+            "attendance": null,
+            "attendance_source": null
+          },
+          "cost_model_source": "Synthetic constant variable cost",
+          "capacity_model_source": "Nominal rate excludes utilization/downtime losses",
+          "upfront": {
+            "equipment": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "installation": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "integration": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "training": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            }
+          },
+          "annual_fixed_cost": {
+            "value": 1000.0,
+            "unit": "USD/year",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "scheduled_hours": {
+            "value": 1000.0,
+            "unit": "h/year",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "utilization": {
+            "value": 1.0,
+            "unit": "fraction",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "downtime": {
+            "value": 0.0,
+            "unit": "fraction",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "useful_life": {
+            "value": 10.0,
+            "unit": "years",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          }
+        },
+        "candidate": {
+          "process": {
+            "schema_version": 1,
+            "configuration_id": "machine",
+            "functional_unit": "One accepted test part",
+            "boundary": "Complete recurring production process",
+            "acceptance_verified": true,
+            "acceptance_source": "Synthetic shared quality specification",
+            "inputs": {
+              "accepted_count": {
+                "value": 100.0,
+                "unit": "count",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "attempted_count": {
+                "value": 100.0,
+                "unit": "count",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "elapsed_s": {
+                "value": 3600.0,
+                "unit": "s",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "labor_s": {
+                "value": 900.0,
+                "unit": "operator-s",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "electricity_wh": {
+                "value": 0.0,
+                "unit": "Wh",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "consumed_stock_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "recoverable_scrap_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "unrecovered_waste_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "loaded_labor_rate": {
+                "value": 20.0,
+                "unit": "USD/operator-hour",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "electricity_rate": {
+                "value": 0.0,
+                "unit": "USD/kWh",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "stock_cost": {
+                "value": 195.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "consumables_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "allocated_tooling_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "maintenance_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "facility_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "other_utilities_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "paid_coverage_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "recovery_credit": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            },
+            "attendance": null,
+            "attendance_source": null
+          },
+          "cost_model_source": "Synthetic constant variable cost",
+          "capacity_model_source": "Nominal rate excludes utilization/downtime losses",
+          "upfront": {
+            "equipment": {
+              "value": 10000.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "installation": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "integration": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "training": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            }
+          },
+          "annual_fixed_cost": {
+            "value": 3000.0,
+            "unit": "USD/year",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "scheduled_hours": {
+            "value": 1000.0,
+            "unit": "h/year",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "utilization": {
+            "value": 1.0,
+            "unit": "fraction",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "downtime": {
+            "value": 0.0,
+            "unit": "fraction",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "useful_life": {
+            "value": 10.0,
+            "unit": "years",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          }
+        },
+        "equivalence_verified": true,
+        "equivalence_source": "Synthetic equivalence evidence",
+        "annual_demand": {
+          "value": 10000.0,
+          "unit": "accepted outputs/year",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "horizon_years": {
+          "value": 5.0,
+          "unit": "years",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "scenarios": [
+          {
+            "name": "low-demand",
+            "overrides": {
+              "annual_demand": {
+                "value": 100.0,
+                "unit": "accepted outputs/year",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            }
+          },
+          {
+            "name": "low-utilization",
+            "overrides": {
+              "candidate.utilization": {
+                "value": 0.05,
+                "unit": "fraction",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            }
+          },
+          {
+            "name": "higher-downtime",
+            "overrides": {
+              "candidate.downtime": {
+                "value": 0.95,
+                "unit": "fraction",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            }
+          },
+          {
+            "name": "higher-machine-labor-price",
+            "overrides": {
+              "candidate.process.inputs.loaded_labor_rate": {
+                "value": 40.0,
+                "unit": "USD/operator-hour",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            }
+          }
+        ]
+      },
+      "conditions": "Illustrative arithmetic batch of 100 attempts; no physical/simulation experiment",
+      "tolerances": {
+        "cost_usd_per_accepted": {
+          "absolute": 0.01,
+          "relative": 0.01
+        }
+      }
+    },
+    "process_report": {
+      "schema_version": 1,
+      "evaluator_version": "1.0",
+      "configuration_id": "machine",
+      "status": "complete_for_declared_boundary",
+      "acceptance_verified": true,
+      "metrics": {
+        "labor_s_per_accepted": {
+          "value": 9.0,
+          "unit": "operator-s/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "labor_s",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "electricity_wh_per_accepted": {
+          "value": 0.0,
+          "unit": "Wh/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "electricity_wh",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "stock_g_per_accepted": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "consumed_stock_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "recoverable_scrap_g_per_accepted": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "recoverable_scrap_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "unrecovered_waste_g_per_accepted": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "unrecovered_waste_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "accepted_outputs_per_hour": {
+          "value": 100.0,
+          "unit": "accepted outputs/hour",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "accepted_count",
+            "elapsed_s"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "accepted_fraction": {
+          "value": 1.0,
+          "unit": "fraction",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "accepted_count",
+            "attempted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "total_cost_usd_per_batch": {
+          "value": 200.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "stock_cost",
+            "consumables_cost",
+            "allocated_tooling_cost",
+            "maintenance_cost",
+            "facility_cost",
+            "other_utilities_cost",
+            "paid_coverage_cost",
+            "recovery_credit",
+            "labor_s",
+            "loaded_labor_rate",
+            "electricity_wh",
+            "electricity_rate"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "cost_usd_per_accepted": {
+          "value": 2.0,
+          "unit": "USD/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "stock_cost",
+            "consumables_cost",
+            "allocated_tooling_cost",
+            "maintenance_cost",
+            "facility_cost",
+            "other_utilities_cost",
+            "paid_coverage_cost",
+            "recovery_credit",
+            "labor_s",
+            "loaded_labor_rate",
+            "electricity_wh",
+            "electricity_rate",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        }
+      },
+      "costs_usd_per_batch": {
+        "stock_cost": {
+          "value": 195.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "stock_cost"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "consumables_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "consumables_cost"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "allocated_tooling_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "allocated_tooling_cost"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "maintenance_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "maintenance_cost"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "facility_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "facility_cost"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "other_utilities_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "other_utilities_cost"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "paid_coverage_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "paid_coverage_cost"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "recovery_credit": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "recovery_credit"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "labor_cost": {
+          "value": 5.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "labor_s",
+            "loaded_labor_rate"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "electricity_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "electricity_wh",
+            "electricity_rate"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        }
+      },
+      "known_cost_subtotal_usd_per_batch": 200.0,
+      "unknown_cost_components": [],
+      "warnings": [
+        "Completeness applies only to the declared boundary; capital investment and payback are not evaluated.",
+        "Results include planning assumptions, not exclusively measured performance."
+      ],
+      "input_snapshot": {
+        "schema_version": 1,
+        "configuration_id": "machine",
+        "functional_unit": "One accepted test part",
+        "boundary": "Complete recurring production process",
+        "acceptance_verified": true,
+        "acceptance_source": "Synthetic shared quality specification",
+        "inputs": {
+          "accepted_count": {
+            "value": 100.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "attempted_count": {
+            "value": 100.0,
+            "unit": "count",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "elapsed_s": {
+            "value": 3600.0,
+            "unit": "s",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "labor_s": {
+            "value": 900.0,
+            "unit": "operator-s",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "electricity_wh": {
+            "value": 0.0,
+            "unit": "Wh",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "consumed_stock_g": {
+            "value": 0.0,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "recoverable_scrap_g": {
+            "value": 0.0,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "unrecovered_waste_g": {
+            "value": 0.0,
+            "unit": "g",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "loaded_labor_rate": {
+            "value": 20.0,
+            "unit": "USD/operator-hour",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "electricity_rate": {
+            "value": 0.0,
+            "unit": "USD/kWh",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "stock_cost": {
+            "value": 195.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "consumables_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "allocated_tooling_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "maintenance_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "facility_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "other_utilities_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "paid_coverage_cost": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "recovery_credit": {
+            "value": 0.0,
+            "unit": "USD/batch",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          }
+        },
+        "attendance": null,
+        "attendance_source": null
+      }
+    },
+    "investment_report": {
+      "schema_version": 1,
+      "comparator_version": "1.0",
+      "base": {
+        "status": "calculated",
+        "decision": "candidate_lower_cost",
+        "metrics": {
+          "baseline.upfront_total": {
+            "value": 0.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.upfront.equipment",
+              "baseline.upfront.installation",
+              "baseline.upfront.integration",
+              "baseline.upfront.training"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.annual_capacity": {
+            "value": 100000.0,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.nominal_rate",
+              "baseline.scheduled_hours",
+              "baseline.utilization",
+              "baseline.downtime"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.annual_operating_cost": {
+            "value": 51000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.variable_unit_cost",
+              "annual_demand",
+              "baseline.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.horizon_total_cost": {
+            "value": 255000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.upfront_total",
+              "baseline.annual_operating_cost",
+              "horizon_years"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.upfront_total": {
+            "value": 10000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront.equipment",
+              "candidate.upfront.installation",
+              "candidate.upfront.integration",
+              "candidate.upfront.training"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.annual_capacity": {
+            "value": 100000.0,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.nominal_rate",
+              "candidate.scheduled_hours",
+              "candidate.utilization",
+              "candidate.downtime"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.annual_operating_cost": {
+            "value": 23000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.variable_unit_cost",
+              "annual_demand",
+              "candidate.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.horizon_total_cost": {
+            "value": 125000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront_total",
+              "candidate.annual_operating_cost",
+              "horizon_years"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "incremental_upfront": {
+            "value": 10000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront_total",
+              "baseline.upfront_total"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "unit_variable_saving": {
+            "value": 3.0,
+            "unit": "USD/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.variable_unit_cost",
+              "candidate.variable_unit_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "annual_operating_saving": {
+            "value": 28000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.annual_operating_cost",
+              "candidate.annual_operating_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "horizon_net_saving": {
+            "value": 130000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.horizon_total_cost",
+              "candidate.horizon_total_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "annual_fixed_difference": {
+            "value": 2000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.annual_fixed_cost",
+              "baseline.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "simple_payback_years": {
+            "value": 0.35714285714285715,
+            "unit": "years",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "incremental_upfront",
+              "annual_operating_saving"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "horizon_break_even_annual_volume": {
+            "value": 1333.3333333333333,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "incremental_upfront",
+              "annual_fixed_difference",
+              "horizon_years",
+              "unit_variable_saving"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "horizon_break_even_direction": "above",
+        "issues": [],
+        "assumptions_present": true
+      },
+      "scenarios": {
+        "low-demand": {
+          "status": "calculated",
+          "decision": "baseline_lower_cost",
+          "metrics": {
+            "baseline.upfront_total": {
+              "value": 0.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.upfront.equipment",
+                "baseline.upfront.installation",
+                "baseline.upfront.integration",
+                "baseline.upfront.training"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.annual_capacity": {
+              "value": 100000.0,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.nominal_rate",
+                "baseline.scheduled_hours",
+                "baseline.utilization",
+                "baseline.downtime"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.annual_operating_cost": {
+              "value": 1500.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.variable_unit_cost",
+                "annual_demand",
+                "baseline.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.horizon_total_cost": {
+              "value": 7500.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.upfront_total",
+                "baseline.annual_operating_cost",
+                "horizon_years"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.upfront_total": {
+              "value": 10000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront.equipment",
+                "candidate.upfront.installation",
+                "candidate.upfront.integration",
+                "candidate.upfront.training"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.annual_capacity": {
+              "value": 100000.0,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.nominal_rate",
+                "candidate.scheduled_hours",
+                "candidate.utilization",
+                "candidate.downtime"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.annual_operating_cost": {
+              "value": 3200.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.variable_unit_cost",
+                "annual_demand",
+                "candidate.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.horizon_total_cost": {
+              "value": 26000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront_total",
+                "candidate.annual_operating_cost",
+                "horizon_years"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "incremental_upfront": {
+              "value": 10000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront_total",
+                "baseline.upfront_total"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "unit_variable_saving": {
+              "value": 3.0,
+              "unit": "USD/accepted output",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.variable_unit_cost",
+                "candidate.variable_unit_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "annual_operating_saving": {
+              "value": -1700.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.annual_operating_cost",
+                "candidate.annual_operating_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "horizon_net_saving": {
+              "value": -18500.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.horizon_total_cost",
+                "candidate.horizon_total_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "annual_fixed_difference": {
+              "value": 2000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.annual_fixed_cost",
+                "baseline.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "simple_payback_years": {
+              "value": null,
+              "unit": "years",
+              "status": "undefined",
+              "basis": "unknown",
+              "dependencies": [
+                "incremental_upfront",
+                "annual_operating_saving"
+              ],
+              "missing_inputs": [],
+              "reason": "No positive recurring savings; compare horizon cost for lower-upfront/higher-running-cost tradeoffs"
+            },
+            "horizon_break_even_annual_volume": {
+              "value": 1333.3333333333333,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "incremental_upfront",
+                "annual_fixed_difference",
+                "horizon_years",
+                "unit_variable_saving"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            }
+          },
+          "horizon_break_even_direction": "above",
+          "issues": [],
+          "assumptions_present": true
+        },
+        "low-utilization": {
+          "status": "infeasible_capacity",
+          "decision": "undetermined",
+          "metrics": {
+            "baseline.upfront_total": {
+              "value": 0.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.upfront.equipment",
+                "baseline.upfront.installation",
+                "baseline.upfront.integration",
+                "baseline.upfront.training"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.annual_capacity": {
+              "value": 100000.0,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.nominal_rate",
+                "baseline.scheduled_hours",
+                "baseline.utilization",
+                "baseline.downtime"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.annual_operating_cost": {
+              "value": 51000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.variable_unit_cost",
+                "annual_demand",
+                "baseline.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.horizon_total_cost": {
+              "value": 255000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.upfront_total",
+                "baseline.annual_operating_cost",
+                "horizon_years"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.upfront_total": {
+              "value": 10000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront.equipment",
+                "candidate.upfront.installation",
+                "candidate.upfront.integration",
+                "candidate.upfront.training"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.annual_capacity": {
+              "value": 5000.0,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.nominal_rate",
+                "candidate.scheduled_hours",
+                "candidate.utilization",
+                "candidate.downtime"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.annual_operating_cost": {
+              "value": 23000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.variable_unit_cost",
+                "annual_demand",
+                "candidate.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.horizon_total_cost": {
+              "value": 125000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront_total",
+                "candidate.annual_operating_cost",
+                "horizon_years"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "incremental_upfront": {
+              "value": 10000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront_total",
+                "baseline.upfront_total"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "unit_variable_saving": {
+              "value": 3.0,
+              "unit": "USD/accepted output",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.variable_unit_cost",
+                "candidate.variable_unit_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "annual_operating_saving": {
+              "value": 28000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.annual_operating_cost",
+                "candidate.annual_operating_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "horizon_net_saving": {
+              "value": 130000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.horizon_total_cost",
+                "candidate.horizon_total_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "annual_fixed_difference": {
+              "value": 2000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.annual_fixed_cost",
+                "baseline.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "simple_payback_years": {
+              "value": 0.35714285714285715,
+              "unit": "years",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "incremental_upfront",
+                "annual_operating_saving"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "horizon_break_even_annual_volume": {
+              "value": 1333.3333333333333,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "incremental_upfront",
+                "annual_fixed_difference",
+                "horizon_years",
+                "unit_variable_saving"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            }
+          },
+          "horizon_break_even_direction": "above",
+          "issues": [
+            "candidate capacity cannot meet annual demand"
+          ],
+          "assumptions_present": true
+        },
+        "higher-downtime": {
+          "status": "infeasible_capacity",
+          "decision": "undetermined",
+          "metrics": {
+            "baseline.upfront_total": {
+              "value": 0.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.upfront.equipment",
+                "baseline.upfront.installation",
+                "baseline.upfront.integration",
+                "baseline.upfront.training"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.annual_capacity": {
+              "value": 100000.0,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.nominal_rate",
+                "baseline.scheduled_hours",
+                "baseline.utilization",
+                "baseline.downtime"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.annual_operating_cost": {
+              "value": 51000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.variable_unit_cost",
+                "annual_demand",
+                "baseline.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.horizon_total_cost": {
+              "value": 255000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.upfront_total",
+                "baseline.annual_operating_cost",
+                "horizon_years"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.upfront_total": {
+              "value": 10000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront.equipment",
+                "candidate.upfront.installation",
+                "candidate.upfront.integration",
+                "candidate.upfront.training"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.annual_capacity": {
+              "value": 5000.000000000005,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.nominal_rate",
+                "candidate.scheduled_hours",
+                "candidate.utilization",
+                "candidate.downtime"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.annual_operating_cost": {
+              "value": 23000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.variable_unit_cost",
+                "annual_demand",
+                "candidate.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.horizon_total_cost": {
+              "value": 125000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront_total",
+                "candidate.annual_operating_cost",
+                "horizon_years"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "incremental_upfront": {
+              "value": 10000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront_total",
+                "baseline.upfront_total"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "unit_variable_saving": {
+              "value": 3.0,
+              "unit": "USD/accepted output",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.variable_unit_cost",
+                "candidate.variable_unit_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "annual_operating_saving": {
+              "value": 28000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.annual_operating_cost",
+                "candidate.annual_operating_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "horizon_net_saving": {
+              "value": 130000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.horizon_total_cost",
+                "candidate.horizon_total_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "annual_fixed_difference": {
+              "value": 2000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.annual_fixed_cost",
+                "baseline.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "simple_payback_years": {
+              "value": 0.35714285714285715,
+              "unit": "years",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "incremental_upfront",
+                "annual_operating_saving"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "horizon_break_even_annual_volume": {
+              "value": 1333.3333333333333,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "incremental_upfront",
+                "annual_fixed_difference",
+                "horizon_years",
+                "unit_variable_saving"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            }
+          },
+          "horizon_break_even_direction": "above",
+          "issues": [
+            "candidate capacity cannot meet annual demand"
+          ],
+          "assumptions_present": true
+        },
+        "higher-machine-labor-price": {
+          "status": "calculated",
+          "decision": "candidate_lower_cost",
+          "metrics": {
+            "baseline.upfront_total": {
+              "value": 0.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.upfront.equipment",
+                "baseline.upfront.installation",
+                "baseline.upfront.integration",
+                "baseline.upfront.training"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.annual_capacity": {
+              "value": 100000.0,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.nominal_rate",
+                "baseline.scheduled_hours",
+                "baseline.utilization",
+                "baseline.downtime"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.annual_operating_cost": {
+              "value": 51000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.variable_unit_cost",
+                "annual_demand",
+                "baseline.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "baseline.horizon_total_cost": {
+              "value": 255000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.upfront_total",
+                "baseline.annual_operating_cost",
+                "horizon_years"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.upfront_total": {
+              "value": 10000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront.equipment",
+                "candidate.upfront.installation",
+                "candidate.upfront.integration",
+                "candidate.upfront.training"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.annual_capacity": {
+              "value": 100000.0,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.nominal_rate",
+                "candidate.scheduled_hours",
+                "candidate.utilization",
+                "candidate.downtime"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.annual_operating_cost": {
+              "value": 23500.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.variable_unit_cost",
+                "annual_demand",
+                "candidate.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "candidate.horizon_total_cost": {
+              "value": 127500.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront_total",
+                "candidate.annual_operating_cost",
+                "horizon_years"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "incremental_upfront": {
+              "value": 10000.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.upfront_total",
+                "baseline.upfront_total"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "unit_variable_saving": {
+              "value": 2.95,
+              "unit": "USD/accepted output",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.variable_unit_cost",
+                "candidate.variable_unit_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "annual_operating_saving": {
+              "value": 27500.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.annual_operating_cost",
+                "candidate.annual_operating_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "horizon_net_saving": {
+              "value": 127500.0,
+              "unit": "USD",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "baseline.horizon_total_cost",
+                "candidate.horizon_total_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "annual_fixed_difference": {
+              "value": 2000.0,
+              "unit": "USD/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "candidate.annual_fixed_cost",
+                "baseline.annual_fixed_cost"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "simple_payback_years": {
+              "value": 0.36363636363636365,
+              "unit": "years",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "incremental_upfront",
+                "annual_operating_saving"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            },
+            "horizon_break_even_annual_volume": {
+              "value": 1355.9322033898304,
+              "unit": "accepted outputs/year",
+              "status": "calculated",
+              "basis": "includes_assumptions",
+              "dependencies": [
+                "incremental_upfront",
+                "annual_fixed_difference",
+                "horizon_years",
+                "unit_variable_saving"
+              ],
+              "missing_inputs": [],
+              "reason": null
+            }
+          },
+          "horizon_break_even_direction": "above",
+          "issues": [],
+          "assumptions_present": true
+        }
+      },
+      "input_snapshot": {
+        "schema_version": 1,
+        "baseline": {
+          "process": {
+            "schema_version": 1,
+            "configuration_id": "manual",
+            "functional_unit": "One accepted test part",
+            "boundary": "Complete recurring production process",
+            "acceptance_verified": true,
+            "acceptance_source": "Synthetic shared quality specification",
+            "inputs": {
+              "accepted_count": {
+                "value": 100.0,
+                "unit": "count",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "attempted_count": {
+                "value": 100.0,
+                "unit": "count",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "elapsed_s": {
+                "value": 3600.0,
+                "unit": "s",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "labor_s": {
+                "value": 0.0,
+                "unit": "operator-s",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "electricity_wh": {
+                "value": 0.0,
+                "unit": "Wh",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "consumed_stock_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "recoverable_scrap_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "unrecovered_waste_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "loaded_labor_rate": {
+                "value": 0.0,
+                "unit": "USD/operator-hour",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "electricity_rate": {
+                "value": 0.0,
+                "unit": "USD/kWh",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "stock_cost": {
+                "value": 500.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "consumables_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "allocated_tooling_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "maintenance_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "facility_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "other_utilities_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "paid_coverage_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "recovery_credit": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            },
+            "attendance": null,
+            "attendance_source": null
+          },
+          "cost_model_source": "Synthetic constant variable cost",
+          "capacity_model_source": "Nominal rate excludes utilization/downtime losses",
+          "upfront": {
+            "equipment": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "installation": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "integration": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "training": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            }
+          },
+          "annual_fixed_cost": {
+            "value": 1000.0,
+            "unit": "USD/year",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "scheduled_hours": {
+            "value": 1000.0,
+            "unit": "h/year",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "utilization": {
+            "value": 1.0,
+            "unit": "fraction",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "downtime": {
+            "value": 0.0,
+            "unit": "fraction",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "useful_life": {
+            "value": 10.0,
+            "unit": "years",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          }
+        },
+        "candidate": {
+          "process": {
+            "schema_version": 1,
+            "configuration_id": "machine",
+            "functional_unit": "One accepted test part",
+            "boundary": "Complete recurring production process",
+            "acceptance_verified": true,
+            "acceptance_source": "Synthetic shared quality specification",
+            "inputs": {
+              "accepted_count": {
+                "value": 100.0,
+                "unit": "count",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "attempted_count": {
+                "value": 100.0,
+                "unit": "count",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "elapsed_s": {
+                "value": 3600.0,
+                "unit": "s",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "labor_s": {
+                "value": 900.0,
+                "unit": "operator-s",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "electricity_wh": {
+                "value": 0.0,
+                "unit": "Wh",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "consumed_stock_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "recoverable_scrap_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "unrecovered_waste_g": {
+                "value": 0.0,
+                "unit": "g",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "loaded_labor_rate": {
+                "value": 20.0,
+                "unit": "USD/operator-hour",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "electricity_rate": {
+                "value": 0.0,
+                "unit": "USD/kWh",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "stock_cost": {
+                "value": 195.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "consumables_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "allocated_tooling_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "maintenance_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "facility_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "other_utilities_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "paid_coverage_cost": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              },
+              "recovery_credit": {
+                "value": 0.0,
+                "unit": "USD/batch",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            },
+            "attendance": null,
+            "attendance_source": null
+          },
+          "cost_model_source": "Synthetic constant variable cost",
+          "capacity_model_source": "Nominal rate excludes utilization/downtime losses",
+          "upfront": {
+            "equipment": {
+              "value": 10000.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "installation": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "integration": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            },
+            "training": {
+              "value": 0.0,
+              "unit": "USD",
+              "basis": "assumed",
+              "source": "Synthetic test assumption"
+            }
+          },
+          "annual_fixed_cost": {
+            "value": 3000.0,
+            "unit": "USD/year",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "scheduled_hours": {
+            "value": 1000.0,
+            "unit": "h/year",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "utilization": {
+            "value": 1.0,
+            "unit": "fraction",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "downtime": {
+            "value": 0.0,
+            "unit": "fraction",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          },
+          "useful_life": {
+            "value": 10.0,
+            "unit": "years",
+            "basis": "assumed",
+            "source": "Synthetic test assumption"
+          }
+        },
+        "equivalence_verified": true,
+        "equivalence_source": "Synthetic equivalence evidence",
+        "annual_demand": {
+          "value": 10000.0,
+          "unit": "accepted outputs/year",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "horizon_years": {
+          "value": 5.0,
+          "unit": "years",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "scenarios": [
+          {
+            "name": "low-demand",
+            "overrides": {
+              "annual_demand": {
+                "value": 100.0,
+                "unit": "accepted outputs/year",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            }
+          },
+          {
+            "name": "low-utilization",
+            "overrides": {
+              "candidate.utilization": {
+                "value": 0.05,
+                "unit": "fraction",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            }
+          },
+          {
+            "name": "higher-downtime",
+            "overrides": {
+              "candidate.downtime": {
+                "value": 0.95,
+                "unit": "fraction",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            }
+          },
+          {
+            "name": "higher-machine-labor-price",
+            "overrides": {
+              "candidate.process.inputs.loaded_labor_rate": {
+                "value": 40.0,
+                "unit": "USD/operator-hour",
+                "basis": "assumed",
+                "source": "Synthetic test assumption"
+              }
+            }
+          }
+        ]
+      },
+      "limitations": [
+        "Constant annual demand and linear variable cost; batch-size economies require separate representative inputs.",
+        "Undiscounted cost comparison; financing, tax, revenue, resale and replacement are not modeled.",
+        "Capacity uses nominal accepted rate × scheduled hours × utilization × (1 − downtime); avoid double-counting losses already in nominal rate.",
+        "Thresholds are continuous annual volumes; integer demand must be rounded and checked against both capacities.",
+        "Metrics can be calculated conditionally while decision remains blocked by evidence, capacity or horizon gates."
+      ]
+    },
+    "revision": null
+  }
+}
