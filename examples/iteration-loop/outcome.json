@@ -1,0 +1,127 @@
+{
+  "process": {
+    "schema_version": 1,
+    "configuration_id": "machine",
+    "functional_unit": "One accepted test part",
+    "boundary": "Complete recurring production process",
+    "acceptance_verified": true,
+    "acceptance_source": "Synthetic shared quality specification",
+    "inputs": {
+      "accepted_count": {
+        "value": 100.0,
+        "unit": "count",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "attempted_count": {
+        "value": 100.0,
+        "unit": "count",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "elapsed_s": {
+        "value": 4500.0,
+        "unit": "s",
+        "basis": "assumed",
+        "source": "Fabricated illustrative outcome; not physical or simulation evidence"
+      },
+      "labor_s": {
+        "value": 1800.0,
+        "unit": "operator-s",
+        "basis": "assumed",
+        "source": "Fabricated illustrative outcome; not physical or simulation evidence"
+      },
+      "electricity_wh": {
+        "value": 0.0,
+        "unit": "Wh",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "consumed_stock_g": {
+        "value": 0.0,
+        "unit": "g",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "recoverable_scrap_g": {
+        "value": 0.0,
+        "unit": "g",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "unrecovered_waste_g": {
+        "value": 0.0,
+        "unit": "g",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "loaded_labor_rate": {
+        "value": 20.0,
+        "unit": "USD/operator-hour",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "electricity_rate": {
+        "value": 0.0,
+        "unit": "USD/kWh",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "stock_cost": {
+        "value": 195.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "consumables_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "allocated_tooling_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "maintenance_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "facility_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "other_utilities_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "paid_coverage_cost": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "recovery_credit": {
+        "value": 0.0,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      }
+    },
+    "attendance": null,
+    "attendance_source": null
+  },
+  "evidence_kind": "illustrative",
+  "evidence_refs": [
+    "examples/iteration-loop/README.md: fabricated arithmetic fixture"
+  ],
+  "conditions": "Illustrative arithmetic batch of 100 attempts; no physical/simulation experiment"
+}

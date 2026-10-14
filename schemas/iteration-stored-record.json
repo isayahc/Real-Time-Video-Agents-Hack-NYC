@@ -1,0 +1,1087 @@
+{
+  "$defs": {
+    "AttendanceInterval": {
+      "additionalProperties": false,
+      "description": "Sourced attended labor interval, in seconds from the batch origin.",
+      "properties": {
+        "operator_id": {
+          "minLength": 1,
+          "title": "Operator Id",
+          "type": "string"
+        },
+        "start_s": {
+          "minimum": 0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "minimum": 0,
+          "title": "End S",
+          "type": "number"
+        },
+        "basis": {
+          "enum": [
+            "measured",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operator_id",
+        "start_s",
+        "end_s",
+        "basis",
+        "source"
+      ],
+      "title": "AttendanceInterval",
+      "type": "object"
+    },
+    "ComparisonResult": {
+      "additionalProperties": false,
+      "description": "Conditional economics with explicit evidence and capacity gates.",
+      "properties": {
+        "status": {
+          "enum": [
+            "calculated",
+            "insufficient_evidence",
+            "infeasible_capacity",
+            "unsupported_horizon"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "candidate_lower_cost",
+            "baseline_lower_cost",
+            "equal_cost",
+            "undetermined"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Metric"
+          },
+          "title": "Metrics",
+          "type": "object"
+        },
+        "horizon_break_even_direction": {
+          "enum": [
+            "above",
+            "below",
+            "all_volumes",
+            "no_volumes",
+            "unknown"
+          ],
+          "title": "Horizon Break Even Direction",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "assumptions_present": {
+          "title": "Assumptions Present",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "status",
+        "decision",
+        "metrics",
+        "horizon_break_even_direction",
+        "issues",
+        "assumptions_present"
+      ],
+      "title": "ComparisonResult",
+      "type": "object"
+    },
+    "DeviationReport": {
+      "additionalProperties": false,
+      "description": "Per-output comparison with context/evidence qualifications.",
+      "properties": {
+        "metrics": {
+          "additionalProperties": {
+            "$ref": "#/$defs/MetricDifference"
+          },
+          "title": "Metrics",
+          "type": "object"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "reference_role": {
+          "default": "prediction",
+          "enum": [
+            "prediction",
+            "outcome"
+          ],
+          "title": "Reference Role",
+          "type": "string"
+        },
+        "compared_role": {
+          "default": "outcome",
+          "enum": [
+            "prediction",
+            "outcome"
+          ],
+          "title": "Compared Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metrics",
+        "warnings"
+      ],
+      "title": "DeviationReport",
+      "type": "object"
+    },
+    "DeviationTolerance": {
+      "additionalProperties": false,
+      "description": "Absolute metric-unit and relative-fraction thresholds; use the larger.",
+      "properties": {
+        "absolute": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Absolute",
+          "type": "number"
+        },
+        "relative": {
+          "default": 0.1,
+          "minimum": 0,
+          "title": "Relative",
+          "type": "number"
+        }
+      },
+      "title": "DeviationTolerance",
+      "type": "object"
+    },
+    "EngineeringValue": {
+      "additionalProperties": false,
+      "description": "An explicitly supplied measurement, specification or planning assumption.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "unknown",
+            "measured",
+            "supplier_specification",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "unit",
+        "basis"
+      ],
+      "title": "EngineeringValue",
+      "type": "object"
+    },
+    "InvestmentComparisonInput": {
+      "additionalProperties": false,
+      "description": "Comparable outputs, annual demand and a no-replacement analysis horizon.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "baseline": {
+          "$ref": "#/$defs/InvestmentOption"
+        },
+        "candidate": {
+          "$ref": "#/$defs/InvestmentOption"
+        },
+        "equivalence_verified": {
+          "default": false,
+          "title": "Equivalence Verified",
+          "type": "boolean"
+        },
+        "equivalence_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equivalence Source"
+        },
+        "annual_demand": {
+          "$ref": "#/$defs/EngineeringValue"
+        },
+        "horizon_years": {
+          "$ref": "#/$defs/EngineeringValue"
+        },
+        "scenarios": {
+          "items": {
+            "$ref": "#/$defs/SensitivityScenario"
+          },
+          "title": "Scenarios",
+          "type": "array"
+        }
+      },
+      "required": [
+        "baseline",
+        "candidate",
+        "annual_demand",
+        "horizon_years"
+      ],
+      "title": "InvestmentComparisonInput",
+      "type": "object"
+    },
+    "InvestmentComparisonReport": {
+      "additionalProperties": false,
+      "description": "Versioned base and sensitivity results retaining the complete input snapshot.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "comparator_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Comparator Version",
+          "type": "string"
+        },
+        "base": {
+          "$ref": "#/$defs/ComparisonResult"
+        },
+        "scenarios": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ComparisonResult"
+          },
+          "title": "Scenarios",
+          "type": "object"
+        },
+        "input_snapshot": {
+          "$ref": "#/$defs/InvestmentComparisonInput"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "base",
+        "scenarios",
+        "input_snapshot",
+        "limitations"
+      ],
+      "title": "InvestmentComparisonReport",
+      "type": "object"
+    },
+    "InvestmentOption": {
+      "additionalProperties": false,
+      "description": "A process option with disjoint variable, fixed and upfront cost boundaries.",
+      "properties": {
+        "process": {
+          "$ref": "#/$defs/ProcessEvaluationInput"
+        },
+        "cost_model_source": {
+          "minLength": 1,
+          "title": "Cost Model Source",
+          "type": "string"
+        },
+        "capacity_model_source": {
+          "minLength": 1,
+          "title": "Capacity Model Source",
+          "type": "string"
+        },
+        "upfront": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Upfront",
+          "type": "object"
+        },
+        "annual_fixed_cost": {
+          "$ref": "#/$defs/EngineeringValue"
+        },
+        "scheduled_hours": {
+          "$ref": "#/$defs/EngineeringValue"
+        },
+        "utilization": {
+          "$ref": "#/$defs/EngineeringValue"
+        },
+        "downtime": {
+          "$ref": "#/$defs/EngineeringValue"
+        },
+        "useful_life": {
+          "$ref": "#/$defs/EngineeringValue"
+        }
+      },
+      "required": [
+        "process",
+        "cost_model_source",
+        "capacity_model_source",
+        "annual_fixed_cost",
+        "scheduled_hours",
+        "utilization",
+        "downtime",
+        "useful_life"
+      ],
+      "title": "InvestmentOption",
+      "type": "object"
+    },
+    "Metric": {
+      "additionalProperties": false,
+      "description": "A calculated value, or an explicit explanation of why it is unknown.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "calculated",
+            "unknown",
+            "undefined"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "derived_from_sourced_inputs",
+            "includes_assumptions",
+            "unknown"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "missing_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Inputs",
+          "type": "array"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "status",
+        "basis",
+        "dependencies"
+      ],
+      "title": "Metric",
+      "type": "object"
+    },
+    "MetricDifference": {
+      "additionalProperties": false,
+      "description": "Conditional difference without manufacturing values for missing metrics.",
+      "properties": {
+        "reference_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reference Value"
+        },
+        "compared_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Compared Value"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "absolute_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Absolute Delta"
+        },
+        "relative_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relative Delta"
+        },
+        "outside_tolerance": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outside Tolerance"
+        },
+        "direction": {
+          "default": "unknown",
+          "enum": [
+            "improved",
+            "worsened",
+            "unchanged",
+            "unknown"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        }
+      },
+      "required": [
+        "reference_value",
+        "compared_value",
+        "unit"
+      ],
+      "title": "MetricDifference",
+      "type": "object"
+    },
+    "OutcomeRecord": {
+      "additionalProperties": false,
+      "description": "Evidence-bound outcome retaining the unchanged referenced prediction.",
+      "properties": {
+        "kind": {
+          "const": "outcome",
+          "default": "outcome",
+          "title": "Kind",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "prediction": {
+          "$ref": "#/$defs/RecordReference"
+        },
+        "request": {
+          "$ref": "#/$defs/OutcomeRequest"
+        },
+        "process_report": {
+          "$ref": "#/$defs/ProcessEvaluationReport"
+        },
+        "investment_report": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/InvestmentComparisonReport"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "deviation": {
+          "$ref": "#/$defs/DeviationReport"
+        }
+      },
+      "required": [
+        "id",
+        "created_at",
+        "prediction",
+        "request",
+        "process_report",
+        "deviation"
+      ],
+      "title": "OutcomeRecord",
+      "type": "object"
+    },
+    "OutcomeRequest": {
+      "additionalProperties": false,
+      "description": "Evidence-labeled run; physical/simulation data cannot contain assumed numbers.",
+      "properties": {
+        "process": {
+          "$ref": "#/$defs/ProcessEvaluationInput"
+        },
+        "evidence_kind": {
+          "enum": [
+            "physical",
+            "simulation",
+            "illustrative"
+          ],
+          "title": "Evidence Kind",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "conditions": {
+          "minLength": 1,
+          "title": "Conditions",
+          "type": "string"
+        }
+      },
+      "required": [
+        "process",
+        "evidence_kind",
+        "evidence_refs",
+        "conditions"
+      ],
+      "title": "OutcomeRequest",
+      "type": "object"
+    },
+    "PredictionRecord": {
+      "additionalProperties": false,
+      "description": "One root prediction or branch revision with evaluator outputs and lineage.",
+      "properties": {
+        "kind": {
+          "const": "prediction",
+          "default": "prediction",
+          "title": "Kind",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "responding_to": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "request": {
+          "$ref": "#/$defs/PredictionRequest"
+        },
+        "process_report": {
+          "$ref": "#/$defs/ProcessEvaluationReport"
+        },
+        "investment_report": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/InvestmentComparisonReport"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "revision": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RevisionAssessment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "created_at",
+        "request",
+        "process_report"
+      ],
+      "title": "PredictionRecord",
+      "type": "object"
+    },
+    "PredictionRequest": {
+      "additionalProperties": false,
+      "description": "A process prediction with optional matching investment comparison.",
+      "properties": {
+        "process": {
+          "$ref": "#/$defs/ProcessEvaluationInput"
+        },
+        "investment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/InvestmentComparisonInput"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "conditions": {
+          "minLength": 1,
+          "title": "Conditions",
+          "type": "string"
+        },
+        "tolerances": {
+          "additionalProperties": {
+            "$ref": "#/$defs/DeviationTolerance"
+          },
+          "title": "Tolerances",
+          "type": "object"
+        }
+      },
+      "required": [
+        "process",
+        "conditions"
+      ],
+      "title": "PredictionRequest",
+      "type": "object"
+    },
+    "ProcessEvaluationInput": {
+      "additionalProperties": false,
+      "description": "One batch with explicit units, boundary and acceptance provenance.\n\nMissing inputs remain unknown. Attendance intervals or an aggregate labor\nvalue may be supplied, never both. Rates must match the report's USD currency.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "configuration_id": {
+          "minLength": 1,
+          "title": "Configuration Id",
+          "type": "string"
+        },
+        "functional_unit": {
+          "minLength": 1,
+          "title": "Functional Unit",
+          "type": "string"
+        },
+        "boundary": {
+          "minLength": 1,
+          "title": "Boundary",
+          "type": "string"
+        },
+        "acceptance_verified": {
+          "default": false,
+          "title": "Acceptance Verified",
+          "type": "boolean"
+        },
+        "acceptance_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Acceptance Source"
+        },
+        "inputs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Inputs",
+          "type": "object"
+        },
+        "attendance": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/AttendanceInterval"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attendance"
+        },
+        "attendance_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attendance Source"
+        }
+      },
+      "required": [
+        "configuration_id",
+        "functional_unit",
+        "boundary"
+      ],
+      "title": "ProcessEvaluationInput",
+      "type": "object"
+    },
+    "ProcessEvaluationReport": {
+      "additionalProperties": false,
+      "description": "Versioned batch accounting with an immutable serialized input snapshot.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "evaluator_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Evaluator Version",
+          "type": "string"
+        },
+        "configuration_id": {
+          "title": "Configuration Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "complete_for_declared_boundary",
+            "partial"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "acceptance_verified": {
+          "title": "Acceptance Verified",
+          "type": "boolean"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Metric"
+          },
+          "title": "Metrics",
+          "type": "object"
+        },
+        "costs_usd_per_batch": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Metric"
+          },
+          "title": "Costs Usd Per Batch",
+          "type": "object"
+        },
+        "known_cost_subtotal_usd_per_batch": {
+          "title": "Known Cost Subtotal Usd Per Batch",
+          "type": "number"
+        },
+        "unknown_cost_components": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unknown Cost Components",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "input_snapshot": {
+          "$ref": "#/$defs/ProcessEvaluationInput"
+        }
+      },
+      "required": [
+        "configuration_id",
+        "status",
+        "acceptance_verified",
+        "metrics",
+        "costs_usd_per_batch",
+        "known_cost_subtotal_usd_per_batch",
+        "unknown_cost_components",
+        "warnings",
+        "input_snapshot"
+      ],
+      "title": "ProcessEvaluationReport",
+      "type": "object"
+    },
+    "RecordReference": {
+      "additionalProperties": false,
+      "description": "Safe store-local record identity plus a canonical-content digest.",
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "sha256"
+      ],
+      "title": "RecordReference",
+      "type": "object"
+    },
+    "RevisionAssessment": {
+      "additionalProperties": false,
+      "description": "Proposed metric changes relative to the old prediction and observed run.",
+      "properties": {
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "proposed_changes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Proposed Changes",
+          "type": "array"
+        },
+        "against_previous_prediction": {
+          "$ref": "#/$defs/DeviationReport"
+        },
+        "against_outcome": {
+          "$ref": "#/$defs/DeviationReport"
+        },
+        "predicted_improvements": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Predicted Improvements",
+          "type": "array"
+        },
+        "predicted_regressions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Predicted Regressions",
+          "type": "array"
+        },
+        "conclusion": {
+          "enum": [
+            "predicted_tradeoff",
+            "predicted_improvement",
+            "predicted_regression",
+            "no_calculated_change",
+            "insufficient_evidence"
+          ],
+          "title": "Conclusion",
+          "type": "string"
+        },
+        "note": {
+          "default": "A revised prediction is not a demonstrated improvement; a new run is required.",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rationale",
+        "proposed_changes",
+        "against_previous_prediction",
+        "against_outcome",
+        "predicted_improvements",
+        "predicted_regressions",
+        "conclusion"
+      ],
+      "title": "RevisionAssessment",
+      "type": "object"
+    },
+    "SensitivityScenario": {
+      "additionalProperties": false,
+      "description": "Named, sourced overrides to the same underlying investment comparison.",
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "overrides": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "minProperties": 1,
+          "title": "Overrides",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "overrides"
+      ],
+      "title": "SensitivityScenario",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Versioned canonical-hash envelope for a store event.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Sha256",
+      "type": "string"
+    },
+    "record": {
+      "discriminator": {
+        "mapping": {
+          "outcome": "#/$defs/OutcomeRecord",
+          "prediction": "#/$defs/PredictionRecord"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/PredictionRecord"
+        },
+        {
+          "$ref": "#/$defs/OutcomeRecord"
+        }
+      ],
+      "title": "Record"
+    }
+  },
+  "required": [
+    "sha256",
+    "record"
+  ],
+  "title": "StoredRecord",
+  "type": "object"
+}

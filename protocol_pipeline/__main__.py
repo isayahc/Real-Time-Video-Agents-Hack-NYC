@@ -2,11 +2,13 @@
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 from pathlib import Path
 from .pipeline import analyze, ingest
 from .evaluation import evaluate_file
 from .investment import compare_file
+from .iteration import OutcomeRequest, PredictionRequest, RevisionRequest, observe, predict, revise
 
 
 def main() -> None:
@@ -30,6 +32,18 @@ def main() -> None:
     compare = commands.add_parser("compare", help="Compare process infrastructure cost, capacity and payback locally")
     compare.add_argument("--input", type=Path, required=True)
     compare.add_argument("--output", type=Path, required=True)
+    for name, help_text in (("predict", "Save a versioned process/investment prediction"),
+                            ("observe", "Attach an evidence-labeled outcome and calculate deviations"),
+                            ("revise", "Evaluate a proposed revision responding to an outcome")):
+        command = commands.add_parser(name, help=help_text)
+        command.add_argument("--store", type=Path, required=True)
+        command.add_argument("--id", required=True)
+        command.add_argument("--input", type=Path, required=True)
+        if name == "observe":
+            command.add_argument("--prediction", required=True)
+        if name == "revise":
+            command.add_argument("--parent", required=True)
+            command.add_argument("--outcome", required=True)
     args = parser.parse_args()
     try:
         if args.command == "ingest":
@@ -38,8 +52,18 @@ def main() -> None:
             analyze(args.run, args.vision_model, args.compiler_model, args.annotation_grounding)
         elif args.command == "evaluate":
             evaluate_file(args.input, args.output)
-        else:
+        elif args.command == "compare":
             compare_file(args.input, args.output)
+        else:
+            payload = args.input.read_text()
+            if args.command == "predict":
+                result = predict(args.store, args.id, PredictionRequest.model_validate_json(payload))
+            elif args.command == "observe":
+                result = observe(args.store, args.id, args.prediction, OutcomeRequest.model_validate_json(payload))
+            else:
+                result = revise(args.store, args.id, args.parent, args.outcome, RevisionRequest.model_validate_json(payload))
+            print(json.dumps({"id": result.record.id, "kind": result.record.kind,
+                              "sha256": result.sha256, "path": str(args.store / (result.record.id + ".json"))}))
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
         parser.exit(1, f"Pipeline failed: {error}\n")
 

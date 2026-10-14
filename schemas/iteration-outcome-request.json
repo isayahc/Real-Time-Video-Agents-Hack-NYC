@@ -1,0 +1,220 @@
+{
+  "$defs": {
+    "AttendanceInterval": {
+      "additionalProperties": false,
+      "description": "Sourced attended labor interval, in seconds from the batch origin.",
+      "properties": {
+        "operator_id": {
+          "minLength": 1,
+          "title": "Operator Id",
+          "type": "string"
+        },
+        "start_s": {
+          "minimum": 0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "minimum": 0,
+          "title": "End S",
+          "type": "number"
+        },
+        "basis": {
+          "enum": [
+            "measured",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operator_id",
+        "start_s",
+        "end_s",
+        "basis",
+        "source"
+      ],
+      "title": "AttendanceInterval",
+      "type": "object"
+    },
+    "EngineeringValue": {
+      "additionalProperties": false,
+      "description": "An explicitly supplied measurement, specification or planning assumption.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "unknown",
+            "measured",
+            "supplier_specification",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "unit",
+        "basis"
+      ],
+      "title": "EngineeringValue",
+      "type": "object"
+    },
+    "ProcessEvaluationInput": {
+      "additionalProperties": false,
+      "description": "One batch with explicit units, boundary and acceptance provenance.\n\nMissing inputs remain unknown. Attendance intervals or an aggregate labor\nvalue may be supplied, never both. Rates must match the report's USD currency.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "configuration_id": {
+          "minLength": 1,
+          "title": "Configuration Id",
+          "type": "string"
+        },
+        "functional_unit": {
+          "minLength": 1,
+          "title": "Functional Unit",
+          "type": "string"
+        },
+        "boundary": {
+          "minLength": 1,
+          "title": "Boundary",
+          "type": "string"
+        },
+        "acceptance_verified": {
+          "default": false,
+          "title": "Acceptance Verified",
+          "type": "boolean"
+        },
+        "acceptance_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Acceptance Source"
+        },
+        "inputs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Inputs",
+          "type": "object"
+        },
+        "attendance": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/AttendanceInterval"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attendance"
+        },
+        "attendance_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attendance Source"
+        }
+      },
+      "required": [
+        "configuration_id",
+        "functional_unit",
+        "boundary"
+      ],
+      "title": "ProcessEvaluationInput",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Evidence-labeled run; physical/simulation data cannot contain assumed numbers.",
+  "properties": {
+    "process": {
+      "$ref": "#/$defs/ProcessEvaluationInput"
+    },
+    "evidence_kind": {
+      "enum": [
+        "physical",
+        "simulation",
+        "illustrative"
+      ],
+      "title": "Evidence Kind",
+      "type": "string"
+    },
+    "evidence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "conditions": {
+      "minLength": 1,
+      "title": "Conditions",
+      "type": "string"
+    }
+  },
+  "required": [
+    "process",
+    "evidence_kind",
+    "evidence_refs",
+    "conditions"
+  ],
+  "title": "OutcomeRequest",
+  "type": "object"
+}

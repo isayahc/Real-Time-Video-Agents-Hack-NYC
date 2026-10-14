@@ -90,7 +90,7 @@ The [coil-winding benchmark](benchmarks/coil-winding/) defines the full manual w
 
 ## Process evaluation
 
-The [deterministic evaluator](examples/process-evaluation/) calculates recurring cost, labor, energy and material/waste quantities per accepted output from sourced batch inputs. Unknown inputs remain null; operator attendance overlaps are merged; reports preserve inputs and assumptions. Investment comparison is implemented separately below; the feedback controller remains pending.
+The [deterministic evaluator](examples/process-evaluation/) calculates recurring cost, labor, energy and material/waste quantities per accepted output from sourced batch inputs. Unknown inputs remain null; operator attendance overlaps are merged; reports preserve inputs and assumptions. Investment comparison is implemented separately below; the iteration controller is implemented below.
 
 ```bash
 python -m protocol_pipeline evaluate \
@@ -107,3 +107,7 @@ python -m protocol_pipeline compare \
   --input examples/investment-comparison/synthetic-comparison.json \
   --output /tmp/investment-report.json
 ```
+
+## Versioned iteration loop
+
+The [iteration controller](examples/iteration-loop/) records predictions, attaches evidence-labeled outcomes, flags deviations and reevaluates explicit revision proposals through process and investment accounting. Records are append-only with hashed lineage; illustrative runs remain distinguished from physical/simulation evidence. Data collection and automatic Forma/OpenIndustries revision generation remain separate integrations.
