@@ -150,3 +150,12 @@ python -m protocol_pipeline compare-alternatives \
 
 The [comparison](examples/apparatus-alternatives/README.md) includes a separate current-evidence report with unknown full-process values and explicitly hypothetical volume/labor scenarios. It exposes tradeoffs without declaring verified savings or a procurement recommendation.
 
+## Offline verification and failure replay
+
+```bash
+python -m protocol_pipeline failure-replay --output runs/failure-replay-001
+python -m scripts.verify_offline --output runs/ci-offline-001
+```
+
+The [failure scenarios](examples/failure-replay/README.md) distinguish explicitly skipped steps from missing evidence and exercise delays/rejects through the resource evaluator. GitHub Actions runs tests and all offline workflows on Python 3.11/3.12 and retains the reports as artifacts. Application stages require no provider credits or keys.
+
