@@ -1,0 +1,691 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "illustrative_assumptions",
+  "description": "Exploratory arithmetic with invented full-batch performance and budget assumptions. These numbers are not estimates of real manual/motorized performance and do not validate CW-02. Acceptance and equivalence stay unverified.",
+  "options": [
+    {
+      "id": "manual",
+      "label": "Manual fixture",
+      "equipment": [
+        "Screwdriver/mandrel",
+        "Manual wire-handling/cutting tools",
+        "Released-coil dimensional inspection",
+        "Product/scrap containers"
+      ],
+      "controls": [
+        "Operator supplies rotation, pitch and tension",
+        "Operator inspects and releases every coil"
+      ],
+      "measurement_gaps": [
+        "Full-cycle attended time and elapsed time",
+        "Released-coil acceptance and repeatability",
+        "Actual tooling cost",
+        "Full stock/scrap and utility accounting"
+      ],
+      "option": {
+        "process": {
+          "schema_version": 1,
+          "configuration_id": "manual-hypothetical-full-boundary",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": 95,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "attempted_count": {
+              "value": 100,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "elapsed_s": {
+              "value": 10000,
+              "unit": "s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "labor_s": {
+              "value": 9000,
+              "unit": "operator-s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_wh": {
+              "value": 10,
+              "unit": "Wh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "consumed_stock_g": {
+              "value": 13.834700552157031,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "recoverable_scrap_g": {
+              "value": 1.0080066103733156,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+            },
+            "unrecovered_waste_g": {
+              "value": 0.2,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "loaded_labor_rate": {
+              "value": 18,
+              "unit": "USD/operator-hour",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_rate": {
+              "value": 0.2,
+              "unit": "USD/kWh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "stock_cost": {
+              "value": 3472.398166766645,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "consumables_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "allocated_tooling_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "maintenance_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "facility_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "other_utilities_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "paid_coverage_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "recovery_credit": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        },
+        "cost_model_source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result; recurring fixed allocations are in annual_fixed_cost, with explicit zero batch allocations to avoid double counting",
+        "capacity_model_source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result; supplied nominal full-batch times exclude additional annual unscheduled/downtime factors, applied once",
+        "upfront": {
+          "equipment": {
+            "value": 100,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "installation": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "integration": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "training": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          }
+        },
+        "annual_fixed_cost": {
+          "value": 50,
+          "unit": "USD/year",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "scheduled_hours": {
+          "value": 1000,
+          "unit": "h/year",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "utilization": {
+          "value": 0.8,
+          "unit": "fraction",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "downtime": {
+          "value": 0.1,
+          "unit": "fraction",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "useful_life": {
+          "value": 5,
+          "unit": "years",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        }
+      }
+    },
+    {
+      "id": "motorized",
+      "label": "Simple motorized winder",
+      "equipment": [
+        "Low-speed motor and speed controller",
+        "Mandrel/chuck with guarded drive and stop",
+        "Manual guide and tension adjustment",
+        "Manual cutting and released-coil inspection"
+      ],
+      "controls": [
+        "Motor supplies rotation only",
+        "Operator guides pitch, handles tension and stops at target turns",
+        "Operator cuts, releases and inspects"
+      ],
+      "measurement_gaps": [
+        "Motor/drive procurement and integration costs",
+        "Operator attendance while guiding and stopping",
+        "Safe torque/speed and wire tension",
+        "Quality, full-cycle energy and scrap"
+      ],
+      "option": {
+        "process": {
+          "schema_version": 1,
+          "configuration_id": "motorized-hypothetical-full-boundary",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": 95,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "attempted_count": {
+              "value": 100,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "elapsed_s": {
+              "value": 8000,
+              "unit": "s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "labor_s": {
+              "value": 7000,
+              "unit": "operator-s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_wh": {
+              "value": 30,
+              "unit": "Wh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "consumed_stock_g": {
+              "value": 13.834700552157031,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "recoverable_scrap_g": {
+              "value": 1.0080066103733156,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+            },
+            "unrecovered_waste_g": {
+              "value": 0.2,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "loaded_labor_rate": {
+              "value": 18,
+              "unit": "USD/operator-hour",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_rate": {
+              "value": 0.2,
+              "unit": "USD/kWh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "stock_cost": {
+              "value": 3472.398166766645,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "consumables_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "allocated_tooling_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "maintenance_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "facility_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "other_utilities_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "paid_coverage_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "recovery_credit": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        },
+        "cost_model_source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result; recurring fixed allocations are in annual_fixed_cost, with explicit zero batch allocations to avoid double counting",
+        "capacity_model_source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result; supplied nominal full-batch times exclude additional annual unscheduled/downtime factors, applied once",
+        "upfront": {
+          "equipment": {
+            "value": 300,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "installation": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "integration": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "training": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          }
+        },
+        "annual_fixed_cost": {
+          "value": 75,
+          "unit": "USD/year",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "scheduled_hours": {
+          "value": 1000,
+          "unit": "h/year",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "utilization": {
+          "value": 0.8,
+          "unit": "fraction",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "downtime": {
+          "value": 0.1,
+          "unit": "fraction",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "useful_life": {
+          "value": 5,
+          "unit": "years",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        }
+      }
+    },
+    {
+      "id": "cw02",
+      "label": "CW-02 coordinated winder",
+      "equipment": [
+        "Stepper spindle and synchronized traverse",
+        "Removable mandrel clamp and wire guide",
+        "Passive dancer/spool brake and tension sensor",
+        "Camera/backlight and manual cutting/release tools"
+      ],
+      "controls": [
+        "Proposed controller coordinates spindle and traverse",
+        "Proposed sensing supports tension/inspection",
+        "Manual loading, cutting, removal and acceptance remain"
+      ],
+      "measurement_gaps": [
+        "Pitch/tension calibration and springback",
+        "Full-boundary labor, energy and accepted output",
+        "Installed cost, software/integration effort and reliability",
+        "Actual equivalent coil acceptance and maintenance"
+      ],
+      "option": {
+        "process": {
+          "schema_version": 1,
+          "configuration_id": "cw02-hypothetical-full-boundary",
+          "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+          "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+          "acceptance_verified": false,
+          "acceptance_source": null,
+          "inputs": {
+            "accepted_count": {
+              "value": 95,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "attempted_count": {
+              "value": 100,
+              "unit": "count",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "elapsed_s": {
+              "value": 6000,
+              "unit": "s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "labor_s": {
+              "value": 5000,
+              "unit": "operator-s",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_wh": {
+              "value": 50,
+              "unit": "Wh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "consumed_stock_g": {
+              "value": 13.834700552157031,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "recoverable_scrap_g": {
+              "value": 1.0080066103733156,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Shared hypothetical mass balance using snapshots/v2/estimates.json retained_mass_g and 95 assumed accepted coils; unrecovered 0.2 g is arbitrary and no recovered credit is priced"
+            },
+            "unrecovered_waste_g": {
+              "value": 0.2,
+              "unit": "g",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "loaded_labor_rate": {
+              "value": 18,
+              "unit": "USD/operator-hour",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "electricity_rate": {
+              "value": 0.2,
+              "unit": "USD/kWh",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "stock_cost": {
+              "value": 3472.398166766645,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Shared hypothetical stock from examples/process-evaluation/coil-v2-partial.json; held equal across alternatives, not observed full-process stock"
+            },
+            "consumables_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "allocated_tooling_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "maintenance_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "facility_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "other_utilities_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "paid_coverage_cost": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            },
+            "recovery_credit": {
+              "value": 0,
+              "unit": "USD/batch",
+              "basis": "assumed",
+              "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+            }
+          },
+          "attendance": null,
+          "attendance_source": null
+        },
+        "cost_model_source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result; recurring fixed allocations are in annual_fixed_cost, with explicit zero batch allocations to avoid double counting",
+        "capacity_model_source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result; supplied nominal full-batch times exclude additional annual unscheduled/downtime factors, applied once",
+        "upfront": {
+          "equipment": {
+            "value": 877.6,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "snapshots/v2/README.md: conceptual apparatus BOM midpoint only; installation and bench excluded, no procurement quote"
+          },
+          "installation": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "integration": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          },
+          "training": {
+            "value": 0,
+            "unit": "USD",
+            "basis": "assumed",
+            "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+          }
+        },
+        "annual_fixed_cost": {
+          "value": 125,
+          "unit": "USD/year",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "scheduled_hours": {
+          "value": 1000,
+          "unit": "h/year",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "utilization": {
+          "value": 0.8,
+          "unit": "fraction",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "downtime": {
+          "value": 0.1,
+          "unit": "fraction",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        },
+        "useful_life": {
+          "value": 5,
+          "unit": "years",
+          "basis": "assumed",
+          "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+        }
+      }
+    }
+  ],
+  "horizon_years": {
+    "value": 3,
+    "unit": "years",
+    "basis": "assumed",
+    "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+  },
+  "equivalence_verified": false,
+  "equivalence_source": null,
+  "scenarios": [
+    {
+      "name": "1000-coils-per-year",
+      "annual_demand": {
+        "value": 1000,
+        "unit": "accepted outputs/year",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      }
+    },
+    {
+      "name": "10000-coils-per-year",
+      "annual_demand": {
+        "value": 10000,
+        "unit": "accepted outputs/year",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      }
+    },
+    {
+      "name": "30000-coils-per-year",
+      "annual_demand": {
+        "value": 30000,
+        "unit": "accepted outputs/year",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      }
+    },
+    {
+      "name": "10000-coils-unpriced-labor",
+      "annual_demand": {
+        "value": 10000,
+        "unit": "accepted outputs/year",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "loaded_labor_rate": {
+        "value": 0,
+        "unit": "USD/operator-hour",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      }
+    },
+    {
+      "name": "10000-coils-higher-labor-rate",
+      "annual_demand": {
+        "value": 10000,
+        "unit": "accepted outputs/year",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      },
+      "loaded_labor_rate": {
+        "value": 30,
+        "unit": "USD/operator-hour",
+        "basis": "assumed",
+        "source": "Explicit hypothetical full-boundary scenario for comparison only; not measured, a quote, or a source-video result"
+      }
+    }
+  ],
+  "limitations": [
+    "Source video and annotation are not reviewed; alternative architectures are proposed concepts.",
+    "Every alternative targets the same released-coil geometry/material/function; actual acceptance targets and equivalence remain unresolved.",
+    "No investment recommendation can be made from unverified acceptance or hypothetical inputs.",
+    "Preparation ranges and winding-only estimates are not summed or transferred into these full-boundary options.",
+    "No yield/waste advantage is assumed for automation; shared hypothetical counts and stock are used to isolate labor/capital/energy effects.",
+    "Hypothetical full-batch totals per 100 attempts: manual 10000 elapsed s / 9000 attended s / 10 Wh; motorized 8000 / 7000 / 30; CW-02 6000 / 5000 / 50. These are scenario inputs, not derived observations or automatic task sums.",
+    "Manual $100 and motorized $300 equipment budgets are arbitrary exploration values, not market prices. CW-02 $877.60 is the existing conceptual equipment midpoint only.",
+    "Installation/integration/training and selected batch cost components are explicitly assumed zero for this scenario. Actual evidence lane keeps them unknown; zero-priced engineering is not proof of zero effort.",
+    "Annual fixed costs of $50/$75/$125, 1000 scheduled h/year, utilization 0.8, additional downtime 0.1 and 5-year useful life are unmeasured scenario assumptions.",
+    "Base labor $18/operator-hour and electricity $0.20/kWh are hypothetical shared rates; sensitivity explores labor $0 and $30. Unpriced labor does not remove operator time.",
+    "95 accepted / 100 attempted is a shared hypothetical 95% accepted fraction, not evidence of yield. All accepted-output metrics remain conditional.",
+    "Stock cost dominates this example and is held identical; recoverable scrap about 1.008 g from the shared hypothetical material balance, unrecovered waste 0.2 g and recovery credit $0 are arbitrary shared assumptions. No waste reduction is claimed.",
+    "Linear economics hold the 100-attempt batch assumptions constant across annual demand. No batch-size scale advantage, financing, tax, resale or replacement is modeled."
+  ]
+}

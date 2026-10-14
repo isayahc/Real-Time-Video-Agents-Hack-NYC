@@ -1,0 +1,27 @@
+{
+  "tests": {
+    "passed": 70,
+    "failed": 0,
+    "skipped": 0
+  },
+  "physical_validation": false,
+  "live_inference": false,
+  "runs": {
+    "evidence": {
+      "network_blocked_replay_passed": true,
+      "byte_identical": true,
+      "pairwise_cases": 3,
+      "input_sha256": "6f521ae4de73621d6b7b6c1441fe02f57e91d6b1b6b005eee8986b326f20fc3e",
+      "report_sha256": "12fe787ac982cb04b09cd9bccb3a5737841602a298476ab72ad0abc183130b7f",
+      "summary_sha256": "db2305b8e0014b678d2a186435eee6b7ab8ff4df946d05cf69a2c1ca3aeb94ae"
+    },
+    "illustrative": {
+      "network_blocked_replay_passed": true,
+      "byte_identical": true,
+      "pairwise_cases": 15,
+      "input_sha256": "35af6f469a74414bf1c4e147a200364624c6b8adce9fbc7ffc379dac784869e9",
+      "report_sha256": "3042975d81802bbbe8b14796671a464dbe6f7e62c2aef31e2d39519c34e19722",
+      "summary_sha256": "e1028bc85aec032c90afa4e059af74a3b861b29e12022bc7eb9d39dccee60767"
+    }
+  }
+}
