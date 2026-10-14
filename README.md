@@ -10,7 +10,7 @@ Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus
 4. Validates the returned object/action/state graph against the sampled frames and timeline.
 5. Calls an explicitly selected NVIDIA model through Nebius Token Factory to derive embodiment-independent operations and capabilities. Capabilities reference operations; operations reference source actions; actions reference video frames.
 6. Stores possible off-camera preparation separately as unverified candidates. Numerical parameters, costs, labor, power and byproducts require separate sourced engineering inputs; unknowns stay null.
-7. Exports a generic apparatus requirements request. The current Forma generation API binding, geometry generation, plant simulation and automatic accounting adapters are subsequent integrations. The local process evaluator accepts separately supplied resource/cost inputs.
+7. Exports typed apparatus requirements consumed by the Forma/OpenIndustries build command. Plant simulation and automatic cost/resource adapters remain subsequent integrations; the local evaluator accepts separately supplied resource/cost inputs.
 
 This is sampled-frame visual reasoning, not continuous YOLO tracking, measured motion/force, physical validation or proof of experiment success. Merely naming a tool does not establish its function. No default model IDs are assumed to be available for your account. Live Nebius inference has not been verified in this checkout; tests exercise deterministic contracts and local ffmpeg ingestion.
 
@@ -54,7 +54,7 @@ Outputs are JSON-validated without repairing malformed responses. Empty observat
 | `observations.json` | Model-inferred objects, actions and changes with evidence/confidence. |
 | `protocol-plan.json` | Derived operations, apparatus capabilities, preprocessing hypotheses and unknowns. |
 | `engineering-inputs.json` | Separately supplied specifications, assumptions and measurements. |
-| `apparatus-request.json` | Generic requirements handoff; not yet sent to Forma. |
+| `apparatus-request.json` | Typed requirements handoff; submit through the build command. |
 | `*-provider-trace.json` | Requested/served model, response, token usage and latency. |
 
 ## Engineering inputs
@@ -110,4 +110,8 @@ python -m protocol_pipeline compare \
 
 ## Versioned iteration loop
 
-The [iteration controller](examples/iteration-loop/) records predictions, attaches evidence-labeled outcomes, flags deviations and reevaluates explicit revision proposals through process and investment accounting. Records are append-only with hashed lineage; illustrative runs remain distinguished from physical/simulation evidence. Data collection and automatic Forma/OpenIndustries revision generation remain separate integrations.
+The [iteration controller](examples/iteration-loop/) records predictions, attaches evidence-labeled outcomes, flags deviations and reevaluates explicit revision proposals through process and investment accounting. Records are append-only with hashed lineage; illustrative runs remain distinguished from physical/simulation evidence. The build command links Forma/OpenIndustries artifacts to a prediction/revision and carries proposed changes into synthesis; physical data collection remains separate.
+
+## Apparatus and scene build
+
+The [design adapter](examples/design-handoff/) calls Forma Core and OpenIndustries native import/export plus local MCP room tools, with explicit live/simulation/replay modes. It records validation, source-prediction lineage and artifact hashes. Local simulation and CW-02 replay integration were verified; live generation still needs provider configuration.

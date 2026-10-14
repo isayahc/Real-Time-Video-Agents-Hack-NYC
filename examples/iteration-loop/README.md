@@ -1,6 +1,6 @@
 # Predict → observe → compare → revise → reevaluate
 
-The iteration controller connects process resource accounting and investment comparison for [epic #17](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/17). It accepts supplied runs and explicit revision proposals. Data collection, causal diagnosis and Forma/OpenIndustries generation remain separate integrations.
+The iteration controller connects process resource accounting and investment comparison for [epic #17](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/17). It accepts supplied runs and explicit revision proposals. The [design adapter](../design-handoff/) links a prediction/revision to Forma/OpenIndustries generation; data collection and causal diagnosis remain separate.
 
 ## Run the illustrative loop
 

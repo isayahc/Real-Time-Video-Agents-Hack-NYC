@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "physical_validation": false,
+  "live_generation_tested": false,
+  "live_blocker": "No generation-provider credentials configured in this environment",
+  "unit_tests_passed": 53,
+  "runs": [
+    {
+      "basis": "real Forma simulation API and actual OI stdio MCP",
+      "mode": "simulation",
+      "forma_core_version": "0.3.6",
+      "generation_called": true,
+      "schema_valid": true,
+      "deterministic_is_valid": false,
+      "bom_lines": 5,
+      "native_oi_import": true,
+      "actual_mcp_create_read_room": true,
+      "parts": 5,
+      "retained_bom_lines": 5,
+      "portable_roundtrip": true,
+      "source_project_sha256": "2b209a5a7c6d4a6d72c07685921821f395ef2fdb8228e76697ec439430ea05b5",
+      "native_scene_sha256": "93e8e59551628670e6ea98f3870f241d0868283f6504a59032e679f3d3864560",
+      "requirement_coverage": "unverified",
+      "cloud_scene_created": false
+    },
+    {
+      "basis": "existing CW-02 replay through native Forma validation and actual OI stdio MCP",
+      "mode": "replay",
+      "forma_core_version": "0.3.6",
+      "generation_called": false,
+      "schema_valid": true,
+      "deterministic_is_valid": false,
+      "bom_lines": 12,
+      "native_oi_import": true,
+      "actual_mcp_create_read_room": true,
+      "parts": 33,
+      "retained_bom_lines": 12,
+      "portable_roundtrip": true,
+      "source_project_sha256": "ebfdccdf4610b3432fc8bab605cbdffdf168feb00ddc690e68dc69ca992cb198",
+      "native_scene_sha256": "6be9f6a1c99ed16e2da20c2fd08aa1fc0733809fccc23809303eaf78e6a8c5ef",
+      "requirement_coverage": "unverified",
+      "cloud_scene_created": false
+    }
+  ],
+  "python_wheel_verified": true,
+  "explicit_simulation_overrides_canonical_dev_mode_verified": true
+}

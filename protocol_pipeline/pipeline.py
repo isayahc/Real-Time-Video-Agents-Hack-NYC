@@ -256,7 +256,7 @@ def analyze(run: Path, vision_model: str, compiler_model: str, annotation_ground
         "required_capabilities": [item.model_dump(mode="json") for item in plan.required_capabilities],
         "protocol_operations": [item.model_dump(mode="json") for item in plan.operations],
         "unresolved_requirements": plan.unresolved_requirements, "engineering_inputs": engineering.model_dump(mode="json"),
-        "note": "Generic synthesis input; not yet bound to or submitted through the current Forma generation API."})
+        "note": "Typed synthesis input for the build command; generation is a separately invoked stage with explicit runtime/mode."})
     manifest.update({"analysis_completed": True, "annotation_object_hints_sent_to_model": annotation_grounding,
                      "annotation_ground_truth_sent_to_model": False,
                      "limitations": ["Sampled-frame reasoning is not continuous tracking or physical validation.", "Preprocessing candidates are hypotheses. Missing engineering numbers remain unknown."]})

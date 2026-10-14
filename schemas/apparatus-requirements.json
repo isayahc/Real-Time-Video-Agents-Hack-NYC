@@ -1,0 +1,263 @@
+{
+  "$defs": {
+    "Capability": {
+      "additionalProperties": false,
+      "description": "An apparatus requirement mapped to source operations.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "operation_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Operation Ids",
+          "type": "array"
+        },
+        "rationale": {
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "operation_ids",
+        "rationale"
+      ],
+      "title": "Capability",
+      "type": "object"
+    },
+    "EngineeringInputs": {
+      "additionalProperties": false,
+      "description": "Supplementary inputs kept separate from original annotations and inference.",
+      "properties": {
+        "parameters": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "costs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Costs",
+          "type": "object"
+        },
+        "labor": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Labor",
+          "type": "object"
+        },
+        "power": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Power",
+          "type": "object"
+        },
+        "byproducts": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Byproducts",
+          "type": "object"
+        }
+      },
+      "title": "EngineeringInputs",
+      "type": "object"
+    },
+    "EngineeringValue": {
+      "additionalProperties": false,
+      "description": "An explicitly supplied measurement, specification or planning assumption.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "unknown",
+            "measured",
+            "supplier_specification",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "unit",
+        "basis"
+      ],
+      "title": "EngineeringValue",
+      "type": "object"
+    },
+    "Operation": {
+      "additionalProperties": false,
+      "description": "An embodiment-independent operation derived from visual action evidence.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "intent": {
+          "minLength": 1,
+          "title": "Intent",
+          "type": "string"
+        },
+        "physical_operation": {
+          "minLength": 1,
+          "title": "Physical Operation",
+          "type": "string"
+        },
+        "object_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Object Ids",
+          "type": "array"
+        },
+        "source_action_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Action Ids",
+          "type": "array"
+        },
+        "preconditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "postconditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Postconditions",
+          "type": "array"
+        },
+        "constraints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Constraints",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "intent",
+        "physical_operation",
+        "object_ids",
+        "source_action_ids",
+        "preconditions",
+        "postconditions",
+        "constraints"
+      ],
+      "title": "Operation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Reviewed-or-pending synthesis requirements emitted by protocol ingestion.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "status": {
+      "const": "candidate_requirements_requires_review",
+      "default": "candidate_requirements_requires_review",
+      "title": "Status",
+      "type": "string"
+    },
+    "required_capabilities": {
+      "items": {
+        "$ref": "#/$defs/Capability"
+      },
+      "title": "Required Capabilities",
+      "type": "array"
+    },
+    "protocol_operations": {
+      "items": {
+        "$ref": "#/$defs/Operation"
+      },
+      "title": "Protocol Operations",
+      "type": "array"
+    },
+    "unresolved_requirements": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unresolved Requirements",
+      "type": "array"
+    },
+    "engineering_inputs": {
+      "$ref": "#/$defs/EngineeringInputs"
+    },
+    "note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Note"
+    }
+  },
+  "required": [
+    "required_capabilities",
+    "protocol_operations",
+    "unresolved_requirements",
+    "engineering_inputs"
+  ],
+  "title": "ApparatusRequirements",
+  "type": "object"
+}

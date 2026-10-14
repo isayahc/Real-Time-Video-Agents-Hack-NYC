@@ -9,5 +9,11 @@ description = "Evidence-grounded CREOLab protocol and apparatus planning"
 requires-python = ">=3.11"
 dependencies = ["pydantic>=2.12,<3"]
 
+[project.optional-dependencies]
+design = ["caid-forma-core==0.3.6"]
+
 [tool.setuptools.packages.find]
 include = ["protocol_pipeline*"]
+
+[tool.setuptools.package-data]
+protocol_pipeline = ["*.mts"]

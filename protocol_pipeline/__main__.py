@@ -9,6 +9,7 @@ from .pipeline import analyze, ingest
 from .evaluation import evaluate_file
 from .investment import compare_file
 from .iteration import OutcomeRequest, PredictionRequest, RevisionRequest, observe, predict, revise
+from .design import SceneRequest, build_design
 
 
 def main() -> None:
@@ -32,6 +33,20 @@ def main() -> None:
     compare = commands.add_parser("compare", help="Compare process infrastructure cost, capacity and payback locally")
     compare.add_argument("--input", type=Path, required=True)
     compare.add_argument("--output", type=Path, required=True)
+    build = commands.add_parser("build", help="Generate/validate a Forma apparatus and native local OI scene")
+    build.add_argument("--requirements", type=Path, required=True)
+    build.add_argument("--output", type=Path, required=True)
+    build.add_argument("--forma-root", type=Path)
+    build.add_argument("--oi-root", type=Path, required=True)
+    build.add_argument("--mode", choices=("live", "simulation", "replay"), required=True)
+    build.add_argument("--brief", required=True)
+    build.add_argument("--provider")
+    build.add_argument("--model")
+    build.add_argument("--project", type=Path)
+    build.add_argument("--name", default="Protocol apparatus planning scene")
+    build.add_argument("--room", type=float, nargs=3, default=(6, 5, 3), metavar=("WIDTH", "DEPTH", "HEIGHT"))
+    build.add_argument("--store", type=Path)
+    build.add_argument("--prediction")
     for name, help_text in (("predict", "Save a versioned process/investment prediction"),
                             ("observe", "Attach an evidence-labeled outcome and calculate deviations"),
                             ("revise", "Evaluate a proposed revision responding to an outcome")):
@@ -54,6 +69,13 @@ def main() -> None:
             evaluate_file(args.input, args.output)
         elif args.command == "compare":
             compare_file(args.input, args.output)
+        elif args.command == "build":
+            result = build_design(args.requirements, args.output, args.forma_root, args.oi_root,
+                args.mode, args.brief, SceneRequest(name=args.name, room_m=tuple(args.room)),
+                args.provider, args.model, args.project, args.store, args.prediction)
+            print(json.dumps({"status": result["status"], "mode": result["mode"],
+                              "manifest": str(args.output / "design-manifest.json"),
+                              "physical_validation": False}))
         else:
             payload = args.input.read_text()
             if args.command == "predict":

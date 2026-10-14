@@ -1,0 +1,467 @@
+{
+  "$defs": {
+    "ApparatusRequirements": {
+      "additionalProperties": false,
+      "description": "Reviewed-or-pending synthesis requirements emitted by protocol ingestion.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status": {
+          "const": "candidate_requirements_requires_review",
+          "default": "candidate_requirements_requires_review",
+          "title": "Status",
+          "type": "string"
+        },
+        "required_capabilities": {
+          "items": {
+            "$ref": "#/$defs/Capability"
+          },
+          "title": "Required Capabilities",
+          "type": "array"
+        },
+        "protocol_operations": {
+          "items": {
+            "$ref": "#/$defs/Operation"
+          },
+          "title": "Protocol Operations",
+          "type": "array"
+        },
+        "unresolved_requirements": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unresolved Requirements",
+          "type": "array"
+        },
+        "engineering_inputs": {
+          "$ref": "#/$defs/EngineeringInputs"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "required_capabilities",
+        "protocol_operations",
+        "unresolved_requirements",
+        "engineering_inputs"
+      ],
+      "title": "ApparatusRequirements",
+      "type": "object"
+    },
+    "Capability": {
+      "additionalProperties": false,
+      "description": "An apparatus requirement mapped to source operations.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "operation_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Operation Ids",
+          "type": "array"
+        },
+        "rationale": {
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "operation_ids",
+        "rationale"
+      ],
+      "title": "Capability",
+      "type": "object"
+    },
+    "EngineeringInputs": {
+      "additionalProperties": false,
+      "description": "Supplementary inputs kept separate from original annotations and inference.",
+      "properties": {
+        "parameters": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "costs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Costs",
+          "type": "object"
+        },
+        "labor": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Labor",
+          "type": "object"
+        },
+        "power": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Power",
+          "type": "object"
+        },
+        "byproducts": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Byproducts",
+          "type": "object"
+        }
+      },
+      "title": "EngineeringInputs",
+      "type": "object"
+    },
+    "EngineeringValue": {
+      "additionalProperties": false,
+      "description": "An explicitly supplied measurement, specification or planning assumption.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "unknown",
+            "measured",
+            "supplier_specification",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "unit",
+        "basis"
+      ],
+      "title": "EngineeringValue",
+      "type": "object"
+    },
+    "Operation": {
+      "additionalProperties": false,
+      "description": "An embodiment-independent operation derived from visual action evidence.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "intent": {
+          "minLength": 1,
+          "title": "Intent",
+          "type": "string"
+        },
+        "physical_operation": {
+          "minLength": 1,
+          "title": "Physical Operation",
+          "type": "string"
+        },
+        "object_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Object Ids",
+          "type": "array"
+        },
+        "source_action_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Action Ids",
+          "type": "array"
+        },
+        "preconditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "postconditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Postconditions",
+          "type": "array"
+        },
+        "constraints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Constraints",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "intent",
+        "physical_operation",
+        "object_ids",
+        "source_action_ids",
+        "preconditions",
+        "postconditions",
+        "constraints"
+      ],
+      "title": "Operation",
+      "type": "object"
+    },
+    "RecordReference": {
+      "additionalProperties": false,
+      "description": "Safe store-local record identity plus a canonical-content digest.",
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "sha256"
+      ],
+      "title": "RecordReference",
+      "type": "object"
+    },
+    "SceneRequest": {
+      "additionalProperties": false,
+      "description": "Explicit planning room dimensions/pose; no automatic plant optimization.",
+      "properties": {
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "room_m": {
+          "default": [
+            6,
+            5,
+            3
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Room M",
+          "type": "array"
+        },
+        "position_m": {
+          "default": [
+            0,
+            0,
+            0
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Position M",
+          "type": "array"
+        },
+        "rotation_deg": {
+          "default": [
+            0,
+            0,
+            0
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Rotation Deg",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "SceneRequest",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Explicit live/simulation/replay mode plus immutable source prediction link.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "mode": {
+      "enum": [
+        "live",
+        "simulation",
+        "replay"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "brief": {
+      "minLength": 1,
+      "title": "Brief",
+      "type": "string"
+    },
+    "requirements": {
+      "$ref": "#/$defs/ApparatusRequirements"
+    },
+    "scene": {
+      "$ref": "#/$defs/SceneRequest"
+    },
+    "provider": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provider"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model"
+    },
+    "replay_project": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Replay Project"
+    },
+    "prediction": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RecordReference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "revision_instruction": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revision Instruction"
+    }
+  },
+  "required": [
+    "mode",
+    "brief",
+    "requirements",
+    "scene"
+  ],
+  "title": "DesignJob",
+  "type": "object"
+}

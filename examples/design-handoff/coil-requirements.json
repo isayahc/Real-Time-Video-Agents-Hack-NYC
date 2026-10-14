@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "candidate_requirements_requires_review",
+  "required_capabilities": [
+    {
+      "id": "rotate",
+      "name": "Controlled wire winding",
+      "operation_ids": [
+        "wind"
+      ],
+      "rationale": "Perform the chosen wire-to-coil transformation"
+    }
+  ],
+  "protocol_operations": [
+    {
+      "id": "wind",
+      "intent": "Produce a coil",
+      "physical_operation": "Relative rotation of wire and forming surface",
+      "object_ids": [
+        "wire",
+        "mandrel"
+      ],
+      "source_action_ids": [
+        "task-description-only"
+      ],
+      "preconditions": [
+        "Stock and forming fixture prepared"
+      ],
+      "postconditions": [
+        "Released coil inspected against source protocol"
+      ],
+      "constraints": [
+        "Wire specification, tension and final tolerances unresolved"
+      ]
+    }
+  ],
+  "unresolved_requirements": [
+    "Actual video and annotation not ingested",
+    "Output equivalence, material condition and released geometry need verification"
+  ],
+  "engineering_inputs": {
+    "parameters": {},
+    "costs": {},
+    "labor": {},
+    "power": {},
+    "byproducts": {}
+  },
+  "note": "Concept requirements from existing T1 design discussion; not a video-backed protocol"
+}
