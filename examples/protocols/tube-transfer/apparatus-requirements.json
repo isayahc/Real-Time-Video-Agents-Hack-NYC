@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "status": "candidate_requirements_requires_review",
+  "required_capabilities": [
+    {
+      "id": "cap_prepare_racks",
+      "name": "Prepare source and destination racks",
+      "operation_ids": [
+        "prepare_racks"
+      ],
+      "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture; candidate equipment: Stable rack fixture; Station coordinate reference"
+    },
+    {
+      "id": "cap_identify_tube",
+      "name": "Identify a selected empty capped tube",
+      "operation_ids": [
+        "identify_tube"
+      ],
+      "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture; candidate equipment: Manual ID entry or barcode reader; Position reference"
+    },
+    {
+      "id": "cap_grip_tube",
+      "name": "Grip the selected tube",
+      "operation_ids": [
+        "grip_tube"
+      ],
+      "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture; candidate equipment: Compliant gripper; Grip presence sensor"
+    },
+    {
+      "id": "cap_transfer_tube",
+      "name": "Move the tube between racks",
+      "operation_ids": [
+        "transfer_tube"
+      ],
+      "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture; candidate equipment: Motion stage or robot arm; Clearance envelope"
+    },
+    {
+      "id": "cap_place_release",
+      "name": "Place and release at destination",
+      "operation_ids": [
+        "place_release"
+      ],
+      "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture; candidate equipment: Rack locating fixture; Controlled gripper release"
+    },
+    {
+      "id": "cap_verify_destination",
+      "name": "Verify identity, presence and placement",
+      "operation_ids": [
+        "verify_destination"
+      ],
+      "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture; candidate equipment: Manual inspection or camera; ID log"
+    },
+    {
+      "id": "cap_reset_station",
+      "name": "Reset the station and record exceptions",
+      "operation_ids": [
+        "reset_station"
+      ],
+      "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture; candidate equipment: Controller; Event log"
+    }
+  ],
+  "protocol_operations": [
+    {
+      "id": "prepare_racks",
+      "intent": "Prepare source and destination racks",
+      "physical_operation": "Check fixture stability and coordinate references",
+      "object_ids": [
+        "source_rack",
+        "destination_rack"
+      ],
+      "source_action_ids": [
+        "Authored conceptual empty-tube transfer fixture, operation 1; not a source-video observation"
+      ],
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Prepare source and destination racks checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ]
+    },
+    {
+      "id": "identify_tube",
+      "intent": "Identify a selected empty capped tube",
+      "physical_operation": "Resolve tube ID and source/destination positions",
+      "object_ids": [
+        "tube",
+        "source_rack",
+        "destination_rack"
+      ],
+      "source_action_ids": [
+        "Authored conceptual empty-tube transfer fixture, operation 2; not a source-video observation"
+      ],
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Identify a selected empty capped tube checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ]
+    },
+    {
+      "id": "grip_tube",
+      "intent": "Grip the selected tube",
+      "physical_operation": "Secure the tube without opening or deforming it",
+      "object_ids": [
+        "tube",
+        "gripper"
+      ],
+      "source_action_ids": [
+        "Authored conceptual empty-tube transfer fixture, operation 3; not a source-video observation"
+      ],
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Grip the selected tube checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ]
+    },
+    {
+      "id": "transfer_tube",
+      "intent": "Move the tube between racks",
+      "physical_operation": "Transport through a reviewed clear path",
+      "object_ids": [
+        "tube",
+        "gripper",
+        "motion_stage"
+      ],
+      "source_action_ids": [
+        "Authored conceptual empty-tube transfer fixture, operation 4; not a source-video observation"
+      ],
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Move the tube between racks checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ]
+    },
+    {
+      "id": "place_release",
+      "intent": "Place and release at destination",
+      "physical_operation": "Seat the tube in the destination position",
+      "object_ids": [
+        "tube",
+        "destination_rack",
+        "gripper"
+      ],
+      "source_action_ids": [
+        "Authored conceptual empty-tube transfer fixture, operation 5; not a source-video observation"
+      ],
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Place and release at destination checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ]
+    },
+    {
+      "id": "verify_destination",
+      "intent": "Verify identity, presence and placement",
+      "physical_operation": "Check tube position and intact cap",
+      "object_ids": [
+        "tube",
+        "destination_rack"
+      ],
+      "source_action_ids": [
+        "Authored conceptual empty-tube transfer fixture, operation 6; not a source-video observation"
+      ],
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Verify identity, presence and placement checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ]
+    },
+    {
+      "id": "reset_station",
+      "intent": "Reset the station and record exceptions",
+      "physical_operation": "Return motion hardware to a reviewed state",
+      "object_ids": [
+        "motion_stage",
+        "gripper"
+      ],
+      "source_action_ids": [
+        "Authored conceptual empty-tube transfer fixture, operation 7; not a source-video observation"
+      ],
+      "preconditions": [
+        "Review tube/rack dimensions and candidate hardware applicability"
+      ],
+      "postconditions": [
+        "Reset the station and record exceptions checked against reviewed acceptance criteria"
+      ],
+      "constraints": [
+        "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+        "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+      ]
+    }
+  ],
+  "unresolved_requirements": [
+    "Authored concept example, not an observed laboratory protocol or equipment recommendation",
+    "The same compiler consumes this input and coil.json; capability/equipment choices are supplied, not AI-generated",
+    "Acceptance, useful throughput, resource usage and apparatus feasibility require measurement",
+    "No duration, operator burden, waste or safety envelope is inferred from operation labels",
+    "Correct tube identity at intended destination position, intact tube and cap: Define ID checks, rack occupancy, placement tolerance and damage inspection before testing",
+    "Transfer without drop, collision, cap opening or unacceptable deformation: Measure dimensions, payload and grip-force envelope; review clearances and physical handling performance"
+  ],
+  "engineering_inputs": {
+    "parameters": {},
+    "costs": {},
+    "labor": {},
+    "power": {},
+    "byproducts": {}
+  },
+  "note": "Compiled from explicitly supplied protocol data. Source references may be planning documents; this does not establish video observations, verified acceptance or physical execution."
+}

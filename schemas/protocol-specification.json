@@ -1,0 +1,437 @@
+{
+  "$defs": {
+    "AcceptanceCriterion": {
+      "additionalProperties": false,
+      "description": "An expected result requiring a defined test and evidence before acceptance.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "operation_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Operation Ids",
+          "type": "array"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "verification_needed": {
+          "minLength": 1,
+          "title": "Verification Needed",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "operation_ids",
+        "source_refs",
+        "verification_needed"
+      ],
+      "title": "AcceptanceCriterion",
+      "type": "object"
+    },
+    "EngineeringInputs": {
+      "additionalProperties": false,
+      "description": "Supplementary inputs kept separate from original annotations and inference.",
+      "properties": {
+        "parameters": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "costs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Costs",
+          "type": "object"
+        },
+        "labor": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Labor",
+          "type": "object"
+        },
+        "power": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Power",
+          "type": "object"
+        },
+        "byproducts": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Byproducts",
+          "type": "object"
+        }
+      },
+      "title": "EngineeringInputs",
+      "type": "object"
+    },
+    "EngineeringValue": {
+      "additionalProperties": false,
+      "description": "An explicitly supplied measurement, specification or planning assumption.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "unknown",
+            "measured",
+            "supplier_specification",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "unit",
+        "basis"
+      ],
+      "title": "EngineeringValue",
+      "type": "object"
+    },
+    "PlannedCapability": {
+      "additionalProperties": false,
+      "description": "A required capability mapped to operations and candidate equipment.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "operation_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Operation Ids",
+          "type": "array"
+        },
+        "candidate_equipment": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Candidate Equipment",
+          "type": "array"
+        },
+        "rationale": {
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "operation_ids",
+        "candidate_equipment",
+        "rationale"
+      ],
+      "title": "PlannedCapability",
+      "type": "object"
+    },
+    "PlannedLink": {
+      "additionalProperties": false,
+      "description": "A proposed precedence or concurrent activity relationship.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "relation": {
+          "enum": [
+            "before",
+            "during"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "basis": {
+          "default": "planning",
+          "enum": [
+            "planning",
+            "reviewed_source"
+          ],
+          "title": "Basis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "target",
+        "relation"
+      ],
+      "title": "PlannedLink",
+      "type": "object"
+    },
+    "PlannedOperation": {
+      "additionalProperties": false,
+      "description": "A sourced process operation with explicit repetition and evidence limits.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "phase": {
+          "enum": [
+            "preparation",
+            "processing",
+            "finishing"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "intent": {
+          "minLength": 1,
+          "title": "Intent",
+          "type": "string"
+        },
+        "physical_operation": {
+          "minLength": 1,
+          "title": "Physical Operation",
+          "type": "string"
+        },
+        "object_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Object Ids",
+          "type": "array"
+        },
+        "frequency": {
+          "minLength": 1,
+          "title": "Frequency",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "basis": {
+          "enum": [
+            "planning",
+            "workflow_hypothesis",
+            "reviewed_source"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "preconditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "postconditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Postconditions",
+          "type": "array"
+        },
+        "constraints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "attended_range_s": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attended Range S"
+        }
+      },
+      "required": [
+        "id",
+        "phase",
+        "intent",
+        "physical_operation",
+        "object_ids",
+        "frequency",
+        "source_refs",
+        "basis",
+        "preconditions",
+        "postconditions",
+        "constraints"
+      ],
+      "title": "PlannedOperation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Reusable protocol input with shared boundary and separate resource values.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "protocol_id": {
+      "minLength": 1,
+      "title": "Protocol Id",
+      "type": "string"
+    },
+    "title": {
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "functional_unit": {
+      "minLength": 1,
+      "title": "Functional Unit",
+      "type": "string"
+    },
+    "boundary": {
+      "minLength": 1,
+      "title": "Boundary",
+      "type": "string"
+    },
+    "operations": {
+      "items": {
+        "$ref": "#/$defs/PlannedOperation"
+      },
+      "minItems": 1,
+      "title": "Operations",
+      "type": "array"
+    },
+    "links": {
+      "items": {
+        "$ref": "#/$defs/PlannedLink"
+      },
+      "title": "Links",
+      "type": "array"
+    },
+    "capabilities": {
+      "items": {
+        "$ref": "#/$defs/PlannedCapability"
+      },
+      "minItems": 1,
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "acceptance_criteria": {
+      "items": {
+        "$ref": "#/$defs/AcceptanceCriterion"
+      },
+      "minItems": 1,
+      "title": "Acceptance Criteria",
+      "type": "array"
+    },
+    "resource_inputs": {
+      "additionalProperties": {
+        "$ref": "#/$defs/EngineeringValue"
+      },
+      "title": "Resource Inputs",
+      "type": "object"
+    },
+    "engineering_inputs": {
+      "$ref": "#/$defs/EngineeringInputs"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "protocol_id",
+    "title",
+    "functional_unit",
+    "boundary",
+    "operations",
+    "capabilities",
+    "acceptance_criteria",
+    "limitations"
+  ],
+  "title": "ProtocolSpecification",
+  "type": "object"
+}

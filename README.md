@@ -159,3 +159,12 @@ python -m scripts.verify_offline --output runs/ci-offline-001
 
 The [failure scenarios](examples/failure-replay/README.md) distinguish explicitly skipped steps from missing evidence and exercise delays/rejects through the resource evaluator. GitHub Actions runs tests and all offline workflows on Python 3.11/3.12 and retains the reports as artifacts. Application stages require no provider credits or keys.
 
+## Reusable protocol input
+
+```bash
+python -m protocol_pipeline compile-protocol \
+  --input examples/protocols/tube-transfer.json --output runs/compiled-transfer-001
+```
+
+The [shared protocol format](examples/protocols/README.md) compiles both coil winding and conceptual empty-tube transfer into the same apparatus and resource contracts. Inputs explicitly supply operations, dependencies, candidate equipment, preparation and acceptance checks; no task-specific inference or physical measurements are invented.
+

@@ -14,12 +14,16 @@ from .demo import run_demo
 from .offline import run_coil_offline
 from .alternatives import run_alternatives
 from .failures import run_failures
+from .compiler import compile_protocol_file
 
 
 def main() -> None:
     """Parse commands and execute one pipeline stage with clear failure status."""
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    compile_command = commands.add_parser("compile-protocol", help="Compile a typed process plan into apparatus requirements and resource reports")
+    compile_command.add_argument("--input", type=Path, required=True)
+    compile_command.add_argument("--output", type=Path, required=True)
     failures = commands.add_parser("failure-replay", help="Replay illustrative skipped steps, delays, rejects and incomplete observations offline")
     failures.add_argument("--repo-root", type=Path, default=Path("."))
     failures.add_argument("--output", type=Path, required=True)
@@ -81,7 +85,11 @@ def main() -> None:
             command.add_argument("--outcome", required=True)
     args = parser.parse_args()
     try:
-        if args.command == "failure-replay":
+        if args.command == "compile-protocol":
+            result = compile_protocol_file(args.input, args.output)
+            print(json.dumps({"protocol_id": result["protocol_id"], "status": result["status"],
+                              "report": str(args.output / "report.md"), "physical_validation": False}))
+        elif args.command == "failure-replay":
             result = run_failures(args.repo_root, args.output)
             print(json.dumps({"evidence_kind": "illustrative", "cases": len(result["cases"]),
                               "report": str(args.output / "report.md"), "physical_validation": False}))

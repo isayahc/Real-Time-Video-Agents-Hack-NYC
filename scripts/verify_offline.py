@@ -12,6 +12,7 @@ from protocol_pipeline.alternatives import run_alternatives
 from protocol_pipeline.demo import run_demo
 from protocol_pipeline.failures import run_failures
 from protocol_pipeline.offline import run_coil_offline
+from protocol_pipeline.compiler import compile_protocol_file
 
 
 def main() -> None:
@@ -30,11 +31,13 @@ def main() -> None:
         for name in ("evidence", "illustrative"):
             run_alternatives(root / f"examples/apparatus-alternatives/{name}-input.json", args.output / name)
         run_failures(root, args.output / "failures")
+        for name in ("coil", "tube-transfer"):
+            compile_protocol_file(root / f"examples/protocols/{name}.json", args.output / ("compiled-" + name))
     checks = {"status": "passed", "network_connections_blocked": True, "physical_validation": False,
               "artifacts_sha256": {str(path.relative_to(args.output)): hashlib.sha256(path.read_bytes()).hexdigest()
                                    for path in sorted(args.output.rglob("*")) if path.is_file()}}
     (args.output / "checks.json").write_text(json.dumps(checks, indent=2) + "\n")
-    print(json.dumps({"status": "passed", "workflows": 5, "network_connections_blocked": True}))
+    print(json.dumps({"status": "passed", "workflows": 7, "network_connections_blocked": True}))
 
 
 if __name__ == "__main__":
