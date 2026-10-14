@@ -5,6 +5,7 @@ import argparse
 import subprocess
 from pathlib import Path
 from .pipeline import analyze, ingest
+from .evaluation import evaluate_file
 
 
 def main() -> None:
@@ -22,12 +23,17 @@ def main() -> None:
     infer.add_argument("--vision-model", required=True)
     infer.add_argument("--compiler-model", required=True)
     infer.add_argument("--annotation-grounding", action="store_true", help="Supply first-frame object annotation hints; never procedure ground truth")
+    evaluate = commands.add_parser("evaluate", help="Calculate process resources and cost locally; no model calls")
+    evaluate.add_argument("--input", type=Path, required=True)
+    evaluate.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
         if args.command == "ingest":
             ingest(args.video, args.annotation, args.output, args.frames, args.engineering_inputs)
-        else:
+        elif args.command == "analyze":
             analyze(args.run, args.vision_model, args.compiler_model, args.annotation_grounding)
+        else:
+            evaluate_file(args.input, args.output)
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
         parser.exit(1, f"Pipeline failed: {error}\n")
 

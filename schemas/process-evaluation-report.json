@@ -1,0 +1,337 @@
+{
+  "$defs": {
+    "AttendanceInterval": {
+      "additionalProperties": false,
+      "description": "Sourced attended labor interval, in seconds from the batch origin.",
+      "properties": {
+        "operator_id": {
+          "minLength": 1,
+          "title": "Operator Id",
+          "type": "string"
+        },
+        "start_s": {
+          "minimum": 0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "minimum": 0,
+          "title": "End S",
+          "type": "number"
+        },
+        "basis": {
+          "enum": [
+            "measured",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operator_id",
+        "start_s",
+        "end_s",
+        "basis",
+        "source"
+      ],
+      "title": "AttendanceInterval",
+      "type": "object"
+    },
+    "EngineeringValue": {
+      "additionalProperties": false,
+      "description": "An explicitly supplied measurement, specification or planning assumption.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "unknown",
+            "measured",
+            "supplier_specification",
+            "assumed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "unit",
+        "basis"
+      ],
+      "title": "EngineeringValue",
+      "type": "object"
+    },
+    "Metric": {
+      "additionalProperties": false,
+      "description": "A calculated value, or an explicit explanation of why it is unknown.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "calculated",
+            "unknown",
+            "undefined"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "derived_from_sourced_inputs",
+            "includes_assumptions",
+            "unknown"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "missing_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Inputs",
+          "type": "array"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "status",
+        "basis",
+        "dependencies"
+      ],
+      "title": "Metric",
+      "type": "object"
+    },
+    "ProcessEvaluationInput": {
+      "additionalProperties": false,
+      "description": "One batch with explicit units, boundary and acceptance provenance.\n\nMissing inputs remain unknown. Attendance intervals or an aggregate labor\nvalue may be supplied, never both. Rates must match the report's USD currency.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "configuration_id": {
+          "minLength": 1,
+          "title": "Configuration Id",
+          "type": "string"
+        },
+        "functional_unit": {
+          "minLength": 1,
+          "title": "Functional Unit",
+          "type": "string"
+        },
+        "boundary": {
+          "minLength": 1,
+          "title": "Boundary",
+          "type": "string"
+        },
+        "acceptance_verified": {
+          "default": false,
+          "title": "Acceptance Verified",
+          "type": "boolean"
+        },
+        "acceptance_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Acceptance Source"
+        },
+        "inputs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/EngineeringValue"
+          },
+          "title": "Inputs",
+          "type": "object"
+        },
+        "attendance": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/AttendanceInterval"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attendance"
+        },
+        "attendance_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attendance Source"
+        }
+      },
+      "required": [
+        "configuration_id",
+        "functional_unit",
+        "boundary"
+      ],
+      "title": "ProcessEvaluationInput",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Versioned batch accounting with an immutable serialized input snapshot.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "evaluator_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Evaluator Version",
+      "type": "string"
+    },
+    "configuration_id": {
+      "title": "Configuration Id",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "complete_for_declared_boundary",
+        "partial"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "acceptance_verified": {
+      "title": "Acceptance Verified",
+      "type": "boolean"
+    },
+    "metrics": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Metric"
+      },
+      "title": "Metrics",
+      "type": "object"
+    },
+    "costs_usd_per_batch": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Metric"
+      },
+      "title": "Costs Usd Per Batch",
+      "type": "object"
+    },
+    "known_cost_subtotal_usd_per_batch": {
+      "title": "Known Cost Subtotal Usd Per Batch",
+      "type": "number"
+    },
+    "unknown_cost_components": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unknown Cost Components",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    },
+    "input_snapshot": {
+      "$ref": "#/$defs/ProcessEvaluationInput"
+    }
+  },
+  "required": [
+    "configuration_id",
+    "status",
+    "acceptance_verified",
+    "metrics",
+    "costs_usd_per_batch",
+    "known_cost_subtotal_usd_per_batch",
+    "unknown_cost_components",
+    "warnings",
+    "input_snapshot"
+  ],
+  "title": "ProcessEvaluationReport",
+  "type": "object"
+}

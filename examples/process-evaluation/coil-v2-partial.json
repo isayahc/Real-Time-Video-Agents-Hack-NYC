@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "configuration_id": "CW-02-winding-only-planning-example",
+  "functional_unit": "One nominal coil assumed accepted; actual acceptance specification unresolved",
+  "boundary": "Winding cycles only: excludes preprocessing, cleanup, downtime and additional attended work. Not a full-process comparison.",
+  "acceptance_verified": false,
+  "acceptance_source": null,
+  "inputs": {
+    "accepted_count": {
+      "value": 95.0,
+      "unit": "count",
+      "basis": "assumed",
+      "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+    },
+    "attempted_count": {
+      "value": 100.0,
+      "unit": "count",
+      "basis": "assumed",
+      "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+    },
+    "elapsed_s": {
+      "value": 3000.0,
+      "unit": "s",
+      "basis": "assumed",
+      "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+    },
+    "labor_s": {
+      "value": 1500.0,
+      "unit": "operator-s",
+      "basis": "assumed",
+      "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+    },
+    "electricity_wh": {
+      "value": 15.833333333333332,
+      "unit": "Wh",
+      "basis": "assumed",
+      "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+    },
+    "consumed_stock_g": {
+      "value": 13.834700552157031,
+      "unit": "g",
+      "basis": "assumed",
+      "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+    },
+    "recoverable_scrap_g": {
+      "value": null,
+      "unit": "g",
+      "basis": "unknown",
+      "source": null
+    },
+    "unrecovered_waste_g": {
+      "value": null,
+      "unit": "g",
+      "basis": "unknown",
+      "source": null
+    },
+    "loaded_labor_rate": {
+      "value": null,
+      "unit": "USD/operator-hour",
+      "basis": "unknown",
+      "source": null
+    },
+    "electricity_rate": {
+      "value": null,
+      "unit": "USD/kWh",
+      "basis": "unknown",
+      "source": null
+    },
+    "stock_cost": {
+      "value": 3472.398166766645,
+      "unit": "USD/batch",
+      "basis": "assumed",
+      "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+    },
+    "consumables_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "allocated_tooling_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "maintenance_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "facility_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "other_utilities_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "paid_coverage_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "recovery_credit": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    }
+  },
+  "attendance": null,
+  "attendance_source": null
+}

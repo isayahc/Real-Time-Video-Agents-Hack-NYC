@@ -10,7 +10,7 @@ Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus
 4. Validates the returned object/action/state graph against the sampled frames and timeline.
 5. Calls an explicitly selected NVIDIA model through Nebius Token Factory to derive embodiment-independent operations and capabilities. Capabilities reference operations; operations reference source actions; actions reference video frames.
 6. Stores possible off-camera preparation separately as unverified candidates. Numerical parameters, costs, labor, power and byproducts require separate sourced engineering inputs; unknowns stay null.
-7. Exports a generic apparatus requirements request. The current Forma generation API binding, geometry generation, plant simulation and economics evaluation are subsequent integrations.
+7. Exports a generic apparatus requirements request. The current Forma generation API binding, geometry generation, plant simulation and automatic accounting adapters are subsequent integrations. The local process evaluator accepts separately supplied resource/cost inputs.
 
 This is sampled-frame visual reasoning, not continuous YOLO tracking, measured motion/force, physical validation or proof of experiment success. Merely naming a tool does not establish its function. No default model IDs are assumed to be available for your account. Live Nebius inference has not been verified in this checkout; tests exercise deterministic contracts and local ffmpeg ingestion.
 
@@ -87,3 +87,13 @@ Keep downloaded data, runtime frames, annotations and provider outputs outside G
 ## Full manual baseline
 
 The [coil-winding benchmark](benchmarks/coil-winding/) defines the full manual workflow, human labor/resource boundary, acceptance gates and an event-level measurement template for [epic #17](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/17). Its metrics remain unknown until a reviewed full run is recorded; existing snapshot estimates are not measured baseline values.
+
+## Process evaluation
+
+The [deterministic evaluator](examples/process-evaluation/) calculates recurring cost, labor, energy and material/waste quantities per accepted output from sourced batch inputs. Unknown inputs remain null; operator attendance overlaps are merged; reports preserve inputs and assumptions. It does not yet implement investment comparison or the feedback controller.
+
+```bash
+python -m protocol_pipeline evaluate \
+  --input examples/process-evaluation/coil-v2-partial.json \
+  --output /tmp/coil-process-report.json
+```

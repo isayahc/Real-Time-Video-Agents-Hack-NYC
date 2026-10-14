@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "evaluator_version": "1.0",
+  "configuration_id": "CW-02-winding-only-planning-example",
+  "status": "partial",
+  "acceptance_verified": false,
+  "metrics": {
+    "labor_s_per_accepted": {
+      "value": 15.789473684210526,
+      "unit": "operator-s/accepted output",
+      "status": "calculated",
+      "basis": "includes_assumptions",
+      "dependencies": [
+        "labor_s",
+        "accepted_count"
+      ],
+      "missing_inputs": [],
+      "reason": null
+    },
+    "electricity_wh_per_accepted": {
+      "value": 0.16666666666666666,
+      "unit": "Wh/accepted output",
+      "status": "calculated",
+      "basis": "includes_assumptions",
+      "dependencies": [
+        "electricity_wh",
+        "accepted_count"
+      ],
+      "missing_inputs": [],
+      "reason": null
+    },
+    "stock_g_per_accepted": {
+      "value": 0.14562842686481084,
+      "unit": "g/accepted output",
+      "status": "calculated",
+      "basis": "includes_assumptions",
+      "dependencies": [
+        "consumed_stock_g",
+        "accepted_count"
+      ],
+      "missing_inputs": [],
+      "reason": null
+    },
+    "recoverable_scrap_g_per_accepted": {
+      "value": null,
+      "unit": "g/accepted output",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "recoverable_scrap_g",
+        "accepted_count"
+      ],
+      "missing_inputs": [
+        "recoverable_scrap_g"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "unrecovered_waste_g_per_accepted": {
+      "value": null,
+      "unit": "g/accepted output",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "unrecovered_waste_g",
+        "accepted_count"
+      ],
+      "missing_inputs": [
+        "unrecovered_waste_g"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "accepted_outputs_per_hour": {
+      "value": 114.0,
+      "unit": "accepted outputs/hour",
+      "status": "calculated",
+      "basis": "includes_assumptions",
+      "dependencies": [
+        "accepted_count",
+        "elapsed_s"
+      ],
+      "missing_inputs": [],
+      "reason": null
+    },
+    "accepted_fraction": {
+      "value": 0.95,
+      "unit": "fraction",
+      "status": "calculated",
+      "basis": "includes_assumptions",
+      "dependencies": [
+        "accepted_count",
+        "attempted_count"
+      ],
+      "missing_inputs": [],
+      "reason": null
+    },
+    "total_cost_usd_per_batch": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "stock_cost",
+        "consumables_cost",
+        "allocated_tooling_cost",
+        "maintenance_cost",
+        "facility_cost",
+        "other_utilities_cost",
+        "paid_coverage_cost",
+        "recovery_credit",
+        "labor_s",
+        "loaded_labor_rate",
+        "electricity_wh",
+        "electricity_rate"
+      ],
+      "missing_inputs": [
+        "consumables_cost",
+        "allocated_tooling_cost",
+        "maintenance_cost",
+        "facility_cost",
+        "other_utilities_cost",
+        "paid_coverage_cost",
+        "recovery_credit",
+        "loaded_labor_rate",
+        "electricity_rate"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "cost_usd_per_accepted": {
+      "value": null,
+      "unit": "USD/accepted output",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "stock_cost",
+        "consumables_cost",
+        "allocated_tooling_cost",
+        "maintenance_cost",
+        "facility_cost",
+        "other_utilities_cost",
+        "paid_coverage_cost",
+        "recovery_credit",
+        "labor_s",
+        "loaded_labor_rate",
+        "electricity_wh",
+        "electricity_rate",
+        "accepted_count"
+      ],
+      "missing_inputs": [
+        "consumables_cost",
+        "allocated_tooling_cost",
+        "maintenance_cost",
+        "facility_cost",
+        "other_utilities_cost",
+        "paid_coverage_cost",
+        "recovery_credit",
+        "loaded_labor_rate",
+        "electricity_rate"
+      ],
+      "reason": "Required inputs are unknown"
+    }
+  },
+  "costs_usd_per_batch": {
+    "stock_cost": {
+      "value": 3472.398166766645,
+      "unit": "USD/batch",
+      "status": "calculated",
+      "basis": "includes_assumptions",
+      "dependencies": [
+        "stock_cost"
+      ],
+      "missing_inputs": [],
+      "reason": null
+    },
+    "consumables_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "consumables_cost"
+      ],
+      "missing_inputs": [
+        "consumables_cost"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "allocated_tooling_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "allocated_tooling_cost"
+      ],
+      "missing_inputs": [
+        "allocated_tooling_cost"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "maintenance_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "maintenance_cost"
+      ],
+      "missing_inputs": [
+        "maintenance_cost"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "facility_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "facility_cost"
+      ],
+      "missing_inputs": [
+        "facility_cost"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "other_utilities_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "other_utilities_cost"
+      ],
+      "missing_inputs": [
+        "other_utilities_cost"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "paid_coverage_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "paid_coverage_cost"
+      ],
+      "missing_inputs": [
+        "paid_coverage_cost"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "recovery_credit": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "recovery_credit"
+      ],
+      "missing_inputs": [
+        "recovery_credit"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "labor_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "labor_s",
+        "loaded_labor_rate"
+      ],
+      "missing_inputs": [
+        "loaded_labor_rate"
+      ],
+      "reason": "Required inputs are unknown"
+    },
+    "electricity_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "status": "unknown",
+      "basis": "unknown",
+      "dependencies": [
+        "electricity_wh",
+        "electricity_rate"
+      ],
+      "missing_inputs": [
+        "electricity_rate"
+      ],
+      "reason": "Required inputs are unknown"
+    }
+  },
+  "known_cost_subtotal_usd_per_batch": 3472.398166766645,
+  "unknown_cost_components": [
+    "consumables_cost",
+    "allocated_tooling_cost",
+    "maintenance_cost",
+    "facility_cost",
+    "other_utilities_cost",
+    "paid_coverage_cost",
+    "recovery_credit",
+    "labor_cost",
+    "electricity_cost"
+  ],
+  "warnings": [
+    "Completeness applies only to the declared boundary; capital investment and payback are not evaluated.",
+    "Output acceptance/equivalence is unverified; results are conditional and not ready for a validated comparison.",
+    "Known cost subtotal is partial and is not the total cost or necessarily a lower bound.",
+    "Results include planning assumptions, not exclusively measured performance."
+  ],
+  "input_snapshot": {
+    "schema_version": 1,
+    "configuration_id": "CW-02-winding-only-planning-example",
+    "functional_unit": "One nominal coil assumed accepted; actual acceptance specification unresolved",
+    "boundary": "Winding cycles only: excludes preprocessing, cleanup, downtime and additional attended work. Not a full-process comparison.",
+    "acceptance_verified": false,
+    "acceptance_source": null,
+    "inputs": {
+      "accepted_count": {
+        "value": 95.0,
+        "unit": "count",
+        "basis": "assumed",
+        "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+      },
+      "attempted_count": {
+        "value": 100.0,
+        "unit": "count",
+        "basis": "assumed",
+        "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+      },
+      "elapsed_s": {
+        "value": 3000.0,
+        "unit": "s",
+        "basis": "assumed",
+        "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+      },
+      "labor_s": {
+        "value": 1500.0,
+        "unit": "operator-s",
+        "basis": "assumed",
+        "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+      },
+      "electricity_wh": {
+        "value": 15.833333333333332,
+        "unit": "Wh",
+        "basis": "assumed",
+        "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+      },
+      "consumed_stock_g": {
+        "value": 13.834700552157031,
+        "unit": "g",
+        "basis": "assumed",
+        "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+      },
+      "recoverable_scrap_g": {
+        "value": null,
+        "unit": "g",
+        "basis": "unknown",
+        "source": null
+      },
+      "unrecovered_waste_g": {
+        "value": null,
+        "unit": "g",
+        "basis": "unknown",
+        "source": null
+      },
+      "loaded_labor_rate": {
+        "value": null,
+        "unit": "USD/operator-hour",
+        "basis": "unknown",
+        "source": null
+      },
+      "electricity_rate": {
+        "value": null,
+        "unit": "USD/kWh",
+        "basis": "unknown",
+        "source": null
+      },
+      "stock_cost": {
+        "value": 3472.398166766645,
+        "unit": "USD/batch",
+        "basis": "assumed",
+        "source": "snapshots/v2/estimates.json: 100-attempt illustrative winding-only batch; not observed"
+      },
+      "consumables_cost": {
+        "value": null,
+        "unit": "USD/batch",
+        "basis": "unknown",
+        "source": null
+      },
+      "allocated_tooling_cost": {
+        "value": null,
+        "unit": "USD/batch",
+        "basis": "unknown",
+        "source": null
+      },
+      "maintenance_cost": {
+        "value": null,
+        "unit": "USD/batch",
+        "basis": "unknown",
+        "source": null
+      },
+      "facility_cost": {
+        "value": null,
+        "unit": "USD/batch",
+        "basis": "unknown",
+        "source": null
+      },
+      "other_utilities_cost": {
+        "value": null,
+        "unit": "USD/batch",
+        "basis": "unknown",
+        "source": null
+      },
+      "paid_coverage_cost": {
+        "value": null,
+        "unit": "USD/batch",
+        "basis": "unknown",
+        "source": null
+      },
+      "recovery_credit": {
+        "value": null,
+        "unit": "USD/batch",
+        "basis": "unknown",
+        "source": null
+      }
+    },
+    "attendance": null,
+    "attendance_source": null
+  }
+}
