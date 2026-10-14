@@ -15,12 +15,22 @@ from .offline import run_coil_offline
 from .alternatives import run_alternatives
 from .failures import run_failures
 from .compiler import compile_protocol_file
+from .extraction import create_provider, extract_protocol
 
 
 def main() -> None:
     """Parse commands and execute one pipeline stage with clear failure status."""
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    extraction = commands.add_parser("extract-protocol", help="Extract and compile a candidate protocol using a selected provider")
+    sources = extraction.add_mutually_exclusive_group(required=True)
+    sources.add_argument("--text", type=Path)
+    sources.add_argument("--run", type=Path, help="Existing verified sampled-frame ingestion run")
+    extraction.add_argument("--provider", choices=("nebius", "replay"), required=True)
+    extraction.add_argument("--model", required=True, help="Explicit text/compiler model ID")
+    extraction.add_argument("--vision-model", help="Explicit vision model ID for --run")
+    extraction.add_argument("--replay", type=Path, help="Recorded responses; only for --provider replay")
+    extraction.add_argument("--output", type=Path, required=True)
     compile_command = commands.add_parser("compile-protocol", help="Compile a typed process plan into apparatus requirements and resource reports")
     compile_command.add_argument("--input", type=Path, required=True)
     compile_command.add_argument("--output", type=Path, required=True)
@@ -85,7 +95,13 @@ def main() -> None:
             command.add_argument("--outcome", required=True)
     args = parser.parse_args()
     try:
-        if args.command == "compile-protocol":
+        if args.command == "extract-protocol":
+            result = extract_protocol(create_provider(args.provider, args.replay), args.model, args.output,
+                                      args.text, args.run, args.vision_model)
+            print(json.dumps({"status": result["status"], "provider": result["provider"],
+                              "live_inference": result["live_inference"], "physical_validation": False,
+                              "report": str(args.output / "compiled/report.md")}))
+        elif args.command == "compile-protocol":
             result = compile_protocol_file(args.input, args.output)
             print(json.dumps({"protocol_id": result["protocol_id"], "status": result["status"],
                               "report": str(args.output / "report.md"), "physical_validation": False}))

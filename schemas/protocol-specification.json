@@ -210,7 +210,8 @@
           "default": "planning",
           "enum": [
             "planning",
-            "reviewed_source"
+            "reviewed_source",
+            "model_inference"
           ],
           "title": "Basis",
           "type": "string"
@@ -277,7 +278,8 @@
           "enum": [
             "planning",
             "workflow_hypothesis",
-            "reviewed_source"
+            "reviewed_source",
+            "model_inference"
           ],
           "title": "Basis",
           "type": "string"

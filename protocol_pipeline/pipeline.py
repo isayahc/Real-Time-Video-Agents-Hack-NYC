@@ -168,9 +168,13 @@ class NebiusClient:
                 raise RuntimeError(f"Nebius HTTP {error.code}; check model access, credits and API configuration.") from None
             except URLError:
                 raise RuntimeError("Nebius network request failed; no result was validated.") from None
+        if not isinstance(raw, dict) or not isinstance(raw.get("choices"), list) or not raw["choices"] or not isinstance(raw["choices"][0], dict):
+            raise ValueError("Provider response has no valid completion choice.")
         choice = raw["choices"][0]
         if choice.get("finish_reason") != "stop":
             raise ValueError("Provider did not return a complete response.")
+        if not isinstance(choice.get("message"), dict):
+            raise ValueError("Provider response has no valid message.")
         text = choice["message"].get("content")
         if not isinstance(text, str) or not text.strip():
             raise ValueError("Provider returned no visible JSON content.")
@@ -261,3 +265,4 @@ def analyze(run: Path, vision_model: str, compiler_model: str, annotation_ground
                      "annotation_ground_truth_sent_to_model": False,
                      "limitations": ["Sampled-frame reasoning is not continuous tracking or physical validation.", "Preprocessing candidates are hypotheses. Missing engineering numbers remain unknown."]})
     save_json(run / "manifest.json", manifest)
+

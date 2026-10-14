@@ -1,0 +1,474 @@
+{
+  "responses": [
+    {
+      "contract": "ProtocolSpecification",
+      "response": {
+        "schema_version": 1,
+        "protocol_id": "empty-tube-transfer-unmeasured",
+        "title": "Empty capped tube transfer candidate protocol",
+        "functional_unit": "One identified empty capped tube transferred intact into its intended destination rack position",
+        "boundary": "Source/destination rack preparation through placement verification, exception logging and station reset",
+        "operations": [
+          {
+            "id": "prepare_racks",
+            "phase": "preparation",
+            "intent": "Prepare source and destination racks",
+            "physical_operation": "Check fixture stability and coordinate references",
+            "object_ids": [
+              "source_rack",
+              "destination_rack"
+            ],
+            "frequency": "per_batch",
+            "source_refs": [
+              "text:L1-L1"
+            ],
+            "basis": "model_inference",
+            "preconditions": [
+              "Review tube/rack dimensions and candidate hardware applicability"
+            ],
+            "postconditions": [
+              "Prepare source and destination racks checked against reviewed acceptance criteria"
+            ],
+            "constraints": [
+              "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+              "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+            ],
+            "attended_range_s": null
+          },
+          {
+            "id": "identify_tube",
+            "phase": "processing",
+            "intent": "Identify a selected empty capped tube",
+            "physical_operation": "Resolve tube ID and source/destination positions",
+            "object_ids": [
+              "tube",
+              "source_rack",
+              "destination_rack"
+            ],
+            "frequency": "per_attempt",
+            "source_refs": [
+              "text:L2-L2"
+            ],
+            "basis": "model_inference",
+            "preconditions": [
+              "Review tube/rack dimensions and candidate hardware applicability"
+            ],
+            "postconditions": [
+              "Identify a selected empty capped tube checked against reviewed acceptance criteria"
+            ],
+            "constraints": [
+              "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+              "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+            ],
+            "attended_range_s": null
+          },
+          {
+            "id": "grip_tube",
+            "phase": "processing",
+            "intent": "Grip the selected tube",
+            "physical_operation": "Secure the tube without opening or deforming it",
+            "object_ids": [
+              "tube",
+              "gripper"
+            ],
+            "frequency": "per_attempt",
+            "source_refs": [
+              "text:L3-L3"
+            ],
+            "basis": "model_inference",
+            "preconditions": [
+              "Review tube/rack dimensions and candidate hardware applicability"
+            ],
+            "postconditions": [
+              "Grip the selected tube checked against reviewed acceptance criteria"
+            ],
+            "constraints": [
+              "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+              "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+            ],
+            "attended_range_s": null
+          },
+          {
+            "id": "transfer_tube",
+            "phase": "processing",
+            "intent": "Move the tube between racks",
+            "physical_operation": "Transport through a reviewed clear path",
+            "object_ids": [
+              "tube",
+              "gripper",
+              "motion_stage"
+            ],
+            "frequency": "per_attempt",
+            "source_refs": [
+              "text:L4-L4"
+            ],
+            "basis": "model_inference",
+            "preconditions": [
+              "Review tube/rack dimensions and candidate hardware applicability"
+            ],
+            "postconditions": [
+              "Move the tube between racks checked against reviewed acceptance criteria"
+            ],
+            "constraints": [
+              "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+              "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+            ],
+            "attended_range_s": null
+          },
+          {
+            "id": "place_release",
+            "phase": "processing",
+            "intent": "Place and release at destination",
+            "physical_operation": "Seat the tube in the destination position",
+            "object_ids": [
+              "tube",
+              "destination_rack",
+              "gripper"
+            ],
+            "frequency": "per_attempt",
+            "source_refs": [
+              "text:L5-L5"
+            ],
+            "basis": "model_inference",
+            "preconditions": [
+              "Review tube/rack dimensions and candidate hardware applicability"
+            ],
+            "postconditions": [
+              "Place and release at destination checked against reviewed acceptance criteria"
+            ],
+            "constraints": [
+              "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+              "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+            ],
+            "attended_range_s": null
+          },
+          {
+            "id": "verify_destination",
+            "phase": "finishing",
+            "intent": "Verify identity, presence and placement",
+            "physical_operation": "Check tube position and intact cap",
+            "object_ids": [
+              "tube",
+              "destination_rack"
+            ],
+            "frequency": "per_attempt",
+            "source_refs": [
+              "text:L6-L6"
+            ],
+            "basis": "model_inference",
+            "preconditions": [
+              "Review tube/rack dimensions and candidate hardware applicability"
+            ],
+            "postconditions": [
+              "Verify identity, presence and placement checked against reviewed acceptance criteria"
+            ],
+            "constraints": [
+              "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+              "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+            ],
+            "attended_range_s": null
+          },
+          {
+            "id": "reset_station",
+            "phase": "finishing",
+            "intent": "Reset the station and record exceptions",
+            "physical_operation": "Return motion hardware to a reviewed state",
+            "object_ids": [
+              "motion_stage",
+              "gripper"
+            ],
+            "frequency": "per_attempt",
+            "source_refs": [
+              "text:L7-L7"
+            ],
+            "basis": "model_inference",
+            "preconditions": [
+              "Review tube/rack dimensions and candidate hardware applicability"
+            ],
+            "postconditions": [
+              "Reset the station and record exceptions checked against reviewed acceptance criteria"
+            ],
+            "constraints": [
+              "Empty, capped, inert demonstration tubes only; no liquids or biological processing",
+              "Payload, grip force, motion speed, clearance and placement tolerances unresolved"
+            ],
+            "attended_range_s": null
+          }
+        ],
+        "links": [
+          {
+            "source": "prepare_racks",
+            "target": "identify_tube",
+            "relation": "before",
+            "basis": "model_inference"
+          },
+          {
+            "source": "identify_tube",
+            "target": "grip_tube",
+            "relation": "before",
+            "basis": "model_inference"
+          },
+          {
+            "source": "grip_tube",
+            "target": "transfer_tube",
+            "relation": "before",
+            "basis": "model_inference"
+          },
+          {
+            "source": "transfer_tube",
+            "target": "place_release",
+            "relation": "before",
+            "basis": "model_inference"
+          },
+          {
+            "source": "place_release",
+            "target": "verify_destination",
+            "relation": "before",
+            "basis": "model_inference"
+          },
+          {
+            "source": "verify_destination",
+            "target": "reset_station",
+            "relation": "before",
+            "basis": "model_inference"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "cap_prepare_racks",
+            "name": "Prepare source and destination racks",
+            "operation_ids": [
+              "prepare_racks"
+            ],
+            "candidate_equipment": [
+              "Stable rack fixture",
+              "Station coordinate reference"
+            ],
+            "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture"
+          },
+          {
+            "id": "cap_identify_tube",
+            "name": "Identify a selected empty capped tube",
+            "operation_ids": [
+              "identify_tube"
+            ],
+            "candidate_equipment": [
+              "Manual ID entry or barcode reader",
+              "Position reference"
+            ],
+            "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture"
+          },
+          {
+            "id": "cap_grip_tube",
+            "name": "Grip the selected tube",
+            "operation_ids": [
+              "grip_tube"
+            ],
+            "candidate_equipment": [
+              "Compliant gripper",
+              "Grip presence sensor"
+            ],
+            "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture"
+          },
+          {
+            "id": "cap_transfer_tube",
+            "name": "Move the tube between racks",
+            "operation_ids": [
+              "transfer_tube"
+            ],
+            "candidate_equipment": [
+              "Motion stage or robot arm",
+              "Clearance envelope"
+            ],
+            "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture"
+          },
+          {
+            "id": "cap_place_release",
+            "name": "Place and release at destination",
+            "operation_ids": [
+              "place_release"
+            ],
+            "candidate_equipment": [
+              "Rack locating fixture",
+              "Controlled gripper release"
+            ],
+            "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture"
+          },
+          {
+            "id": "cap_verify_destination",
+            "name": "Verify identity, presence and placement",
+            "operation_ids": [
+              "verify_destination"
+            ],
+            "candidate_equipment": [
+              "Manual inspection or camera",
+              "ID log"
+            ],
+            "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture"
+          },
+          {
+            "id": "cap_reset_station",
+            "name": "Reset the station and record exceptions",
+            "operation_ids": [
+              "reset_station"
+            ],
+            "candidate_equipment": [
+              "Controller",
+              "Event log"
+            ],
+            "rationale": "Explicitly supplied candidate capability for the conceptual transfer fixture"
+          }
+        ],
+        "acceptance_criteria": [
+          {
+            "id": "identity_and_placement",
+            "description": "Correct tube identity at intended destination position, intact tube and cap",
+            "operation_ids": [
+              "identify_tube",
+              "verify_destination"
+            ],
+            "source_refs": [
+              "text:L6-L6"
+            ],
+            "verification_needed": "Define ID checks, rack occupancy, placement tolerance and damage inspection before testing"
+          },
+          {
+            "id": "handling_and_clearance",
+            "description": "Transfer without drop, collision, cap opening or unacceptable deformation",
+            "operation_ids": [
+              "grip_tube",
+              "transfer_tube",
+              "place_release"
+            ],
+            "source_refs": [
+              "text:L3-L5"
+            ],
+            "verification_needed": "Measure dimensions, payload and grip-force envelope; review clearances and physical handling performance"
+          }
+        ],
+        "resource_inputs": {
+          "accepted_count": {
+            "value": null,
+            "unit": "count",
+            "basis": "unknown",
+            "source": null
+          },
+          "attempted_count": {
+            "value": null,
+            "unit": "count",
+            "basis": "unknown",
+            "source": null
+          },
+          "elapsed_s": {
+            "value": null,
+            "unit": "s",
+            "basis": "unknown",
+            "source": null
+          },
+          "labor_s": {
+            "value": null,
+            "unit": "operator-s",
+            "basis": "unknown",
+            "source": null
+          },
+          "electricity_wh": {
+            "value": null,
+            "unit": "Wh",
+            "basis": "unknown",
+            "source": null
+          },
+          "consumed_stock_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "recoverable_scrap_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "unrecovered_waste_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "loaded_labor_rate": {
+            "value": null,
+            "unit": "USD/operator-hour",
+            "basis": "unknown",
+            "source": null
+          },
+          "electricity_rate": {
+            "value": null,
+            "unit": "USD/kWh",
+            "basis": "unknown",
+            "source": null
+          },
+          "stock_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "consumables_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "allocated_tooling_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "maintenance_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "facility_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "other_utilities_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "paid_coverage_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "recovery_credit": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          }
+        },
+        "engineering_inputs": {
+          "parameters": {},
+          "costs": {},
+          "labor": {},
+          "power": {},
+          "byproducts": {}
+        },
+        "limitations": [
+          "Hand-authored response fixture exercising provider orchestration; not a real model response",
+          "Candidate equipment is proposed, not a observed or validated apparatus",
+          "Source text is a conceptual empty-tube transfer procedure; physical metrics and acceptance remain unverified"
+        ]
+      }
+    }
+  ]
+}

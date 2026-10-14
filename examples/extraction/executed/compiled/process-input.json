@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "configuration_id": "empty-tube-transfer-unmeasured",
+  "functional_unit": "One identified empty capped tube transferred intact into its intended destination rack position",
+  "boundary": "Source/destination rack preparation through placement verification, exception logging and station reset",
+  "acceptance_verified": false,
+  "acceptance_source": null,
+  "inputs": {
+    "accepted_count": {
+      "value": null,
+      "unit": "count",
+      "basis": "unknown",
+      "source": null
+    },
+    "attempted_count": {
+      "value": null,
+      "unit": "count",
+      "basis": "unknown",
+      "source": null
+    },
+    "elapsed_s": {
+      "value": null,
+      "unit": "s",
+      "basis": "unknown",
+      "source": null
+    },
+    "labor_s": {
+      "value": null,
+      "unit": "operator-s",
+      "basis": "unknown",
+      "source": null
+    },
+    "electricity_wh": {
+      "value": null,
+      "unit": "Wh",
+      "basis": "unknown",
+      "source": null
+    },
+    "consumed_stock_g": {
+      "value": null,
+      "unit": "g",
+      "basis": "unknown",
+      "source": null
+    },
+    "recoverable_scrap_g": {
+      "value": null,
+      "unit": "g",
+      "basis": "unknown",
+      "source": null
+    },
+    "unrecovered_waste_g": {
+      "value": null,
+      "unit": "g",
+      "basis": "unknown",
+      "source": null
+    },
+    "loaded_labor_rate": {
+      "value": null,
+      "unit": "USD/operator-hour",
+      "basis": "unknown",
+      "source": null
+    },
+    "electricity_rate": {
+      "value": null,
+      "unit": "USD/kWh",
+      "basis": "unknown",
+      "source": null
+    },
+    "stock_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "consumables_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "allocated_tooling_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "maintenance_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "facility_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "other_utilities_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "paid_coverage_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    },
+    "recovery_credit": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "source": null
+    }
+  },
+  "attendance": null,
+  "attendance_source": null
+}
