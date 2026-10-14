@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "ReviewedMatch": {
+      "additionalProperties": false,
+      "description": "An explicit semantic alignment; citation support is a separate judgment.",
+      "properties": {
+        "reference_id": {
+          "title": "Reference Id",
+          "type": "string"
+        },
+        "candidate_id": {
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "grounding_supported": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Grounding Supported"
+        },
+        "rationale": {
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reference_id",
+        "candidate_id",
+        "rationale"
+      ],
+      "title": "ReviewedMatch",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Content-bound judgments; unreviewed candidates/references remain pending.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "candidate_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Candidate Sha256",
+      "type": "string"
+    },
+    "reference_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Reference Sha256",
+      "type": "string"
+    },
+    "reviewer": {
+      "minLength": 1,
+      "title": "Reviewer",
+      "type": "string"
+    },
+    "evidence_kind": {
+      "enum": [
+        "recorded_fixture_review",
+        "live_extraction_review"
+      ],
+      "title": "Evidence Kind",
+      "type": "string"
+    },
+    "complete": {
+      "default": false,
+      "title": "Complete",
+      "type": "boolean"
+    },
+    "step_matches": {
+      "items": {
+        "$ref": "#/$defs/ReviewedMatch"
+      },
+      "title": "Step Matches",
+      "type": "array"
+    },
+    "missed_reference_steps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missed Reference Steps",
+      "type": "array"
+    },
+    "unsupported_candidate_steps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unsupported Candidate Steps",
+      "type": "array"
+    },
+    "acceptance_matches": {
+      "items": {
+        "$ref": "#/$defs/ReviewedMatch"
+      },
+      "title": "Acceptance Matches",
+      "type": "array"
+    },
+    "missed_reference_acceptance": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missed Reference Acceptance",
+      "type": "array"
+    },
+    "unsupported_candidate_acceptance": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unsupported Candidate Acceptance",
+      "type": "array"
+    }
+  },
+  "required": [
+    "candidate_sha256",
+    "reference_sha256",
+    "reviewer",
+    "evidence_kind"
+  ],
+  "title": "ExtractionReview",
+  "type": "object"
+}

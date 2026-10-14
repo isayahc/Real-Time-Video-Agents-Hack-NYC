@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "candidate_sha256": "9066bcc9ce57af981d359b696ff7bf27b78eb88aa5ebfcad1345058122c6b2aa",
+  "reference_sha256": "42b86dc3feade3a78f133d047368f44d82f268b1d8a968c5ba260f69c83043bf",
+  "reviewer": "Pending reviewer assignment",
+  "evidence_kind": "recorded_fixture_review",
+  "complete": false,
+  "step_matches": [],
+  "missed_reference_steps": [],
+  "unsupported_candidate_steps": [],
+  "acceptance_matches": [],
+  "missed_reference_acceptance": [],
+  "unsupported_candidate_acceptance": []
+}

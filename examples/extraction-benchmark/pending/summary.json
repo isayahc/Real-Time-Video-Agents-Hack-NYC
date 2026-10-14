@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "case_id": "empty-tube-text-01",
+  "status": "review_pending",
+  "reference_status": "assistant_authored_reference_requires_user_review",
+  "review_evidence_kind": "recorded_fixture_review",
+  "live_model_quality_established": false,
+  "physical_validation": false,
+  "dimensions": {
+    "steps": {
+      "matched": 0,
+      "missed": [],
+      "unsupported": [],
+      "pending_reference": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "pending_candidate": [
+        "grip_tube",
+        "identify_tube",
+        "place_release",
+        "prepare_racks",
+        "reset_station",
+        "transfer_tube",
+        "verify_destination"
+      ],
+      "recall": null,
+      "precision": null,
+      "grounding_support": null,
+      "grounding_pending": [],
+      "grounding_failed": []
+    },
+    "acceptance": {
+      "matched": 0,
+      "missed": [],
+      "unsupported": [],
+      "pending_reference": [
+        "a1",
+        "a2"
+      ],
+      "pending_candidate": [
+        "handling_and_clearance",
+        "identity_and_placement"
+      ],
+      "recall": null,
+      "precision": null,
+      "grounding_support": null,
+      "grounding_pending": [],
+      "grounding_failed": []
+    },
+    "ordering": {
+      "checks": [
+        {
+          "source": "r1",
+          "target": "r2",
+          "relation": "before",
+          "status": "pending_alignment"
+        },
+        {
+          "source": "r2",
+          "target": "r3",
+          "relation": "before",
+          "status": "pending_alignment"
+        },
+        {
+          "source": "r3",
+          "target": "r4",
+          "relation": "before",
+          "status": "pending_alignment"
+        },
+        {
+          "source": "r4",
+          "target": "r5",
+          "relation": "before",
+          "status": "pending_alignment"
+        },
+        {
+          "source": "r5",
+          "target": "r6",
+          "relation": "before",
+          "status": "pending_alignment"
+        },
+        {
+          "source": "r6",
+          "target": "r7",
+          "relation": "before",
+          "status": "pending_alignment"
+        }
+      ],
+      "preserved_fraction": null
+    },
+    "preparation_and_evidence": {
+      "checks": [],
+      "correct_fraction": null
+    }
+  },
+  "limitations": [
+    "Reference is assistant-authored and needs user review; it is not an independently certified gold standard",
+    "The source and replayed candidate are authored concept fixtures, not a live-model evaluation set",
+    "Initial one-to-one operation matching excludes split/merged steps; do not silently penalize them as semantic errors",
+    "Expected ordering follows the authored procedure sequence and is not measured physical execution",
+    "Scores depend on reviewer semantic alignments and citation judgments, not automatic semantic verification.",
+    "One-to-one initial matching; split or merged operations require a richer review contract.",
+    "One authored text fixture is not evidence of general live-model extraction quality."
+  ],
+  "hashes": {
+    "candidate_sha256": "9066bcc9ce57af981d359b696ff7bf27b78eb88aa5ebfcad1345058122c6b2aa",
+    "reference_sha256": "42b86dc3feade3a78f133d047368f44d82f268b1d8a968c5ba260f69c83043bf",
+    "source_sha256": "578884be7f0af6b6bf29a25e3e4aaa3e3fdeeadaebabca4e9ae008b43cb0f51f"
+  }
+}

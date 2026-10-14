@@ -1,0 +1,187 @@
+{
+  "$defs": {
+    "ReferenceAcceptance": {
+      "additionalProperties": false,
+      "description": "Expected acceptance check and supporting source evidence.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "source_refs"
+      ],
+      "title": "ReferenceAcceptance",
+      "type": "object"
+    },
+    "ReferenceLink": {
+      "additionalProperties": false,
+      "description": "Reviewed expected precedence or concurrent relationship.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "relation": {
+          "enum": [
+            "before",
+            "during"
+          ],
+          "title": "Relation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "target",
+        "relation"
+      ],
+      "title": "ReferenceLink",
+      "type": "object"
+    },
+    "ReferenceStep": {
+      "additionalProperties": false,
+      "description": "Expected source-supported operation, independent of candidate identifiers.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "phase": {
+          "enum": [
+            "preparation",
+            "processing",
+            "finishing"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "evidence": {
+          "default": "source_supported",
+          "enum": [
+            "source_supported",
+            "hypothesis"
+          ],
+          "title": "Evidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "source_refs",
+        "phase"
+      ],
+      "title": "ReferenceStep",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Versioned gold reference bound to the exact source bytes.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "source_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Source Sha256",
+      "type": "string"
+    },
+    "author": {
+      "minLength": 1,
+      "title": "Author",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "assistant_authored_reference_requires_user_review",
+        "reviewed_reference"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/ReferenceStep"
+      },
+      "minItems": 1,
+      "title": "Steps",
+      "type": "array"
+    },
+    "links": {
+      "items": {
+        "$ref": "#/$defs/ReferenceLink"
+      },
+      "title": "Links",
+      "type": "array"
+    },
+    "acceptance": {
+      "items": {
+        "$ref": "#/$defs/ReferenceAcceptance"
+      },
+      "minItems": 1,
+      "title": "Acceptance",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "case_id",
+    "source_sha256",
+    "author",
+    "status",
+    "steps",
+    "links",
+    "acceptance",
+    "limitations"
+  ],
+  "title": "ExtractionReference",
+  "type": "object"
+}

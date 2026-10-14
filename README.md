@@ -178,3 +178,7 @@ python -m protocol_pipeline extract-protocol \
 
 [Extraction](examples/extraction/README.md) supports text and sampled-video input, explicit Nebius model selection, source-grounding checks, and direct compiler handoff. A separate recorded-response replay exercises the integration without credits. Live inference quality and physical validation remain unverified.
 
+## Extraction accuracy review
+
+The [benchmark workflow](examples/extraction-benchmark/README.md) scores step coverage, ordering, reviewer-assessed grounding, preparation/evidence classification and acceptance checks against a source-bound reference. No review means pending scores. The initial authored text fixture verifies scoring behavior; it does not establish live Nebius quality.
+

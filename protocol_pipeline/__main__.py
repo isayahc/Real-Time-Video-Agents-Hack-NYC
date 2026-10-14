@@ -16,12 +16,19 @@ from .alternatives import run_alternatives
 from .failures import run_failures
 from .compiler import compile_protocol_file
 from .extraction import create_provider, extract_protocol
+from .benchmark import benchmark_files
 
 
 def main() -> None:
     """Parse commands and execute one pipeline stage with clear failure status."""
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    benchmark = commands.add_parser("benchmark-extraction", help="Score an extraction against a source-bound reference and explicit review")
+    benchmark.add_argument("--candidate", type=Path, required=True)
+    benchmark.add_argument("--reference", type=Path, required=True)
+    benchmark.add_argument("--source", type=Path, required=True)
+    benchmark.add_argument("--review", type=Path)
+    benchmark.add_argument("--output", type=Path, required=True)
     extraction = commands.add_parser("extract-protocol", help="Extract and compile a candidate protocol using a selected provider")
     sources = extraction.add_mutually_exclusive_group(required=True)
     sources.add_argument("--text", type=Path)
@@ -95,7 +102,11 @@ def main() -> None:
             command.add_argument("--outcome", required=True)
     args = parser.parse_args()
     try:
-        if args.command == "extract-protocol":
+        if args.command == "benchmark-extraction":
+            result = benchmark_files(args.candidate, args.reference, args.source, args.output, args.review)
+            print(json.dumps({"status": result["status"], "reference_status": result["reference_status"],
+                              "report": str(args.output / "report.md"), "live_model_quality_established": False}))
+        elif args.command == "extract-protocol":
             result = extract_protocol(create_provider(args.provider, args.replay), args.model, args.output,
                                       args.text, args.run, args.vision_model)
             print(json.dumps({"status": result["status"], "provider": result["provider"],
