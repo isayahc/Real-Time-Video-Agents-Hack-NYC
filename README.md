@@ -90,10 +90,20 @@ The [coil-winding benchmark](benchmarks/coil-winding/) defines the full manual w
 
 ## Process evaluation
 
-The [deterministic evaluator](examples/process-evaluation/) calculates recurring cost, labor, energy and material/waste quantities per accepted output from sourced batch inputs. Unknown inputs remain null; operator attendance overlaps are merged; reports preserve inputs and assumptions. It does not yet implement investment comparison or the feedback controller.
+The [deterministic evaluator](examples/process-evaluation/) calculates recurring cost, labor, energy and material/waste quantities per accepted output from sourced batch inputs. Unknown inputs remain null; operator attendance overlaps are merged; reports preserve inputs and assumptions. Investment comparison is implemented separately below; the feedback controller remains pending.
 
 ```bash
 python -m protocol_pipeline evaluate \
   --input examples/process-evaluation/coil-v2-partial.json \
   --output /tmp/coil-process-report.json
+```
+
+## Infrastructure investment comparison
+
+The [investment comparator](examples/investment-comparison/) evaluates manual versus apparatus operating costs, upfront deployment, annual capacity, simple payback and horizon break-even demand, including sourced sensitivity cases. Output equivalence, missing inputs, insufficient capacity and unmodeled replacements block a cost decision.
+
+```bash
+python -m protocol_pipeline compare \
+  --input examples/investment-comparison/synthetic-comparison.json \
+  --output /tmp/investment-report.json
 ```

@@ -1,0 +1,664 @@
+{
+  "schema_version": 1,
+  "comparator_version": "1.0",
+  "base": {
+    "status": "insufficient_evidence",
+    "decision": "undetermined",
+    "metrics": {
+      "baseline.upfront_total": {
+        "value": null,
+        "unit": "USD",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "baseline.upfront.equipment",
+          "baseline.upfront.installation",
+          "baseline.upfront.integration",
+          "baseline.upfront.training"
+        ],
+        "missing_inputs": [
+          "baseline.upfront.equipment",
+          "baseline.upfront.installation",
+          "baseline.upfront.integration",
+          "baseline.upfront.training"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "baseline.annual_capacity": {
+        "value": null,
+        "unit": "accepted outputs/year",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "baseline.nominal_rate",
+          "baseline.scheduled_hours",
+          "baseline.utilization",
+          "baseline.downtime"
+        ],
+        "missing_inputs": [
+          "baseline.nominal_rate",
+          "baseline.scheduled_hours",
+          "baseline.utilization",
+          "baseline.downtime"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "baseline.annual_operating_cost": {
+        "value": null,
+        "unit": "USD/year",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "baseline.variable_unit_cost",
+          "annual_demand",
+          "baseline.annual_fixed_cost"
+        ],
+        "missing_inputs": [
+          "baseline.variable_unit_cost",
+          "annual_demand",
+          "baseline.annual_fixed_cost"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "baseline.horizon_total_cost": {
+        "value": null,
+        "unit": "USD",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "baseline.upfront_total",
+          "baseline.annual_operating_cost",
+          "horizon_years"
+        ],
+        "missing_inputs": [
+          "baseline.upfront_total",
+          "baseline.annual_operating_cost",
+          "horizon_years"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "candidate.upfront_total": {
+        "value": null,
+        "unit": "USD",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "candidate.upfront.equipment",
+          "candidate.upfront.installation",
+          "candidate.upfront.integration",
+          "candidate.upfront.training"
+        ],
+        "missing_inputs": [
+          "candidate.upfront.installation",
+          "candidate.upfront.integration",
+          "candidate.upfront.training"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "candidate.annual_capacity": {
+        "value": null,
+        "unit": "accepted outputs/year",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "candidate.nominal_rate",
+          "candidate.scheduled_hours",
+          "candidate.utilization",
+          "candidate.downtime"
+        ],
+        "missing_inputs": [
+          "candidate.nominal_rate",
+          "candidate.scheduled_hours",
+          "candidate.utilization",
+          "candidate.downtime"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "candidate.annual_operating_cost": {
+        "value": null,
+        "unit": "USD/year",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "candidate.variable_unit_cost",
+          "annual_demand",
+          "candidate.annual_fixed_cost"
+        ],
+        "missing_inputs": [
+          "candidate.variable_unit_cost",
+          "annual_demand",
+          "candidate.annual_fixed_cost"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "candidate.horizon_total_cost": {
+        "value": null,
+        "unit": "USD",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "candidate.upfront_total",
+          "candidate.annual_operating_cost",
+          "horizon_years"
+        ],
+        "missing_inputs": [
+          "candidate.upfront_total",
+          "candidate.annual_operating_cost",
+          "horizon_years"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "incremental_upfront": {
+        "value": null,
+        "unit": "USD",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "candidate.upfront_total",
+          "baseline.upfront_total"
+        ],
+        "missing_inputs": [
+          "candidate.upfront_total",
+          "baseline.upfront_total"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "unit_variable_saving": {
+        "value": null,
+        "unit": "USD/accepted output",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "baseline.variable_unit_cost",
+          "candidate.variable_unit_cost"
+        ],
+        "missing_inputs": [
+          "baseline.variable_unit_cost",
+          "candidate.variable_unit_cost"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "annual_operating_saving": {
+        "value": null,
+        "unit": "USD/year",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "baseline.annual_operating_cost",
+          "candidate.annual_operating_cost"
+        ],
+        "missing_inputs": [
+          "baseline.annual_operating_cost",
+          "candidate.annual_operating_cost"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "horizon_net_saving": {
+        "value": null,
+        "unit": "USD",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "baseline.horizon_total_cost",
+          "candidate.horizon_total_cost"
+        ],
+        "missing_inputs": [
+          "baseline.horizon_total_cost",
+          "candidate.horizon_total_cost"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "annual_fixed_difference": {
+        "value": null,
+        "unit": "USD/year",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "candidate.annual_fixed_cost",
+          "baseline.annual_fixed_cost"
+        ],
+        "missing_inputs": [
+          "candidate.annual_fixed_cost",
+          "baseline.annual_fixed_cost"
+        ],
+        "reason": "Required inputs are unknown"
+      },
+      "simple_payback_years": {
+        "value": null,
+        "unit": "years",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "incremental_upfront",
+          "annual_operating_saving"
+        ],
+        "missing_inputs": [
+          "incremental_upfront",
+          "annual_operating_saving"
+        ],
+        "reason": null
+      },
+      "horizon_break_even_annual_volume": {
+        "value": null,
+        "unit": "accepted outputs/year",
+        "status": "unknown",
+        "basis": "unknown",
+        "dependencies": [
+          "incremental_upfront",
+          "annual_fixed_difference",
+          "horizon_years",
+          "unit_variable_saving"
+        ],
+        "missing_inputs": [
+          "incremental_upfront",
+          "annual_fixed_difference",
+          "horizon_years",
+          "unit_variable_saving"
+        ],
+        "reason": null
+      }
+    },
+    "horizon_break_even_direction": "unknown",
+    "issues": [
+      "baseline.cost_usd_per_accepted: Required inputs are unknown; missing stock_cost, consumables_cost, allocated_tooling_cost, maintenance_cost, facility_cost, other_utilities_cost, paid_coverage_cost, recovery_credit, labor_s, loaded_labor_rate, electricity_wh, electricity_rate, accepted_count",
+      "baseline.accepted_outputs_per_hour: Required inputs are unknown; missing accepted_count, elapsed_s",
+      "baseline output acceptance is unverified",
+      "candidate.cost_usd_per_accepted: Required inputs are unknown; missing stock_cost, consumables_cost, allocated_tooling_cost, maintenance_cost, facility_cost, other_utilities_cost, paid_coverage_cost, recovery_credit, labor_s, loaded_labor_rate, electricity_wh, electricity_rate, accepted_count",
+      "candidate.accepted_outputs_per_hour: Required inputs are unknown; missing accepted_count, elapsed_s",
+      "candidate output acceptance is unverified",
+      "Manual/apparatus output equivalence is unverified",
+      "baseline.useful_life is unknown",
+      "candidate.useful_life is unknown",
+      "baseline.annual_capacity is unknown: baseline.nominal_rate, baseline.scheduled_hours, baseline.utilization, baseline.downtime",
+      "candidate.annual_capacity is unknown: candidate.nominal_rate, candidate.scheduled_hours, candidate.utilization, candidate.downtime",
+      "horizon_net_saving is unknown: baseline.horizon_total_cost, candidate.horizon_total_cost"
+    ],
+    "assumptions_present": true
+  },
+  "scenarios": {},
+  "input_snapshot": {
+    "schema_version": 1,
+    "baseline": {
+      "process": {
+        "schema_version": 1,
+        "configuration_id": "creolab-t1-manual-v1",
+        "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+        "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+        "acceptance_verified": false,
+        "acceptance_source": null,
+        "inputs": {
+          "accepted_count": {
+            "value": null,
+            "unit": "count",
+            "basis": "unknown",
+            "source": null
+          },
+          "attempted_count": {
+            "value": null,
+            "unit": "count",
+            "basis": "unknown",
+            "source": null
+          },
+          "elapsed_s": {
+            "value": null,
+            "unit": "s",
+            "basis": "unknown",
+            "source": null
+          },
+          "labor_s": {
+            "value": null,
+            "unit": "operator-s",
+            "basis": "unknown",
+            "source": null
+          },
+          "electricity_wh": {
+            "value": null,
+            "unit": "Wh",
+            "basis": "unknown",
+            "source": null
+          },
+          "consumed_stock_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "recoverable_scrap_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "unrecovered_waste_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "loaded_labor_rate": {
+            "value": null,
+            "unit": "USD/operator-hour",
+            "basis": "unknown",
+            "source": null
+          },
+          "electricity_rate": {
+            "value": null,
+            "unit": "USD/kWh",
+            "basis": "unknown",
+            "source": null
+          },
+          "stock_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "consumables_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "allocated_tooling_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "maintenance_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "facility_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "other_utilities_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "paid_coverage_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "recovery_credit": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          }
+        },
+        "attendance": null,
+        "attendance_source": null
+      },
+      "cost_model_source": "Collect full workflow costs; annual fixed allocations unresolved",
+      "capacity_model_source": "Collect full cycle, utilization and downtime measurements",
+      "upfront": {
+        "equipment": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "source": null
+        },
+        "installation": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "source": null
+        },
+        "integration": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "source": null
+        },
+        "training": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "source": null
+        }
+      },
+      "annual_fixed_cost": {
+        "value": null,
+        "unit": "USD/year",
+        "basis": "unknown",
+        "source": null
+      },
+      "scheduled_hours": {
+        "value": null,
+        "unit": "h/year",
+        "basis": "unknown",
+        "source": null
+      },
+      "utilization": {
+        "value": null,
+        "unit": "fraction",
+        "basis": "unknown",
+        "source": null
+      },
+      "downtime": {
+        "value": null,
+        "unit": "fraction",
+        "basis": "unknown",
+        "source": null
+      },
+      "useful_life": {
+        "value": null,
+        "unit": "years",
+        "basis": "unknown",
+        "source": null
+      }
+    },
+    "candidate": {
+      "process": {
+        "schema_version": 1,
+        "configuration_id": "CW-02-full-boundary-unmeasured",
+        "functional_unit": "One accepted released coil meeting verified source protocol requirements",
+        "boundary": "Stock verification and station preparation through accepted-product storage, scrap accounting and station reset",
+        "acceptance_verified": false,
+        "acceptance_source": null,
+        "inputs": {
+          "accepted_count": {
+            "value": null,
+            "unit": "count",
+            "basis": "unknown",
+            "source": null
+          },
+          "attempted_count": {
+            "value": null,
+            "unit": "count",
+            "basis": "unknown",
+            "source": null
+          },
+          "elapsed_s": {
+            "value": null,
+            "unit": "s",
+            "basis": "unknown",
+            "source": null
+          },
+          "labor_s": {
+            "value": null,
+            "unit": "operator-s",
+            "basis": "unknown",
+            "source": null
+          },
+          "electricity_wh": {
+            "value": null,
+            "unit": "Wh",
+            "basis": "unknown",
+            "source": null
+          },
+          "consumed_stock_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "recoverable_scrap_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "unrecovered_waste_g": {
+            "value": null,
+            "unit": "g",
+            "basis": "unknown",
+            "source": null
+          },
+          "loaded_labor_rate": {
+            "value": null,
+            "unit": "USD/operator-hour",
+            "basis": "unknown",
+            "source": null
+          },
+          "electricity_rate": {
+            "value": null,
+            "unit": "USD/kWh",
+            "basis": "unknown",
+            "source": null
+          },
+          "stock_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "consumables_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "allocated_tooling_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "maintenance_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "facility_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "other_utilities_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "paid_coverage_cost": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          },
+          "recovery_credit": {
+            "value": null,
+            "unit": "USD/batch",
+            "basis": "unknown",
+            "source": null
+          }
+        },
+        "attendance": null,
+        "attendance_source": null
+      },
+      "cost_model_source": "Collect full workflow costs; annual fixed allocations unresolved",
+      "capacity_model_source": "Collect full cycle, utilization and downtime measurements",
+      "upfront": {
+        "equipment": {
+          "value": 877.6,
+          "unit": "USD",
+          "basis": "assumed",
+          "source": "snapshots/v2/README.md: conceptual apparatus BOM midpoint only; installation and bench excluded, no procurement quote"
+        },
+        "installation": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "source": null
+        },
+        "integration": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "source": null
+        },
+        "training": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "source": null
+        }
+      },
+      "annual_fixed_cost": {
+        "value": null,
+        "unit": "USD/year",
+        "basis": "unknown",
+        "source": null
+      },
+      "scheduled_hours": {
+        "value": null,
+        "unit": "h/year",
+        "basis": "unknown",
+        "source": null
+      },
+      "utilization": {
+        "value": null,
+        "unit": "fraction",
+        "basis": "unknown",
+        "source": null
+      },
+      "downtime": {
+        "value": null,
+        "unit": "fraction",
+        "basis": "unknown",
+        "source": null
+      },
+      "useful_life": {
+        "value": null,
+        "unit": "years",
+        "basis": "unknown",
+        "source": null
+      }
+    },
+    "equivalence_verified": false,
+    "equivalence_source": null,
+    "annual_demand": {
+      "value": null,
+      "unit": "accepted outputs/year",
+      "basis": "unknown",
+      "source": null
+    },
+    "horizon_years": {
+      "value": null,
+      "unit": "years",
+      "basis": "unknown",
+      "source": null
+    },
+    "scenarios": []
+  },
+  "limitations": [
+    "Constant annual demand and linear variable cost; batch-size economies require separate representative inputs.",
+    "Undiscounted cost comparison; financing, tax, revenue, resale and replacement are not modeled.",
+    "Capacity uses nominal accepted rate × scheduled hours × utilization × (1 − downtime); avoid double-counting losses already in nominal rate.",
+    "Thresholds are continuous annual volumes; integer demand must be rounded and checked against both capacities.",
+    "Metrics can be calculated conditionally while decision remains blocked by evidence, capacity or horizon gates."
+  ]
+}

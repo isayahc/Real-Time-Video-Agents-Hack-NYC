@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "baseline": {
+    "process": {
+      "schema_version": 1,
+      "configuration_id": "manual",
+      "functional_unit": "One accepted test part",
+      "boundary": "Complete recurring production process",
+      "acceptance_verified": true,
+      "acceptance_source": "Synthetic shared quality specification",
+      "inputs": {
+        "accepted_count": {
+          "value": 100.0,
+          "unit": "count",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "attempted_count": {
+          "value": 100.0,
+          "unit": "count",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "elapsed_s": {
+          "value": 3600.0,
+          "unit": "s",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "labor_s": {
+          "value": 0.0,
+          "unit": "operator-s",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "electricity_wh": {
+          "value": 0.0,
+          "unit": "Wh",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "consumed_stock_g": {
+          "value": 0.0,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "recoverable_scrap_g": {
+          "value": 0.0,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "unrecovered_waste_g": {
+          "value": 0.0,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "loaded_labor_rate": {
+          "value": 0.0,
+          "unit": "USD/operator-hour",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "electricity_rate": {
+          "value": 0.0,
+          "unit": "USD/kWh",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "stock_cost": {
+          "value": 500.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "consumables_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "allocated_tooling_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "maintenance_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "facility_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "other_utilities_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "paid_coverage_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "recovery_credit": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        }
+      },
+      "attendance": null,
+      "attendance_source": null
+    },
+    "cost_model_source": "Synthetic constant variable cost",
+    "capacity_model_source": "Nominal rate excludes utilization/downtime losses",
+    "upfront": {
+      "equipment": {
+        "value": 0.0,
+        "unit": "USD",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "installation": {
+        "value": 0.0,
+        "unit": "USD",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "integration": {
+        "value": 0.0,
+        "unit": "USD",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "training": {
+        "value": 0.0,
+        "unit": "USD",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      }
+    },
+    "annual_fixed_cost": {
+      "value": 1000.0,
+      "unit": "USD/year",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    },
+    "scheduled_hours": {
+      "value": 1000.0,
+      "unit": "h/year",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    },
+    "utilization": {
+      "value": 1.0,
+      "unit": "fraction",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    },
+    "downtime": {
+      "value": 0.0,
+      "unit": "fraction",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    },
+    "useful_life": {
+      "value": 10.0,
+      "unit": "years",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    }
+  },
+  "candidate": {
+    "process": {
+      "schema_version": 1,
+      "configuration_id": "machine",
+      "functional_unit": "One accepted test part",
+      "boundary": "Complete recurring production process",
+      "acceptance_verified": true,
+      "acceptance_source": "Synthetic shared quality specification",
+      "inputs": {
+        "accepted_count": {
+          "value": 100.0,
+          "unit": "count",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "attempted_count": {
+          "value": 100.0,
+          "unit": "count",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "elapsed_s": {
+          "value": 3600.0,
+          "unit": "s",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "labor_s": {
+          "value": 900.0,
+          "unit": "operator-s",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "electricity_wh": {
+          "value": 0.0,
+          "unit": "Wh",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "consumed_stock_g": {
+          "value": 0.0,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "recoverable_scrap_g": {
+          "value": 0.0,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "unrecovered_waste_g": {
+          "value": 0.0,
+          "unit": "g",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "loaded_labor_rate": {
+          "value": 20.0,
+          "unit": "USD/operator-hour",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "electricity_rate": {
+          "value": 0.0,
+          "unit": "USD/kWh",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "stock_cost": {
+          "value": 195.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "consumables_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "allocated_tooling_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "maintenance_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "facility_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "other_utilities_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "paid_coverage_cost": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        },
+        "recovery_credit": {
+          "value": 0.0,
+          "unit": "USD/batch",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        }
+      },
+      "attendance": null,
+      "attendance_source": null
+    },
+    "cost_model_source": "Synthetic constant variable cost",
+    "capacity_model_source": "Nominal rate excludes utilization/downtime losses",
+    "upfront": {
+      "equipment": {
+        "value": 10000.0,
+        "unit": "USD",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "installation": {
+        "value": 0.0,
+        "unit": "USD",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "integration": {
+        "value": 0.0,
+        "unit": "USD",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      },
+      "training": {
+        "value": 0.0,
+        "unit": "USD",
+        "basis": "assumed",
+        "source": "Synthetic test assumption"
+      }
+    },
+    "annual_fixed_cost": {
+      "value": 3000.0,
+      "unit": "USD/year",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    },
+    "scheduled_hours": {
+      "value": 1000.0,
+      "unit": "h/year",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    },
+    "utilization": {
+      "value": 1.0,
+      "unit": "fraction",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    },
+    "downtime": {
+      "value": 0.0,
+      "unit": "fraction",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    },
+    "useful_life": {
+      "value": 10.0,
+      "unit": "years",
+      "basis": "assumed",
+      "source": "Synthetic test assumption"
+    }
+  },
+  "equivalence_verified": true,
+  "equivalence_source": "Synthetic equivalence evidence",
+  "annual_demand": {
+    "value": 10000.0,
+    "unit": "accepted outputs/year",
+    "basis": "assumed",
+    "source": "Synthetic test assumption"
+  },
+  "horizon_years": {
+    "value": 5.0,
+    "unit": "years",
+    "basis": "assumed",
+    "source": "Synthetic test assumption"
+  },
+  "scenarios": [
+    {
+      "name": "low-demand",
+      "overrides": {
+        "annual_demand": {
+          "value": 100.0,
+          "unit": "accepted outputs/year",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        }
+      }
+    },
+    {
+      "name": "low-utilization",
+      "overrides": {
+        "candidate.utilization": {
+          "value": 0.05,
+          "unit": "fraction",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        }
+      }
+    },
+    {
+      "name": "higher-downtime",
+      "overrides": {
+        "candidate.downtime": {
+          "value": 0.95,
+          "unit": "fraction",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        }
+      }
+    },
+    {
+      "name": "higher-machine-labor-price",
+      "overrides": {
+        "candidate.process.inputs.loaded_labor_rate": {
+          "value": 40.0,
+          "unit": "USD/operator-hour",
+          "basis": "assumed",
+          "source": "Synthetic test assumption"
+        }
+      }
+    }
+  ]
+}
