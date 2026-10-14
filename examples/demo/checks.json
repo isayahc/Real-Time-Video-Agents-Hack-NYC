@@ -1,0 +1,12 @@
+{
+  "python_tests_passed": 59,
+  "cli_full_demo_executed": true,
+  "live_inference": false,
+  "physical_validation": false,
+  "actual_native_oi_scene_and_mcp_room": true,
+  "retained_bom_lines": 12,
+  "mesh_parts": 33,
+  "html_desktop_render_verified": true,
+  "evidence": "Illustrative accounting plus existing CW-02 replay",
+  "html_mobile_layout_verified": true
+}

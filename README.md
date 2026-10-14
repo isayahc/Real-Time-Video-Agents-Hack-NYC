@@ -115,3 +115,15 @@ The [iteration controller](examples/iteration-loop/) records predictions, attach
 ## Apparatus and scene build
 
 The [design adapter](examples/design-handoff/) calls Forma Core and OpenIndustries native import/export plus local MCP room tools, with explicit live/simulation/replay modes. It records validation, source-prediction lineage and artifact hashes. Local simulation and CW-02 replay integration were verified; live generation still needs provider configuration.
+
+## Single-command demo
+
+The [demo runner and executed sample report](examples/demo/) run the illustrative feedback loop and replay CW-02 into a native scene, producing HTML, Markdown and structured results with explicit evidence labels.
+
+```bash
+python -m protocol_pipeline demo \
+  --output runs/demo-001 \
+  --forma-root /path/to/forma-oss --oi-root /path/to/open-industries
+```
+
+Use `--accounting-only` to explicitly skip optional scene runtimes. Both modes preserve unknown coil economics and existing records.

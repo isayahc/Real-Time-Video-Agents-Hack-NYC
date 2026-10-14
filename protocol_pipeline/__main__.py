@@ -10,6 +10,7 @@ from .evaluation import evaluate_file
 from .investment import compare_file
 from .iteration import OutcomeRequest, PredictionRequest, RevisionRequest, observe, predict, revise
 from .design import SceneRequest, build_design
+from .demo import run_demo
 
 
 def main() -> None:
@@ -33,6 +34,13 @@ def main() -> None:
     compare = commands.add_parser("compare", help="Compare process infrastructure cost, capacity and payback locally")
     compare.add_argument("--input", type=Path, required=True)
     compare.add_argument("--output", type=Path, required=True)
+    demo = commands.add_parser("demo", help="Run the illustrative loop, replay the coil scene and write a readable report")
+    demo.add_argument("--output", type=Path, required=True)
+    demo.add_argument("--examples-root", type=Path, default=Path("examples"))
+    demo.add_argument("--forma-root", type=Path)
+    demo.add_argument("--oi-root", type=Path)
+    demo.add_argument("--coil-project", type=Path, default=Path("snapshots/v2/coil-winder.forma.json"))
+    demo.add_argument("--accounting-only", action="store_true", help="Explicitly skip scene/MCP execution")
     build = commands.add_parser("build", help="Generate/validate a Forma apparatus and native local OI scene")
     build.add_argument("--requirements", type=Path, required=True)
     build.add_argument("--output", type=Path, required=True)
@@ -69,6 +77,11 @@ def main() -> None:
             evaluate_file(args.input, args.output)
         elif args.command == "compare":
             compare_file(args.input, args.output)
+        elif args.command == "demo":
+            result = run_demo(args.output, args.examples_root, args.forma_root, args.oi_root,
+                              args.coil_project, args.accounting_only)
+            print(json.dumps({"status": result["status"], "report": str(args.output / "report.html"),
+                              "markdown": str(args.output / "report.md"), "physical_validation": False}))
         elif args.command == "build":
             result = build_design(args.requirements, args.output, args.forma_root, args.oi_root,
                 args.mode, args.brief, SceneRequest(name=args.name, room_m=tuple(args.room)),
