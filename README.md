@@ -83,3 +83,7 @@ python -m unittest discover -s tests -v
 Tests check broken frame/operation references, temporal inconsistency, numerical provenance, annotation alternatives/raw-byte preservation, actual ffmpeg source timestamps, and exclusion of ground truth from both request modes. They do not claim live provider success or scientific validity.
 
 Keep downloaded data, runtime frames, annotations and provider outputs outside Git; `.gitignore` excludes `data/` and `runs/`. The chosen T1 scenario already guided our design and is not an untouched held-out benchmark. Select a distinct procedure for held-out evaluation.
+
+## Full manual baseline
+
+The [coil-winding benchmark](benchmarks/coil-winding/) defines the full manual workflow, human labor/resource boundary, acceptance gates and an event-level measurement template for [epic #17](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/17). Its metrics remain unknown until a reviewed full run is recorded; existing snapshot estimates are not measured baseline values.

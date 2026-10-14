@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "record_type": "measurement_template_not_observation",
+  "baseline_id": "creolab-t1-manual-v1",
+  "run_id": null,
+  "configuration_id": "manual",
+  "recorded_at": null,
+  "operator_id": null,
+  "source_video": {
+    "path": null,
+    "sha256": null
+  },
+  "annotation": {
+    "path": null,
+    "sha256": null
+  },
+  "evidence": [],
+  "acceptance_specification": {
+    "source": null,
+    "criteria": [],
+    "verified": false
+  },
+  "batch": {
+    "attempted_count": null,
+    "accepted_count": null,
+    "rejected_count": null,
+    "in_process_count": null,
+    "start_s": null,
+    "end_s": null,
+    "stock_input_g": null,
+    "accepted_product_g": null,
+    "recoverable_scrap_g": null,
+    "unrecovered_waste_g": null,
+    "returned_stock_g": null,
+    "inventory_change_g": null,
+    "electricity_wh": null,
+    "other_utilities": [],
+    "consumables": []
+  },
+  "events": [],
+  "event_template": {
+    "event_id": null,
+    "step_id": null,
+    "attempt_id": null,
+    "operator_ids": [],
+    "start_s": null,
+    "end_s": null,
+    "attended_intervals": [],
+    "resource_ids": [],
+    "evidence_refs": [],
+    "notes": null
+  },
+  "attempts": [],
+  "attempt_template": {
+    "attempt_id": null,
+    "final_disposition": null,
+    "rework_event_ids": [],
+    "quality_measurements": [],
+    "evidence_refs": []
+  },
+  "costs": {
+    "loaded_labor_rate_usd_h": null,
+    "electricity_rate_usd_kwh": null,
+    "stock_cost_usd": null,
+    "consumables_cost_usd": null,
+    "allocated_tooling_cost_usd": null,
+    "maintenance_cost_usd": null,
+    "facility_cost_usd": null,
+    "recovery_credit_usd": null
+  },
+  "rules": [
+    "Do not put template objects into events/attempts as real measurements.",
+    "Time values are seconds from the run origin; attended intervals have start_s/end_s and operator_id.",
+    "Evidence entries have id, source path/hash, optional start_s/end_s, measurement instrument/calibration and reviewer.",
+    "Each attempt has one final disposition; rework is not a new attempt.",
+    "For each operator, union overlapping attended intervals before summing; sum across operators.",
+    "Missing quantities remain null; explicitly mark a confirmed inapplicable stage with evidence.",
+    "Record rejected/in-process material and temporary inventory to reconcile the mass balance."
+  ]
+}

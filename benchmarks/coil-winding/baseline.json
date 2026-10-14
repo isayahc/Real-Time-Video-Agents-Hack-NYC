@@ -1,0 +1,749 @@
+{
+  "schema_version": 1,
+  "baseline_id": "creolab-t1-manual-v1",
+  "created_date": "2026-10-13",
+  "status": "defined_not_measured",
+  "epic": "https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/17",
+  "task": {
+    "dataset": "CREOLab",
+    "scenario": "T1 / scenario01",
+    "description": "Wind platinum wire around a screwdriver",
+    "source": "https://github.com/ToyotaCRDL/CREOLab",
+    "source_video_reviewed": false,
+    "original_annotation_ingested": false
+  },
+  "functional_unit": {
+    "description": "One accepted released coil meeting the source protocol's verified specification",
+    "acceptance_criteria_status": "unresolved",
+    "criteria": [
+      "Material/diameter/temper match",
+      "Released coil diameter, pitch, turns and lead geometry meet specified tolerances",
+      "No unacceptable damage or contamination",
+      "Downstream functional equivalence where experiment requires it"
+    ],
+    "target_values": null,
+    "tolerances": null
+  },
+  "boundary": {
+    "start": "Stock verification and station preparation",
+    "end": "Accepted coil stored, scrap accounted for and station reset",
+    "included": [
+      "Setup and trials",
+      "Per-attempt preparation and winding",
+      "Inspection/rework/rejects",
+      "Product handling and scrap recovery",
+      "Cleanup and allocated maintenance",
+      "Human labor and waiting",
+      "Tooling and utilities"
+    ],
+    "separate": [
+      "Initial apparatus design/build labor and development compute",
+      "Facility allocation and supply-chain embodied impacts"
+    ],
+    "note": "Separate categories are not zero; show explicit allocation if reporting full lifecycle costs."
+  },
+  "steps": [
+    {
+      "id": "stock_check",
+      "operation": "Select and verify wire stock",
+      "frequency": "per_batch",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Wire spool; stock label",
+      "verification": "Confirm material, diameter, temper and condition",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "fixture_prepare",
+      "operation": "Prepare screwdriver/forming fixture",
+      "frequency": "per_batch",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Screwdriver/forming surface",
+      "verification": "Inspect dimensions; cleaning only if protocol requires it",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "containers_prepare",
+      "operation": "Prepare labels and product/scrap containers",
+      "frequency": "per_batch",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Labels; trays; scrap container",
+      "verification": "Confirm traceability and segregation requirements",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "trial_adjust",
+      "operation": "Make trial coils and adjust technique",
+      "frequency": "per_batch",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Forming fixture; inspection tools",
+      "verification": "Confirm whether trials are needed; count all consumed stock",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "measure_cut",
+      "operation": "Measure and cut/pre-position stock",
+      "frequency": "per_attempt",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Length measure; wire cutter",
+      "verification": "Confirm cutting order and consumed length",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "ends_prepare",
+      "operation": "Prepare wire ends if required",
+      "frequency": "per_attempt",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Hand tools",
+      "verification": "Confirm applicability; do not assume necessary",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "load_secure",
+      "operation": "Orient and secure wire on forming surface",
+      "frequency": "per_attempt",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Hands; forming fixture",
+      "verification": "Record loading and clamping as one boundary",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "wind",
+      "operation": "Wind wire around screwdriver/forming surface",
+      "frequency": "per_attempt",
+      "applicability": "unverified",
+      "basis": "task_description",
+      "tools": "Hands; screwdriver",
+      "verification": "Core T1 task; duration and quality not yet observed",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "release_finish",
+      "operation": "Release coil and finish/cut leads",
+      "frequency": "per_attempt",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Hands; forming fixture; cutter",
+      "verification": "Inspect released shape; avoid counting a cut in two stages",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "inspect_decide",
+      "operation": "Inspect and accept/reject coil",
+      "frequency": "per_attempt",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Dimensional/visual inspection tools",
+      "verification": "Acceptance method and tolerances unresolved",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "rework",
+      "operation": "Rework a rejected coil where feasible",
+      "frequency": "per_rework",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Hands; forming fixture; inspection tools",
+      "verification": "Keep same attempt ID; final disposition after reinspection",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "label_store",
+      "operation": "Label and store accepted coil",
+      "frequency": "per_accepted",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Product tray; labels",
+      "verification": "Confirm protocol-specific storage",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "scrap_recover",
+      "operation": "Segregate and account for recoverable scrap",
+      "frequency": "per_batch",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Scrap container; scale",
+      "verification": "Recovery quantity and net credit need evidence",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "cleanup",
+      "operation": "Clean and reset station",
+      "frequency": "per_batch",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Cleaning tools if needed",
+      "verification": "Record any water/solvent/consumable use",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    },
+    {
+      "id": "maintenance",
+      "operation": "Maintain/replace tools",
+      "frequency": "per_maintenance_event",
+      "applicability": "unverified",
+      "basis": "workflow_hypothesis",
+      "tools": "Replacement tooling",
+      "verification": "Amortize measured event frequency across production",
+      "operator_attended_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "elapsed_s": {
+        "value": null,
+        "unit": "s/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "electricity_wh": {
+        "value": null,
+        "unit": "Wh/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      },
+      "material_loss_g": {
+        "value": null,
+        "unit": "g/event",
+        "basis": "unknown",
+        "evidence_refs": []
+      }
+    }
+  ],
+  "resources": {
+    "tool_inventory": [
+      {
+        "item": "Screwdriver/forming fixture",
+        "basis": "task_description",
+        "quantity": {
+          "value": null,
+          "unit": "count",
+          "basis": "unknown",
+          "evidence_refs": []
+        },
+        "purchase_cost": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "evidence_refs": []
+        },
+        "useful_life": {
+          "value": null,
+          "unit": "accepted coils",
+          "basis": "unknown",
+          "evidence_refs": []
+        }
+      },
+      {
+        "item": "Platinum wire",
+        "basis": "task_description",
+        "specification_status": "unverified",
+        "purchase_cost": {
+          "value": null,
+          "unit": "USD/m",
+          "basis": "unknown",
+          "evidence_refs": []
+        }
+      },
+      {
+        "item": "Wire cutter",
+        "basis": "workflow_hypothesis",
+        "applicability": "unverified",
+        "purchase_cost": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "evidence_refs": []
+        }
+      },
+      {
+        "item": "Length/dimensional measuring tools",
+        "basis": "workflow_hypothesis",
+        "applicability": "unverified",
+        "purchase_cost": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "evidence_refs": []
+        }
+      },
+      {
+        "item": "Product and scrap containers",
+        "basis": "workflow_hypothesis",
+        "applicability": "unverified",
+        "purchase_cost": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "evidence_refs": []
+        }
+      },
+      {
+        "item": "Scale",
+        "basis": "workflow_hypothesis",
+        "applicability": "unverified",
+        "purchase_cost": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "evidence_refs": []
+        }
+      },
+      {
+        "item": "Optional cleaning materials",
+        "basis": "workflow_hypothesis",
+        "applicability": "unverified",
+        "purchase_cost": {
+          "value": null,
+          "unit": "USD",
+          "basis": "unknown",
+          "evidence_refs": []
+        }
+      }
+    ],
+    "loaded_labor_rate": {
+      "value": null,
+      "unit": "USD/operator-hour",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "electricity_rate": {
+      "value": null,
+      "unit": "USD/kWh",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "utility_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "maintenance_cost": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "recovery_credit": {
+      "value": null,
+      "unit": "USD/batch",
+      "basis": "unknown",
+      "evidence_refs": []
+    }
+  },
+  "metrics": {
+    "accepted_count": {
+      "value": null,
+      "unit": "count",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "attempted_count": {
+      "value": null,
+      "unit": "count",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "reject_count": {
+      "value": null,
+      "unit": "count",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "batch_elapsed_s": {
+      "value": null,
+      "unit": "s",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "labor_s_per_accepted": {
+      "value": null,
+      "unit": "s/accepted coil",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "electricity_wh_per_accepted": {
+      "value": null,
+      "unit": "Wh/accepted coil",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "stock_g_per_accepted": {
+      "value": null,
+      "unit": "g/accepted coil",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "unrecovered_waste_g_per_accepted": {
+      "value": null,
+      "unit": "g/accepted coil",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "cost_usd_per_accepted": {
+      "value": null,
+      "unit": "USD/accepted coil",
+      "basis": "unknown",
+      "evidence_refs": []
+    },
+    "accepted_coils_per_hour": {
+      "value": null,
+      "unit": "accepted coils/hour",
+      "basis": "unknown",
+      "evidence_refs": []
+    }
+  },
+  "existing_estimates": {
+    "preprocessing": {
+      "path": "../../snapshots/v1/preprocessing-estimates.json",
+      "basis": "illustrative_unmeasured",
+      "transfer_to_manual_baseline": false,
+      "note": "Home/calibrate motor axes is machine-specific; threading/tension may differ; trial, cutting and clamping require observation. Aggregate 18–51 min/batch and 20–65 s/attempt are not a manual timing result."
+    },
+    "apparatus": {
+      "path": "../../snapshots/v2/estimates.json",
+      "basis": "illustrative_unmeasured",
+      "transfer_to_manual_baseline": false,
+      "note": "15 s touch and 30 s cycle are apparatus assumptions. Do not add all preprocessing totals without reconciling overlap."
+    }
+  },
+  "completion_gates": [
+    "Review actual source video and original annotation",
+    "Resolve output acceptance criteria and test method",
+    "Confirm all upstream/downstream steps and applicability",
+    "Record full workflow with event-level labor, elapsed time and material disposition",
+    "Obtain tool/labor/utility cost evidence",
+    "Compare candidate and baseline at the same accepted output and boundary"
+  ],
+  "claim_status": "No measured manual throughput, total cost, savings or demonstrated equivalence available"
+}
