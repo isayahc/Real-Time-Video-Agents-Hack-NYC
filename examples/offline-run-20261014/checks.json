@@ -1,0 +1,26 @@
+{
+  "source_commit": "7f7be35f43d8aaadfb7fc1142cd2a9d71103490b",
+  "mode": "accounting_only",
+  "command": "python -m protocol_pipeline demo --output runs/offline-20261014 --accounting-only",
+  "tests": {
+    "passed": 59,
+    "failed": 0,
+    "skipped": 0
+  },
+  "network_blocked_replay_passed": true,
+  "identical_evaluator_results": true,
+  "replay_note": "Record timestamps and their dependent lineage hashes differ by run; evaluator summaries are identical.",
+  "physical_validation": false,
+  "live_inference": false,
+  "protocol_extraction_executed": false,
+  "scene_execution": "explicitly_skipped",
+  "artifacts_sha256": {
+    "demo-summary.json": "0c41de106f7d1c7643025bafcacb298c1204229f65e7593ed8a28b909c234a95",
+    "records/coil-p1.json": "d27a1e29b62ede9174ae7a0e2192aa79ab9c1d9fb5448e8b5f24c5696c8ec086",
+    "records/o1.json": "5cbd2170b7980ddc8ee5f89f1eb50869c59ed1b85c61901bb194800150d9f08d",
+    "records/p1.json": "959900464fea6372c2b99ac067305e8ed937949d05c0ede9a9249500ca9df596",
+    "records/p2.json": "4e712fbf094ccf88dab3d2be43fba4e5aacf032aeb8309fe3fe2c337cbe67e85",
+    "report.html": "baf2da3022323b42e56712c289640bd6329fba057407238ae5d4eac4e9c3a702",
+    "report.md": "0ce8985731248740dd4d8958c5f1befef4fc5b2567ae23e55c56b8f324cdd3bf"
+  }
+}

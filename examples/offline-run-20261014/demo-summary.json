@@ -1,0 +1,931 @@
+{
+  "schema_version": 1,
+  "status": "accounting_only",
+  "physical_validation": false,
+  "live_inference": false,
+  "evidence_statement": "Fabricated illustrative accounting fixture and separately replayed CW-02 concept; no demonstrated coil savings",
+  "source_fixture_sha256": {
+    "prediction": "cc5c34d0d8c6eae8dd33cae92e9e77482897a0c8ff7f5d6b21d727c532532a87",
+    "outcome": "935db29b37a081ea30b32c42a3bc32ea07e722e7d62caa7e137b412bcbcddd5f",
+    "revision": "8d1f337b723db9a38108ce669920108e8f594966785afac31f906cb8c1e68e5f",
+    "coil_prediction": "92cfcd33bdd7e46bb2d88127b6dc6634bc0dd0767a094056524828036d107297",
+    "coil_requirements": "061cb8aa046a17250de31b5f664c12cccfe509b861a3073a0c374e42577a66f3"
+  },
+  "illustrative_loop": {
+    "metrics": {
+      "cost_usd_per_accepted": {
+        "prediction": {
+          "value": 2.0,
+          "unit": "USD/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "stock_cost",
+            "consumables_cost",
+            "allocated_tooling_cost",
+            "maintenance_cost",
+            "facility_cost",
+            "other_utilities_cost",
+            "paid_coverage_cost",
+            "recovery_credit",
+            "labor_s",
+            "loaded_labor_rate",
+            "electricity_wh",
+            "electricity_rate",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "illustrative_outcome": {
+          "value": 2.05,
+          "unit": "USD/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "stock_cost",
+            "consumables_cost",
+            "allocated_tooling_cost",
+            "maintenance_cost",
+            "facility_cost",
+            "other_utilities_cost",
+            "paid_coverage_cost",
+            "recovery_credit",
+            "labor_s",
+            "loaded_labor_rate",
+            "electricity_wh",
+            "electricity_rate",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "revision": {
+          "value": 1.976,
+          "unit": "USD/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "stock_cost",
+            "consumables_cost",
+            "allocated_tooling_cost",
+            "maintenance_cost",
+            "facility_cost",
+            "other_utilities_cost",
+            "paid_coverage_cost",
+            "recovery_credit",
+            "labor_s",
+            "loaded_labor_rate",
+            "electricity_wh",
+            "electricity_rate",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        }
+      },
+      "labor_s_per_accepted": {
+        "prediction": {
+          "value": 9.0,
+          "unit": "operator-s/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "labor_s",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "illustrative_outcome": {
+          "value": 18.0,
+          "unit": "operator-s/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "labor_s",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "revision": {
+          "value": 4.5,
+          "unit": "operator-s/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "labor_s",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        }
+      },
+      "electricity_wh_per_accepted": {
+        "prediction": {
+          "value": 0.0,
+          "unit": "Wh/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "electricity_wh",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "illustrative_outcome": {
+          "value": 0.0,
+          "unit": "Wh/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "electricity_wh",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "revision": {
+          "value": 5.0,
+          "unit": "Wh/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "electricity_wh",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        }
+      },
+      "stock_g_per_accepted": {
+        "prediction": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "consumed_stock_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "illustrative_outcome": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "consumed_stock_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "revision": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "consumed_stock_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        }
+      },
+      "unrecovered_waste_g_per_accepted": {
+        "prediction": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "unrecovered_waste_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "illustrative_outcome": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "unrecovered_waste_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "revision": {
+          "value": 0.0,
+          "unit": "g/accepted output",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "unrecovered_waste_g",
+            "accepted_count"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        }
+      },
+      "accepted_outputs_per_hour": {
+        "prediction": {
+          "value": 100.0,
+          "unit": "accepted outputs/hour",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "accepted_count",
+            "elapsed_s"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "illustrative_outcome": {
+          "value": 80.0,
+          "unit": "accepted outputs/hour",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "accepted_count",
+            "elapsed_s"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        },
+        "revision": {
+          "value": 100.0,
+          "unit": "accepted outputs/hour",
+          "status": "calculated",
+          "basis": "includes_assumptions",
+          "dependencies": [
+            "accepted_count",
+            "elapsed_s"
+          ],
+          "missing_inputs": [],
+          "reason": null
+        }
+      }
+    },
+    "investment": {
+      "prediction": {
+        "status": "calculated",
+        "decision": "candidate_lower_cost",
+        "metrics": {
+          "baseline.upfront_total": {
+            "value": 0.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.upfront.equipment",
+              "baseline.upfront.installation",
+              "baseline.upfront.integration",
+              "baseline.upfront.training"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.annual_capacity": {
+            "value": 100000.0,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.nominal_rate",
+              "baseline.scheduled_hours",
+              "baseline.utilization",
+              "baseline.downtime"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.annual_operating_cost": {
+            "value": 51000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.variable_unit_cost",
+              "annual_demand",
+              "baseline.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.horizon_total_cost": {
+            "value": 255000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.upfront_total",
+              "baseline.annual_operating_cost",
+              "horizon_years"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.upfront_total": {
+            "value": 10000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront.equipment",
+              "candidate.upfront.installation",
+              "candidate.upfront.integration",
+              "candidate.upfront.training"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.annual_capacity": {
+            "value": 100000.0,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.nominal_rate",
+              "candidate.scheduled_hours",
+              "candidate.utilization",
+              "candidate.downtime"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.annual_operating_cost": {
+            "value": 23000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.variable_unit_cost",
+              "annual_demand",
+              "candidate.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.horizon_total_cost": {
+            "value": 125000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront_total",
+              "candidate.annual_operating_cost",
+              "horizon_years"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "incremental_upfront": {
+            "value": 10000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront_total",
+              "baseline.upfront_total"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "unit_variable_saving": {
+            "value": 3.0,
+            "unit": "USD/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.variable_unit_cost",
+              "candidate.variable_unit_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "annual_operating_saving": {
+            "value": 28000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.annual_operating_cost",
+              "candidate.annual_operating_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "horizon_net_saving": {
+            "value": 130000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.horizon_total_cost",
+              "candidate.horizon_total_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "annual_fixed_difference": {
+            "value": 2000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.annual_fixed_cost",
+              "baseline.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "simple_payback_years": {
+            "value": 0.35714285714285715,
+            "unit": "years",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "incremental_upfront",
+              "annual_operating_saving"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "horizon_break_even_annual_volume": {
+            "value": 1333.3333333333333,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "incremental_upfront",
+              "annual_fixed_difference",
+              "horizon_years",
+              "unit_variable_saving"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "horizon_break_even_direction": "above",
+        "issues": [],
+        "assumptions_present": true
+      },
+      "illustrative_outcome": {
+        "status": "calculated",
+        "decision": "candidate_lower_cost",
+        "metrics": {
+          "baseline.upfront_total": {
+            "value": 0.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.upfront.equipment",
+              "baseline.upfront.installation",
+              "baseline.upfront.integration",
+              "baseline.upfront.training"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.annual_capacity": {
+            "value": 100000.0,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.nominal_rate",
+              "baseline.scheduled_hours",
+              "baseline.utilization",
+              "baseline.downtime"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.annual_operating_cost": {
+            "value": 51000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.variable_unit_cost",
+              "annual_demand",
+              "baseline.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.horizon_total_cost": {
+            "value": 255000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.upfront_total",
+              "baseline.annual_operating_cost",
+              "horizon_years"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.upfront_total": {
+            "value": 10000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront.equipment",
+              "candidate.upfront.installation",
+              "candidate.upfront.integration",
+              "candidate.upfront.training"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.annual_capacity": {
+            "value": 80000.0,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.nominal_rate",
+              "candidate.scheduled_hours",
+              "candidate.utilization",
+              "candidate.downtime"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.annual_operating_cost": {
+            "value": 23500.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.variable_unit_cost",
+              "annual_demand",
+              "candidate.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.horizon_total_cost": {
+            "value": 127500.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront_total",
+              "candidate.annual_operating_cost",
+              "horizon_years"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "incremental_upfront": {
+            "value": 10000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront_total",
+              "baseline.upfront_total"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "unit_variable_saving": {
+            "value": 2.95,
+            "unit": "USD/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.variable_unit_cost",
+              "candidate.variable_unit_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "annual_operating_saving": {
+            "value": 27500.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.annual_operating_cost",
+              "candidate.annual_operating_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "horizon_net_saving": {
+            "value": 127500.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.horizon_total_cost",
+              "candidate.horizon_total_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "annual_fixed_difference": {
+            "value": 2000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.annual_fixed_cost",
+              "baseline.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "simple_payback_years": {
+            "value": 0.36363636363636365,
+            "unit": "years",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "incremental_upfront",
+              "annual_operating_saving"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "horizon_break_even_annual_volume": {
+            "value": 1355.9322033898304,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "incremental_upfront",
+              "annual_fixed_difference",
+              "horizon_years",
+              "unit_variable_saving"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "horizon_break_even_direction": "above",
+        "issues": [],
+        "assumptions_present": true
+      },
+      "revision": {
+        "status": "calculated",
+        "decision": "candidate_lower_cost",
+        "metrics": {
+          "baseline.upfront_total": {
+            "value": 0.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.upfront.equipment",
+              "baseline.upfront.installation",
+              "baseline.upfront.integration",
+              "baseline.upfront.training"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.annual_capacity": {
+            "value": 100000.0,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.nominal_rate",
+              "baseline.scheduled_hours",
+              "baseline.utilization",
+              "baseline.downtime"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.annual_operating_cost": {
+            "value": 51000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.variable_unit_cost",
+              "annual_demand",
+              "baseline.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "baseline.horizon_total_cost": {
+            "value": 255000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.upfront_total",
+              "baseline.annual_operating_cost",
+              "horizon_years"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.upfront_total": {
+            "value": 10000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront.equipment",
+              "candidate.upfront.installation",
+              "candidate.upfront.integration",
+              "candidate.upfront.training"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.annual_capacity": {
+            "value": 100000.0,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.nominal_rate",
+              "candidate.scheduled_hours",
+              "candidate.utilization",
+              "candidate.downtime"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.annual_operating_cost": {
+            "value": 22760.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.variable_unit_cost",
+              "annual_demand",
+              "candidate.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "candidate.horizon_total_cost": {
+            "value": 123800.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront_total",
+              "candidate.annual_operating_cost",
+              "horizon_years"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "incremental_upfront": {
+            "value": 10000.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.upfront_total",
+              "baseline.upfront_total"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "unit_variable_saving": {
+            "value": 3.024,
+            "unit": "USD/accepted output",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.variable_unit_cost",
+              "candidate.variable_unit_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "annual_operating_saving": {
+            "value": 28240.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.annual_operating_cost",
+              "candidate.annual_operating_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "horizon_net_saving": {
+            "value": 131200.0,
+            "unit": "USD",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "baseline.horizon_total_cost",
+              "candidate.horizon_total_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "annual_fixed_difference": {
+            "value": 2000.0,
+            "unit": "USD/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "candidate.annual_fixed_cost",
+              "baseline.annual_fixed_cost"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "simple_payback_years": {
+            "value": 0.35410764872521244,
+            "unit": "years",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "incremental_upfront",
+              "annual_operating_saving"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          },
+          "horizon_break_even_annual_volume": {
+            "value": 1322.7513227513227,
+            "unit": "accepted outputs/year",
+            "status": "calculated",
+            "basis": "includes_assumptions",
+            "dependencies": [
+              "incremental_upfront",
+              "annual_fixed_difference",
+              "horizon_years",
+              "unit_variable_saving"
+            ],
+            "missing_inputs": [],
+            "reason": null
+          }
+        },
+        "horizon_break_even_direction": "above",
+        "issues": [],
+        "assumptions_present": true
+      }
+    },
+    "revision_conclusion": "predicted_tradeoff",
+    "flagged_metrics": [
+      "cost_usd_per_accepted",
+      "labor_s_per_accepted",
+      "accepted_outputs_per_hour"
+    ],
+    "predicted_improvements": [
+      "cost_usd_per_accepted",
+      "labor_s_per_accepted",
+      "accepted_outputs_per_hour"
+    ],
+    "predicted_regressions": [
+      "electricity_wh_per_accepted"
+    ]
+  },
+  "coil_scene": {
+    "status": "skipped_accounting_only"
+  },
+  "coil_investment_decision": "undetermined",
+  "coil_unit_cost": null,
+  "records": [
+    {
+      "id": "p1",
+      "sha256": "8bdc8309580ddb58c18fcc6f33ad23ef98244267795f4c107144ffe10eba1822",
+      "description": "Illustrative prediction v1"
+    },
+    {
+      "id": "o1",
+      "sha256": "17221df12d69f1669a00a6700c41b791f737e5b58593edea131f58ca09199306",
+      "description": "Fabricated illustrative outcome"
+    },
+    {
+      "id": "p2",
+      "sha256": "5a7ccb451cf8303e657fb30dfdfa8ee58af89fb7afa8cbb938c46e358a26f3bd",
+      "description": "Illustrative revision v2"
+    },
+    {
+      "id": "coil-p1",
+      "sha256": "48c65f6107ae806189f92ba4e2aeb9ec008f4b47171bf294b36a19894c4119ed",
+      "description": "Actual coil concept: unknown operating inputs"
+    }
+  ]
+}
