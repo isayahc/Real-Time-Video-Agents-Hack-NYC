@@ -1,0 +1,400 @@
+[
+  {
+    "field": "accepted_count",
+    "unit": "count",
+    "operation_ids": [
+      "verify_and_release",
+      "rework",
+      "label_store"
+    ],
+    "instruction": "Count final accepted coils once after any rework and reinspection."
+  },
+  {
+    "field": "attempted_count",
+    "unit": "count",
+    "operation_ids": [
+      "relative_rotation",
+      "rework"
+    ],
+    "instruction": "Count distinct production attempts; record setup/trial stock separately and do not count rework as a new attempt."
+  },
+  {
+    "field": "elapsed_s",
+    "unit": "s",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Measure batch wall-clock start/end including preparation, waiting and reset; do not sum concurrent task durations."
+  },
+  {
+    "field": "labor_s",
+    "unit": "operator-s",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Measure attended intervals per operator; reconcile threading/clamping/touch-time overlaps and allocated maintenance."
+  },
+  {
+    "field": "electricity_wh",
+    "unit": "Wh",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Meter the full boundary including setup, idle and cleanup; retain any justified allocation."
+  },
+  {
+    "field": "consumed_stock_g",
+    "unit": "g",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "relative_rotation",
+      "rework"
+    ],
+    "instruction": "Weigh all consumed stock including setup/trial losses, retained leads and rejects."
+  },
+  {
+    "field": "recoverable_scrap_g",
+    "unit": "g",
+    "operation_ids": [
+      "verify_and_release",
+      "rework",
+      "scrap_recover"
+    ],
+    "instruction": "Weigh segregated recoverable scrap; avoid counting it as both recovered and unrecovered."
+  },
+  {
+    "field": "unrecovered_waste_g",
+    "unit": "g",
+    "operation_ids": [
+      "verify_and_release",
+      "rework",
+      "scrap_recover",
+      "cleanup"
+    ],
+    "instruction": "Record final unrecovered material disposition across the full boundary."
+  },
+  {
+    "field": "loaded_labor_rate",
+    "unit": "USD/operator-hour",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "electricity_rate",
+    "unit": "USD/kWh",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "stock_cost",
+    "unit": "USD/batch",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "consumables_cost",
+    "unit": "USD/batch",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "allocated_tooling_cost",
+    "unit": "USD/batch",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "maintenance_cost",
+    "unit": "USD/batch",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "facility_cost",
+    "unit": "USD/batch",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "other_utilities_cost",
+    "unit": "USD/batch",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "paid_coverage_cost",
+    "unit": "USD/batch",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "recovery_credit",
+    "unit": "USD/batch",
+    "operation_ids": [
+      "prep_verify_stock",
+      "prep_prepare_mandrel",
+      "prep_prepare_containers",
+      "prep_thread_and_tension",
+      "prep_home_and_calibrate",
+      "prep_trial_coil",
+      "prep_measure_cut",
+      "prep_prepare_ends",
+      "prep_orient_secure",
+      "constrain",
+      "establish_contact",
+      "relative_rotation",
+      "maintain_tension",
+      "verify_and_release",
+      "rework",
+      "label_store",
+      "scrap_recover",
+      "cleanup",
+      "maintenance"
+    ],
+    "instruction": "Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence."
+  },
+  {
+    "field": "acceptance_verified",
+    "unit": "boolean",
+    "operation_ids": [
+      "verify_and_release"
+    ],
+    "instruction": "Resolve released geometry/material tolerances and downstream function; record the acceptance method and evidence."
+  }
+]

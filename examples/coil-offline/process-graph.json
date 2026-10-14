@@ -1,0 +1,341 @@
+{
+  "nodes": [
+    {
+      "id": "prep_verify_stock",
+      "phase": "preparation",
+      "description": "Select and verify wire stock/specification",
+      "frequency": "per_batch",
+      "equipment": [
+        "wire stock",
+        "stock specification/label",
+        "dimensional measuring tools"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/batch_steps/0",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        120.0,
+        300.0
+      ]
+    },
+    {
+      "id": "prep_prepare_mandrel",
+      "phase": "preparation",
+      "description": "Inspect and prepare mandrel/fixture; clean if required",
+      "frequency": "per_batch",
+      "equipment": [
+        "mandrel/fixture",
+        "inspection tools",
+        "cleaning materials if required"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/batch_steps/1",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        120.0,
+        300.0
+      ]
+    },
+    {
+      "id": "prep_prepare_containers",
+      "phase": "preparation",
+      "description": "Prepare labels, accepted-part trays and scrap container",
+      "frequency": "per_batch",
+      "equipment": [
+        "labels",
+        "accepted-part tray",
+        "scrap container"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/batch_steps/2",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        60.0,
+        180.0
+      ]
+    },
+    {
+      "id": "prep_thread_and_tension",
+      "phase": "preparation",
+      "description": "Load/thread stock and establish initial tension",
+      "frequency": "per_batch",
+      "equipment": [
+        "wire guide",
+        "spool brake/dancer",
+        "tension sensor"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/batch_steps/3",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        180.0,
+        480.0
+      ]
+    },
+    {
+      "id": "prep_home_and_calibrate",
+      "phase": "preparation",
+      "description": "Home axes and calibrate inspection, where applicable",
+      "frequency": "per_batch",
+      "equipment": [
+        "axis controller",
+        "home sensors",
+        "inspection calibration reference"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/batch_steps/4",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        300.0,
+        900.0
+      ]
+    },
+    {
+      "id": "prep_trial_coil",
+      "phase": "preparation",
+      "description": "Produce/inspect a trial coil and adjust settings",
+      "frequency": "per_batch",
+      "equipment": [
+        "winding apparatus",
+        "released-coil inspection tools"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/batch_steps/5",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        300.0,
+        900.0
+      ]
+    },
+    {
+      "id": "prep_measure_cut",
+      "phase": "preparation",
+      "description": "Measure and cut/pre-position wire",
+      "frequency": "per_attempt",
+      "equipment": [
+        "length measure",
+        "manual wire cutter"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/per_attempt_steps/0",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        10.0,
+        30.0
+      ]
+    },
+    {
+      "id": "prep_prepare_ends",
+      "phase": "preparation",
+      "description": "Straighten/prepare ends if required",
+      "frequency": "per_attempt",
+      "equipment": [
+        "manual wire preparation tools if required"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/per_attempt_steps/1",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        5.0,
+        20.0
+      ]
+    },
+    {
+      "id": "prep_orient_secure",
+      "phase": "preparation",
+      "description": "Orient and secure wire for winding",
+      "frequency": "per_attempt",
+      "equipment": [
+        "removable mandrel clamp"
+      ],
+      "source_ref": "snapshots/v1/preprocessing-estimates.json#/per_attempt_steps/2",
+      "basis": "workflow_hypothesis",
+      "verification": "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time",
+      "attended_range_s": [
+        5.0,
+        15.0
+      ]
+    },
+    {
+      "id": "constrain",
+      "phase": "forming",
+      "description": "load wire end: wire held without slipping",
+      "frequency": "per_attempt",
+      "equipment": [
+        "removable mandrel clamp"
+      ],
+      "source_ref": "snapshots/v2/protocol.json#/steps/0",
+      "basis": "proposed_machine_protocol",
+      "verification": "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance.",
+      "attended_range_s": null
+    },
+    {
+      "id": "establish_contact",
+      "phase": "forming",
+      "description": "thread the guide: wire contacts cylindrical forming surface",
+      "frequency": "per_attempt",
+      "equipment": [
+        "guide and mandrel"
+      ],
+      "source_ref": "snapshots/v2/protocol.json#/steps/1",
+      "basis": "proposed_machine_protocol",
+      "verification": "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance.",
+      "attended_range_s": null
+    },
+    {
+      "id": "relative_rotation",
+      "phase": "forming",
+      "description": "start cycle: target turns and pitch formed",
+      "frequency": "per_attempt",
+      "equipment": [
+        "stepper spindle and synchronized traverse"
+      ],
+      "source_ref": "snapshots/v2/protocol.json#/steps/2",
+      "basis": "proposed_machine_protocol",
+      "verification": "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance.",
+      "attended_range_s": null
+    },
+    {
+      "id": "maintain_tension",
+      "phase": "forming",
+      "description": "set tension during setup: stable tension below tested damage limit",
+      "frequency": "per_attempt",
+      "equipment": [
+        "passive dancer/spool brake and tension sensor"
+      ],
+      "source_ref": "snapshots/v2/protocol.json#/steps/3",
+      "basis": "proposed_machine_protocol",
+      "verification": "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance.",
+      "attended_range_s": null
+    },
+    {
+      "id": "verify_and_release",
+      "phase": "forming",
+      "description": "cut and remove coil: inspect final diameter, pitch, turns and lead geometry after release",
+      "frequency": "per_attempt",
+      "equipment": [
+        "camera/backlight, removable mandrel and manual cutting tools"
+      ],
+      "source_ref": "snapshots/v2/protocol.json#/steps/4",
+      "basis": "proposed_machine_protocol",
+      "verification": "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance.",
+      "attended_range_s": null
+    },
+    {
+      "id": "rework",
+      "phase": "finishing",
+      "description": "Rework a rejected coil where feasible",
+      "frequency": "per_rework",
+      "equipment": [
+        "Hands; forming fixture; inspection tools"
+      ],
+      "source_ref": "benchmarks/coil-winding/baseline.json#/steps/10",
+      "basis": "workflow_hypothesis",
+      "verification": "Keep same attempt ID; final disposition after reinspection; candidate transfer from manual baseline requires review",
+      "attended_range_s": null
+    },
+    {
+      "id": "label_store",
+      "phase": "finishing",
+      "description": "Label and store accepted coil",
+      "frequency": "per_accepted",
+      "equipment": [
+        "Product tray; labels"
+      ],
+      "source_ref": "benchmarks/coil-winding/baseline.json#/steps/11",
+      "basis": "workflow_hypothesis",
+      "verification": "Confirm protocol-specific storage; candidate transfer from manual baseline requires review",
+      "attended_range_s": null
+    },
+    {
+      "id": "scrap_recover",
+      "phase": "finishing",
+      "description": "Segregate and account for recoverable scrap",
+      "frequency": "per_batch",
+      "equipment": [
+        "Scrap container; scale"
+      ],
+      "source_ref": "benchmarks/coil-winding/baseline.json#/steps/12",
+      "basis": "workflow_hypothesis",
+      "verification": "Recovery quantity and net credit need evidence; candidate transfer from manual baseline requires review",
+      "attended_range_s": null
+    },
+    {
+      "id": "cleanup",
+      "phase": "finishing",
+      "description": "Clean and reset station",
+      "frequency": "per_batch",
+      "equipment": [
+        "Cleaning tools if needed"
+      ],
+      "source_ref": "benchmarks/coil-winding/baseline.json#/steps/13",
+      "basis": "workflow_hypothesis",
+      "verification": "Record any water/solvent/consumable use; candidate transfer from manual baseline requires review",
+      "attended_range_s": null
+    },
+    {
+      "id": "maintenance",
+      "phase": "finishing",
+      "description": "Maintain/replace tools",
+      "frequency": "per_maintenance_event",
+      "equipment": [
+        "Replacement tooling"
+      ],
+      "source_ref": "benchmarks/coil-winding/baseline.json#/steps/14",
+      "basis": "workflow_hypothesis",
+      "verification": "Amortize measured event frequency across production; candidate transfer from manual baseline requires review",
+      "attended_range_s": null
+    }
+  ],
+  "links": [
+    {
+      "source": "prep_verify_stock",
+      "target": "constrain",
+      "relation": "before",
+      "basis": "proposed_requires_review"
+    },
+    {
+      "source": "prep_prepare_mandrel",
+      "target": "constrain",
+      "relation": "before",
+      "basis": "proposed_requires_review"
+    },
+    {
+      "source": "constrain",
+      "target": "establish_contact",
+      "relation": "before",
+      "basis": "proposed_requires_review"
+    },
+    {
+      "source": "establish_contact",
+      "target": "relative_rotation",
+      "relation": "before",
+      "basis": "proposed_requires_review"
+    },
+    {
+      "source": "maintain_tension",
+      "target": "relative_rotation",
+      "relation": "during",
+      "basis": "proposed_requires_review"
+    },
+    {
+      "source": "relative_rotation",
+      "target": "verify_and_release",
+      "relation": "before",
+      "basis": "proposed_requires_review"
+    },
+    {
+      "source": "verify_and_release",
+      "target": "label_store",
+      "relation": "before",
+      "basis": "proposed_requires_review"
+    }
+  ],
+  "limitations": [
+    "Fixed planning protocol; original video and annotation have not been ingested or reviewed.",
+    "Equipment and graph links are proposed candidates, not a verified BOM or executable schedule.",
+    "Preparation applicability and repetitions need review; trial coils may repeat forming/inspection.",
+    "Threading, clamping, cutting and inspection may overlap existing allowances; ranges are not summed.",
+    "Full-process measurements and released-coil acceptance criteria remain unresolved."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "mode": "fixed_protocol_offline",
+  "tests": {
+    "passed": 64,
+    "failed": 0,
+    "skipped": 0
+  },
+  "network_blocked_replay": true,
+  "byte_identical_replay": true,
+  "operations": 19,
+  "capabilities": 19,
+  "full_process_status": "partial",
+  "full_process_measurements": "unknown",
+  "live_inference": false,
+  "physical_validation": false,
+  "artifacts_sha256": {
+    "process-graph.json": "c31c4857a0628b6498e43a142aa59335c8b8614d876bbd7824cf4aaf6a409c05",
+    "report.md": "3c046a380c43ccb6652daf7a53b2ace9054235e1158d24477e4aafde69b2f357",
+    "report.html": "4533b6c446efa4adca753dfddb634480446af00651dbb4bf98139e1e494ee46c",
+    "measurement-checklist.json": "b594c98474e233e94ead8d9f0a23389338b834c90d5511875e85a2e016692296",
+    "full-process-input.json": "5bca3602e0864a11ac4c7dca88303003c1f21b2681ceab5d86a1bd94266fbe44",
+    "summary.json": "020d7f06cd1a73d85485f5125122eb46d4185d947f3f45ee6383b78c3924fc70",
+    "apparatus-requirements.json": "d09ee9f765118a82d9ba98e36fec6c31328b0867ff20df0c100d5b14784eebfa"
+  }
+}
