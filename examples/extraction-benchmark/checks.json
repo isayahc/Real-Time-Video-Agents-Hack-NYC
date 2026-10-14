@@ -1,0 +1,24 @@
+{
+  "local_tests": {
+    "passed": 89,
+    "failed": 0,
+    "skipped": 0
+  },
+  "offline_workflows": 10,
+  "network_connections_blocked": true,
+  "live_model_quality_established": false,
+  "physical_validation": false,
+  "reference_status": "assistant_authored_reference_requires_user_review",
+  "creolab_video_reference": "not_yet_source_reviewed",
+  "artifacts_sha256": {
+    "README.md": "f4b018594c42be33fe206f0d2c5353d3810d271bd11d88a1ff0b546620b89c6b",
+    "fixture/report.md": "929a431e8a7bef2f523c50a7dc4823ee86e2a6d3c2634c01c5fe2d5ee8c11262",
+    "fixture/review-template.json": "602b9d5eb1b38f8c2d5c58ac814225c3ad12e0606e2daf426190f2ffaf710772",
+    "fixture/summary.json": "1edbbc2bd04f072adeecc5b214fc72b28425b784be65ad19f022bf02af190f17",
+    "fixture-review.json": "602b9d5eb1b38f8c2d5c58ac814225c3ad12e0606e2daf426190f2ffaf710772",
+    "pending/report.md": "4bb4ef9a3abb68758c77082caf1452b8a1e4875802b28e7f9c247fab271fa9c9",
+    "pending/review-template.json": "a65060d2f54964fd64e2037e006df8f741e36d9f133094f80cfb0da0d45460f1",
+    "pending/summary.json": "96b4b1b97f13a18b46b67a70fb2bc28a8c460824b173b8c3765b05ffffcf08d1",
+    "reference.json": "42b86dc3feade3a78f133d047368f44d82f268b1d8a968c5ba260f69c83043bf"
+  }
+}

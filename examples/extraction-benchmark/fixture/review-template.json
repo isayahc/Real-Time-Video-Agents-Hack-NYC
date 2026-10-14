@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "candidate_sha256": "9066bcc9ce57af981d359b696ff7bf27b78eb88aa5ebfcad1345058122c6b2aa",
+  "reference_sha256": "42b86dc3feade3a78f133d047368f44d82f268b1d8a968c5ba260f69c83043bf",
+  "reviewer": "Assistant-authored integration review of the hand-authored replay fixture; user review pending",
+  "evidence_kind": "recorded_fixture_review",
+  "complete": true,
+  "step_matches": [
+    {
+      "reference_id": "r1",
+      "candidate_id": "prepare_racks",
+      "grounding_supported": true,
+      "rationale": "Source line 1 describes the operation; candidate operation intent and physical action align with it"
+    },
+    {
+      "reference_id": "r2",
+      "candidate_id": "identify_tube",
+      "grounding_supported": true,
+      "rationale": "Source line 2 describes the operation; candidate operation intent and physical action align with it"
+    },
+    {
+      "reference_id": "r3",
+      "candidate_id": "grip_tube",
+      "grounding_supported": true,
+      "rationale": "Source line 3 describes the operation; candidate operation intent and physical action align with it"
+    },
+    {
+      "reference_id": "r4",
+      "candidate_id": "transfer_tube",
+      "grounding_supported": true,
+      "rationale": "Source line 4 describes the operation; candidate operation intent and physical action align with it"
+    },
+    {
+      "reference_id": "r5",
+      "candidate_id": "place_release",
+      "grounding_supported": true,
+      "rationale": "Source line 5 describes the operation; candidate operation intent and physical action align with it"
+    },
+    {
+      "reference_id": "r6",
+      "candidate_id": "verify_destination",
+      "grounding_supported": true,
+      "rationale": "Source line 6 describes the operation; candidate operation intent and physical action align with it"
+    },
+    {
+      "reference_id": "r7",
+      "candidate_id": "reset_station",
+      "grounding_supported": true,
+      "rationale": "Source line 7 describes the operation; candidate operation intent and physical action align with it"
+    }
+  ],
+  "missed_reference_steps": [],
+  "unsupported_candidate_steps": [],
+  "acceptance_matches": [
+    {
+      "reference_id": "a1",
+      "candidate_id": "identity_and_placement",
+      "grounding_supported": true,
+      "rationale": "Lines 2 and 6 identify destination/identity/cap acceptance checks"
+    },
+    {
+      "reference_id": "a2",
+      "candidate_id": "handling_and_clearance",
+      "grounding_supported": true,
+      "rationale": "Lines 3\u20134 support cap closure and clear-path intent; numerical tolerances remain unspecified"
+    }
+  ],
+  "missed_reference_acceptance": [],
+  "unsupported_candidate_acceptance": []
+}

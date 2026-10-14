@@ -14,6 +14,7 @@ from protocol_pipeline.failures import run_failures
 from protocol_pipeline.offline import run_coil_offline
 from protocol_pipeline.compiler import compile_protocol_file
 from protocol_pipeline.extraction import ReplayProvider, extract_protocol
+from protocol_pipeline.benchmark import benchmark_files
 
 
 def main() -> None:
@@ -36,11 +37,15 @@ def main() -> None:
             compile_protocol_file(root / f"examples/protocols/{name}.json", args.output / ("compiled-" + name))
         extract_protocol(ReplayProvider(root / "examples/extraction/recorded-response.json"), "offline-fixture",
                          args.output / "extraction-replay", text_path=root / "examples/extraction/procedure.txt")
+        for name, review in (("pending", None), ("fixture", root / "examples/extraction-benchmark/fixture-review.json")):
+            benchmark_files(args.output / "extraction-replay/extracted-protocol.json",
+                root / "examples/extraction-benchmark/reference.json", root / "examples/extraction/procedure.txt",
+                args.output / ("benchmark-" + name), review)
     checks = {"status": "passed", "network_connections_blocked": True, "physical_validation": False,
               "artifacts_sha256": {str(path.relative_to(args.output)): hashlib.sha256(path.read_bytes()).hexdigest()
                                    for path in sorted(args.output.rglob("*")) if path.is_file()}}
     (args.output / "checks.json").write_text(json.dumps(checks, indent=2) + "\n")
-    print(json.dumps({"status": "passed", "workflows": 8, "network_connections_blocked": True}))
+    print(json.dumps({"status": "passed", "workflows": 10, "network_connections_blocked": True}))
 
 
 if __name__ == "__main__":
