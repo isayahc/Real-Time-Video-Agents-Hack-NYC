@@ -1,0 +1,85 @@
+# CW-02 offline protocol-to-resource report
+
+**Planning sources only. No live inference, physical validation or demonstrated savings.**
+
+## Candidate workflow and apparatus
+
+Each operation maps to a candidate capability in `apparatus-requirements.json`.
+
+| Operation | Phase / repetition | Candidate equipment | Preparation attended range |
+| --- | --- | --- | --- |
+| prep_verify_stock: Select and verify wire stock/specification | preparation / per_batch | wire stock; stock specification/label; dimensional measuring tools | 120–300 s/event (unmeasured) |
+| prep_prepare_mandrel: Inspect and prepare mandrel/fixture; clean if required | preparation / per_batch | mandrel/fixture; inspection tools; cleaning materials if required | 120–300 s/event (unmeasured) |
+| prep_prepare_containers: Prepare labels, accepted-part trays and scrap container | preparation / per_batch | labels; accepted-part tray; scrap container | 60–180 s/event (unmeasured) |
+| prep_thread_and_tension: Load/thread stock and establish initial tension | preparation / per_batch | wire guide; spool brake/dancer; tension sensor | 180–480 s/event (unmeasured) |
+| prep_home_and_calibrate: Home axes and calibrate inspection, where applicable | preparation / per_batch | axis controller; home sensors; inspection calibration reference | 300–900 s/event (unmeasured) |
+| prep_trial_coil: Produce/inspect a trial coil and adjust settings | preparation / per_batch | winding apparatus; released-coil inspection tools | 300–900 s/event (unmeasured) |
+| prep_measure_cut: Measure and cut/pre-position wire | preparation / per_attempt | length measure; manual wire cutter | 10–30 s/event (unmeasured) |
+| prep_prepare_ends: Straighten/prepare ends if required | preparation / per_attempt | manual wire preparation tools if required | 5–20 s/event (unmeasured) |
+| prep_orient_secure: Orient and secure wire for winding | preparation / per_attempt | removable mandrel clamp | 5–15 s/event (unmeasured) |
+| constrain: load wire end: wire held without slipping | forming / per_attempt | removable mandrel clamp | Unknown |
+| establish_contact: thread the guide: wire contacts cylindrical forming surface | forming / per_attempt | guide and mandrel | Unknown |
+| relative_rotation: start cycle: target turns and pitch formed | forming / per_attempt | stepper spindle and synchronized traverse | Unknown |
+| maintain_tension: set tension during setup: stable tension below tested damage limit | forming / per_attempt | passive dancer/spool brake and tension sensor | Unknown |
+| verify_and_release: cut and remove coil: inspect final diameter, pitch, turns and lead geometry after release | forming / per_attempt | camera/backlight, removable mandrel and manual cutting tools | Unknown |
+| rework: Rework a rejected coil where feasible | finishing / per_rework | Hands; forming fixture; inspection tools | Unknown |
+| label_store: Label and store accepted coil | finishing / per_accepted | Product tray; labels | Unknown |
+| scrap_recover: Segregate and account for recoverable scrap | finishing / per_batch | Scrap container; scale | Unknown |
+| cleanup: Clean and reset station | finishing / per_batch | Cleaning tools if needed | Unknown |
+| maintenance: Maintain/replace tools | finishing / per_maintenance_event | Replacement tooling | Unknown |
+
+Tension maintenance runs during winding in the proposed graph. Other ordering and candidate applicability require review; this graph is not a schedule.
+
+Preparation ranges are not added to winding touch-time estimates because overlapping work is unresolved.
+
+## Full-process resource evaluation
+
+Boundary: stock verification and station preparation through accepted-coil storage, scrap accounting and station reset, including allocated maintenance.
+
+Full-process values remain unknown. The winding-only inputs below do not populate this boundary.
+
+| Metric | Full process | Winding-only planning scenario |
+| --- | --- | --- |
+| labor_s_per_accepted | Unknown | 15.7895 operator-s/accepted output (assumptions) |
+| electricity_wh_per_accepted | Unknown | 0.166667 Wh/accepted output (assumptions) |
+| stock_g_per_accepted | Unknown | 0.145628 g/accepted output (assumptions) |
+| recoverable_scrap_g_per_accepted | Unknown | Unknown |
+| unrecovered_waste_g_per_accepted | Unknown | Unknown |
+| accepted_outputs_per_hour | Unknown | 114 accepted outputs/hour (assumptions) |
+| accepted_fraction | Unknown | 0.95 fraction (assumptions) |
+| total_cost_usd_per_batch | Unknown | Unknown |
+| cost_usd_per_accepted | Unknown | Unknown |
+
+Winding-only scenario assumes 100 attempts and 95 accepted outputs; acceptance is unverified. Cost, yield and throughput are conditional calculations, not measurements.
+
+## Missing measurements and review
+
+- accepted_count (count): Count final accepted coils once after any rework and reinspection.
+- attempted_count (count): Count distinct production attempts; record setup/trial stock separately and do not count rework as a new attempt.
+- elapsed_s (s): Measure batch wall-clock start/end including preparation, waiting and reset; do not sum concurrent task durations.
+- labor_s (operator-s): Measure attended intervals per operator; reconcile threading/clamping/touch-time overlaps and allocated maintenance.
+- electricity_wh (Wh): Meter the full boundary including setup, idle and cleanup; retain any justified allocation.
+- consumed_stock_g (g): Weigh all consumed stock including setup/trial losses, retained leads and rejects.
+- recoverable_scrap_g (g): Weigh segregated recoverable scrap; avoid counting it as both recovered and unrecovered.
+- unrecovered_waste_g (g): Record final unrecovered material disposition across the full boundary.
+- loaded_labor_rate (USD/operator-hour): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- electricity_rate (USD/kWh): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- stock_cost (USD/batch): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- consumables_cost (USD/batch): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- allocated_tooling_cost (USD/batch): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- maintenance_cost (USD/batch): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- facility_cost (USD/batch): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- other_utilities_cost (USD/batch): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- paid_coverage_cost (USD/batch): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- recovery_credit (USD/batch): Source the rate or explicit batch cost allocation; missing is unknown, and zero requires evidence.
+- acceptance_verified (boolean): Resolve released geometry/material tolerances and downstream function; record the acceptance method and evidence.
+
+## Limitations
+
+- Fixed planning protocol; original video and annotation have not been ingested or reviewed.
+- Equipment and graph links are proposed candidates, not a verified BOM or executable schedule.
+- Preparation applicability and repetitions need review; trial coils may repeat forming/inspection.
+- Threading, clamping, cutting and inspection may overlap existing allowances; ranges are not summed.
+- Full-process measurements and released-coil acceptance criteria remain unresolved.
+
+[Process graph](process-graph.json) · [Candidate requirements](apparatus-requirements.json) · [Full-process input template](full-process-input.json) · [Structured summary](summary.json)

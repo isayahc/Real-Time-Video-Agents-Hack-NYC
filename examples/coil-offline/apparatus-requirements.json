@@ -1,0 +1,575 @@
+{
+  "schema_version": 1,
+  "status": "candidate_requirements_requires_review",
+  "required_capabilities": [
+    {
+      "id": "cap_prep_verify_stock",
+      "name": "Support prep verify stock",
+      "operation_ids": [
+        "prep_verify_stock"
+      ],
+      "rationale": "Candidate equipment: wire stock; stock specification/label; dimensional measuring tools"
+    },
+    {
+      "id": "cap_prep_prepare_mandrel",
+      "name": "Support prep prepare mandrel",
+      "operation_ids": [
+        "prep_prepare_mandrel"
+      ],
+      "rationale": "Candidate equipment: mandrel/fixture; inspection tools; cleaning materials if required"
+    },
+    {
+      "id": "cap_prep_prepare_containers",
+      "name": "Support prep prepare containers",
+      "operation_ids": [
+        "prep_prepare_containers"
+      ],
+      "rationale": "Candidate equipment: labels; accepted-part tray; scrap container"
+    },
+    {
+      "id": "cap_prep_thread_and_tension",
+      "name": "Support prep thread and tension",
+      "operation_ids": [
+        "prep_thread_and_tension"
+      ],
+      "rationale": "Candidate equipment: wire guide; spool brake/dancer; tension sensor"
+    },
+    {
+      "id": "cap_prep_home_and_calibrate",
+      "name": "Support prep home and calibrate",
+      "operation_ids": [
+        "prep_home_and_calibrate"
+      ],
+      "rationale": "Candidate equipment: axis controller; home sensors; inspection calibration reference"
+    },
+    {
+      "id": "cap_prep_trial_coil",
+      "name": "Support prep trial coil",
+      "operation_ids": [
+        "prep_trial_coil"
+      ],
+      "rationale": "Candidate equipment: winding apparatus; released-coil inspection tools"
+    },
+    {
+      "id": "cap_prep_measure_cut",
+      "name": "Support prep measure cut",
+      "operation_ids": [
+        "prep_measure_cut"
+      ],
+      "rationale": "Candidate equipment: length measure; manual wire cutter"
+    },
+    {
+      "id": "cap_prep_prepare_ends",
+      "name": "Support prep prepare ends",
+      "operation_ids": [
+        "prep_prepare_ends"
+      ],
+      "rationale": "Candidate equipment: manual wire preparation tools if required"
+    },
+    {
+      "id": "cap_prep_orient_secure",
+      "name": "Support prep orient secure",
+      "operation_ids": [
+        "prep_orient_secure"
+      ],
+      "rationale": "Candidate equipment: removable mandrel clamp"
+    },
+    {
+      "id": "cap_constrain",
+      "name": "Support constrain",
+      "operation_ids": [
+        "constrain"
+      ],
+      "rationale": "Candidate equipment: removable mandrel clamp"
+    },
+    {
+      "id": "cap_establish_contact",
+      "name": "Support establish contact",
+      "operation_ids": [
+        "establish_contact"
+      ],
+      "rationale": "Candidate equipment: guide and mandrel"
+    },
+    {
+      "id": "cap_relative_rotation",
+      "name": "Support relative rotation",
+      "operation_ids": [
+        "relative_rotation"
+      ],
+      "rationale": "Candidate equipment: stepper spindle and synchronized traverse"
+    },
+    {
+      "id": "cap_maintain_tension",
+      "name": "Support maintain tension",
+      "operation_ids": [
+        "maintain_tension"
+      ],
+      "rationale": "Candidate equipment: passive dancer/spool brake and tension sensor"
+    },
+    {
+      "id": "cap_verify_and_release",
+      "name": "Support verify and release",
+      "operation_ids": [
+        "verify_and_release"
+      ],
+      "rationale": "Candidate equipment: camera/backlight, removable mandrel and manual cutting tools"
+    },
+    {
+      "id": "cap_rework",
+      "name": "Support rework",
+      "operation_ids": [
+        "rework"
+      ],
+      "rationale": "Candidate equipment: Hands; forming fixture; inspection tools"
+    },
+    {
+      "id": "cap_label_store",
+      "name": "Support label store",
+      "operation_ids": [
+        "label_store"
+      ],
+      "rationale": "Candidate equipment: Product tray; labels"
+    },
+    {
+      "id": "cap_scrap_recover",
+      "name": "Support scrap recover",
+      "operation_ids": [
+        "scrap_recover"
+      ],
+      "rationale": "Candidate equipment: Scrap container; scale"
+    },
+    {
+      "id": "cap_cleanup",
+      "name": "Support cleanup",
+      "operation_ids": [
+        "cleanup"
+      ],
+      "rationale": "Candidate equipment: Cleaning tools if needed"
+    },
+    {
+      "id": "cap_maintenance",
+      "name": "Support maintenance",
+      "operation_ids": [
+        "maintenance"
+      ],
+      "rationale": "Candidate equipment: Replacement tooling"
+    }
+  ],
+  "protocol_operations": [
+    {
+      "id": "prep_verify_stock",
+      "intent": "Select and verify wire stock/specification",
+      "physical_operation": "Select and verify wire stock/specification",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/batch_steps/0"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "prep_prepare_mandrel",
+      "intent": "Inspect and prepare mandrel/fixture; clean if required",
+      "physical_operation": "Inspect and prepare mandrel/fixture; clean if required",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/batch_steps/1"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "prep_prepare_containers",
+      "intent": "Prepare labels, accepted-part trays and scrap container",
+      "physical_operation": "Prepare labels, accepted-part trays and scrap container",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/batch_steps/2"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "prep_thread_and_tension",
+      "intent": "Load/thread stock and establish initial tension",
+      "physical_operation": "Load/thread stock and establish initial tension",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/batch_steps/3"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "prep_home_and_calibrate",
+      "intent": "Home axes and calibrate inspection, where applicable",
+      "physical_operation": "Home axes and calibrate inspection, where applicable",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/batch_steps/4"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "prep_trial_coil",
+      "intent": "Produce/inspect a trial coil and adjust settings",
+      "physical_operation": "Produce/inspect a trial coil and adjust settings",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/batch_steps/5"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "prep_measure_cut",
+      "intent": "Measure and cut/pre-position wire",
+      "physical_operation": "Measure and cut/pre-position wire",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/per_attempt_steps/0"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "prep_prepare_ends",
+      "intent": "Straighten/prepare ends if required",
+      "physical_operation": "Straighten/prepare ends if required",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/per_attempt_steps/1"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "prep_orient_secure",
+      "intent": "Orient and secure wire for winding",
+      "physical_operation": "Orient and secure wire for winding",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v1/preprocessing-estimates.json#/per_attempt_steps/2"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "verify for actual manual baseline and candidate apparatus; confirm task boundaries before adding time"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "constrain",
+      "intent": "load wire end: wire held without slipping",
+      "physical_operation": "load wire end: wire held without slipping",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v2/protocol.json#/steps/0"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance."
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "establish_contact",
+      "intent": "thread the guide: wire contacts cylindrical forming surface",
+      "physical_operation": "thread the guide: wire contacts cylindrical forming surface",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v2/protocol.json#/steps/1"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance."
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "relative_rotation",
+      "intent": "start cycle: target turns and pitch formed",
+      "physical_operation": "start cycle: target turns and pitch formed",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v2/protocol.json#/steps/2"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance."
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "maintain_tension",
+      "intent": "set tension during setup: stable tension below tested damage limit",
+      "physical_operation": "set tension during setup: stable tension below tested damage limit",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v2/protocol.json#/steps/3"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance."
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "verify_and_release",
+      "intent": "cut and remove coil: inspect final diameter, pitch, turns and lead geometry after release",
+      "physical_operation": "cut and remove coil: inspect final diameter, pitch, turns and lead geometry after release",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "snapshots/v2/protocol.json#/steps/4"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance."
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "rework",
+      "intent": "Rework a rejected coil where feasible",
+      "physical_operation": "Rework a rejected coil where feasible",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "benchmarks/coil-winding/baseline.json#/steps/10"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Keep same attempt ID; final disposition after reinspection; candidate transfer from manual baseline requires review"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "label_store",
+      "intent": "Label and store accepted coil",
+      "physical_operation": "Label and store accepted coil",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "benchmarks/coil-winding/baseline.json#/steps/11"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Confirm protocol-specific storage; candidate transfer from manual baseline requires review"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "scrap_recover",
+      "intent": "Segregate and account for recoverable scrap",
+      "physical_operation": "Segregate and account for recoverable scrap",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "benchmarks/coil-winding/baseline.json#/steps/12"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Recovery quantity and net credit need evidence; candidate transfer from manual baseline requires review"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "cleanup",
+      "intent": "Clean and reset station",
+      "physical_operation": "Clean and reset station",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "benchmarks/coil-winding/baseline.json#/steps/13"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Record any water/solvent/consumable use; candidate transfer from manual baseline requires review"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    },
+    {
+      "id": "maintenance",
+      "intent": "Maintain/replace tools",
+      "physical_operation": "Maintain/replace tools",
+      "object_ids": [
+        "wire",
+        "coil_station"
+      ],
+      "source_action_ids": [
+        "benchmarks/coil-winding/baseline.json#/steps/14"
+      ],
+      "preconditions": [
+        "Confirm applicability, equipment specifications and source protocol"
+      ],
+      "postconditions": [
+        "Amortize measured event frequency across production; candidate transfer from manual baseline requires review"
+      ],
+      "constraints": [
+        "Candidate workflow; not physically verified"
+      ]
+    }
+  ],
+  "unresolved_requirements": [
+    "Fixed planning protocol; original video and annotation have not been ingested or reviewed.",
+    "Equipment and graph links are proposed candidates, not a verified BOM or executable schedule.",
+    "Preparation applicability and repetitions need review; trial coils may repeat forming/inspection.",
+    "Threading, clamping, cutting and inspection may overlap existing allowances; ranges are not summed.",
+    "Full-process measurements and released-coil acceptance criteria remain unresolved.",
+    "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance."
+  ],
+  "engineering_inputs": {
+    "parameters": {},
+    "costs": {},
+    "labor": {},
+    "power": {},
+    "byproducts": {}
+  },
+  "note": "Fixed-protocol offline adapter. source_action_ids are planning-document references, not video actions. No model calls."
+}

@@ -127,3 +127,14 @@ python -m protocol_pipeline demo \
 ```
 
 Use `--accounting-only` to explicitly skip optional scene runtimes. Both modes preserve unknown coil economics and existing records.
+
+## Offline coil protocol workflow
+
+Run the fixed CW-02 protocol through candidate apparatus requirements and resource accounting without credits:
+
+```bash
+python -m protocol_pipeline coil-offline --output runs/coil-offline-001
+```
+
+See the [executed report and measurement workflow](examples/coil-offline/README.md). Full-process measurements remain unknown; winding-only estimates are reported separately.
+

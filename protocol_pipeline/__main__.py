@@ -11,12 +11,16 @@ from .investment import compare_file
 from .iteration import OutcomeRequest, PredictionRequest, RevisionRequest, observe, predict, revise
 from .design import SceneRequest, build_design
 from .demo import run_demo
+from .offline import run_coil_offline
 
 
 def main() -> None:
     """Parse commands and execute one pipeline stage with clear failure status."""
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    offline = commands.add_parser("coil-offline", help="Map the fixed CW-02 protocol to candidate apparatus and resource reports without model calls")
+    offline.add_argument("--repo-root", type=Path, default=Path("."))
+    offline.add_argument("--output", type=Path, required=True)
     read = commands.add_parser("ingest", help="Preserve annotations and sample timestamped video frames; no model calls")
     read.add_argument("--video", type=Path, required=True)
     read.add_argument("--annotation", type=Path, required=True)
@@ -69,7 +73,12 @@ def main() -> None:
             command.add_argument("--outcome", required=True)
     args = parser.parse_args()
     try:
-        if args.command == "ingest":
+        if args.command == "coil-offline":
+            result = run_coil_offline(args.repo_root, args.output)
+            print(json.dumps({"status": result["status"], "operations": len(result["workflow"]["nodes"]),
+                              "report": str(args.output / "report.md"), "live_inference": False,
+                              "physical_validation": False}))
+        elif args.command == "ingest":
             ingest(args.video, args.annotation, args.output, args.frames, args.engineering_inputs)
         elif args.command == "analyze":
             analyze(args.run, args.vision_model, args.compiler_model, args.annotation_grounding)
@@ -105,3 +114,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
