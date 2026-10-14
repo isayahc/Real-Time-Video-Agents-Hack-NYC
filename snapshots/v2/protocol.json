@@ -1,0 +1,36 @@
+{
+  "basis": "Published CREOLab T1 task, with proposed machine implementation; original annotation not ingested",
+  "steps": [
+    {
+      "operation": "constrain",
+      "apparatus": "removable mandrel clamp",
+      "human_action": "load wire end",
+      "expected": "wire held without slipping"
+    },
+    {
+      "operation": "establish_contact",
+      "apparatus": "guide and mandrel",
+      "human_action": "thread the guide",
+      "expected": "wire contacts cylindrical forming surface"
+    },
+    {
+      "operation": "relative_rotation",
+      "apparatus": "stepper spindle and synchronized traverse",
+      "human_action": "start cycle",
+      "expected": "target turns and pitch formed"
+    },
+    {
+      "operation": "maintain_tension",
+      "apparatus": "passive dancer/spool brake and tension sensor",
+      "human_action": "set tension during setup",
+      "expected": "stable tension below tested damage limit"
+    },
+    {
+      "operation": "verify_and_release",
+      "apparatus": "camera/backlight, removable mandrel and manual cutting tools",
+      "human_action": "cut and remove coil",
+      "expected": "inspect final diameter, pitch, turns and lead geometry after release"
+    }
+  ],
+  "equivalence_gate": "Measure released coil against actual protocol target; calibrate mandrel diameter for springback. Geometry alone does not establish electrode/experiment performance."
+}

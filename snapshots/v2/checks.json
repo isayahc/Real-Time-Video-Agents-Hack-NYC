@@ -1,0 +1,23 @@
+{
+  "forma_schema_validated": true,
+  "forma_source_commit": "d83f0799a182894ff04366ba0f8137d0e5b2b99a",
+  "bom_line_count": 12,
+  "component_instance_count": 14,
+  "midpoint_bom_usd": 877.6,
+  "hardware_low_usd": 535.1,
+  "hardware_high_usd": 1220.1,
+  "is_valid": false,
+  "note": "Typed data/BOM validation only. No compile_project call, LLM inference, electrical rule validation or physical validation.",
+  "final_forma_project_schema_validated": true,
+  "oi_instances": 2,
+  "retained_bom_lines": 12,
+  "missing_geometry": 0,
+  "portable_round_trip": true,
+  "render": {
+    "width": 640,
+    "height": 640,
+    "frames": 40,
+    "workbenchItems": 2,
+    "pageErrors": []
+  }
+}

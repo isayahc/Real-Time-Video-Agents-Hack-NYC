@@ -1,0 +1,63 @@
+{
+  "basis": "Illustrative analytical scenario, not measured performance",
+  "inputs": {
+    "wire_diameter_mm": 0.254,
+    "mandrel_diameter_mm": 3.0,
+    "turns": 10,
+    "pitch_mm": 0.35,
+    "retained_leads_mm": 20.0,
+    "trim_loss_mm": 5.0,
+    "density_g_cm3": 21.45,
+    "reject_fraction": 0.05,
+    "cycle_s": 30.0,
+    "active_s": 15.0,
+    "active_w": 30.0,
+    "idle_w": 8.0,
+    "operator_touch_s": 15.0,
+    "operating_hours": 8.0,
+    "wire_price_usd_m": 272.8
+  },
+  "retained_wire_length_mm": 122.28732282868933,
+  "input_wire_length_mm": 127.28732282868933,
+  "nominal_coil_outer_diameter_mm_before_springback": 3.508,
+  "nominal_coil_axial_span_mm": 3.404,
+  "retained_mass_g": 0.13291256780824964,
+  "input_mass_g": 0.1383470055215703,
+  "trim_mass_g_per_attempt": 0.005434437713320663,
+  "scrap_fraction_including_rejects": 0.08731714906434818,
+  "scrap_g_per_attempt_expected": 0.012080066103733154,
+  "wire_purchase_cost_usd_per_accepted_coil_before_scrap_credit": 36.551559650175214,
+  "gross_coils_per_hour": 120.0,
+  "accepted_coils_per_hour": 114.0,
+  "energy_wh_per_attempt": 0.15833333333333333,
+  "energy_wh_per_accepted_coil": 0.16666666666666666,
+  "shift_energy_kwh": 0.152,
+  "operator_touch_hours_per_shift": 4.0,
+  "operator_touch_s_per_accepted_coil": 15.789473684210527,
+  "labor_cost_formula": "operator_touch_s_per_accepted_coil / 3600 * loaded_hourly_rate; add supervision, setup and downtime labor separately",
+  "power_sensitivity": [
+    {
+      "active_w": 25,
+      "idle_w": 5,
+      "active_s": 15.0,
+      "wh_per_accepted_coil": 0.13157894736842105,
+      "shift_kwh": 0.12
+    },
+    {
+      "active_w": 30,
+      "idle_w": 8,
+      "active_s": 15.0,
+      "wh_per_accepted_coil": 0.16666666666666666,
+      "shift_kwh": 0.152
+    },
+    {
+      "active_w": 40,
+      "idle_w": 12,
+      "active_s": 15.0,
+      "wh_per_accepted_coil": 0.2280701754385965,
+      "shift_kwh": 0.208
+    }
+  ],
+  "motor_copper_loss_upper_example_w": 17.15,
+  "motor_loss_note": "Two motors, two phases each at full 0.35 A: sum(I^2 R). Driver current waveform, supply efficiency and mechanical work change actual wall draw."
+}
