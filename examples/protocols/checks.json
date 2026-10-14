@@ -1,0 +1,32 @@
+{
+  "local_tests": {
+    "passed": 77,
+    "failed": 0,
+    "skipped": 0
+  },
+  "offline_workflows": 7,
+  "network_connections_blocked": true,
+  "physical_validation": false,
+  "compiler_operations": {
+    "coil": 19,
+    "tube-transfer": 7
+  },
+  "hosted_ci_status": "pending_initial_run",
+  "artifacts_sha256": {
+    "README.md": "111387825505566102fa99809f059a37a1e9e596a7cbdabe78875cf40d40f50a",
+    "coil/apparatus-requirements.json": "3771c6ae42c288dae8d7b7b366d5f4380c8ae8ddfa2b9c394ba5f86d779f02f8",
+    "coil/process-graph.json": "36d3f61b284ac50c66f3eb39574fe319b9fcbff51b50b634e18e629bfa203a9f",
+    "coil/process-input.json": "5bca3602e0864a11ac4c7dca88303003c1f21b2681ceab5d86a1bd94266fbe44",
+    "coil/protocol-input.json": "23d58e402f7fba0fae5e224671093273e3039b622a7f5fde245f6e99f200c446",
+    "coil/report.md": "bc44b7a71d0becf58b5d43c62be375e9e67284339e087f0b6c09b33beb7c2de7",
+    "coil/summary.json": "9621301cfcaa377e93aa94ae817a8158c2e840bc9ed60fff1ad0dc720c388784",
+    "coil.json": "23d58e402f7fba0fae5e224671093273e3039b622a7f5fde245f6e99f200c446",
+    "tube-transfer/apparatus-requirements.json": "75917d7634d41b5112b6e0828783d35a1d6024ed48fa812f4ce6af52153fc772",
+    "tube-transfer/process-graph.json": "0a08395e684334e4ff1e8f909e4dedcfb42ddb1d7054607938bc61d71d61c5c2",
+    "tube-transfer/process-input.json": "1d6d1c1ecf1a01f596aab25d8fd535aa2c6ad963ac7e1386ad660e4b771c77b3",
+    "tube-transfer/protocol-input.json": "bc389ba5cae124f7cdd0bb19e5b928bc4a0889612698e7829aec002ab61a0505",
+    "tube-transfer/report.md": "8092bcb0ed6036dbc428dd18f208acf8113e551ba55e7d20800bced66d2e9aae",
+    "tube-transfer/summary.json": "173d541f6662f815f6c0e19d0702f6208df9923286dd8d89f34e4310c9230be7",
+    "tube-transfer.json": "bc389ba5cae124f7cdd0bb19e5b928bc4a0889612698e7829aec002ab61a0505"
+  }
+}

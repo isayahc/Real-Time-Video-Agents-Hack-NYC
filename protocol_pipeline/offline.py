@@ -15,7 +15,9 @@ from pydantic import Field, model_validator
 
 from .design import ApparatusRequirements, write_json
 from .evaluation import ProcessEvaluationInput, UNITS, evaluate_process
-from .models import Capability, EngineeringInputs, EngineeringValue, Operation, StrictModel
+from .models import EngineeringValue, StrictModel
+from .compiler import (AcceptanceCriterion, PlannedCapability, PlannedLink, PlannedOperation,
+                       ProtocolSpecification, compile_specification)
 
 
 class CoilStep(StrictModel):
@@ -137,6 +139,33 @@ def load_json(path: Path) -> dict[str, Any]:
     return value
 
 
+def coil_specification(graph: WorkflowGraph) -> ProtocolSpecification:
+    """Adapt legacy coil planning sources to the shared protocol input format."""
+    return ProtocolSpecification(
+        protocol_id="CW-02-full-process-unmeasured", title="CW-02 coil winding candidate protocol",
+        functional_unit="One accepted released coil; actual acceptance criteria unresolved",
+        boundary="Stock verification and station preparation through accepted-coil storage, scrap accounting and station reset, including allocated maintenance",
+        operations=[PlannedOperation(
+            id=node.id, phase="processing" if node.phase == "forming" else node.phase,
+            intent=node.description, physical_operation=node.description,
+            object_ids=["wire", "coil_station"], frequency=node.frequency,
+            source_refs=[node.source_ref], basis="planning" if node.basis == "proposed_machine_protocol" else "workflow_hypothesis",
+            preconditions=["Confirm applicability, equipment specifications and source protocol"],
+            postconditions=[node.verification], constraints=["Candidate workflow; not physically verified"],
+            attended_range_s=node.attended_range_s,
+        ) for node in graph.nodes],
+        links=[PlannedLink(source=link.source, target=link.target, relation=link.relation) for link in graph.links],
+        capabilities=[PlannedCapability(id="cap_" + node.id, name="Support " + node.id.replace("_", " "),
+            operation_ids=[node.id], candidate_equipment=node.equipment, rationale="Explicit candidate workflow mapping") for node in graph.nodes],
+        acceptance_criteria=[AcceptanceCriterion(id="released_coil_acceptance",
+            description="Released coil meets material, geometry and downstream function requirements",
+            operation_ids=["verify_and_release"], source_refs=["snapshots/v2/protocol.json#/equivalence_gate"],
+            verification_needed="Resolve target tolerances and test method; verify springback and actual functional equivalence")],
+        resource_inputs={key: EngineeringValue(unit=unit, basis="unknown") for key, unit in UNITS.items()},
+        limitations=graph.limitations,
+    )
+
+
 def compile_coil(root: Path) -> tuple[WorkflowGraph, ApparatusRequirements, dict[str, dict[str, str]]]:
     """Adapt the fixed CW-02 sources into candidate operations and equipment.
 
@@ -195,21 +224,7 @@ def compile_coil(root: Path) -> tuple[WorkflowGraph, ApparatusRequirements, dict
     if {node.id for node in nodes if node.phase == "finishing"} != FINISHING:
         raise ValueError("Baseline must preserve all five finishing/maintenance candidates")
     graph = WorkflowGraph(nodes=nodes, links=links, limitations=LIMITATIONS)
-    requirements = ApparatusRequirements(
-        protocol_operations=[Operation(
-            id=node.id, intent=node.description, physical_operation=node.description,
-            object_ids=["wire", "coil_station"], source_action_ids=[node.source_ref],
-            preconditions=["Confirm applicability, equipment specifications and source protocol"],
-            postconditions=[node.verification], constraints=["Candidate workflow; not physically verified"],
-        ) for node in nodes],
-        required_capabilities=[Capability(
-            id="cap_" + node.id, name="Support " + node.id.replace("_", " "),
-            operation_ids=[node.id], rationale="Candidate equipment: " + "; ".join(node.equipment),
-        ) for node in nodes],
-        unresolved_requirements=LIMITATIONS + [protocol.equivalence_gate],
-        engineering_inputs=EngineeringInputs(),
-        note="Fixed-protocol offline adapter. source_action_ids are planning-document references, not video actions. No model calls.",
-    )
+    requirements, _ = compile_specification(coil_specification(graph))
     sources = {path: {"sha256": hashlib.sha256((root / path).read_bytes()).hexdigest()}
                for path in (protocol_path, prep_path, baseline_path, "examples/process-evaluation/coil-v2-partial.json")}
     return graph, requirements, sources
@@ -261,12 +276,7 @@ def run_coil_offline(root: Path, output: Path) -> dict[str, Any]:
     if output.exists():
         raise FileExistsError(f"Output already exists: {output}")
     graph, requirements, sources = compile_coil(root)
-    full = ProcessEvaluationInput(
-        configuration_id="CW-02-full-process-unmeasured",
-        functional_unit="One accepted released coil; actual acceptance criteria unresolved",
-        boundary="Stock verification and station preparation through accepted-coil storage, scrap accounting and station reset, including allocated maintenance",
-        inputs={key: EngineeringValue(unit=unit, basis="unknown") for key, unit in UNITS.items()},
-    )
+    _, full = compile_specification(coil_specification(graph))
     partial = ProcessEvaluationInput.model_validate(load_json(root / "examples/process-evaluation/coil-v2-partial.json"))
     focused = {
         "accepted_count": (["verify_and_release", "rework", "label_store"], "Count final accepted coils once after any rework and reinspection."),
