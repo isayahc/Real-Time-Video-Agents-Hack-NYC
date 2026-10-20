@@ -182,3 +182,41 @@ python -m protocol_pipeline extract-protocol \
 
 The [benchmark workflow](examples/extraction-benchmark/README.md) scores step coverage, ordering, reviewer-assessed grounding, preparation/evidence classification and acceptance checks against a source-bound reference. No review means pending scores. The initial authored text fixture verifies scoring behavior; it does not establish live Nebius quality.
 
+
+
+## Video workbench
+
+Watch an uploaded procedure video while the Python pipeline analyzes sampled frames,
+then inspect operations and click evidence timestamps to seek the player. The workbench
+includes persisted run history, real stage progress, apparatus/resource views, reports,
+and a source/evidence ZIP with SHA-256 checksums.
+
+```bash
+python -m pip install -e ".[web,test]"
+# Install ffmpeg using your system package manager if not already installed.
+# Set NEBIUS_API_KEY (or NEBIUS_TOKEN_FACTORY_KEY) in the server environment.
+python -m protocol_pipeline.web
+```
+
+Open http://127.0.0.1:8000. Choose an MP4, WebM or MOV (up to 100 MiB), enter
+vision and compiler model IDs available to your account, then select **Analyze video**.
+For broad browser playback compatibility, use H.264 MP4 or WebM. Model keys never
+need to be entered in the browser. No inference runs until you submit a video.
+
+Run one server process; this is a local trusted-user workbench, not a public or
+multi-user service. Uploads and outputs remain under `runs/workbench/`. Restarting
+preserves completed runs and marks unfinished jobs failed instead of retrying paid
+calls automatically. Up to four uploads/jobs are admitted and inference is serialized.
+Use `--runs PATH` and `--port PORT` to customize local storage and port.
+
+See [the issue #26 verification and demo guide](docs/video-workbench.md) for evidence
+export, live verification, semantic review and remaining requirements.
+
+| Capability | Verification status |
+| --- | --- |
+| Video upload, real decoding, stage events, compilation, artifact API, byte-range media, evidence ZIP | Automated HTTP integration tests using explicitly synthetic replay inference |
+| Browser controls, side-by-side results, evidence seeking | Implemented; manual browser verification pending |
+| Direct Nebius live text extraction | Historical smoke test documented in #25; not rerun for this change |
+| Live video inference and semantic accuracy | Pending credentials, selected source video and human reference/review |
+| OpenCode extraction | Mock-tested local correction and error handling; live structured-output compatibility unresolved |
+| Scene generation and physical performance | Not verified by this milestone |

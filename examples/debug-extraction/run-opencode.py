@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 from protocol_pipeline.extraction import extract_protocol
 
 SOURCE = ROOT / "examples" / "extraction" / "procedure.txt"
-MODEL = os.environ.get("OPENCODE_MODEL", "nvidia/Nemotron-3_5-Lightning")
+MODEL = os.environ.get("OPENCODE_MODEL", "Qwen/Qwen3-235B-A22B-Instruct-2507")
 PROVIDER = os.environ.get("OPENCODE_PROVIDER", "nebius")
 URL = os.environ.get("OPENCODE_URL", "http://127.0.0.1:4096").rstrip("/")
 

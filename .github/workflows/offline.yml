@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
-          python -m pip install -e .
+          python -m pip install -e ".[web,test]"
           python -m pip install pytest -r examples/debug-extraction/requirements.txt
       - name: Run tests including real frame ingestion
         run: python -m pytest -q

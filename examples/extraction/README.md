@@ -70,7 +70,7 @@ Then use the pipeline with `--provider opencode`:
 ```powershell
 python -m protocol_pipeline extract-protocol `
   --text examples/extraction/procedure.txt `
-  --provider opencode --model nvidia/Nemotron-3_5-Lightning `
+  --provider opencode --model Qwen/Qwen3-235B-A22B-Instruct-2507 `
   --output runs/opencode-extraction-001
 ```
 
@@ -92,3 +92,5 @@ python -m protocol_pipeline extract-protocol `
 ```
 
 This verifies the live text integration, not extraction accuracy or physical performance. Live sampled-video extraction and live scene generation remain unverified. The OpenCode SDK smoke attempts did not return usable structured output; the default Nemotron Lightning direct request also returned an incomplete completion.
+
+The Qwen default is verified only through direct Nebius in the historical smoke test. It does not establish OpenCode compatibility. The CLI provider now retries local cross-field validation up to three attempts in the same session, independently of structured-output retries. Missing output and provider errors fail explicitly.
