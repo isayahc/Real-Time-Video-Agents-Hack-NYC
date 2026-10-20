@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import subprocess
+import shutil
 import time
 import zipfile
 from pathlib import Path
@@ -19,6 +20,13 @@ from protocol_pipeline.web import create_app
 ROOT = Path(__file__).resolve().parents[1]
 HEADERS = {'X-Workbench-Request': '1'}
 PARAMS = {'filename': 'fixture.mp4', 'model': 'fixture-compiler', 'vision_model': 'fixture-vision', 'frame_count': 2}
+
+
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required for frontend tests')
+def test_frontend_model_workflow() -> None:
+    """Run the shipped JavaScript through preset, override and persistence flows."""
+    subprocess.run(['node', '--test', str(ROOT / 'tests/test_web_frontend.cjs')],
+                   check=True, capture_output=True, text=True, timeout=30)
 
 
 @pytest.fixture(scope='module')
@@ -164,3 +172,54 @@ def test_artifact_confinement_and_static_app(client: TestClient, video: bytes) -
     assert '<video' in html.text and 'id="result-content"' in html.text
     assert "frame-ancestors 'none'" in html.headers['content-security-policy']
     assert client.get('/assets/app.js').status_code == 200
+
+
+
+@pytest.mark.parametrize('configured,expected', [
+    (None, 'Qwen/Qwen2.5-VL-72B-Instruct'),
+    ('   ', 'Qwen/Qwen2.5-VL-72B-Instruct'),
+    (' custom/vision ', 'custom/vision'),
+])
+def test_vision_config_defaults(client: TestClient, monkeypatch: pytest.MonkeyPatch,
+                               configured: str | None, expected: str) -> None:
+    """Resolve absent/blank settings and preserve explicit server overrides."""
+    monkeypatch.delenv('NEBIUS_VISION_MODEL', raising=False)
+    if configured is not None:
+        monkeypatch.setenv('NEBIUS_VISION_MODEL', configured)
+    config = client.get('/api/config').json()
+    assert config['provider'] == 'nebius'
+    assert config['vision_model'] == expected
+
+
+@pytest.mark.parametrize('override', [None, 'another/vision-model'])
+def test_selected_model_reaches_nebius_and_rejection_is_actionable(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, video: bytes, override: str | None,
+) -> None:
+    """Capture actual provider JSON and safely expose an unavailable-model response."""
+    from urllib.error import HTTPError
+    from urllib.request import Request
+
+    captured: list[dict[str, Any]] = []
+
+    def reject(request: Request, **kwargs: Any) -> Any:
+        """Record the outbound request and simulate a private error response."""
+        captured.append(json.loads(request.data))
+        raise HTTPError(request.full_url, 404, 'private provider detail', {}, None)
+
+    monkeypatch.setenv('NEBIUS_API_KEY', 'test-secret-never-display')
+    monkeypatch.delenv('NEBIUS_VISION_MODEL', raising=False)
+    monkeypatch.setattr('protocol_pipeline.pipeline.urlopen', reject)
+    with TestClient(create_app(tmp_path / 'runs')) as browser:
+        config = browser.get('/api/config').json()
+        chosen = override or config['vision_model']
+        response = browser.post('/api/runs', params={**PARAMS, 'vision_model': chosen},
+                                headers=HEADERS, content=video)
+        assert response.status_code == 202
+        job = wait_job(browser, response.json()['id'])
+        assert captured[0]['model'] == chosen
+        assert job['vision_model'] == chosen
+        assert job['stage'] == 'failed'
+        assert 'Vision model request was rejected by Nebius (HTTP 404)' in job['error']
+        assert 'start a new run' in job['error']
+        assert 'private provider detail' not in json.dumps(job)
+        assert 'test-secret-never-display' not in json.dumps(job)
