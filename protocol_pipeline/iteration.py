@@ -186,7 +186,7 @@ def load_record(store: Path, record_id: str) -> StoredRecord:
             raise ValueError("Cycle in iteration record lineage")
         if current_id in cache:
             return cache[current_id]
-        raw = json.loads(record_path(store, current_id).read_text())
+        raw = json.loads(record_path(store, current_id).read_text(encoding="utf-8"))
         if digest(raw["record"]) != raw["sha256"]:
             raise ValueError(f"Record integrity check failed: {current_id}")
         result = StoredRecord.model_validate(raw)

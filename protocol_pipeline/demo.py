@@ -195,9 +195,9 @@ def run_demo(output: Path, examples_root: Path, forma_root: Path | None = None,
         }
         stage = 'report'
         write_json(output / 'demo-summary.json', summary)
-        with (output / 'report.md').open('x') as destination:
+        with (output / 'report.md').open('x', encoding='utf-8') as destination:
             destination.write(report_markdown(summary))
-        with (output / 'report.html').open('x') as destination:
+        with (output / 'report.html').open('x', encoding='utf-8') as destination:
             destination.write(report_html(summary))
         return summary
     except (OSError, ValueError, RuntimeError) as error:

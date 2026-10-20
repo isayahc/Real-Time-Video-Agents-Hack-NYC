@@ -33,7 +33,7 @@ def main() -> None:
     sources = extraction.add_mutually_exclusive_group(required=True)
     sources.add_argument("--text", type=Path)
     sources.add_argument("--run", type=Path, help="Existing verified sampled-frame ingestion run")
-    extraction.add_argument("--provider", choices=("nebius", "replay"), required=True)
+    extraction.add_argument("--provider", choices=("nebius", "opencode", "replay"), required=True)
     extraction.add_argument("--model", required=True, help="Explicit text/compiler model ID")
     extraction.add_argument("--vision-model", help="Explicit vision model ID for --run")
     extraction.add_argument("--replay", type=Path, help="Recorded responses; only for --provider replay")

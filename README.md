@@ -12,7 +12,7 @@ Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus
 6. Stores possible off-camera preparation separately as unverified candidates. Numerical parameters, costs, labor, power and byproducts require separate sourced engineering inputs; unknowns stay null.
 7. Exports typed apparatus requirements consumed by the Forma/OpenIndustries build command. Plant simulation and automatic cost/resource adapters remain subsequent integrations; the local evaluator accepts separately supplied resource/cost inputs.
 
-This is sampled-frame visual reasoning, not continuous YOLO tracking, measured motion/force, physical validation or proof of experiment success. Merely naming a tool does not establish its function. No default model IDs are assumed to be available for your account. Live Nebius inference has not been verified in this checkout; tests exercise deterministic contracts and local ffmpeg ingestion.
+This is sampled-frame visual reasoning, not continuous YOLO tracking, measured motion/force, physical validation or proof of experiment success. Merely naming a tool does not establish its function. No default model IDs are assumed to be available for your account. Live Nebius text extraction has passed a smoke test; live video inference remains unverified. Tests exercise deterministic contracts and local ffmpeg ingestion.
 
 ## Install and ingest
 
@@ -176,7 +176,7 @@ python -m protocol_pipeline extract-protocol \
   --model YOUR_TEXT_MODEL_ID --output runs/text-extraction-001
 ```
 
-[Extraction](examples/extraction/README.md) supports text and sampled-video input, explicit Nebius model selection, source-grounding checks, and direct compiler handoff. A separate recorded-response replay exercises the integration without credits. Live inference quality and physical validation remain unverified.
+[Extraction](examples/extraction/README.md) supports text and sampled-video input, explicit Nebius model selection, source-grounding checks, and direct compiler handoff. A separate recorded-response replay exercises the integration without credits. A live Nebius text-to-compiled-plan smoke test passed on 2026-10-19; extraction accuracy, live video inference and physical validation remain unverified.
 
 ## Extraction accuracy review
 
