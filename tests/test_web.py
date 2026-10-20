@@ -92,6 +92,9 @@ def test_complete_flow_evidence_ranges_and_export(client: TestClient, video: byt
     job = wait_job(client, run_id)
     assert job['stage'] == 'completed', job
     assert job['live_inference'] is False
+    assert len(job['sampled_frames']) == 2
+    assert [frame['timestamp_s'] for frame in job['sampled_frames']] == [0, 1.8]
+    assert client.get(job['sampled_frames'][0]['url']).headers['content-type'] == 'image/jpeg'
     assert [event['stage'] for event in job['events']] == ['queued', 'ingesting_frames', 'extracting_observations', 'extracting_protocol', 'compiling', 'completed']
     response = client.get(f'/api/runs/{run_id}/results')
     assert response.status_code == 200
@@ -139,6 +142,7 @@ def test_missing_credentials_fail_before_creating_run(tmp_path: Path, monkeypatc
     """Preflight unavailable credentials without a paid call or replay fallback."""
     monkeypatch.delenv('NEBIUS_API_KEY', raising=False)
     monkeypatch.delenv('NEBIUS_TOKEN_FACTORY_KEY', raising=False)
+    monkeypatch.setattr('protocol_pipeline.web.load_environment', lambda: None)
     with TestClient(create_app(tmp_path)) as client:
         assert client.post('/api/runs', params=PARAMS, headers=HEADERS, content=b'x').status_code == 503
         assert client.get('/api/runs').json() == []
@@ -223,3 +227,73 @@ def test_selected_model_reaches_nebius_and_rejection_is_actionable(
         assert 'start a new run' in job['error']
         assert 'private provider detail' not in json.dumps(job)
         assert 'test-secret-never-display' not in json.dumps(job)
+
+
+def test_queue_progress_timeout_and_logs(tmp_path: Path, video: bytes, caplog: pytest.LogCaptureFixture) -> None:
+    """Expose queued/active timings, timeout diagnostics and a backend traceback."""
+    import logging
+    import threading
+
+    entered, release = threading.Event(), threading.Event()
+
+    class WaitingProvider:
+        name = 'test-timeout'
+        live = False
+
+        def complete(self, *args: Any, **kwargs: Any) -> Any:
+            entered.set()
+            assert release.wait(10)
+            raise TimeoutError('simulated provider timeout')
+
+    caplog.set_level(logging.INFO, logger='protocol_pipeline.web')
+    with TestClient(create_app(tmp_path / 'runs', WaitingProvider)) as browser:
+        first = start(browser, video)
+        try:
+            assert entered.wait(10)
+            active = browser.get(f'/api/runs/{first}').json()
+            assert active['stage'] == 'extracting_observations'
+            assert active['stage_elapsed_s'] >= 0
+            assert 'fixture-vision' in active['progress_message']
+            assert len(active['sampled_frames']) == 2
+            assert browser.get(active['sampled_frames'][0]['url']).status_code == 200
+            second = start(browser, video)
+            queued = browser.get(f'/api/runs/{second}').json()
+            assert queued['stage'] == 'queued'
+            assert queued['queue_position'] == 1
+            assert 'one at a time' in queued['progress_message']
+        finally:
+            release.set()
+        for run_id in (first, second):
+            failed = wait_job(browser, run_id)
+            assert failed['error_type'] == 'TimeoutError'
+            assert failed['failed_stage'] == 'extracting_observations'
+            assert 'Timed out' in failed['error']
+            assert failed['progress_message'] == failed['error']
+            assert 'test-secret-never-display' not in json.dumps(failed)
+    assert f'run={first} stage=extracting_observations' in caplog.text
+    assert 'previous_duration_s=' in caplog.text
+    assert 'error_type=TimeoutError' in caplog.text
+    assert 'Traceback (most recent call last)' in caplog.text
+    assert 'simulated provider timeout' in caplog.text
+
+
+def test_validation_failure_exposes_fields_and_traceback(tmp_path: Path, video: bytes,
+                                                       caplog: pytest.LogCaptureFixture) -> None:
+    """Retain the actual schema failure instead of generic credential/model advice."""
+    from protocol_pipeline.models import ObservationGraph
+
+    class InvalidProvider:
+        name = 'invalid-response'
+        live = False
+
+        def complete(self, *args: Any, **kwargs: Any) -> Any:
+            return ObservationGraph.model_validate({'actions': [{}]})
+
+    with TestClient(create_app(tmp_path / 'runs', InvalidProvider)) as browser:
+        job = wait_job(browser, start(browser, video))
+        assert job['error_type'] == 'ValidationError'
+        assert 'actions.0.id' in job['error']
+        assert 'Field required' in job['error']
+        assert 'Check video decoding' not in job['error']
+    assert 'Traceback (most recent call last)' in caplog.text
+    assert 'actions.0.id' in caplog.text

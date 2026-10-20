@@ -16,6 +16,7 @@ from urllib.request import Request, urlopen
 from .models import Annotation, EngineeringInputs, Frame, ObservationGraph, ProtocolPlan, StrictModel
 
 Model = TypeVar("Model", bound=StrictModel)
+NEBIUS_REQUEST_TIMEOUT_S = 180
 
 
 def save_json(path: Path, value: Any) -> None:
@@ -149,7 +150,7 @@ class NebiusHTTPError(RuntimeError):
 class NebiusClient:
     """Small OpenAI-compatible Token Factory adapter with explicit model selection."""
 
-    def __init__(self, key: str, timeout_s: float = 60) -> None:
+    def __init__(self, key: str, timeout_s: float = NEBIUS_REQUEST_TIMEOUT_S) -> None:
         """Keep the credential in memory; do not log authentication headers."""
         if not key:
             raise ValueError("Set NEBIUS_API_KEY or NEBIUS_TOKEN_FACTORY_KEY before live inference.")

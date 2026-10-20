@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 import re
 import platform
@@ -28,12 +29,13 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .extraction import ExtractionProvider, create_provider, extract_protocol
 from .environment import load_environment
-from .pipeline import NebiusHTTPError, extract_frames, save_json, sha256
+from .pipeline import NEBIUS_REQUEST_TIMEOUT_S, NebiusHTTPError, extract_frames, save_json, sha256
 
 STATIC = Path(__file__).with_name("web_static")
 MAX_UPLOAD = 100 * 1024 * 1024
 DEFAULT_VISION_MODEL = "Qwen/Qwen2.5-VL-72B-Instruct"
 TERMINAL = {"completed", "failed"}
+logger = logging.getLogger(__name__)
 ARTIFACTS = (
     "source-manifest.json", "observations.json", "extracted-protocol.json",
     "extraction-summary.json", "extraction-failure.json", "compiled/report.md",
@@ -93,6 +95,7 @@ class JobStore:
         self.lock = threading.RLock()
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="video-extraction")
         self.slots = threading.BoundedSemaphore(4)
+        self.pending: list[str] = []
 
     def path(self, run_id: str) -> Path:
         """Resolve a generated run ID, rejecting arbitrary filesystem paths."""
@@ -107,7 +110,33 @@ class JobStore:
         """Read a job atomically with respect to worker updates."""
         with self.lock:
             job = read_json(self.path(run_id) / "job.json")
-        job["elapsed_s"] = round((job.get("finished_at") or time.time()) - job["created_at"], 1)
+            job["queue_position"] = self.pending.index(run_id) + 1 if run_id in self.pending else 0
+        now = job.get("finished_at") or time.time()
+        job["elapsed_s"] = round(now - job["created_at"], 1)
+        events = job.get("events", [])
+        job["stage_elapsed_s"] = round(now - (events[-1]["at"] if events else job["created_at"]), 1)
+        job["sampled_frames"] = []
+        manifest = self.path(run_id) / "ingested/manifest.json"
+        if manifest.is_file():
+            try:
+                job["sampled_frames"] = [
+                    {"id": frame["id"], "timestamp_s": frame["timestamp_s"],
+                     "url": f"/api/runs/{run_id}/frames/{frame['id']}"}
+                    for frame in read_json(manifest)["frames"]
+                ]
+            except (OSError, json.JSONDecodeError):
+                # The first poll can overlap the initial manifest write.
+                pass
+        stage = job["stage"]
+        job["progress_message"] = {
+            "queued": f"Waiting for the analysis worker. Queue position: {job['queue_position']}. Runs execute one at a time.",
+            "ingesting_frames": f"Decoding video and sampling {job.get('frame_count', '')} frames with FFmpeg.",
+            "extracting_observations": f"Waiting for Nebius vision model {job.get('vision_model', '')}. No model response yet; this request has a {NEBIUS_REQUEST_TIMEOUT_S}-second timeout.",
+            "extracting_protocol": f"Observations received. Waiting for compiler model {job.get('model', '')} to return a protocol ({NEBIUS_REQUEST_TIMEOUT_S}-second request timeout).",
+            "compiling": "Validating the protocol and writing apparatus, resource and report artifacts.",
+            "completed": "Analysis completed. Results and evidence are ready below.",
+            "failed": job.get("error", "Analysis failed."),
+        }.get(stage, stage)
         return job
 
     def update(self, run_id: str, **values: Any) -> None:
@@ -115,11 +144,17 @@ class JobStore:
         with self.lock:
             path = self.path(run_id)
             job = read_json(path / "job.json")
+            previous = job["stage"]
+            stage_started = job["events"][-1]["at"] if job["events"] else job["created_at"]
             job.update(values)
             if "stage" in values:
                 job["events"].append({"stage": values["stage"], "at": time.time()})
             save_json(path / "job.tmp", job)
             (path / "job.tmp").replace(path / "job.json")
+            if "stage" in values:
+                logger.info("run=%s stage=%s previous=%s previous_duration_s=%.1f elapsed_s=%.1f",
+                            run_id, values["stage"], previous, time.time() - stage_started,
+                            time.time() - job["created_at"])
 
     def recover(self) -> None:
         """Mark interrupted jobs failed on startup; never silently repeat paid calls."""
@@ -132,6 +167,9 @@ class JobStore:
     def execute(self, run_id: str) -> None:
         """Run ingestion and extraction, retaining evidence on either outcome."""
         try:
+            with self.lock:
+                if run_id in self.pending:
+                    self.pending.remove(run_id)
             job = self.get(run_id)
             path = self.path(run_id)
             provider = self.provider_factory()
@@ -142,17 +180,22 @@ class JobStore:
                              progress=lambda stage: self.update(run_id, stage=stage))
             self.update(run_id, stage="completed", finished_at=time.time())
         except Exception as error:
-            # Provider/validation exceptions can contain source content or credentials.
-            # Preserve the failure type/stage, never raw exception text in the UI.
             stage = self.get(run_id)["stage"]
-            message = f"Failed during {stage}. Check video decoding, model access and server credentials; inspect retained artifacts. No successful result is claimed."
+            message = f"Failed during {stage}: {type(error).__name__}: {error}"
+            if isinstance(error, TimeoutError):
+                message = (f"Timed out during {stage} after {self.get(run_id)['stage_elapsed_s']}s. "
+                           "The request did not finish before its timeout. No result was produced; "
+                           "check the selected model and provider availability before retrying.")
             if isinstance(error, NebiusHTTPError) and error.status_code in {400, 403, 404, 422}:
                 field = "Vision model" if stage == "extracting_observations" else "Compiler model"
                 message = (f"{field} request was rejected by Nebius (HTTP {error.status_code}). "
                            f"The model may be unavailable or incompatible, or your account may lack access. "
                            f"Enter an available compatible model in the {field.lower()} field and start a new run.")
             self.update(run_id, stage="failed", finished_at=time.time(), error_type=type(error).__name__,
-                        error=message)
+                         error=message, failed_stage=stage)
+            logger.error("run=%s failed_stage=%s error_type=%s http_status=%s detail=%s artifacts=%s",
+                         run_id, stage, type(error).__name__, getattr(error, "status_code", None),
+                         message, self.path(run_id), exc_info=True)
         finally:
             self.slots.release()
 
@@ -281,9 +324,16 @@ def create_app(root: Path | None = None,
                    "live_inference": None, "physical_validation": False,
                    "runtime": runtime_provenance()}
             save_json(path / "job.json", job)
-            store.executor.submit(store.execute, run_id)
+            with store.lock:
+                store.pending.append(run_id)
+                logger.info("run=%s stage=queued queue_position=%s frames=%s vision_model=%r compiler_model=%r upload_bytes=%s",
+                            run_id, len(store.pending), frame_count, vision_model.strip(), model.strip(), size)
+                store.executor.submit(store.execute, run_id)
             return job
         except BaseException:
+            with store.lock:
+                if run_id in store.pending:
+                    store.pending.remove(run_id)
             shutil.rmtree(path, ignore_errors=True)
             store.slots.release()
             raise
@@ -335,10 +385,10 @@ def create_app(root: Path | None = None,
                 files = [path / job["video_file"], path / "job.json", path / "ingested/manifest.json"]
                 files += sorted((path / "ingested/frames").glob("*.jpg"))
                 files += [path / "extracted" / name for name in ARTIFACTS if (path / "extracted" / name).is_file()]
-                checksums = {str(file.relative_to(path)): sha256(file) for file in files}
+                checksums = {file.relative_to(path).as_posix(): sha256(file) for file in files}
                 with zipfile.ZipFile(path / "evidence.tmp", "w", zipfile.ZIP_DEFLATED) as archive:
                     for file in files:
-                        archive.write(file, str(file.relative_to(path)))
+                        archive.write(file, file.relative_to(path).as_posix())
                     archive.writestr("checksums.json", json.dumps(checksums, indent=2))
                     archive.writestr("README.txt", "Contains the uploaded source video and model output. Review source permissions and content before sharing. Integration evidence is not semantic or physical validation.\n")
                 (path / "evidence.tmp").replace(destination)
@@ -350,6 +400,7 @@ def create_app(root: Path | None = None,
 def main() -> None:
     """Start a single local server with a durable run directory."""
     import uvicorn
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--runs", type=Path, default=Path("runs/workbench"))

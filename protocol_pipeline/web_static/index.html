@@ -13,12 +13,15 @@
 <p class="hint">Provider: Nebius · Model IDs are editable.</p>
 <div class="fields"><label>Vision model<input id="vision-model" required value="Qwen/Qwen2.5-VL-72B-Instruct" maxlength="200"></label><label>Compiler model<input id="model" required maxlength="200"></label></div>
 <div class="actions"><label>Sampled frames<input id="frame-count" type="number" value="8" min="2" max="24" required></label><button id="start" type="submit">Analyze video <span aria-hidden="true">↗</span></button></div>
+<p id="submission-status" class="notice" role="status" aria-live="polite" hidden></p>
 <p id="readiness" class="hint"></p><p class="hint">Analysis runs asynchronously on sampled frames. Playback does not imply continuous real-time inference.</p></form>
 <div class="history"><h3>Saved runs</h3><label class="sr-only" for="history">Reopen a saved run</label><select id="history"><option value="">Select a previous run</option></select></div>
 </section>
 <section class="results panel" aria-labelledby="results-heading"><div class="panel-heading"><h2 id="results-heading">02 / Analysis</h2><span id="stage" class="badge">Ready</span></div>
 <div class="progress" role="status" aria-live="polite"><p id="status">Choose a video to begin.</p><ol id="stages"><li data-stage="queued">Queued</li><li data-stage="ingesting_frames">Frames</li><li data-stage="extracting_observations">Observations</li><li data-stage="extracting_protocol">Protocol</li><li data-stage="compiling">Compile</li></ol></div>
-<p id="error" class="error" role="alert" hidden></p>
+<div id="run-activity" class="progress" hidden><p id="stage-detail"></p><p id="run-models" class="hint"></p><h3>Run activity</h3><ol id="run-events"></ol></div>
+<section id="sampled-preview" class="progress" hidden aria-labelledby="sampled-heading"><h3 id="sampled-heading">Sampled frames</h3><p class="hint">Actual video frames supplied together to the vision model. Select a frame to inspect it; the provider does not report per-frame processing progress.</p><figure><img id="sampled-image" alt="Selected sampled video frame" style="display:block;width:100%;max-height:360px;object-fit:contain;background:#172522"><figcaption id="sampled-caption"></figcaption></figure><div id="sampled-thumbnails" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px"></div></section>
+<p id="error" class="error" role="alert" style="white-space:pre-wrap;overflow-wrap:anywhere" hidden></p>
 <div id="empty-results" class="empty-results"><span aria-hidden="true">◎</span><h3>Evidence comes first.</h3><p>Operations will appear with their source frames. Select an evidence timestamp to seek the video and inspect what supports the result.</p></div>
 <div id="result-content" hidden><p id="provenance" class="notice"></p><h3 id="protocol-title"></h3><p id="boundary"></p>
 <nav class="tabs" aria-label="Result views"><button type="button" data-view="operations" aria-pressed="true">Operations</button><button type="button" data-view="apparatus" aria-pressed="false">Apparatus</button><button type="button" data-view="resources" aria-pressed="false">Resources</button><button type="button" data-view="report" aria-pressed="false">Report</button></nav>
