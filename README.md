@@ -14,6 +14,33 @@ Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus
 
 This is sampled-frame visual reasoning, not continuous YOLO tracking, measured motion/force, physical validation or proof of experiment success. Merely naming a tool does not establish its function. No default model IDs are assumed to be available for your account. Live Nebius text extraction has passed a smoke test; live video inference remains unverified. Tests exercise deterministic contracts and local ffmpeg ingestion.
 
+## Sample protocol videos
+
+Use these examples to choose a procedure for the [video workbench](#video-workbench).
+The Addgene links come from its [official video library](https://www.addgene.org/protocols/videos/).
+
+| Sample | Watch / obtain | Suggested review focus |
+| --- | --- | --- |
+| Multichannel pipetting — Addgene | [Watch video](https://youtu.be/uFzlUT8b_XQ) | Repeated liquid transfers and pipette handling. |
+| Aseptic technique — Addgene | [Watch video](https://youtu.be/wttvhJU9PZM) | Workspace preparation, equipment handling and visible preparation steps. |
+| Pouring LB agar plates — Addgene | [Watch video](https://youtu.be/ey19jM6y7-c) · [Written protocol](https://www.addgene.org/protocols/pouring-lb-agar-plates/) | Material preparation, pouring and ordering of operations. |
+| Agarose gel electrophoresis — Addgene | [Watch video](https://youtu.be/TIZRGt3YAug) · [Written protocol](https://www.addgene.org/protocols/gel-electrophoresis/) | A longer procedure with multiple tools and apparatus stages. |
+| CREOLab experimental procedures — Toyota CRDL | [Dataset and download instructions](https://github.com/ToyotaCRDL/CREOLab#dataset) | Laboratory tool use with paired video/annotation files for the existing ingestion workflow. |
+
+**Try a sample:** obtain a permitted local copy, start the workbench using the instructions
+[below](#video-workbench), and select an MP4, WebM or MOV file up to 100 MiB. Prefer a short,
+continuous procedure segment and H.264 MP4 or WebM for browser playback. The workbench
+uploads local files; it does not import YouTube or other webpage URLs.
+
+For the annotation-based CLI example below, use a CREOLab video and its matching JSON
+annotation (for example, `scenario01_decoy0.mp4` and `scenario01_decoy0.json`).
+The linked Addgene tutorials do not come with this project's annotation format.
+Follow each source's usage terms; CREOLab is limited to noncommercial research.
+Keep downloaded media under the ignored `data/` directory.
+
+These are suggested evaluation inputs, not completed live-inference benchmarks. Review
+the actual clip and its evidence timestamps before treating extracted steps as verified.
+
 ## Install and ingest
 
 Requires Python 3.11+, ffmpeg and ffprobe. On WSL2/Ubuntu, `sudo apt install ffmpeg` supplies both binaries.
