@@ -1,0 +1,3 @@
+# Evidence/review hashes bind exact bytes; keep fixtures stable on Windows too.
+*.json text eol=lf
+*.txt text eol=lf

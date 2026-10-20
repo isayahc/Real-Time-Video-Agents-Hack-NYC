@@ -72,7 +72,7 @@ def extract_frames(video: Path, output: Path, count: int = 8) -> list[Frame]:
     directory.mkdir()
     expression = "+".join(f"eq(n\\,{index})" for index in indices)
     subprocess.run(["ffmpeg", "-v", "error", "-i", str(video), "-vf",
-                    f"select={expression},scale=w=min(1280\\,iw):h=-2", "-vsync", "0", "-start_number", "0",
+                    f"select={expression},scale=w=min(1280\\,iw):h=-2", "-fps_mode", "passthrough", "-start_number", "0",
                     "-frames:v", str(len(indices)), str(directory / "frame_%04d.jpg")],
                    capture_output=True, text=True, check=True, timeout=60)
     frames = []

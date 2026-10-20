@@ -8,6 +8,8 @@ import re
 import shutil
 from pathlib import Path
 from typing import Any, Literal, Protocol, TypeVar
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 from .compiler import ProtocolSpecification, compile_protocol_file
 from .design import write_json
@@ -47,6 +49,74 @@ class NebiusProvider:
         return response, trace
 
 
+class OpenCodeProvider:
+    """Use an OpenCode server for schema-constrained extraction and retries."""
+
+    name = "opencode"
+    live = True
+
+    def __init__(self) -> None:
+        """Connect to a local OpenCode server configured with the desired provider."""
+        self.base_url = os.environ.get("OPENCODE_URL", "http://127.0.0.1:4096").rstrip("/")
+        self.provider = os.environ.get("OPENCODE_PROVIDER", "nebius")
+        try:
+            self.retry_count = int(os.environ.get("OPENCODE_RETRY_COUNT", "3"))
+        except ValueError:
+            raise ValueError("OPENCODE_RETRY_COUNT must be an integer") from None
+
+    def _request(self, method: str, path: str, body: dict[str, Any] | None = None) -> Any:
+        """Make one local OpenCode API request without persisting model output or credentials."""
+        request = Request(self.base_url + path, method=method,
+                          headers={"Content-Type": "application/json"},
+                          data=json.dumps(body).encode() if body is not None else None)
+        try:
+            with urlopen(request, timeout=900) as response:
+                return json.load(response) if response.status != 204 else None
+        except HTTPError as error:
+            raise RuntimeError(f"OpenCode HTTP {error.code}; check that opencode serve is running") from None
+        except URLError as error:
+            raise RuntimeError(f"OpenCode server request failed: {error.reason}") from None
+
+    def complete(self, model: str, contract: type[Model], instruction: str,
+                 content: list[dict[str, Any]]) -> tuple[Model, dict[str, Any]]:
+        """Ask OpenCode for validated structured output with its configured retry policy."""
+        if any(item.get("type") != "text" for item in content):
+            raise ValueError("OpenCode provider currently supports text extraction only")
+        prompt = instruction + " Return only the requested structured object.\n\nSource:\n" + "\n".join(
+            item["text"] for item in content)
+        session = self._request("POST", "/session", {"title": "Protocol extraction"})
+        session_id = session.get("id") if isinstance(session, dict) else None
+        if not session_id:
+            raise ValueError("OpenCode server returned no session ID")
+        try:
+            response = self._request("POST", f"/session/{session_id}/message", {
+                "model": {"providerID": self.provider, "modelID": model},
+                "parts": [{"type": "text", "text": prompt}],
+                "format": {"type": "json_schema", "schema": contract.model_json_schema(),
+                           "retryCount": self.retry_count},
+            })
+        finally:
+            try:
+                self._request("DELETE", f"/session/{session_id}")
+            except RuntimeError:
+                pass
+        info = response.get("info", {}) if isinstance(response, dict) else {}
+        structured = info.get("structured_output") if isinstance(info, dict) else None
+        if structured is None and isinstance(response, dict):
+            for part in response.get("parts", []):
+                if isinstance(part, dict) and part.get("structured_output") is not None:
+                    structured = part["structured_output"]
+                    break
+        if structured is None:
+            raise ValueError("OpenCode returned no structured output")
+        if isinstance(structured, str):
+            structured = json.loads(structured)
+        parsed = contract.model_validate(structured)
+        return parsed, {"requested_model": model, "served_model": model,
+                        "provenance": "live_opencode_model_inference; not source ground truth",
+                        "retry_count": self.retry_count}
+
+
 class ReplayProvider:
     """Explicit recorded-response replay for offline integration checks, not inference."""
 
@@ -75,8 +145,10 @@ class ReplayProvider:
 
 def create_provider(name: str, replay: Path | None = None) -> ExtractionProvider:
     """Select a provider explicitly; fail rather than fall back when keys are absent."""
-    if name == "nebius" and replay is None:
+    if replay is None and name == "nebius":
         return NebiusProvider()
+    if replay is None and name == "opencode":
+        return OpenCodeProvider()
     if name == "replay" and replay is not None:
         return ReplayProvider(replay)
     raise ValueError("Select nebius without --replay, or replay with --replay")
@@ -185,7 +257,11 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
             "and acceptance checks requiring verification. Preserve uncertainty in limitations. Do not invent numerical resource/engineering "
             "values or attended ranges: all values must remain unknown/null. Do not label anything reviewed or physically verified. "
             "Preserve quantities explicitly stated in source text as cited operation constraints, not as inferred resource measurements. "
-            + ("Use source_refs text:Lstart-Lend with existing inclusive line numbers. " if text_path else
+            "Return a non-empty capabilities array. Every operation ID must appear in at least one capabilities[].operation_ids entry. "
+            "Each capability must include id, name, operation_ids, candidate_equipment, and rationale. Before returning JSON, check that "
+            "capability coverage includes every operation. "
+            + ("Use source_refs text:Lstart-Lend with existing inclusive line numbers. "
+               "For a single line use text:L1-L1, never text:L1 or L1. " if text_path else
                "Observed operations must cite source_refs action:<existing action ID> and object_ids from the observation graph. ")
         )
         spec, trace = provider.complete(model, ProtocolSpecification, instruction, content)

@@ -98,7 +98,7 @@ def synthesis_prompt(job: DesignJob) -> str:
 
 def write_json(path: Path, value: Any) -> None:
     """Create a new JSON artifact without replacing previous run evidence."""
-    with path.open("x", encoding="utf-8") as destination:
+    with path.open("x", encoding="utf-8", newline="\n") as destination:
         json.dump(value, destination, indent=2, allow_nan=False)
         destination.write("\n")
 

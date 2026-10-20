@@ -57,6 +57,38 @@ python -m protocol_pipeline extract-protocol \
 
 The bundled recorded response is hand-authored for integration tests, not a real Nebius response or demonstrated automatic extraction quality. Replay makes no inference calls and is always labeled `live_inference: false`. The [executed replay](executed/compiled/report.md) shows the downstream report.
 
+## OpenCode provider
+
+OpenCode can own the model request and structured-output retries through its local server. Start OpenCode from the repository root with the Nebius provider configured:
+
+```powershell
+opencode serve
+```
+
+Then use the pipeline with `--provider opencode`:
+
+```powershell
+python -m protocol_pipeline extract-protocol `
+  --text examples/extraction/procedure.txt `
+  --provider opencode --model nvidia/Nemotron-3_5-Lightning `
+  --output runs/opencode-extraction-001
+```
+
+The provider connects to `http://127.0.0.1:4096` by default, sends the `ProtocolSpecification` JSON schema, and requests structured-output retries. Set `OPENCODE_URL`, `OPENCODE_PROVIDER`, or `OPENCODE_RETRY_COUNT` to override the defaults. This integration currently supports text extraction; sampled-video extraction remains on the direct Nebius provider.
+
 Tests exercise the real Nebius request adapter with mocked HTTP responses for text and two-stage video, including real synthetic-video frame decoding, source-grounding failures, malformed/truncated completions, missing credentials, no secret persistence and preserved failure evidence. CI includes replay as its eighth connection-blocked offline workflow.
 
-**Live Nebius inference has not been executed or verified here; credits and account model access remain pending.**
+## Verified live text smoke test
+
+On 2026-10-19, direct Nebius text extraction using `Qwen/Qwen3-235B-A22B-Instruct-2507` successfully processed the bundled seven-line procedure, validated source references, and compiled seven operations into process/apparatus/resource artifacts. The request completed in approximately 22 seconds using 4,596 tokens. Local evidence is in `runs/e2e-live-text-20261019-02/`, including `extraction-summary.json` and `compiled/report.md` (runtime outputs are Git-ignored).
+
+With credentials in the shell environment, reproduce with a new output directory:
+
+```powershell
+python -m protocol_pipeline extract-protocol `
+  --text examples/extraction/procedure.txt `
+  --provider nebius --model Qwen/Qwen3-235B-A22B-Instruct-2507 `
+  --output runs/live-text-smoke-001
+```
+
+This verifies the live text integration, not extraction accuracy or physical performance. Live sampled-video extraction and live scene generation remain unverified. The OpenCode SDK smoke attempts did not return usable structured output; the default Nemotron Lightning direct request also returned an incomplete completion.
