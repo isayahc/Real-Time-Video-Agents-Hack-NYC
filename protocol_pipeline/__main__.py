@@ -17,10 +17,12 @@ from .failures import run_failures
 from .compiler import compile_protocol_file
 from .extraction import create_provider, extract_protocol
 from .benchmark import benchmark_files
+from .environment import load_environment
 
 
 def main() -> None:
     """Parse commands and execute one pipeline stage with clear failure status."""
+    load_environment()
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     benchmark = commands.add_parser("benchmark-extraction", help="Score an extraction against a source-bound reference and explicit review")
@@ -165,4 +167,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 

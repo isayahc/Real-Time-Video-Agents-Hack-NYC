@@ -5,7 +5,7 @@ Tracks #26. This implementation does not close the live-inference or semantic-re
 ## Start and use
 
 1. Install `ffmpeg`/`ffprobe` and `python -m pip install -e ".[web,test]"`.
-2. Set `NEBIUS_API_KEY` or `NEBIUS_TOKEN_FACTORY_KEY` in the server environment. Optionally set `NEBIUS_VISION_MODEL` and `NEBIUS_COMPILER_MODEL`. The example environment file is guidance and is not automatically loaded.
+2. From the repository directory, copy `example.env` to `.env` and set `NEBIUS_API_KEY` or `NEBIUS_TOKEN_FACTORY_KEY`, or export either key in your shell. The web app and `python -m protocol_pipeline` automatically load `.env` from the current working directory using `python-dotenv`; existing environment variables take precedence. Optionally set `NEBIUS_VISION_MODEL` and `NEBIUS_COMPILER_MODEL`. Run `python -m pip install -e ".[web,test]"` after updating and restart the server after editing `.env`. The example file itself is not loaded.
 3. Run `python -m protocol_pipeline.web` and open http://127.0.0.1:8000.
 4. Select a short procedure video whose use is permitted. Confirm it plays. Nebius is already selected by the web flow, with `Qwen/Qwen2.5-VL-72B-Instruct` preset for vision. Override either model ID if needed and choose 2–24 sampled frames.
 5. Start analysis. The video remains playable while stages advance. No guessed percentages or fabricated incremental operations are shown.

@@ -27,6 +27,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .extraction import ExtractionProvider, create_provider, extract_protocol
+from .environment import load_environment
 from .pipeline import NebiusHTTPError, extract_frames, save_json, sha256
 
 STATIC = Path(__file__).with_name("web_static")
@@ -190,6 +191,7 @@ class JobStore:
 def create_app(root: Path | None = None,
                provider_factory: Callable[[], ExtractionProvider] | None = None) -> FastAPI:
     """Build a loopback workbench; injection supports deterministic transport tests."""
+    load_environment()
     store = JobStore(root or Path("runs/workbench"), provider_factory or (lambda: create_provider("nebius")))
 
     @asynccontextmanager
