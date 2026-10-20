@@ -6,10 +6,13 @@ import json
 import os
 import re
 import shutil
+import time
 from pathlib import Path
-from typing import Any, Literal, Protocol, TypeVar
+from typing import Any, Callable, Literal, Protocol, TypeVar
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+
+from pydantic import ValidationError
 
 from .compiler import ProtocolSpecification, compile_protocol_file
 from .design import write_json
@@ -63,6 +66,8 @@ class OpenCodeProvider:
             self.retry_count = int(os.environ.get("OPENCODE_RETRY_COUNT", "3"))
         except ValueError:
             raise ValueError("OPENCODE_RETRY_COUNT must be an integer") from None
+        if not 0 <= self.retry_count <= 5:
+            raise ValueError("OPENCODE_RETRY_COUNT must be between 0 and 5")
 
     def _request(self, method: str, path: str, body: dict[str, Any] | None = None) -> Any:
         """Make one local OpenCode API request without persisting model output or credentials."""
@@ -88,33 +93,49 @@ class OpenCodeProvider:
         session_id = session.get("id") if isinstance(session, dict) else None
         if not session_id:
             raise ValueError("OpenCode server returned no session ID")
+        started = time.monotonic()
         try:
-            response = self._request("POST", f"/session/{session_id}/message", {
-                "model": {"providerID": self.provider, "modelID": model},
-                "parts": [{"type": "text", "text": prompt}],
-                "format": {"type": "json_schema", "schema": contract.model_json_schema(),
-                           "retryCount": self.retry_count},
-            })
+            for attempt in range(3):
+                response = self._request("POST", f"/session/{session_id}/message", {
+                    "model": {"providerID": self.provider, "modelID": model},
+                    "parts": [{"type": "text", "text": prompt}],
+                    "format": {"type": "json_schema", "schema": contract.model_json_schema(),
+                               "retryCount": self.retry_count},
+                })
+                info = response.get("info", {}) if isinstance(response, dict) else {}
+                if not isinstance(info, dict):
+                    raise ValueError("OpenCode returned an invalid info envelope")
+                if info.get("error"):
+                    raise RuntimeError("OpenCode reported a model/server error; inspect the server session")
+                structured = info.get("structured_output")
+                if structured is None and isinstance(response, dict):
+                    for part in response.get("parts", []):
+                        if isinstance(part, dict) and part.get("structured_output") is not None:
+                            structured = part["structured_output"]
+                            break
+                if structured is None:
+                    raise ValueError("OpenCode returned no structured output; check server/SDK/model compatibility")
+                if isinstance(structured, str):
+                    structured = json.loads(structured)
+                try:
+                    parsed = contract.model_validate(structured)
+                except ValidationError as error:
+                    if attempt == 2:
+                        raise
+                    prompt = "Correct the previous candidate using these validation errors:\n" + error.json(include_input=False)
+                    continue
+                return parsed, {"requested_model": model, "served_model": info.get("modelID"),
+                                "provider": self.provider, "usage": info.get("tokens"),
+                                "latency_s": time.monotonic() - started, "attempt_count": attempt + 1,
+                                "provenance": "live_opencode_model_inference; not source ground truth",
+                                "retry_count": self.retry_count}
+            raise RuntimeError("OpenCode correction attempts exhausted")
         finally:
             try:
                 self._request("DELETE", f"/session/{session_id}")
-            except RuntimeError:
+            except (RuntimeError, ValueError, OSError):
                 pass
-        info = response.get("info", {}) if isinstance(response, dict) else {}
-        structured = info.get("structured_output") if isinstance(info, dict) else None
-        if structured is None and isinstance(response, dict):
-            for part in response.get("parts", []):
-                if isinstance(part, dict) and part.get("structured_output") is not None:
-                    structured = part["structured_output"]
-                    break
-        if structured is None:
-            raise ValueError("OpenCode returned no structured output")
-        if isinstance(structured, str):
-            structured = json.loads(structured)
-        parsed = contract.model_validate(structured)
-        return parsed, {"requested_model": model, "served_model": model,
-                        "provenance": "live_opencode_model_inference; not source ground truth",
-                        "retry_count": self.retry_count}
+
 
 
 class ReplayProvider:
@@ -151,7 +172,7 @@ def create_provider(name: str, replay: Path | None = None) -> ExtractionProvider
         return OpenCodeProvider()
     if name == "replay" and replay is not None:
         return ReplayProvider(replay)
-    raise ValueError("Select nebius without --replay, or replay with --replay")
+    raise ValueError("Select nebius/opencode without --replay, or replay with --replay")
 
 
 def validate_extraction(spec: ProtocolSpecification, mode: Literal["text", "video"],
@@ -201,7 +222,8 @@ def validate_source_ref(ref: str, mode: str, line_count: int, graph: Observation
 
 def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
                      text_path: Path | None = None, run: Path | None = None,
-                     vision_model: str | None = None) -> dict[str, Any]:
+                     vision_model: str | None = None,
+                     progress: Callable[[str], None] | None = None) -> dict[str, Any]:
     """Extract, ground, validate and compile a candidate plan from one source.
 
     Text is line-numbered. Video first yields a grounded observation graph; source
@@ -212,6 +234,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
         raise FileExistsError(f"Output already exists: {output}")
     if bool(text_path) == bool(run) or not model.strip() or (run is not None and not vision_model):
         raise ValueError("Supply exactly one --text/--run, an explicit --model, and --vision-model for video")
+    notify = progress or (lambda stage: None)
     graph: ObservationGraph | None = None
     line_count = 0
     if text_path is not None:
@@ -239,6 +262,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
     traces: list[dict[str, Any]] = []
     try:
         if run is not None:
+            notify("extracting_observations")
             graph, trace = provider.complete(vision_model or "", ObservationGraph,
                 "Interpret visible objects/actions/state changes only. Cite supplied frame IDs and valid sampled-frame intervals. "
                 "All interpretations are uncertain model inference. Do not invent exact dimensions, forces, off-camera activities or physical results.", content)
@@ -264,6 +288,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
                "For a single line use text:L1-L1, never text:L1 or L1. " if text_path else
                "Observed operations must cite source_refs action:<existing action ID> and object_ids from the observation graph. ")
         )
+        notify("extracting_protocol")
         spec, trace = provider.complete(model, ProtocolSpecification, instruction, content)
         traces.append(trace)
         validate_extraction(spec, "text" if text_path else "video", line_count, graph)
@@ -271,6 +296,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
         spec.limitations += ["Automatically extracted candidate; structural grounding is not semantic verification.",
                              "Provider: " + provider.name + ("; live model inference" if provider.live else "; recorded replay, not live inference")]
         write_json(output / "extracted-protocol.json", spec.model_dump())
+        notify("compiling")
         compiled = compile_protocol_file(output / "extracted-protocol.json", output / "compiled")
         result = {"status": "extracted_candidate_requires_review", "provider": provider.name,
                   "live_inference": provider.live, "physical_validation": False,

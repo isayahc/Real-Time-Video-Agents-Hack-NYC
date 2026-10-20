@@ -1,4 +1,5 @@
 """Small, debuggable live extraction example."""
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -11,7 +12,7 @@ from protocol_pipeline.extraction import create_provider, extract_protocol
 
 
 TEXT = ROOT / "examples" / "extraction" / "procedure.txt"
-MODEL = "nvidia/Nemotron-3_5-Lightning"
+MODEL = os.environ.get("NEBIUS_COMPILER_MODEL", "Qwen/Qwen3-235B-A22B-Instruct-2507")
 
 
 def main() -> None:
