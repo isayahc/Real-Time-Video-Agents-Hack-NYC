@@ -10,7 +10,8 @@
 <div class="player"><video id="video" controls playsinline preload="metadata" aria-label="Procedure video"></video><p id="video-empty">Your source video appears here.<br><small>MP4, WebM or MOV · up to 100 MiB</small></p></div>
 <p id="playback-error" class="error" role="alert" hidden>This browser cannot play this video. Try an H.264 MP4 or WebM file.</p>
 <form id="run-form"><label class="upload">Choose procedure video<input id="file" type="file" accept=".mp4,.webm,.mov,video/mp4,video/webm,video/quicktime" required></label>
-<div class="fields"><label>Vision model<input id="vision-model" required placeholder="Available vision model ID" maxlength="200"></label><label>Compiler model<input id="model" required maxlength="200"></label></div>
+<p class="hint">Provider: Nebius · Model IDs are editable.</p>
+<div class="fields"><label>Vision model<input id="vision-model" required value="Qwen/Qwen2.5-VL-72B-Instruct" maxlength="200"></label><label>Compiler model<input id="model" required maxlength="200"></label></div>
 <div class="actions"><label>Sampled frames<input id="frame-count" type="number" value="8" min="2" max="24" required></label><button id="start" type="submit">Analyze video <span aria-hidden="true">↗</span></button></div>
 <p id="readiness" class="hint"></p><p class="hint">Analysis runs asynchronously on sampled frames. Playback does not imply continuous real-time inference.</p></form>
 <div class="history"><h3>Saved runs</h3><label class="sr-only" for="history">Reopen a saved run</label><select id="history"><option value="">Select a previous run</option></select></div>
@@ -27,3 +28,4 @@
 </section></div>
 <footer>Candidate plans require review. Equipment suggestions are hypotheses; unknown resource quantities remain unknown.</footer>
 </main></body></html>
+

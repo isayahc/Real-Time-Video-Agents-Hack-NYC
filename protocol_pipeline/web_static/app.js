@@ -1,6 +1,32 @@
 /* Render all model/source content as text, never executable HTML. */
 'use strict';
 const $ = id => document.getElementById(id);
+// Keep only model IDs in browser storage; credentials stay on the server.
+const modelFields = ['vision-model', 'model'];
+const editedModels = new Set();
+function savedModel(id) {
+ try { const value = localStorage.getItem(`workbench.nebius.${id}`); return value && value.trim() && value.length <= 200 ? value : null; }
+ catch { return null; }
+}
+for (const id of modelFields) {
+ const saved = savedModel(id);
+ if (saved) $(id).value = saved;
+ $(id).addEventListener('input', () => {
+  editedModels.add(id);
+  try {
+   const value = $(id).value.trim();
+   if (value) localStorage.setItem(`workbench.nebius.${id}`, value);
+   else localStorage.removeItem(`workbench.nebius.${id}`);
+  } catch { /* Storage may be unavailable; the current form still works. */ }
+ });
+}
+function applyModelDefaults(config) {
+ for (const id of modelFields) {
+  if (!editedModels.has(id) && !savedModel(id)) {
+   $(id).value = (id === 'model' ? config.model : config.vision_model) || $(id).value;
+  }
+ }
+}
 const labels = {queued:'Queued',ingesting_frames:'Sampling frames',extracting_observations:'Extracting observations',extracting_protocol:'Extracting protocol',compiling:'Compiling artifacts',completed:'Completed',failed:'Failed'};
 let selectedFile = null, objectURL = null, activeRun = null, pollTimer = null, generation = 0;
 function element(tag, text, className) { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; if (className) node.className = className; return node; }
@@ -27,4 +53,5 @@ $('video').addEventListener('error',()=>{$('playback-error').hidden=false;});
 $('run-form').addEventListener('submit',async event=>{event.preventDefault();if(!selectedFile){showError('Choose a video first.');return;}if(selectedFile.size>100*1024*1024){showError('Video exceeds the 100 MiB limit.');return;}stopPolling();resetResults();$('start').disabled=true;$('file').disabled=true;$('history').disabled=true;$('status').textContent='Uploading video…';const query=new URLSearchParams({filename:selectedFile.name,model:$('model').value.trim(),vision_model:$('vision-model').value.trim(),frame_count:$('frame-count').value});try{const job=await api(`/api/runs?${query}`,{method:'POST',headers:{'Content-Type':'application/octet-stream','X-Workbench-Request':'1'},body:selectedFile});await openRun(job.id);await refreshHistory();}catch(error){showError(error.message);$('status').textContent='Run was not started.';}finally{$('start').disabled=false;$('file').disabled=false;$('history').disabled=false;}});
 $('history').addEventListener('change',()=>{if($('history').value){selectedFile=null;$('file').value='';openRun($('history').value);}});
 for(const button of document.querySelectorAll('[data-view]'))button.addEventListener('click',()=>{document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.querySelectorAll('.view').forEach(view=>view.hidden=view.id!==button.dataset.view);});
-(async()=>{try{const config=await api('/api/config');$('model').value=config.model;$('vision-model').value=config.vision_model;$('readiness').textContent=!config.ffmpeg_available?'Server needs ffmpeg and ffprobe.':!config.credentials_available?'Server needs NEBIUS_API_KEY or NEBIUS_TOKEN_FACTORY_KEY before live analysis.':'Server credentials detected. Confirm both model IDs are available to your account.';await refreshHistory();const id=location.hash.slice(1);if(/^[a-f0-9]{32}$/.test(id))await openRun(id);}catch(error){showError(error.message);}})();
+(async()=>{try{const config=await api('/api/config');applyModelDefaults(config);$('readiness').textContent=!config.ffmpeg_available?'Server needs ffmpeg and ffprobe.':!config.credentials_available?'Server needs NEBIUS_API_KEY or NEBIUS_TOKEN_FACTORY_KEY before live analysis.':'Server credentials detected. Confirm both model IDs are available to your account.';await refreshHistory();const id=location.hash.slice(1);if(/^[a-f0-9]{32}$/.test(id))await openRun(id);}catch(error){showError(error.message);}})();
+

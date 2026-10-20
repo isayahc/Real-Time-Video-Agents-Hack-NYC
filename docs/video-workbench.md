@@ -7,10 +7,12 @@ Tracks #26. This implementation does not close the live-inference or semantic-re
 1. Install `ffmpeg`/`ffprobe` and `python -m pip install -e ".[web,test]"`.
 2. Set `NEBIUS_API_KEY` or `NEBIUS_TOKEN_FACTORY_KEY` in the server environment. Optionally set `NEBIUS_VISION_MODEL` and `NEBIUS_COMPILER_MODEL`. The example environment file is guidance and is not automatically loaded.
 3. Run `python -m protocol_pipeline.web` and open http://127.0.0.1:8000.
-4. Select a short procedure video whose use is permitted. Confirm it plays. Enter explicit available model IDs and choose 2–24 sampled frames.
+4. Select a short procedure video whose use is permitted. Confirm it plays. Nebius is already selected by the web flow, with `Qwen/Qwen2.5-VL-72B-Instruct` preset for vision. Override either model ID if needed and choose 2–24 sampled frames.
 5. Start analysis. The video remains playable while stages advance. No guessed percentages or fabricated incremental operations are shown.
 6. Inspect completed operations, capability/equipment mappings, resource quantities and report. Click a timestamp to pause/seek the video and display the corresponding sampled frame. Hypotheses without observed evidence have no invented timestamps.
 7. Download artifacts or the evidence ZIP. Reopen the run using its URL hash or the saved-runs selector.
+
+The vision preset is returned by `/api/config` and sent as `vision_model` in the upload request. A nonblank `NEBIUS_VISION_MODEL` overrides the server default; blank values use the preset. Browser model edits persist across video changes and reloads when local storage is available, taking precedence over server defaults. Only model IDs are stored, never credentials. Model-request rejections identify the affected field and prompt you to select a compatible model accessible to your account. Availability still depends on the live Nebius catalog and account permissions; no live availability claim is made by the preset.
 
 The raw upload API is `POST /api/runs?filename=...&model=...&vision_model=...&frame_count=8`, with video bytes as the body and `X-Workbench-Request: 1`. The backend serves both UI and API. Provider access stays on the server. Poll `GET /api/runs/{id}` and request `/results` after completion. `/video` supports byte ranges; `/frames/{id}` resolves real manifest frames. Cross-origin writes and unrecognized Host headers are rejected.
 
@@ -79,3 +81,4 @@ node --check protocol_pipeline/web_static/app.js
 ```
 
 The web tests use actual FFmpeg decoding, extraction/compiler code and HTTP handlers with explicitly synthetic replay responses. They cover completed output, source/frame mapping, media ranges, ZIP checksums, invalid video, upload limits, cross-origin protection, missing credentials and restart recovery. They do not establish browser rendering, model accuracy or live provider compatibility.
+

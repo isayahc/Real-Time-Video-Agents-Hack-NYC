@@ -27,10 +27,11 @@ from fastapi.responses import FileResponse, JSONResponse
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .extraction import ExtractionProvider, create_provider, extract_protocol
-from .pipeline import extract_frames, save_json, sha256
+from .pipeline import NebiusHTTPError, extract_frames, save_json, sha256
 
 STATIC = Path(__file__).with_name("web_static")
 MAX_UPLOAD = 100 * 1024 * 1024
+DEFAULT_VISION_MODEL = "Qwen/Qwen2.5-VL-72B-Instruct"
 TERMINAL = {"completed", "failed"}
 ARTIFACTS = (
     "source-manifest.json", "observations.json", "extracted-protocol.json",
@@ -143,8 +144,14 @@ class JobStore:
             # Provider/validation exceptions can contain source content or credentials.
             # Preserve the failure type/stage, never raw exception text in the UI.
             stage = self.get(run_id)["stage"]
+            message = f"Failed during {stage}. Check video decoding, model access and server credentials; inspect retained artifacts. No successful result is claimed."
+            if isinstance(error, NebiusHTTPError) and error.status_code in {400, 403, 404, 422}:
+                field = "Vision model" if stage == "extracting_observations" else "Compiler model"
+                message = (f"{field} request was rejected by Nebius (HTTP {error.status_code}). "
+                           f"The model may be unavailable or incompatible, or your account may lack access. "
+                           f"Enter an available compatible model in the {field.lower()} field and start a new run.")
             self.update(run_id, stage="failed", finished_at=time.time(), error_type=type(error).__name__,
-                        error=f"Failed during {stage}. Check video decoding, model access and server credentials; inspect retained artifacts. No successful result is claimed.")
+                        error=message)
         finally:
             self.slots.release()
 
@@ -228,7 +235,8 @@ def create_app(root: Path | None = None,
         return {"credentials_available": bool(os.getenv("NEBIUS_API_KEY") or os.getenv("NEBIUS_TOKEN_FACTORY_KEY")),
                 "ffmpeg_available": bool(shutil.which("ffmpeg") and shutil.which("ffprobe")),
                 "model": os.getenv("NEBIUS_COMPILER_MODEL", "Qwen/Qwen3-235B-A22B-Instruct-2507"),
-                "vision_model": os.getenv("NEBIUS_VISION_MODEL", ""), "max_upload_bytes": MAX_UPLOAD}
+                "vision_model": os.getenv("NEBIUS_VISION_MODEL", "").strip() or DEFAULT_VISION_MODEL,
+                "provider": "nebius", "max_upload_bytes": MAX_UPLOAD}
 
     @app.get("/api/runs")
     def runs() -> list[dict[str, Any]]:
@@ -349,3 +357,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

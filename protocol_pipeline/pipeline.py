@@ -137,6 +137,15 @@ def vision_content(run: Path, frames: list[Frame], annotation_grounding: bool = 
     return content
 
 
+class NebiusHTTPError(RuntimeError):
+    """Expose the provider status without retaining response bodies or credentials."""
+
+    def __init__(self, status_code: int) -> None:
+        """Store a safe HTTP status for actionable caller error messages."""
+        self.status_code = status_code
+        super().__init__(f"Nebius HTTP {status_code}; check model access, credits and API configuration.")
+
+
 class NebiusClient:
     """Small OpenAI-compatible Token Factory adapter with explicit model selection."""
 
@@ -165,7 +174,7 @@ class NebiusClient:
                 if error.code in (429, 502, 503, 504) and attempt < 2:
                     time.sleep(2**attempt)
                     continue
-                raise RuntimeError(f"Nebius HTTP {error.code}; check model access, credits and API configuration.") from None
+                raise NebiusHTTPError(error.code) from None
             except URLError:
                 raise RuntimeError("Nebius network request failed; no result was validated.") from None
         if not isinstance(raw, dict) or not isinstance(raw.get("choices"), list) or not raw["choices"] or not isinstance(raw["choices"][0], dict):
@@ -265,4 +274,5 @@ def analyze(run: Path, vision_model: str, compiler_model: str, annotation_ground
                      "annotation_ground_truth_sent_to_model": False,
                      "limitations": ["Sampled-frame reasoning is not continuous tracking or physical validation.", "Preprocessing candidates are hypotheses. Missing engineering numbers remain unknown."]})
     save_json(run / "manifest.json", manifest)
+
 
