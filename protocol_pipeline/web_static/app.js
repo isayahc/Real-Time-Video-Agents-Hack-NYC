@@ -29,13 +29,52 @@ function applyModelDefaults(config) {
 }
 const labels = {queued:'Queued',ingesting_frames:'Sampling frames',extracting_observations:'Extracting observations',extracting_protocol:'Extracting protocol',compiling:'Compiling artifacts',completed:'Completed',failed:'Failed'};
 let selectedFile = null, objectURL = null, activeRun = null, pollTimer = null, generation = 0;
+let sampledRun = null;
 function element(tag, text, className) { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; if (className) node.className = className; return node; }
 function showError(message) { $('error').textContent = message; $('error').hidden = !message; }
 async function api(url, options) { const response = await fetch(url, options); if (!response.ok) { let detail; try { detail = (await response.json()).detail; } catch { detail = response.statusText; } throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail)); } return response.json(); }
-function resetResults() { $('result-content').hidden = true; $('empty-results').hidden = false; $('evidence').hidden = true; showError(''); }
+function resetResults() { $('result-content').hidden = true; $('empty-results').hidden = false; $('evidence').hidden = true; $('run-activity').hidden = true; $('submission-status').hidden = true; $('sampled-preview').hidden = true; sampledRun = null; showError(''); }
 function switchVideo(url, name) { $('video').src = url; $('video-empty').hidden = true; $('source-name').textContent = name; $('playback-error').hidden = true; }
 function stopPolling() { generation++; clearTimeout(pollTimer); activeRun = null; }
-function showStage(job) { $('stage').textContent = labels[job.stage] || job.stage; $('status').textContent = `${labels[job.stage] || job.stage} · ${job.elapsed_s ?? 0}s · ${job.id.slice(0,8)}`; const stages = [...document.querySelectorAll('#stages li')]; const current = stages.findIndex(node => node.dataset.stage === job.stage); stages.forEach((node,index) => { node.classList.toggle('done',job.stage === 'completed' || (current >= 0 && index < current)); node.classList.toggle('active',index === current); }); }
+function showStage(job) {
+ renderSampledFrames(job);
+ const label = labels[job.stage] || job.stage;
+ const timing = `${job.elapsed_s ?? 0}s total · ${job.stage_elapsed_s ?? 0}s in this stage`;
+ $('stage').textContent = label;
+ $('status').textContent = `${label} · ${timing} · ${job.id.slice(0,8)}`;
+ $('submission-status').hidden = false;
+ $('submission-status').textContent = `${label}${job.stage === 'queued' ? ` (queue position ${job.queue_position ?? '?'})` : ''} · ${timing}. ${job.progress_message || ''}`;
+ $('run-activity').hidden = false;
+ $('stage-detail').textContent = job.progress_message || label;
+ $('run-models').textContent = `Vision: ${job.vision_model} · Compiler: ${job.model}`;
+ $('run-events').replaceChildren(...(job.events || []).map(event => element('li', `+${Math.max(0,event.at-job.created_at).toFixed(1)}s — ${labels[event.stage] || event.stage}`)));
+ $('empty-results').hidden = true;
+ const stages = [...document.querySelectorAll('#stages li')];
+ const current = stages.findIndex(node => node.dataset.stage === job.stage);
+ stages.forEach((node,index) => { node.classList.toggle('done',job.stage === 'completed' || (current >= 0 && index < current)); node.classList.toggle('active',index === current); });
+}
+function renderSampledFrames(job) {
+ const frames = job.sampled_frames || [];
+ if (!frames.length || sampledRun === job.id) return;
+ sampledRun = job.id;
+ $('sampled-preview').hidden = false;
+ $('sampled-heading').textContent = `${frames.length} sampled frames · vision input`;
+ function selectFrame(frame, index) {
+  $('sampled-image').src = frame.url;
+  $('sampled-caption').textContent = `Frame ${index+1} of ${frames.length} · ${frame.timestamp_s.toFixed(2)}s · ${frame.id}`;
+  for (const button of $('sampled-thumbnails').children) button.setAttribute('aria-pressed', String(button.dataset.frame === frame.id));
+ }
+ $('sampled-thumbnails').replaceChildren(...frames.map((frame,index) => {
+  const button = element('button'); button.type = 'button'; button.dataset.frame = frame.id;
+  button.style.cssText = 'flex:0 0 104px;padding:5px;font-size:12px';
+  button.setAttribute('aria-label', `Inspect frame ${index+1} at ${frame.timestamp_s.toFixed(2)} seconds`);
+  const image = element('img'); image.src = frame.url; image.alt = ''; image.loading = 'lazy';
+  image.style.cssText = 'display:block;width:100%;height:60px;object-fit:cover';
+  button.append(image,element('span',`${frame.timestamp_s.toFixed(2)}s`));
+  button.addEventListener('click',()=>selectFrame(frame,index)); return button;
+ }));
+ selectFrame(frames[0],0);
+}
 async function refreshHistory() { const jobs = await api('/api/runs'); const selected = activeRun || ''; $('history').replaceChildren(new Option('Select a previous run','')); jobs.forEach(job => $('history').add(new Option(`${job.filename} · ${labels[job.stage]} · ${job.id.slice(0,8)}`,job.id))); $('history').value = selected; }
 function showEvidence(item) { $('video').currentTime = item.timestamp_s; $('video').pause(); $('frame-image').src = item.url; $('frame-caption').textContent = `${item.frame_id} · ${item.timestamp_s.toFixed(2)}s · action ${item.action_id}`; $('evidence').hidden = false; }
 function renderResults(data) { const spec = data.protocol; $('empty-results').hidden = true; $('result-content').hidden = false; $('protocol-title').textContent = spec.title; $('boundary').textContent = `${spec.functional_unit} · ${spec.boundary}`; $('provenance').textContent = `${data.summary.live_inference ? 'Live model inference' : 'Recorded / synthetic replay — not live inference'} · Candidate requires semantic review · Not physically validated`;
@@ -46,11 +85,11 @@ function renderResults(data) { const spec = data.protocol; $('empty-results').hi
  $('resources').replaceChildren(element('p','Unknown values are not zero. Supply sourced measurements before estimating performance.'));const table=element('table'),head=element('tr');['Resource','Value','Unit','Basis'].forEach(text=>head.append(element('th',text)));table.append(head);Object.entries(spec.resource_inputs).forEach(([name,value])=>{const row=element('tr');[name,value.value===null?'Unknown':String(value.value),value.unit,value.basis].forEach(text=>row.append(element('td',text)));table.append(row);});$('resources').append(table);const template=element('details');template.append(element('summary','Resource-input template'),element('pre',JSON.stringify(data.resource_template,null,2)));$('resources').append(template);
  $('report-text').textContent=data.report;$('limitations').replaceChildren(...spec.limitations.map(text=>element('li',text)));$('downloads').replaceChildren();const bundle=element('a','Download evidence bundle (includes source video)','bundle');bundle.href=`/api/runs/${activeRun}/bundle`;$('downloads').append(bundle);data.downloads.forEach(name=>{const link=element('a',name);link.href=`/api/runs/${activeRun}/artifacts/${name}`;$('downloads').append(link);});
 }
-async function poll(runId, token) { if(token!==generation)return;try { const job=await api(`/api/runs/${runId}`);if(token!==generation)return;showStage(job);if(job.stage==='completed'){const data=await api(`/api/runs/${runId}/results`);if(token!==generation)return;renderResults(data);await refreshHistory();}else if(job.stage==='failed'){showError(job.error);await refreshHistory();}else{pollTimer=setTimeout(()=>poll(runId,token),1000);}}catch(error){if(token!==generation)return;showError(`Could not refresh run: ${error.message}. Reopen it from saved runs to reconnect.`);}}
+async function poll(runId, token) { if(token!==generation)return;try { const job=await api(`/api/runs/${runId}`);if(token!==generation)return;showStage(job);if(job.stage==='completed'){const data=await api(`/api/runs/${runId}/results`);if(token!==generation)return;renderResults(data);}else if(job.stage==='failed'){showError(`${job.error}${job.error_type ? ` (${job.error_type})` : ''}`);}await refreshHistory();if(token!==generation)return;if(!['completed','failed'].includes(job.stage)){pollTimer=setTimeout(()=>poll(runId,token),1000);}}catch(error){if(token!==generation)return;showError(`Could not refresh run: ${error.message}. Reopen it from saved runs to reconnect.`);}}
 async function openRun(runId) { stopPolling();activeRun=runId;const token=generation;resetResults();location.hash=runId;try{const job=await api(`/api/runs/${runId}`);if(token!==generation)return;switchVideo(`/api/runs/${runId}/video`,job.filename);await poll(runId,token);}catch(error){if(token===generation)showError(error.message);}}
 $('file').addEventListener('change',()=>{stopPolling();resetResults();selectedFile=$('file').files[0]||null;location.hash='';if(objectURL)URL.revokeObjectURL(objectURL);if(selectedFile){objectURL=URL.createObjectURL(selectedFile);switchVideo(objectURL,selectedFile.name);$('stage').textContent='Ready';$('status').textContent='Ready to analyze selected video.';document.querySelectorAll('#stages li').forEach(n=>n.classList.remove('done','active'));}});
 $('video').addEventListener('error',()=>{$('playback-error').hidden=false;});
-$('run-form').addEventListener('submit',async event=>{event.preventDefault();if(!selectedFile){showError('Choose a video first.');return;}if(selectedFile.size>100*1024*1024){showError('Video exceeds the 100 MiB limit.');return;}stopPolling();resetResults();$('start').disabled=true;$('file').disabled=true;$('history').disabled=true;$('status').textContent='Uploading video…';const query=new URLSearchParams({filename:selectedFile.name,model:$('model').value.trim(),vision_model:$('vision-model').value.trim(),frame_count:$('frame-count').value});try{const job=await api(`/api/runs?${query}`,{method:'POST',headers:{'Content-Type':'application/octet-stream','X-Workbench-Request':'1'},body:selectedFile});await openRun(job.id);await refreshHistory();}catch(error){showError(error.message);$('status').textContent='Run was not started.';}finally{$('start').disabled=false;$('file').disabled=false;$('history').disabled=false;}});
+$('run-form').addEventListener('submit',async event=>{event.preventDefault();if(!selectedFile){showError('Choose a video first.');return;}if(selectedFile.size>100*1024*1024){showError('Video exceeds the 100 MiB limit.');return;}stopPolling();resetResults();$('start').disabled=true;$('file').disabled=true;$('history').disabled=true;$('status').textContent='Uploading video…';$('submission-status').hidden=false;$('submission-status').textContent='Uploading video to the backend. Analysis will start after the upload finishes.';const query=new URLSearchParams({filename:selectedFile.name,model:$('model').value.trim(),vision_model:$('vision-model').value.trim(),frame_count:$('frame-count').value});try{const job=await api(`/api/runs?${query}`,{method:'POST',headers:{'Content-Type':'application/octet-stream','X-Workbench-Request':'1'},body:selectedFile});await openRun(job.id);await refreshHistory();}catch(error){showError(error.message);$('status').textContent='Run was not started.';$('submission-status').textContent=`Run was not started: ${error.message}`;}finally{$('start').disabled=false;$('file').disabled=false;$('history').disabled=false;}});
 $('history').addEventListener('change',()=>{if($('history').value){selectedFile=null;$('file').value='';openRun($('history').value);}});
 for(const button of document.querySelectorAll('[data-view]'))button.addEventListener('click',()=>{document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.querySelectorAll('.view').forEach(view=>view.hidden=view.id!==button.dataset.view);});
 (async()=>{try{const config=await api('/api/config');applyModelDefaults(config);$('readiness').textContent=!config.ffmpeg_available?'Server needs ffmpeg and ffprobe.':!config.credentials_available?'Server needs NEBIUS_API_KEY or NEBIUS_TOKEN_FACTORY_KEY before live analysis.':'Server credentials detected. Confirm both model IDs are available to your account.';await refreshHistory();const id=location.hash.slice(1);if(/^[a-f0-9]{32}$/.test(id))await openRun(id);}catch(error){showError(error.message);}})();
