@@ -13,6 +13,7 @@ async function boot(storage = new Map(), blocked = false, beforeConfig = null) {
  const node = id => {
   if (!nodes.has(id)) nodes.set(id, {value: '', files: [], handlers: {},
    addEventListener(type, fn) { this.handlers[type] = fn; },
+   setAttribute(name, value) { this[name] = value; }, append() {}, focus() {},
    replaceChildren() {}, add() {}, classList: {remove() {}, toggle() {}}});
   return nodes.get(id);
  };
@@ -80,4 +81,25 @@ test('late config does not overwrite user input', async () => {
   node('vision-model').handlers.input();
  });
  assert.equal((await app.submit()).get('vision_model'), 'early/edit');
+});
+
+test('wizard gates configuration on a video and keeps one step visible', async () => {
+ const app = await boot();
+ assert.equal(app.node('wizard-video').hidden, false);
+ assert.equal(app.node('wizard-models').hidden, true);
+ assert.equal(app.node('step-models').disabled, true);
+ assert.equal(app.node('step-results').disabled, true);
+ app.node('configure-next').handlers.click();
+ assert.equal(app.node('wizard-video').hidden, false);
+ assert.match(app.node('error').textContent, /Choose a video/);
+ app.node('file').files = [{name: 'fixture.mp4', size: 10}];
+ app.node('file').handlers.change();
+ app.node('configure-next').handlers.click();
+ assert.equal(app.node('wizard-video').hidden, true);
+ assert.equal(app.node('wizard-models').hidden, false);
+ assert.equal(app.node('wizard-analysis').hidden, true);
+ app.node('models-back').handlers.click();
+ assert.equal(app.node('wizard-video').hidden, false);
+ assert.equal(app.node('wizard-models').hidden, true);
+ assert.equal(app.node('vision-model').value, preset);
 });
