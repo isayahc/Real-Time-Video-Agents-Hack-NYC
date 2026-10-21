@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Verify provider extraction, grounding, failure evidence and secret-free traces."""
 from __future__ import annotations
 

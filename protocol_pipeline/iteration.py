@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Append-only prediction, observation and revision orchestration.
 
 Records retain complete evaluator outputs and hashed parent links. Observations

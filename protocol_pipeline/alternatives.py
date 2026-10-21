@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Compare multiple apparatus concepts with shared boundaries and explicit evidence.
 
 Pairwise economics use the existing investment comparator. Conditional arithmetic

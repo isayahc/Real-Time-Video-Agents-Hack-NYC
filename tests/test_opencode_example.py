@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Exercise the native Python SDK against a mock OpenCode server transport."""
 import copy
 import importlib.util

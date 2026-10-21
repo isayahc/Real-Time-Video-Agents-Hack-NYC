@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Typed contracts separating annotations, video inference and engineering inputs."""
 from __future__ import annotations
 

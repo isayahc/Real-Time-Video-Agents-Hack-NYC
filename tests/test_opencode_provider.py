@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Check bounded application validation retries and explicit provider failures."""
 from __future__ import annotations
 

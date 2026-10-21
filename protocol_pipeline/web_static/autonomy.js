@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MPL-2.0
 /* Step 5 owns a separate proposal and assumed economics; extracted evidence stays intact. */
 'use strict';
 let designTimer = null, designRun = null, designEpoch = 0, designState = null;

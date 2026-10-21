@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MPL-2.0
 /* Render all model/source content as text, never executable HTML. */
 'use strict';
 const $ = id => document.getElementById(id);

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MPL-2.0
 /** Native OpenIndustries import/portable export plus actual local stdio MCP room creation.
  * No LLM, cloud sign-in, geometry invention or room-file mutation is performed.
  */

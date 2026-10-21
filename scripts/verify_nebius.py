@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Verify real NVIDIA inference and downstream compilation; never skip or replay."""
 from __future__ import annotations
 

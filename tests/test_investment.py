@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Independent investment arithmetic, sensitivity and feasibility tests."""
 from __future__ import annotations
 

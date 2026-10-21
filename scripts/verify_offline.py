@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Execute every bundled offline workflow with network connections blocked."""
 from __future__ import annotations
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Compile explicitly supplied protocol plans into apparatus and resource contracts.
 
 No task-specific lookup, video inference, scheduling, or measurement imputation

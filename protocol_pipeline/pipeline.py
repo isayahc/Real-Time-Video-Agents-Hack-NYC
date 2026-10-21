@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """CREOLab ingestion, timestamped sampling and explicit Nebius inference stages."""
 from __future__ import annotations
 

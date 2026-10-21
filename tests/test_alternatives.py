@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Verify conditional multi-apparatus comparison without promoting assumptions."""
 from __future__ import annotations
 

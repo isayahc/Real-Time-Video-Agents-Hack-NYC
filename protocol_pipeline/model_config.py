@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Shared Nebius presets and model-specific direct-output request settings."""
 from __future__ import annotations
 

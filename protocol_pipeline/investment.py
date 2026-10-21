@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Deterministic, undiscounted comparison of two process infrastructure options.
 
 Costs are modeled as variable USD/accepted output plus explicit annual fixed

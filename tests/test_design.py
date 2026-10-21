@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Design handoff contracts, provenance and safe execution boundary tests."""
 from __future__ import annotations
 
