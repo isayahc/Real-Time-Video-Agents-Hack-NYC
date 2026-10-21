@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Local video workbench: durable jobs, real extraction, and evidence playback.
 
 Run one server process on loopback. This is a trusted-user local workbench, not

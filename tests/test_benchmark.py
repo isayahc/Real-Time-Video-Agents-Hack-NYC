@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Verify extraction scoring depends on explicit semantics and bound evidence."""
 from __future__ import annotations
 

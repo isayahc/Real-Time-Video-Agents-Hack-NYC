@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Single-command, evidence-labeled accounting loop and coil scene demonstration."""
 from __future__ import annotations
 

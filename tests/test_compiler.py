@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Verify two distinct processes use one compiler and enforce contract integrity."""
 from __future__ import annotations
 

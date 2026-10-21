@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Score extraction against independently authored references and explicit reviews.
 
 Semantic alignment and citation support require review. The scorer does not

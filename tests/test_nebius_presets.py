@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Exercise preset requests and verification gates with explicitly mocked HTTP."""
 from __future__ import annotations
 

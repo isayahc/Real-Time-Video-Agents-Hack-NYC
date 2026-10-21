@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Provider-backed extraction of typed candidate protocols from text or video frames."""
 from __future__ import annotations
 

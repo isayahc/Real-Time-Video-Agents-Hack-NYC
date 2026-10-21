@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Offline CW-02 protocol adapter with explicit candidate equipment and boundaries.
 
 This loads existing planning documents; it does not extract a protocol from video

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Single-command demo accounting, evidence separation and report tests."""
 from __future__ import annotations
 

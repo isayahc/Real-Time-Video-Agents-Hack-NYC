@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Offline illustrative failure replay with explicit step and resource evidence."""
 from __future__ import annotations
 

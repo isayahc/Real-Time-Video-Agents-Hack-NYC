@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Exercise upload → real decoding → replay extraction → compiler → HTTP results."""
 from __future__ import annotations
 

@@ -7,6 +7,7 @@ name = "mapped-procedure-pipeline"
 version = "0.1.0"
 description = "Evidence-grounded CREOLab protocol and apparatus planning"
 requires-python = ">=3.11"
+license = {file = "LICENSE"}
 dependencies = ["pydantic>=2.12,<3", "python-dotenv>=1.0,<2"]
 
 [project.optional-dependencies]

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Isolated optional Forma runtime: native generation, schema and deterministic checks."""
 from __future__ import annotations
 

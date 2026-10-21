@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Deterministic, provenance-preserving production resource accounting.
 
 Inputs describe one consistent batch boundary. This module does not infer missing

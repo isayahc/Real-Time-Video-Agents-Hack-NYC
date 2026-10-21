@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Verify the fixed-protocol handoff and prevent cross-boundary accounting."""
 from __future__ import annotations
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Separate automation design hypotheses and editable, explicitly assumed economics."""
 from __future__ import annotations
 

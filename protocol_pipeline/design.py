@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Forma generation and native OpenIndustries scene handoff orchestration."""
 from __future__ import annotations
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Verify local dotenv configuration reaches the server without exposing secrets."""
 from pathlib import Path
 

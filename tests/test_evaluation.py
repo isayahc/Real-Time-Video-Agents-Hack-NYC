@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Resource accounting tests covering costs, missing evidence and labor overlap."""
 from __future__ import annotations
 

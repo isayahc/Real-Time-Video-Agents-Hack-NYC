@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Check evidence grounding, annotation separation and actual frame sampling."""
 from __future__ import annotations
 

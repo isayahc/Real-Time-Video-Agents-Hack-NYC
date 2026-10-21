@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Load local configuration without replacing the launching process's settings."""
 from pathlib import Path
 

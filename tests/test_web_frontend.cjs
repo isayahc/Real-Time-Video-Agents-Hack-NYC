@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MPL-2.0
 /* Execute the shipped UI script with browser APIs stubbed at their boundaries. */
 const {test} = require('node:test');
 const assert = require('node:assert/strict');

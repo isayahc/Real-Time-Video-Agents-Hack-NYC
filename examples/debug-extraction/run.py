@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Small, debuggable live extraction example."""
 import os
 import sys

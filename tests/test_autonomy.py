@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Separate machine proposals and conditional, editable investment economics."""
 import copy
 import json

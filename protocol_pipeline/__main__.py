@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """CLI for ingestion and explicitly requested live Nebius analysis."""
 from __future__ import annotations
 

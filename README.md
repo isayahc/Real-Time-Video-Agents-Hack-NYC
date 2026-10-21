@@ -245,3 +245,15 @@ export, live verification, semantic review and remaining requirements.
 | Live video inference and semantic accuracy | Pending credentials, selected source video and human reference/review |
 | OpenCode extraction | Mock-tested local correction and error handling; live structured-output compatibility unresolved |
 | Scene generation and physical performance | Not verified by this milestone |
+
+## License
+
+Project source code is licensed under the [Mozilla Public License 2.0 (MPL-2.0)](LICENSE).
+Modifications to covered files distributed outside your organization must remain
+available under MPL-2.0; separate files containing no MPL-covered code may use other licenses.
+
+This license does not relicense third-party dependencies, external videos, datasets,
+model weights, or other third-party assets. Their respective licenses and attribution
+requirements continue to apply. In particular, the CREOLab restrictions and source
+links documented above remain applicable. See [issue #44](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/44)
+for the separate asset-permissions and attribution review.

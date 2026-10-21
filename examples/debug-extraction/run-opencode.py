@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MPL-2.0
 """Run extraction with the native opencode-ai Python SDK."""
 from __future__ import annotations
 
