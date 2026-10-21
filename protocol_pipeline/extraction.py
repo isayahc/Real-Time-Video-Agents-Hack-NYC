@@ -17,7 +17,7 @@ from pydantic import ValidationError
 from .compiler import ProtocolSpecification, compile_protocol_file
 from .design import write_json
 from .models import ObservationGraph, StrictModel
-from .pipeline import NebiusClient, validate_graph, verify_manifest, vision_content
+from .pipeline import IncompleteCompletionError, NebiusClient, validate_graph, verify_manifest, vision_content
 
 Model = TypeVar("Model", bound=StrictModel)
 
@@ -175,6 +175,10 @@ def create_provider(name: str, replay: Path | None = None) -> ExtractionProvider
     raise ValueError("Select nebius/opencode without --replay, or replay with --replay")
 
 
+class SourceReferenceError(ValueError):
+    """A source citation cannot be resolved against the provided evidence."""
+
+
 def validate_extraction(spec: ProtocolSpecification, mode: Literal["text", "video"],
                         line_count: int = 0, graph: ObservationGraph | None = None) -> None:
     """Validate source references and reject fabricated measurement/review claims.
@@ -197,7 +201,7 @@ def validate_extraction(spec: ProtocolSpecification, mode: Literal["text", "vide
         for ref in operation.source_refs:
             if operation.basis == "workflow_hypothesis" and ref.startswith("hypothesis:") and ref[len("hypothesis:"):].strip():
                 continue
-            validate_source_ref(ref, mode, line_count, graph)
+            validate_source_ref(ref, mode, line_count, graph, f"operation {operation.id}")
     for link in spec.links:
         if link.basis != "model_inference":
             raise ValueError("Extracted relationships must remain model inference")
@@ -206,10 +210,11 @@ def validate_extraction(spec: ProtocolSpecification, mode: Literal["text", "vide
             # A proposed acceptance check can be a hypothesis rather than visible evidence.
             if ref.startswith("hypothesis:") and ref[len("hypothesis:"):].strip():
                 continue
-            validate_source_ref(ref, mode, line_count, graph)
+            validate_source_ref(ref, mode, line_count, graph, f"acceptance criterion {criterion.id}")
 
 
-def validate_source_ref(ref: str, mode: str, line_count: int, graph: ObservationGraph | None) -> None:
+def validate_source_ref(ref: str, mode: str, line_count: int, graph: ObservationGraph | None,
+                        owner: str = "candidate") -> None:
     """Resolve text line spans or observed action IDs without accepting invented IDs."""
     if mode == "text":
         match = re.fullmatch(r"text:L([1-9][0-9]*)-L([1-9][0-9]*)", ref)
@@ -217,7 +222,12 @@ def validate_source_ref(ref: str, mode: str, line_count: int, graph: Observation
             return
     elif graph is not None and ref.startswith("action:") and ref[7:] in {action.id for action in graph.actions}:
         return
-    raise ValueError("Extracted source reference does not resolve to supplied evidence")
+    allowed = (f"text:Lstart-Lend with 1 <= start <= end <= {line_count}" if mode == "text" else
+               json.dumps([f"action:{action.id}" for action in graph.actions]) if graph else "[]")
+    raise SourceReferenceError(
+        f"Extracted source reference {ref!r} in {owner} does not resolve to supplied evidence. "
+        f"Allowed citations: {allowed}. Frame IDs, object IDs and state-change IDs are not action citations."
+    )
 
 
 def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
@@ -286,12 +296,30 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
             "capability coverage includes every operation. "
             + ("Use source_refs text:Lstart-Lend with existing inclusive line numbers. "
                "For a single line use text:L1-L1, never text:L1 or L1. " if text_path else
-               "Observed operations must cite source_refs action:<existing action ID> and object_ids from the observation graph. ")
+               "Observed operations AND source-grounded acceptance criteria must cite source_refs action:<existing action ID>. "
+               "Do not cite frame IDs, object IDs, state-change IDs, or bare action IDs. Proposed acceptance checks may cite hypothesis:<explanation>. "
+               "Use object_ids from the observation graph. Allowed action citations: "
+               + json.dumps([f"action:{action.id}" for action in graph.actions]) + ". ")
         )
         notify("extracting_protocol")
-        spec, trace = provider.complete(model, ProtocolSpecification, instruction, content)
-        traces.append(trace)
-        validate_extraction(spec, "text" if text_path else "video", line_count, graph)
+        request_content = content
+        for attempt in range(2):
+            spec, trace = provider.complete(model, ProtocolSpecification, instruction, request_content)
+            traces.append(trace)
+            write_json(output / f"provider-candidate-{attempt+1}.json", {
+                "status": "unvalidated_provider_candidate", "candidate": spec.model_dump(), "trace": trace,
+            })
+            try:
+                validate_extraction(spec, "text" if text_path else "video", line_count, graph)
+                break
+            except SourceReferenceError as error:
+                if not provider.live or attempt == 1:
+                    raise
+                notify("correcting_protocol")
+                request_content = content + [{"type": "text", "text":
+                    "The previous candidate failed source validation. Correct the citations using only the original evidence. "
+                    "Do not invent an action to satisfy validation or relabel an observed operation as a hypothesis. "
+                    f"Validation error: {error}\nPrevious candidate:\n{spec.model_dump_json()}"}]
         # Clearly label the compiler's planning input rather than promoting inference to fact.
         spec.limitations += ["Automatically extracted candidate; structural grounding is not semantic verification.",
                              "Provider: " + provider.name + ("; live model inference" if provider.live else "; recorded replay, not live inference")]
@@ -304,6 +332,10 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
         write_json(output / "extraction-summary.json", result)
         return result
     except (ValueError, RuntimeError, OSError, KeyError, TypeError) as error:
-        write_json(output / "extraction-failure.json", {"status": "failed", "provider": provider.name,
-                   "error_type": type(error).__name__, "physical_validation": False})
+        failure = {"status": "failed", "provider": provider.name,
+                   "error_type": type(error).__name__, "physical_validation": False,
+                   "completed_stage_traces": traces}
+        if isinstance(error, IncompleteCompletionError):
+            failure["provider_trace"] = error.trace
+        write_json(output / "extraction-failure.json", failure)
         raise

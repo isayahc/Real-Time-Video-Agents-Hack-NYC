@@ -97,6 +97,44 @@ class ExtractionTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     NebiusClient("fixture").complete("model",ProtocolSpecification,"fixture",[])
 
+    def test_incomplete_completion_retains_provider_diagnostics(self) -> None:
+        """Preserve token exhaustion evidence, never emitting a compiled success."""
+        raw = {"model": "served-compiler", "usage": {"completion_tokens": 12000},
+               "choices": [{"finish_reason": "length", "message": {"content": "{partial"}}]}
+        with tempfile.TemporaryDirectory() as folder, patch.dict(os.environ, {"NEBIUS_API_KEY": "FIXTURE_KEY"}), \
+             patch("protocol_pipeline.pipeline.urlopen", return_value=BytesIO(json.dumps(raw).encode())):
+            output = Path(folder) / "failed"
+            with self.assertRaisesRegex(ValueError, "finish_reason='length'"):
+                extract_protocol(create_provider("nebius"), "compiler", output, text_path=FIXTURE / "procedure.txt")
+            failure = json.loads((output / "extraction-failure.json").read_text())
+            self.assertEqual(failure["provider_trace"]["usage"]["completion_tokens"], 12000)
+            self.assertEqual(failure["provider_trace"]["message"]["content"], "{partial")
+            self.assertNotIn("FIXTURE_KEY", json.dumps(failure))
+            self.assertFalse((output / "compiled").exists())
+
+    def test_source_citation_correction_is_bounded_and_preserved(self) -> None:
+        """A live bad citation gets one evidence-bound correction; repeat failure stays failed."""
+        good = self.response()
+        bad = copy.deepcopy(good)
+        bad["operations"][0]["source_refs"] = ["text:L999-L999"]
+        envelope = lambda value: BytesIO(json.dumps({"choices": [{"finish_reason": "stop", "message": {"content": json.dumps(value)}}]}).encode())
+        with tempfile.TemporaryDirectory() as folder, patch.dict(os.environ, {"NEBIUS_API_KEY": "FIXTURE_KEY"}):
+            root = Path(folder)
+            stages = []
+            with patch("protocol_pipeline.pipeline.urlopen", side_effect=[envelope(bad), envelope(good)]) as calls:
+                extract_protocol(NebiusProvider(), "compiler", root / "corrected", text_path=FIXTURE / "procedure.txt", progress=stages.append)
+            self.assertEqual(calls.call_count, 2)
+            self.assertIn("correcting_protocol", stages)
+            self.assertIn("text:L999-L999", calls.call_args.args[0].data.decode())
+            self.assertTrue((root / "corrected/provider-candidate-1.json").exists())
+            self.assertTrue((root / "corrected/provider-candidate-2.json").exists())
+            self.assertTrue((root / "corrected/compiled/report.md").exists())
+            with patch("protocol_pipeline.pipeline.urlopen", side_effect=[envelope(bad), envelope(bad)]) as calls:
+                with self.assertRaisesRegex(ValueError, "text:L999-L999.*operation"):
+                    extract_protocol(NebiusProvider(), "compiler", root / "failed", text_path=FIXTURE / "procedure.txt")
+            self.assertEqual(calls.call_count, 2)
+            self.assertFalse((root / "failed/compiled").exists())
+
     @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"),"ffmpeg/ffprobe required")
     def test_video_pipeline_grounds_frames_without_annotation_leak(self) -> None:
         """Execute two real adapter stages with synthetic decoded frames and responses."""

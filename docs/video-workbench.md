@@ -6,7 +6,7 @@ Tracks #26. This implementation does not close the live-inference or semantic-re
 
 1. Install `ffmpeg`/`ffprobe` and `python -m pip install -e ".[web,test]"`.
 2. From the repository directory, copy `example.env` to `.env` and set `NEBIUS_API_KEY` or `NEBIUS_TOKEN_FACTORY_KEY`, or export either key in your shell. The web app and `python -m protocol_pipeline` automatically load `.env` from the current working directory using `python-dotenv`; existing environment variables take precedence. Optionally set `NEBIUS_VISION_MODEL` and `NEBIUS_COMPILER_MODEL`. Run `python -m pip install -e ".[web,test]"` after updating and restart the server after editing `.env`. The example file itself is not loaded.
-3. Run `python -m protocol_pipeline.web` and open http://127.0.0.1:8000.
+3. On Windows, double-click `run-workbench.cmd` (or run it from a terminal). Elsewhere, run `python -m protocol_pipeline.web --reload`. Open http://127.0.0.1:8000. Backend code changes reload automatically; frontend changes need only a browser refresh. The launcher uses the repository directory so `.env` loads consistently. Keep the terminal open; Ctrl+C stops the server.
 4. Select a short procedure video whose use is permitted. Confirm it plays. Nebius is already selected by the web flow, with `Qwen/Qwen2.5-VL-72B-Instruct` preset for vision. Override either model ID if needed and choose 2–24 sampled frames.
 5. Start analysis. The video remains playable while stages advance. No guessed percentages or fabricated incremental operations are shown.
 6. Inspect completed operations, capability/equipment mappings, resource quantities and report. Click a timestamp to pause/seek the video and display the corresponding sampled frame. Hypotheses without observed evidence have no invented timestamps.
@@ -29,7 +29,15 @@ python -m protocol_pipeline extract-protocol \
 
 Use a fresh output directory. This is a paid live request using your account; the model ID must be available. Preserve the output, command, commit, dependency versions and source hashes. #25's historical report is not a newly reproduced result.
 
-## Evidence bundle
+## Step 5: autonomous design and planning costs
+
+After extraction completes, select **Design autonomous version** or **05 / Autonomous**. This makes a separate, explicit model request using the saved protocol. The source procedure remains unchanged. The new proposal maps every source operation to concrete hardware or an explicit automation gap, and lists remaining human tasks and verification needs. A schema/coverage failure can make at most one additional correction request.
+
+Prices and performance figures are rough **model planning estimates**, each with a rationale; they are not supplier quotations or measurements. Edit equipment unit prices, manual/autonomous labor and cycle times, energy, materials, recurring overhead, demand and deployment assumptions, then select **Save & recalculate costs**. The existing process/investment evaluator calculates conditional unit costs, annual savings, capacity and simple payback. Unknown inputs remain null, and output-equivalence/capacity gates still apply. The scenario assumes an existing, sunk-cost manual setup and separates capital from annual fixed costs.
+
+Generated candidates, provider traces and source-protocol hashes live under the run's `autonomy/` directory. Cost edits are saved separately with revision records, survive restarts, and never modify the original extraction. **Download design + cost scenario** exports the proposal, current assumptions and comparison. Reopening a completed design does not make another inference request.
+
+## Evidence bundle contents
 
 The workbench ZIP contains the source video, sampled frames, ingestion manifest, extracted observations/protocol, compiler artifacts, run metadata and exact-byte SHA-256 checksums. Run metadata includes models, sampled-frame count, stage timings, Python/dependency versions and Git revision/dirty state when available. Provider traces include usage/latency when supplied. No billing estimate is fabricated.
 

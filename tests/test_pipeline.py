@@ -93,10 +93,14 @@ class PipelineTests(unittest.TestCase):
 
     def test_truncated_provider_response_rejected(self) -> None:
         """Do not accept incomplete model responses as valid observations."""
-        payload = {"choices": [{"finish_reason": "length", "message": {"content": sample_graph().model_dump_json()}}]}
+        payload = {"usage": {"completion_tokens": 6000, "completion_tokens_details": {"reasoning_tokens": 6000}},
+                   "choices": [{"finish_reason": "length", "message": {"content": sample_graph().model_dump_json()}}]}
         with patch("protocol_pipeline.pipeline.urlopen", return_value=BytesIO(json.dumps(payload).encode())):
-            with self.assertRaises(ValueError):
+            with self.assertRaisesRegex(ValueError, "Reasoning consumed the entire output budget") as caught:
                 NebiusClient("fixture").complete("example-vision", ObservationGraph, "fixture", [])
+        self.assertEqual(caught.exception.trace["finish_reason"], "length")
+        self.assertEqual(caught.exception.trace["usage"]["completion_tokens"], 6000)
+        self.assertNotIn("Authorization", json.dumps(caught.exception.trace))
 
     @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"), "ffmpeg/ffprobe required")
     def test_real_video_ingestion_without_ground_truth_leak(self) -> None:

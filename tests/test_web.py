@@ -100,6 +100,8 @@ def test_complete_flow_evidence_ranges_and_export(client: TestClient, video: byt
     assert response.status_code == 200
     result = response.json()
     assert result['summary']['physical_validation'] is False
+    assert result['accounting']['metrics']['cost_usd_per_accepted']['value'] is None
+    assert result['accounting']['metrics']['cost_usd_per_accepted']['missing_inputs']
     evidence = result['protocol']['operations'][0]['evidence']
     assert [item['timestamp_s'] for item in evidence] == [0, 1.8]
     assert client.get(evidence[0]['url']).headers['content-type'] == 'image/jpeg'
@@ -297,3 +299,70 @@ def test_validation_failure_exposes_fields_and_traceback(tmp_path: Path, video: 
         assert 'Check video decoding' not in job['error']
     assert 'Traceback (most recent call last)' in caplog.text
     assert 'actions.0.id' in caplog.text
+
+
+def test_reload_launcher_preserves_run_directory(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Reload uses an importable factory and keeps custom run storage across child restarts."""
+    from protocol_pipeline.web import main
+    import os
+
+    called = {}
+    monkeypatch.setattr('sys.argv', ['web', '--reload', '--port', '8123', '--runs', str(tmp_path)])
+    monkeypatch.setenv('WORKBENCH_RUNS', '')
+    monkeypatch.setattr('uvicorn.run', lambda app, **kwargs: called.update(app=app, **kwargs))
+    main()
+    assert called['app'] == 'protocol_pipeline.web:create_app'
+    assert called['factory'] is True
+    assert called['reload'] is True
+    assert called['port'] == 8123
+    assert os.environ['WORKBENCH_RUNS'] == str(tmp_path.resolve())
+
+
+def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, video: bytes) -> None:
+    """One design call, no new vision request, immutable extraction and reopenable assumptions."""
+    from protocol_pipeline.autonomy import AutonomyProposal
+    from protocol_pipeline.compiler import ProtocolSpecification
+    from test_autonomy import proposal_fixture
+
+    replay = replay_file(tmp_path / 'replay.json')
+    source_spec = ProtocolSpecification.model_validate(json.loads(replay.read_text())['responses'][1]['response'])
+    contracts = []
+
+    class DesignReplay(ReplayProvider):
+        def complete(self, model, contract, instruction, content):
+            contracts.append(contract.__name__)
+            if contract is AutonomyProposal:
+                return contract.model_validate(proposal_fixture(source_spec)), {'requested_model': model, 'provenance': 'synthetic design fixture'}
+            return super().complete(model, contract, instruction, content)
+
+    root = tmp_path / 'runs'
+    factory = lambda: DesignReplay(replay)
+    with TestClient(create_app(root, factory)) as browser:
+        run_id = start(browser, video)
+        assert wait_job(browser, run_id)['stage'] == 'completed'
+        original = (root / run_id / 'extracted/extracted-protocol.json').read_bytes()
+        url = f'/api/runs/{run_id}/autonomy'
+        assert browser.get(url).json()['stage'] == 'not_started'
+        assert browser.post(url, headers=HEADERS, params={'model': 'design-fixture'}).status_code == 202
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            state = browser.get(url).json()
+            if state['stage'] in ('completed', 'failed'):
+                break
+            time.sleep(.02)
+        assert state['stage'] == 'completed', state
+        assert state['design']['pricing_basis'] == 'model_planning_estimates_not_supplier_quotes'
+        assert contracts == ['ObservationGraph', 'ProtocolSpecification', 'AutonomyProposal']
+        assert browser.post(url, headers=HEADERS, params={'model': 'design-fixture'}).json()['stage'] == 'completed'
+        assert len(contracts) == 3
+        edits = browser.post(url + '/costs', headers=HEADERS, json={'values': {'equipment.robot.unit_cost_usd': 2000}})
+        assert edits.status_code == 200, edits.text
+        assert edits.json()['equipment_total_usd'] == 4000
+        assert browser.post(url + '/costs', headers=HEADERS, json={'values': {'utilization': 2}}).status_code == 422
+        assert browser.get(url + '/export').status_code == 200
+        assert (root / run_id / 'extracted/extracted-protocol.json').read_bytes() == original
+    with TestClient(create_app(root, factory)) as browser:
+        state = browser.get(url).json()
+        assert state['stage'] == 'completed'
+        assert state['economics']['equipment_total_usd'] == 4000
+        assert len(contracts) == 3
