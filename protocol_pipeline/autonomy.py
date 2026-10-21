@@ -13,7 +13,7 @@ from .evaluation import ProcessEvaluationInput, evaluate_process
 from .extraction import ExtractionProvider
 from .investment import InvestmentComparisonInput, InvestmentOption, compare_investment
 from .models import EngineeringValue, StrictModel
-from .pipeline import IncompleteCompletionError, sha256
+from .pipeline import ProviderResponseError, sha256
 
 
 class PlanningValue(StrictModel):
@@ -159,8 +159,11 @@ def generate_proposal(provider: ExtractionProvider, model: str, protocol_path: P
             write_json(output / 'proposal.json', result)
             return result
         except (ValueError, RuntimeError) as error:
-            write_json(output / f'failure-{attempt+1}.json', {'error': str(error), 'error_type': type(error).__name__})
-            if isinstance(error, IncompleteCompletionError) or not isinstance(error, ValueError) or not provider.live or attempt:
+            failure: dict[str, Any] = {'error': str(error), 'error_type': type(error).__name__}
+            if isinstance(error, ProviderResponseError):
+                failure['provider_trace'] = error.trace
+            write_json(output / f'failure-{attempt+1}.json', failure)
+            if isinstance(error, ProviderResponseError) or not isinstance(error, ValueError) or not provider.live or attempt:
                 raise
             content = content[:1] + [{'type': 'text', 'text':
                 f'Correct the proposal against these schema/coverage errors: {error}. Use only the original source operation IDs.'}]

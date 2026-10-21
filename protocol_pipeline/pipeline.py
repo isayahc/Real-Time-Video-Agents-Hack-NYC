@@ -14,6 +14,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from .models import Annotation, EngineeringInputs, Frame, ObservationGraph, ProtocolPlan, StrictModel
+from .model_config import generation_settings
 
 Model = TypeVar("Model", bound=StrictModel)
 NEBIUS_REQUEST_TIMEOUT_S = 180
@@ -147,11 +148,20 @@ class NebiusHTTPError(RuntimeError):
         super().__init__(f"Nebius HTTP {status_code}; check model access, credits and API configuration.")
 
 
-class IncompleteCompletionError(ValueError):
+class ProviderResponseError(ValueError):
+    """Retain credential-free response evidence for rejected provider output."""
+
+    def __init__(self, message: str, trace: dict[str, Any]) -> None:
+        """Attach the response trace without recording authentication headers."""
+        self.trace = trace
+        super().__init__(message)
+
+
+class IncompleteCompletionError(ProviderResponseError):
     """Retain provider evidence when generation stops before a completed response."""
 
     def __init__(self, trace: dict[str, Any]) -> None:
-        self.trace = trace
+        """Explain incomplete generation while preserving the exact response trace."""
         reason = trace["finish_reason"]
         usage = trace.get("usage") or {}
         detail = "Output token budget exhausted. " if reason == "length" else ""
@@ -162,7 +172,7 @@ class IncompleteCompletionError(ValueError):
             f"Provider did not return a complete response. {detail}"
             f"model={trace['requested_model']}; finish_reason={reason!r}; "
             f"max_tokens={trace['max_tokens']}; completion_tokens={usage.get('completion_tokens', 'not reported')}; "
-            f"usage={json.dumps(usage)}"
+            f"usage={json.dumps(usage)}", trace
         )
 
 
@@ -176,12 +186,30 @@ class NebiusClient:
         self.key = key
         self.timeout_s = timeout_s
 
+    def available_models(self) -> list[str]:
+        """Read account-visible IDs once; catalog presence is not inference proof."""
+        request = Request("https://api.tokenfactory.nebius.com/v1/models",
+                          headers={"Authorization": f"Bearer {self.key}"})
+        try:
+            with urlopen(request, timeout=self.timeout_s) as response:
+                raw = json.load(response)
+        except HTTPError as error:
+            raise NebiusHTTPError(error.code) from None
+        except URLError:
+            raise RuntimeError("Nebius model catalog request failed.") from None
+        if not isinstance(raw, dict) or not isinstance(raw.get("data"), list):
+            raise ValueError("Nebius returned an invalid model catalog.")
+        return sorted({item["id"] for item in raw["data"]
+                       if isinstance(item, dict) and isinstance(item.get("id"), str)})
+
     def complete(self, model: str, contract: type[Model], instruction: str,
                  content: list[dict[str, Any]], max_tokens: int = 6000) -> tuple[Model, dict[str, Any]]:
         """Request strict JSON and reject truncated, malformed or schema-invalid output."""
         body = {"model": model, "max_tokens": max_tokens, "messages": [
             {"role": "system", "content": instruction + " Return only a JSON object matching this schema; no markdown: " + json.dumps(contract.model_json_schema())},
             {"role": "user", "content": content}]}
+        settings = generation_settings(model)
+        body.update(settings)
         request = Request("https://api.tokenfactory.nebius.com/v1/chat/completions", data=json.dumps(body).encode(),
                           headers={"Authorization": f"Bearer {self.key}", "Content-Type": "application/json"}, method="POST")
         start = time.monotonic()
@@ -200,24 +228,26 @@ class NebiusClient:
         if not isinstance(raw, dict) or not isinstance(raw.get("choices"), list) or not raw["choices"] or not isinstance(raw["choices"][0], dict):
             raise ValueError("Provider response has no valid completion choice.")
         choice = raw["choices"][0]
+        trace = {"requested_model": model, "served_model": raw.get("model"),
+                 "finish_reason": choice.get("finish_reason"), "max_tokens": max_tokens,
+                 "generation_settings": settings, "usage": raw.get("usage"),
+                 "response_id": raw.get("id"), "latency_s": time.monotonic() - start,
+                 "attempt_count": attempt + 1, "message": choice.get("message")}
         if choice.get("finish_reason") != "stop":
-            raise IncompleteCompletionError({
-                "requested_model": model, "served_model": raw.get("model"),
-                "finish_reason": choice.get("finish_reason"), "max_tokens": max_tokens,
-                "usage": raw.get("usage"), "response_id": raw.get("id"),
-                "latency_s": time.monotonic() - start, "attempt_count": attempt + 1,
-                "message": choice.get("message"),
-            })
+            raise IncompleteCompletionError(trace)
+        if model.lower().startswith("nvidia/") and raw.get("model") != model:
+            raise ProviderResponseError(
+                "NVIDIA served-model identity does not match the requested canonical model ID; "
+                "no NVIDIA success is established.", trace)
         if not isinstance(choice.get("message"), dict):
             raise ValueError("Provider response has no valid message.")
         text = choice["message"].get("content")
         if not isinstance(text, str) or not text.strip():
-            raise ValueError("Provider returned no visible JSON content.")
+            raise ProviderResponseError("Provider returned no visible JSON content.", trace)
         parsed = contract.model_validate_json(text)
-        trace = {"requested_model": model, "served_model": raw.get("model"), "usage": raw.get("usage"),
-                 "latency_s": time.monotonic() - start, "response_id": raw.get("id"),
-                 "attempt_count": attempt + 1, "response_json_text": text,
-                 "provenance": "live_nebius_model_inference; not source ground truth"}
+        trace.pop("message")
+        trace.update({"response_json_text": text,
+                      "provenance": "live_nebius_model_inference; not source ground truth"})
         return parsed, trace
 
 

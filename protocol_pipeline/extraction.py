@@ -17,7 +17,7 @@ from pydantic import ValidationError
 from .compiler import ProtocolSpecification, compile_protocol_file
 from .design import write_json
 from .models import ObservationGraph, StrictModel
-from .pipeline import IncompleteCompletionError, NebiusClient, validate_graph, verify_manifest, vision_content
+from .pipeline import ProviderResponseError, NebiusClient, validate_graph, verify_manifest, vision_content
 
 Model = TypeVar("Model", bound=StrictModel)
 
@@ -335,7 +335,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
         failure = {"status": "failed", "provider": provider.name,
                    "error_type": type(error).__name__, "physical_validation": False,
                    "completed_stage_traces": traces}
-        if isinstance(error, IncompleteCompletionError):
+        if isinstance(error, ProviderResponseError):
             failure["provider_trace"] = error.trace
         write_json(output / "extraction-failure.json", failure)
         raise

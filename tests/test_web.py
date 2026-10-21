@@ -182,8 +182,8 @@ def test_artifact_confinement_and_static_app(client: TestClient, video: bytes) -
 
 
 @pytest.mark.parametrize('configured,expected', [
-    (None, 'Qwen/Qwen2.5-VL-72B-Instruct'),
-    ('   ', 'Qwen/Qwen2.5-VL-72B-Instruct'),
+    (None, 'MiniMaxAI/MiniMax-M3'),
+    ('   ', 'MiniMaxAI/MiniMax-M3'),
     (' custom/vision ', 'custom/vision'),
 ])
 def test_vision_config_defaults(client: TestClient, monkeypatch: pytest.MonkeyPatch,

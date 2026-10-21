@@ -6,9 +6,10 @@ const vm = require('node:vm');
 const path = require('node:path');
 const source = fs.readFileSync(path.join(__dirname, '../protocol_pipeline/web_static/app.js'), 'utf8');
 const html = fs.readFileSync(path.join(__dirname, '../protocol_pipeline/web_static/index.html'), 'utf8');
-const preset = 'Qwen/Qwen2.5-VL-72B-Instruct';
+const preset = 'MiniMaxAI/MiniMax-M3';
+const compilerPreset = 'nvidia/Nemotron-3_5-Lightning';
 
-async function boot(storage = new Map(), blocked = false, beforeConfig = null) {
+async function boot(storage = new Map(), blocked = false, beforeConfig = null, serverModel = compilerPreset) {
  const nodes = new Map();
  const node = id => {
   if (!nodes.has(id)) nodes.set(id, {value: '', files: [], handlers: {},
@@ -30,7 +31,7 @@ async function boot(storage = new Map(), blocked = false, beforeConfig = null) {
   fetch: async (url, options) => {
    if (url === '/api/config') {
     if (beforeConfig) beforeConfig(node);
-    return {ok: true, json: async () => ({model: 'compiler/default', vision_model: preset, ffmpeg_available: true, credentials_available: true})};
+    return {ok: true, json: async () => ({model: serverModel, vision_model: preset, presets: {model: compilerPreset, vision_model: preset}, ffmpeg_available: true, credentials_available: true})};
    }
    if (url === '/api/runs') return {ok: true, json: async () => []};
    requests.push({url, options});
@@ -102,4 +103,39 @@ test('wizard gates configuration on a video and keeps one step visible', async (
  assert.equal(app.node('wizard-video').hidden, false);
  assert.equal(app.node('wizard-models').hidden, true);
  assert.equal(app.node('vision-model').value, preset);
+});
+
+test('fresh compiler and downstream design use the NVIDIA preset', async () => {
+ const app = await boot();
+ assert.equal(app.node('model').value, compilerPreset);
+ assert.equal((await app.submit()).get('model'), compilerPreset);
+ app.node('reset-models').handlers.click();
+ assert.equal(app.node('design-model').value, compilerPreset);
+});
+
+test('saved NVIDIA choice is not silently replaced by server config', async () => {
+ const storage = new Map([['workbench.nebius.model', compilerPreset]]);
+ const app = await boot(storage, false, null, 'Qwen/server-override');
+ assert.equal((await app.submit()).get('model'), compilerPreset);
+ assert.equal(storage.get('workbench.nebius.model'), compilerPreset);
+});
+
+test('explicit reset replaces old choices and survives reload', async () => {
+ const storage = new Map([['workbench.nebius.model', 'Qwen/old-choice'],
+                          ['workbench.nebius.vision-model', 'old/vision']]);
+ let app = await boot(storage);
+ assert.equal(app.node('model').value, 'Qwen/old-choice');
+ app.node('reset-models').handlers.click();
+ app = await boot(storage);
+ const query = await app.submit();
+ assert.equal(query.get('model'), compilerPreset);
+ assert.equal(query.get('vision_model'), preset);
+});
+
+test('compiler edits survive late config and file selection', async () => {
+ const app = await boot(new Map(), false, node => {
+  node('model').value = 'nvidia/explicit-choice';
+  node('model').handlers.input();
+ });
+ assert.equal((await app.submit()).get('model'), 'nvidia/explicit-choice');
 });
