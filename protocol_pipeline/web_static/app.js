@@ -4,6 +4,7 @@ const $ = id => document.getElementById(id);
 // Keep only model IDs in browser storage; credentials stay on the server.
 const modelFields = ['vision-model', 'model'];
 const editedModels = new Set();
+let recommendedModels = null;
 function savedModel(id) {
  try { const value = localStorage.getItem(`workbench.nebius.${id}`); return value && value.trim() && value.length <= 200 ? value : null; }
  catch { return null; }
@@ -21,16 +22,23 @@ for (const id of modelFields) {
  });
 }
 function applyModelDefaults(config) {
+ recommendedModels = config.presets || config;
+ $('reset-models').disabled = false;
  for (const id of modelFields) {
-  const replaceCompiler = id === 'model' && savedModel(id) === 'nvidia/Nemotron-3_5-Lightning';
-  if (!editedModels.has(id) && (!savedModel(id) || replaceCompiler)) {
+  if (!editedModels.has(id) && !savedModel(id)) {
    $(id).value = (id === 'model' ? config.model : config.vision_model) || $(id).value;
-   if (replaceCompiler) {
-    try { localStorage.setItem('workbench.nebius.model', $(id).value); } catch { /* Current form still works. */ }
-   }
   }
  }
 }
+$('reset-models').addEventListener('click', () => {
+ if (!recommendedModels) return;
+ for (const id of modelFields) {
+  $(id).value = id === 'model' ? recommendedModels.model : recommendedModels.vision_model;
+  editedModels.add(id);
+  try { localStorage.setItem(`workbench.nebius.${id}`, $(id).value); } catch { /* Current form still works. */ }
+ }
+ if (!$('design-model').disabled) $('design-model').value = $('model').value;
+});
 const labels = {queued:'Queued',ingesting_frames:'Sampling frames',extracting_observations:'Extracting observations',extracting_protocol:'Extracting protocol',compiling:'Compiling artifacts',completed:'Completed',failed:'Failed'};
 labels.correcting_protocol = 'Correcting protocol citations';
 let selectedFile = null, objectURL = null, activeRun = null, pollTimer = null, generation = 0;

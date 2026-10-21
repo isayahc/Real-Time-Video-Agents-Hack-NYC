@@ -18,11 +18,13 @@ from .compiler import compile_protocol_file
 from .extraction import create_provider, extract_protocol
 from .benchmark import benchmark_files
 from .environment import load_environment
+from .model_config import model_presets
 
 
 def main() -> None:
     """Parse commands and execute one pipeline stage with clear failure status."""
     load_environment()
+    presets = model_presets()
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     benchmark = commands.add_parser("benchmark-extraction", help="Score an extraction against a source-bound reference and explicit review")
@@ -36,8 +38,8 @@ def main() -> None:
     sources.add_argument("--text", type=Path)
     sources.add_argument("--run", type=Path, help="Existing verified sampled-frame ingestion run")
     extraction.add_argument("--provider", choices=("nebius", "opencode", "replay"), required=True)
-    extraction.add_argument("--model", required=True, help="Explicit text/compiler model ID")
-    extraction.add_argument("--vision-model", help="Explicit vision model ID for --run")
+    extraction.add_argument("--model", help="Nebius uses the configured NVIDIA preset; required for other providers")
+    extraction.add_argument("--vision-model", help="Vision override; Nebius uses the configured preset for --run")
     extraction.add_argument("--replay", type=Path, help="Recorded responses; only for --provider replay")
     extraction.add_argument("--output", type=Path, required=True)
     compile_command = commands.add_parser("compile-protocol", help="Compile a typed process plan into apparatus requirements and resource reports")
@@ -60,8 +62,8 @@ def main() -> None:
     read.add_argument("--engineering-inputs", type=Path)
     infer = commands.add_parser("analyze", help="Make live vision and NVIDIA compiler calls through Nebius")
     infer.add_argument("--run", type=Path, required=True)
-    infer.add_argument("--vision-model", required=True)
-    infer.add_argument("--compiler-model", required=True)
+    infer.add_argument("--vision-model", default=presets["vision_model"])
+    infer.add_argument("--compiler-model", default=presets["model"])
     infer.add_argument("--annotation-grounding", action="store_true", help="Supply first-frame object annotation hints; never procedure ground truth")
     evaluate = commands.add_parser("evaluate", help="Calculate process resources and cost locally; no model calls")
     evaluate.add_argument("--input", type=Path, required=True)
@@ -109,6 +111,11 @@ def main() -> None:
             print(json.dumps({"status": result["status"], "reference_status": result["reference_status"],
                               "report": str(args.output / "report.md"), "live_model_quality_established": False}))
         elif args.command == "extract-protocol":
+            if args.provider == "nebius":
+                args.model = args.model or presets["model"]
+                args.vision_model = args.vision_model or presets["vision_model"]
+            elif not args.model:
+                parser.error("--model is required for replay and OpenCode providers")
             result = extract_protocol(create_provider(args.provider, args.replay), args.model, args.output,
                                       args.text, args.run, args.vision_model)
             print(json.dumps({"status": result["status"], "provider": result["provider"],

@@ -4,16 +4,16 @@ The extraction command connects a model provider directly to the reusable protoc
 
 ## Nebius text extraction
 
-Configure `NEBIUS_API_KEY` or `NEBIUS_TOKEN_FACTORY_KEY` in your environment, and select a text model available to your account:
+Configure `NEBIUS_API_KEY` or `NEBIUS_TOKEN_FACTORY_KEY` in your environment, and use the preset NVIDIA compiler (or explicitly override it with an available model):
 
 ```bash
 python -m protocol_pipeline extract-protocol \
   --text /path/to/procedure.txt \
-  --provider nebius --model YOUR_TEXT_MODEL_ID \
+  --provider nebius \
   --output runs/text-extraction-001
 ```
 
-The provider uses Nebius Token Factory's OpenAI-compatible chat-completions endpoint. Model IDs are explicit; text compilation does not impose a vendor-specific model prefix. Model access and structured response reliability must be tested against your account. There is no automatic fallback to replay when credits or credentials are missing.
+The provider uses Nebius Token Factory's OpenAI-compatible chat-completions endpoint. The direct Nebius CLI presets `nvidia/Nemotron-3_5-Lightning` for compilation and `MiniMaxAI/MiniMax-M3` for vision. Explicit model flags and nonblank environment overrides remain supported. OpenCode/replay still require an explicit model ID; text compilation does not impose a vendor-specific prefix. Model access and structured response reliability must be tested against your account. There is no automatic fallback to replay when credits or credentials are missing.
 
 API reference: https://api.tokenfactory.nebius.com/docs
 
@@ -96,3 +96,7 @@ python -m protocol_pipeline extract-protocol `
 This verifies the live text integration, not extraction accuracy or physical performance. Live sampled-video extraction and live scene generation remain unverified. The OpenCode SDK smoke attempts did not return usable structured output; the default Nemotron Lightning direct request also returned an incomplete completion.
 
 The Qwen default is verified only through direct Nebius in the historical smoke test. It does not establish OpenCode compatibility. The CLI provider now retries local cross-field validation up to three attempts in the same session, independently of structured-output retries. Missing output and provider errors fail explicitly.
+
+## NVIDIA preset verification
+
+Run `python -m scripts.verify_nebius --output runs/nebius-verification-001` with a configured key. This checks the account catalog, a minimal complete JSON response, and real extraction through the compiler. It fails on missing credentials or unsuccessful inference; it never substitutes replay or Qwen. See [settings, provenance and current verification limits](../../docs/nebius-model-presets.md). The historical Qwen smoke above remains unchanged evidence.

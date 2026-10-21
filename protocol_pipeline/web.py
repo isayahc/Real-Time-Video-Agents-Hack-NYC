@@ -33,10 +33,10 @@ from .compiler import ProtocolSpecification
 from .environment import load_environment
 from .pipeline import NEBIUS_REQUEST_TIMEOUT_S, NebiusHTTPError, extract_frames, save_json, sha256
 from .models import StrictModel
+from .model_config import DEFAULT_COMPILER_MODEL, DEFAULT_VISION_MODEL, model_presets
 
 STATIC = Path(__file__).with_name("web_static")
 MAX_UPLOAD = 100 * 1024 * 1024
-DEFAULT_VISION_MODEL = "Qwen/Qwen2.5-VL-72B-Instruct"
 TERMINAL = {"completed", "failed"}
 logger = logging.getLogger(__name__)
 
@@ -338,8 +338,8 @@ def create_app(root: Path | None = None,
         """Report readiness without exposing secret values."""
         return {"credentials_available": bool(os.getenv("NEBIUS_API_KEY") or os.getenv("NEBIUS_TOKEN_FACTORY_KEY")),
                 "ffmpeg_available": bool(shutil.which("ffmpeg") and shutil.which("ffprobe")),
-                "model": os.getenv("NEBIUS_COMPILER_MODEL", "Qwen/Qwen3-235B-A22B-Instruct-2507"),
-                "vision_model": os.getenv("NEBIUS_VISION_MODEL", "").strip() or DEFAULT_VISION_MODEL,
+                **model_presets(),
+                "presets": {"model": DEFAULT_COMPILER_MODEL, "vision_model": DEFAULT_VISION_MODEL},
                 "provider": "nebius", "max_upload_bytes": MAX_UPLOAD}
 
     @app.get("/api/runs")
