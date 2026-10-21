@@ -147,6 +147,25 @@ class NebiusHTTPError(RuntimeError):
         super().__init__(f"Nebius HTTP {status_code}; check model access, credits and API configuration.")
 
 
+class IncompleteCompletionError(ValueError):
+    """Retain provider evidence when generation stops before a completed response."""
+
+    def __init__(self, trace: dict[str, Any]) -> None:
+        self.trace = trace
+        reason = trace["finish_reason"]
+        usage = trace.get("usage") or {}
+        detail = "Output token budget exhausted. " if reason == "length" else ""
+        reasoning = (usage.get("completion_tokens_details") or {}).get("reasoning_tokens")
+        if reason == "length" and reasoning == trace["max_tokens"]:
+            detail += "Reasoning consumed the entire output budget before a final response was completed. "
+        super().__init__(
+            f"Provider did not return a complete response. {detail}"
+            f"model={trace['requested_model']}; finish_reason={reason!r}; "
+            f"max_tokens={trace['max_tokens']}; completion_tokens={usage.get('completion_tokens', 'not reported')}; "
+            f"usage={json.dumps(usage)}"
+        )
+
+
 class NebiusClient:
     """Small OpenAI-compatible Token Factory adapter with explicit model selection."""
 
@@ -182,7 +201,13 @@ class NebiusClient:
             raise ValueError("Provider response has no valid completion choice.")
         choice = raw["choices"][0]
         if choice.get("finish_reason") != "stop":
-            raise ValueError("Provider did not return a complete response.")
+            raise IncompleteCompletionError({
+                "requested_model": model, "served_model": raw.get("model"),
+                "finish_reason": choice.get("finish_reason"), "max_tokens": max_tokens,
+                "usage": raw.get("usage"), "response_id": raw.get("id"),
+                "latency_s": time.monotonic() - start, "attempt_count": attempt + 1,
+                "message": choice.get("message"),
+            })
         if not isinstance(choice.get("message"), dict):
             raise ValueError("Provider response has no valid message.")
         text = choice["message"].get("content")

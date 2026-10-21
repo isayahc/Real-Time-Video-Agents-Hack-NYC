@@ -22,18 +22,23 @@ for (const id of modelFields) {
 }
 function applyModelDefaults(config) {
  for (const id of modelFields) {
-  if (!editedModels.has(id) && !savedModel(id)) {
+  const replaceCompiler = id === 'model' && savedModel(id) === 'nvidia/Nemotron-3_5-Lightning';
+  if (!editedModels.has(id) && (!savedModel(id) || replaceCompiler)) {
    $(id).value = (id === 'model' ? config.model : config.vision_model) || $(id).value;
+   if (replaceCompiler) {
+    try { localStorage.setItem('workbench.nebius.model', $(id).value); } catch { /* Current form still works. */ }
+   }
   }
  }
 }
 const labels = {queued:'Queued',ingesting_frames:'Sampling frames',extracting_observations:'Extracting observations',extracting_protocol:'Extracting protocol',compiling:'Compiling artifacts',completed:'Completed',failed:'Failed'};
+labels.correcting_protocol = 'Correcting protocol citations';
 let selectedFile = null, objectURL = null, activeRun = null, pollTimer = null, generation = 0;
 let sampledRun = null;
 let wizardStep = 'video', analysisStarted = false, resultsReady = false;
-const wizardSteps = ['video', 'models', 'analysis', 'results'];
+const wizardSteps = ['video', 'models', 'analysis', 'results', 'autonomy'];
 function showWizardStep(step, focus = true) {
- const available = {video:true, models:Boolean(selectedFile || activeRun), analysis:analysisStarted || Boolean(activeRun), results:resultsReady};
+ const available = {video:true, models:Boolean(selectedFile || activeRun), analysis:analysisStarted || Boolean(activeRun), results:resultsReady, autonomy:resultsReady};
  if (!available[step]) return;
  wizardStep = step;
  for (const name of wizardSteps) {
@@ -44,11 +49,12 @@ function showWizardStep(step, focus = true) {
  const host = step === 'results' ? 'results-video-host' : step === 'analysis' ? 'analysis-video-host' : 'source-video-host';
  $(host).append($('video-player'));
  if (focus) $(`${step}-heading`).focus();
+ if (step === 'autonomy' && typeof loadAutonomy === 'function') loadAutonomy(activeRun, generation);
 }
 function element(tag, text, className) { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; if (className) node.className = className; return node; }
 function showError(message) { $('error').textContent = message; $('error').hidden = !message; }
 async function api(url, options) { const response = await fetch(url, options); if (!response.ok) { let detail; try { detail = (await response.json()).detail; } catch { detail = response.statusText; } throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail)); } return response.json(); }
-function resetResults() { resultsReady = false; $('view-results').hidden = true; $('result-content').hidden = true; $('empty-results').hidden = false; $('evidence').hidden = true; $('run-activity').hidden = true; $('submission-status').hidden = true; $('sampled-preview').hidden = true; sampledRun = null; showError(''); }
+function resetResults() { if(typeof resetAutonomy === 'function') resetAutonomy(); resultsReady = false; $('view-results').hidden = true; $('result-content').hidden = true; $('empty-results').hidden = false; $('evidence').hidden = true; $('run-activity').hidden = true; $('submission-status').hidden = true; $('sampled-preview').hidden = true; sampledRun = null; showError(''); }
 function switchVideo(url, name) { $('video').src = url; $('video-empty').hidden = true; $('source-name').textContent = name; $('selected-source').textContent = `Source: ${name}`; $('playback-error').hidden = true; }
 function stopPolling() { generation++; clearTimeout(pollTimer); activeRun = null; }
 function showStage(job) {
@@ -57,15 +63,16 @@ function showStage(job) {
  const timing = `${job.elapsed_s ?? 0}s total · ${job.stage_elapsed_s ?? 0}s in this stage`;
  $('stage').textContent = label;
  $('status').textContent = `${label} · ${timing} · ${job.id.slice(0,8)}`;
- $('submission-status').hidden = false;
- $('submission-status').textContent = `${label}${job.stage === 'queued' ? ` (queue position ${job.queue_position ?? '?'})` : ''} · ${timing}. ${job.progress_message || ''}`;
+ $('submission-status').hidden = true;
+ if (job.stage === 'queued') $('status').textContent += ` · Queue position ${job.queue_position ?? '?'}`;
+ $('status').title = job.progress_message || '';
  $('run-activity').hidden = false;
  $('stage-detail').textContent = job.progress_message || label;
  $('run-models').textContent = `Vision: ${job.vision_model} · Compiler: ${job.model}`;
  $('run-events').replaceChildren(...(job.events || []).map(event => element('li', `+${Math.max(0,event.at-job.created_at).toFixed(1)}s — ${labels[event.stage] || event.stage}`)));
  $('empty-results').hidden = true;
  const stages = [...document.querySelectorAll('#stages li')];
- const current = stages.findIndex(node => node.dataset.stage === job.stage);
+ const current = stages.findIndex(node => node.dataset.stage === (job.stage === 'correcting_protocol' ? 'extracting_protocol' : job.stage));
  stages.forEach((node,index) => { node.classList.toggle('done',job.stage === 'completed' || (current >= 0 && index < current)); node.classList.toggle('active',index === current); });
 }
 function renderSampledFrames(job) {
@@ -93,6 +100,8 @@ function renderSampledFrames(job) {
 async function refreshHistory() { const jobs = await api('/api/runs'); const selected = activeRun || ''; $('history').replaceChildren(new Option('Select a previous run','')); jobs.forEach(job => $('history').add(new Option(`${job.filename} · ${labels[job.stage]} · ${job.id.slice(0,8)}`,job.id))); $('history').value = selected; }
 function showEvidence(item) { $('results-video-details').open = true; $('video').currentTime = item.timestamp_s; $('video').pause(); $('frame-image').src = item.url; $('frame-caption').textContent = `${item.frame_id} · ${item.timestamp_s.toFixed(2)}s · action ${item.action_id}`; $('evidence').hidden = false; }
 function renderResults(data) { const spec = data.protocol; $('empty-results').hidden = true; $('result-content').hidden = false; $('protocol-title').textContent = spec.title; $('boundary').textContent = `${spec.functional_unit} · ${spec.boundary}`; $('provenance').textContent = `${data.summary.live_inference ? 'Live model inference' : 'Recorded / synthetic replay — not live inference'} · Candidate requires semantic review · Not physically validated`;
+ $('extraction-counts').textContent = `${spec.operations.length} extracted operations · ${spec.capabilities.length} capability mappings. These describe the source procedure; Step 5 proposes its autonomous implementation.`;
+ if (!$('design-model').value) $('design-model').value = $('model').value || data.job.model;
  $('operations').replaceChildren(); spec.operations.forEach((op,index) => { const card = element('article',undefined,'operation'); card.append(element('span',op.basis.replaceAll('_',' '),'basis'),element('h4',`${String(index+1).padStart(2,'0')} / ${op.intent}`),element('p',op.physical_operation)); if(op.constraints.length) card.append(element('p',`Constraints: ${op.constraints.join('; ')}`)); op.evidence.forEach(item => { const button=element('button',`↗ ${item.timestamp_s.toFixed(2)}s · ${item.frame_id}`,'evidence-link'); button.type='button';button.addEventListener('click',()=>showEvidence(item));card.append(button); }); if(!op.evidence.length) card.append(element('p',`No observed frame evidence: ${op.source_refs.join('; ')}`)); $('operations').append(card); });
  $('apparatus').replaceChildren(element('p','Candidate equipment is a design hypothesis requiring engineering review.')); spec.capabilities.forEach(cap=>{const card=element('article',undefined,'capability');card.append(element('h4',cap.name),element('p',cap.candidate_equipment.join(' · ')),element('p',cap.rationale),element('p',`Operations: ${cap.operation_ids.join(', ')}`));$('apparatus').append(card);});
  const apparatusDetails=element('details');apparatusDetails.append(element('summary','Full apparatus requirements'),element('pre',JSON.stringify(data.apparatus,null,2)));$('apparatus').append(apparatusDetails);
@@ -120,6 +129,8 @@ $('models-back').addEventListener('click',()=>showWizardStep('video'));
 $('analysis-back').addEventListener('click',()=>showWizardStep('models'));
 $('view-results').addEventListener('click',()=>showWizardStep('results'));
 $('new-video').addEventListener('click',()=>showWizardStep('video'));
+$('design-next').addEventListener('click',()=>showWizardStep('autonomy'));
+$('design-back').addEventListener('click',()=>showWizardStep('results'));
 showWizardStep('video',false);
 (async()=>{try{const config=await api('/api/config');applyModelDefaults(config);$('readiness').textContent=!config.ffmpeg_available?'Server needs ffmpeg and ffprobe.':!config.credentials_available?'Server needs NEBIUS_API_KEY or NEBIUS_TOKEN_FACTORY_KEY before live analysis.':'Server credentials detected. Confirm both model IDs are available to your account.';await refreshHistory();const id=location.hash.slice(1);if(/^[a-f0-9]{32}$/.test(id))await openRun(id);}catch(error){showError(error.message);}})();
 

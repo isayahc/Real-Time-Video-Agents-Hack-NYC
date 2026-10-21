@@ -1,15 +1,16 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Procedure Workbench · Mapped Assembly</title><link rel="stylesheet" href="/assets/style.css"><script src="/assets/app.js" defer></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Procedure Workbench · Mapped Assembly</title><link rel="stylesheet" href="/assets/style.css"><script src="/assets/app.js" defer></script><script src="/assets/autonomy.js" defer></script></head>
 <body>
 <header><a href="/" class="brand">MA<span>MAPPED ASSEMBLY</span></a><span class="tag">PROCEDURE WORKBENCH / 01</span></header>
 <main class="wizard">
-<div class="heading"><div><p class="eyebrow">FROM OBSERVATION TO OPERATIONS</p><h1>A procedure.<br>One step at a time.</h1></div><details class="saved-runs"><summary>Open a saved run</summary><label class="sr-only" for="history">Reopen a saved run</label><select id="history"><option value="">Select a previous run</option></select></details></div>
+<div class="heading"><h1>Procedure workbench</h1><details class="saved-runs"><summary>Open a saved run</summary><label class="sr-only" for="history">Reopen a saved run</label><select id="history"><option value="">Select a previous run</option></select></details></div>
 <nav class="wizard-nav" aria-label="Analysis steps">
 <button id="step-video" type="button" data-step="video" aria-current="step"><span>01</span> Video</button>
 <button id="step-models" type="button" data-step="models" disabled><span>02</span> Models</button>
 <button id="step-analysis" type="button" data-step="analysis" disabled><span>03</span> Analysis</button>
 <button id="step-results" type="button" data-step="results" disabled><span>04</span> Results</button>
+<button id="step-autonomy" type="button" data-step="autonomy" disabled><span>05</span> Autonomous</button>
 </nav>
 <p id="error" class="error wizard-error" role="alert" style="white-space:pre-wrap;overflow-wrap:anywhere" hidden></p>
 <form id="run-form" class="wizard-form">
@@ -26,7 +27,7 @@
 <section id="wizard-analysis" class="panel wizard-step" aria-labelledby="analysis-heading" hidden>
 <div class="panel-heading"><h2 id="analysis-heading" tabindex="-1">03 / Analysis in progress</h2><span id="stage" class="badge">Ready</span></div>
 <div class="wizard-body"><p id="submission-status" class="notice" role="status" aria-live="polite" hidden></p><div class="progress" role="status" aria-live="polite"><p id="status">Choose a video to begin.</p><ol id="stages"><li data-stage="queued">Queued</li><li data-stage="ingesting_frames">Frames</li><li data-stage="extracting_observations">Observations</li><li data-stage="extracting_protocol">Protocol</li><li data-stage="compiling">Compile</li></ol></div>
-<section id="sampled-preview" hidden aria-labelledby="sampled-heading"><h3 id="sampled-heading">Sampled frames</h3><p class="hint">Actual frames supplied together to the vision model. Select one to inspect it; the provider does not report per-frame processing progress.</p><figure><img id="sampled-image" alt="Selected sampled video frame"><figcaption id="sampled-caption"></figcaption></figure><div id="sampled-thumbnails"></div></section>
+<section id="sampled-preview" hidden aria-labelledby="sampled-heading"><h3 id="sampled-heading">Sampled frames</h3><p class="hint">Select a frame to inspect the model's batched video input.</p><figure><img id="sampled-image" alt="Selected sampled video frame"><figcaption id="sampled-caption"></figcaption></figure><div id="sampled-thumbnails"></div></section>
 <details id="run-activity" hidden><summary>Run activity and model details</summary><p id="stage-detail"></p><p id="run-models" class="hint"></p><ol id="run-events"></ol></details>
 <details><summary>Play source video</summary><div id="analysis-video-host"></div></details>
 <div class="wizard-actions"><button id="analysis-back" type="button" class="secondary">← Review settings</button><button id="view-results" type="button" hidden>View results →</button></div></div>
@@ -35,11 +36,27 @@
 <div class="panel-heading"><h2 id="results-heading" tabindex="-1">04 / Review your results</h2><button id="new-video" type="button" class="secondary">New video</button></div>
 <div class="wizard-body"><div id="empty-results" class="empty-results"><h3>No results yet.</h3><p>Complete analysis to review the extracted plan.</p></div>
 <div id="result-content" hidden><p id="provenance" class="notice"></p><h3 id="protocol-title"></h3><p id="boundary"></p>
+<p id="extraction-counts" class="notice"></p><div class="wizard-actions"><span class="hint">Next: a separate machine design and planning-cost scenario.</span><button id="design-next" type="button">Design autonomous version →</button></div>
+<details class="technical-details" open><summary>Inspect extracted operations, evidence and technical artifacts</summary>
 <details id="results-video-details"><summary>Source video and playback</summary><div id="results-video-host"></div></details>
 <nav class="tabs" aria-label="Result views"><button type="button" data-view="operations" aria-pressed="true">Operations</button><button type="button" data-view="apparatus" aria-pressed="false">Apparatus</button><button type="button" data-view="resources" aria-pressed="false">Resources</button><button type="button" data-view="report" aria-pressed="false">Report</button></nav>
 <div id="operations" class="view"></div><div id="apparatus" class="view" hidden></div><div id="resources" class="view" hidden></div><div id="report" class="view" hidden><pre id="report-text"></pre></div>
 <figure id="evidence" hidden><img id="frame-image" alt="Selected sampled evidence frame"><figcaption id="frame-caption"></figcaption></figure>
-<details><summary>Limitations and review needs</summary><ul id="limitations"></ul></details><div id="downloads" class="downloads"></div></div></div>
+<details><summary>Limitations and review needs</summary><ul id="limitations"></ul></details></details><div id="downloads" class="downloads"></div></div></div>
+</section>
+<section id="wizard-autonomy" class="panel wizard-step" aria-labelledby="autonomy-heading" hidden>
+<div class="panel-heading"><h2 id="autonomy-heading" tabindex="-1">05 / Autonomous design &amp; costs</h2><span class="concept-badge">Separate engineering proposal</span></div>
+<div class="wizard-body"><p>Turn the extracted procedure into a proposed machine workflow, with concrete hardware, remaining human tasks and editable cost assumptions.</p>
+<div id="design-controls" class="design-controls"><label>Design model<input id="design-model" maxlength="200" required></label><button id="design-start" type="button">Generate autonomous design ↗</button></div>
+<p id="design-status" class="notice" role="status" aria-live="polite">Ready. Generation makes a separate model request using the saved extraction.</p><p id="design-error" class="error" role="alert" style="white-space:pre-wrap" hidden></p>
+<div id="design-content" hidden>
+<div class="overview-heading"><div><p class="eyebrow">PROPOSED MACHINE WORKFLOW</p><h3 id="design-title"></h3></div><span id="autonomy-level" class="concept-badge"></span></div><p id="design-overview"></p><p class="hint">Design hypothesis · physical performance and output equivalence remain unverified.</p>
+<div id="autonomy-stats" class="overview-stats"></div>
+<div class="autonomy-layout"><div class="system-map"><h4>How the machine performs each operation</h4><div id="autonomy-flow"></div></div><aside class="equipment-panel"><h4>Remaining human tasks</h4><ul id="autonomy-human-tasks"></ul><h4>Design assumptions</h4><ul id="autonomy-assumptions"></ul></aside></div>
+<section class="cost-section" aria-labelledby="cost-heading"><div class="overview-heading"><div><p class="eyebrow">EDITABLE PLANNING SCENARIO · USD</p><h3 id="cost-heading">Manual vs. autonomous costs</h3></div><span class="concept-badge">Model estimates + your assumptions</span></div><p class="hint">Rough planning estimates, not supplier quotes. Every editable input includes its assumption. Blank means unknown. Original extraction measurements stay unchanged.</p><div id="cost-metrics" class="cost-grid"></div><p id="cost-scope" class="hint"></p><ul id="cost-issues" class="cost-issues"></ul>
+<form id="design-cost-form"><h4>Proposed equipment and estimated unit prices</h4><div id="design-equipment" class="table-scroll"></div><details><summary>Operating costs, investment and demand assumptions</summary><div id="design-cost-fields" class="cost-fields"></div></details><div class="wizard-actions"><span id="cost-save-status" role="status" class="hint">Changes recalculate the planning scenario when saved.</span><button id="save-design-costs" type="submit">Save &amp; recalculate costs</button></div></form>
+</section><details><summary>Limitations and model provenance</summary><ul id="design-limitations"></ul><p id="design-provenance" class="hint"></p></details><a id="design-export">Download design + cost scenario →</a></div>
+<div class="wizard-actions"><button id="design-back" type="button" class="secondary">← Extraction results</button></div></div>
 </section>
 <footer>Candidate plans require review. Equipment suggestions are hypotheses; unknown resource quantities remain unknown.</footer>
 </main></body></html>

@@ -32,6 +32,8 @@ python -m protocol_pipeline extract-protocol \
 
 Stage one infers an observation graph from verified timestamped frames. Stage two extracts a reusable protocol from that graph. Observed operation references use `action:<ID>` and resolve through action citations to the supplied frame IDs. Source procedure annotations/ground truth are excluded from both requests. The new command does not send optional annotation object hints.
 
+The compiler receives an explicit list of allowed action citations. A live candidate with an invalid citation receives at most one additional compiler request containing the validation error and original evidence; this can incur additional provider usage. Both unvalidated candidates are retained as `provider-candidate-1.json` / `provider-candidate-2.json`. The vision stage is not repeated for this correction. A second invalid candidate fails without compiling; replay never triggers live correction requests.
+
 No action evidence means no completed protocol is emitted. Sparse frame sampling can miss actions, contacts and ordering. Preparation not visible in the clip must be labeled `workflow_hypothesis` with a `hypothesis:<explanation>` reference. Equipment is proposed, not verified. Every inferred relationship remains `model_inference`.
 
 ## Outputs and limitations

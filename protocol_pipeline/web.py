@@ -28,19 +28,28 @@ from fastapi.responses import FileResponse, JSONResponse
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .extraction import ExtractionProvider, create_provider, extract_protocol
+from .autonomy import AutonomyProposal, evaluate_proposal, generate_proposal
+from .compiler import ProtocolSpecification
 from .environment import load_environment
 from .pipeline import NEBIUS_REQUEST_TIMEOUT_S, NebiusHTTPError, extract_frames, save_json, sha256
+from .models import StrictModel
 
 STATIC = Path(__file__).with_name("web_static")
 MAX_UPLOAD = 100 * 1024 * 1024
 DEFAULT_VISION_MODEL = "Qwen/Qwen2.5-VL-72B-Instruct"
 TERMINAL = {"completed", "failed"}
 logger = logging.getLogger(__name__)
+
+
+class CostEdits(StrictModel):
+    values: dict[str, float | None]
+
 ARTIFACTS = (
     "source-manifest.json", "observations.json", "extracted-protocol.json",
     "extraction-summary.json", "extraction-failure.json", "compiled/report.md",
     "compiled/process-graph.json", "compiled/apparatus-requirements.json",
     "compiled/process-input.json", "compiled/summary.json",
+    "provider-candidate-1.json", "provider-candidate-2.json",
 )
 
 
@@ -133,6 +142,7 @@ class JobStore:
             "ingesting_frames": f"Decoding video and sampling {job.get('frame_count', '')} frames with FFmpeg.",
             "extracting_observations": f"Waiting for Nebius vision model {job.get('vision_model', '')}. No model response yet; this request has a {NEBIUS_REQUEST_TIMEOUT_S}-second timeout.",
             "extracting_protocol": f"Observations received. Waiting for compiler model {job.get('model', '')} to return a protocol ({NEBIUS_REQUEST_TIMEOUT_S}-second request timeout).",
+            "correcting_protocol": "The compiler returned an invalid source citation. Requesting one correction against the original observed actions.",
             "compiling": "Validating the protocol and writing apparatus, resource and report artifacts.",
             "completed": "Analysis completed. Results and evidence are ready below.",
             "failed": job.get("error", "Analysis failed."),
@@ -162,7 +172,54 @@ class JobStore:
             job = read_json(path)
             if job["stage"] not in TERMINAL:
                 self.update(job["id"], stage="failed", finished_at=time.time(),
-                            error="Server restarted before this run completed. Start a new run to retry.")
+                             error="Server restarted before this run completed. Start a new run to retry.")
+            design_job = path.parent / 'autonomy/job.json'
+            if design_job.is_file() and read_json(design_job)['stage'] not in TERMINAL:
+                self.update_design(job['id'], stage='failed', finished_at=time.time(),
+                                   error='Server restarted during design generation. Retry Step 5 to make a new request.')
+
+    def update_design(self, run_id: str, **values: Any) -> None:
+        with self.lock:
+            path = self.path(run_id) / 'autonomy'
+            job = read_json(path / 'job.json')
+            job.update(values)
+            save_json(path / 'job.tmp', job)
+            (path / 'job.tmp').replace(path / 'job.json')
+            logger.info('run=%s autonomy_stage=%s elapsed_s=%.1f', run_id, job['stage'], time.time() - job['created_at'])
+
+    def design_state(self, run_id: str) -> dict[str, Any]:
+        """Expose a distinct design stage without altering extraction success or its artifacts."""
+        with self.lock:
+            path = self.path(run_id) / 'autonomy'
+            if not (path / 'job.json').is_file():
+                return {'stage': 'not_started'}
+            job = read_json(path / 'job.json')
+            job['elapsed_s'] = round((job.get('finished_at') or time.time()) - job['created_at'], 1)
+            if job['stage'] != 'completed':
+                return job
+            design = read_json(path / job['attempt_id'] / 'proposal.json')
+            protocol_path = self.path(run_id) / 'extracted/extracted-protocol.json'
+            if design['source_protocol_sha256'] != sha256(protocol_path):
+                raise HTTPException(409, 'Source protocol changed; the saved design requires regeneration')
+            proposal = AutonomyProposal.model_validate(design['proposal'])
+            overrides = read_json(path / 'cost-overrides.json')['values'] if (path / 'cost-overrides.json').is_file() else {}
+            economics = evaluate_proposal(proposal, ProtocolSpecification.model_validate_json(protocol_path.read_bytes()), overrides)
+            return {**job, 'design': design, 'economics': economics}
+
+    def execute_design(self, run_id: str) -> None:
+        try:
+            state = self.design_state(run_id)
+            self.update_design(run_id, stage='designing')
+            generate_proposal(self.provider_factory(), state['model'],
+                              self.path(run_id) / 'extracted/extracted-protocol.json',
+                              self.path(run_id) / 'autonomy' / state['attempt_id'])
+            self.update_design(run_id, stage='completed', finished_at=time.time())
+        except Exception as error:
+            self.update_design(run_id, stage='failed', finished_at=time.time(),
+                               error=f'{type(error).__name__}: {error}')
+            logger.exception('run=%s autonomous design failed', run_id)
+        finally:
+            self.slots.release()
 
     def execute(self, run_id: str) -> None:
         """Run ingestion and extraction, retaining evidence on either outcome."""
@@ -227,6 +284,7 @@ class JobStore:
                 "apparatus": read_json(output / "compiled/apparatus-requirements.json"),
                 "process_graph": read_json(output / "compiled/process-graph.json"),
                 "resource_template": read_json(output / "compiled/process-input.json"),
+                "accounting": read_json(output / "compiled/summary.json")["accounting"],
                 "report": (output / "compiled/report.md").read_text(encoding="utf-8"),
                 "downloads": [name for name in ARTIFACTS if (output / name).is_file()]}
 
@@ -234,8 +292,9 @@ class JobStore:
 def create_app(root: Path | None = None,
                provider_factory: Callable[[], ExtractionProvider] | None = None) -> FastAPI:
     """Build a loopback workbench; injection supports deterministic transport tests."""
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
     load_environment()
-    store = JobStore(root or Path("runs/workbench"), provider_factory or (lambda: create_provider("nebius")))
+    store = JobStore(root or Path(os.getenv("WORKBENCH_RUNS", "runs/workbench")), provider_factory or (lambda: create_provider("nebius")))
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -270,7 +329,7 @@ def create_app(root: Path | None = None,
     @app.get("/assets/{name}")
     def asset(name: str) -> FileResponse:
         """Serve only the two known static application assets."""
-        if name not in {"app.js", "style.css"}:
+        if name not in {"app.js", "autonomy.js", "style.css"}:
             raise HTTPException(404)
         return FileResponse(STATIC / name)
 
@@ -348,6 +407,63 @@ def create_app(root: Path | None = None,
         """Return validated completed results."""
         return store.results(run_id)
 
+    @app.get('/api/runs/{run_id}/autonomy')
+    def autonomy_status(run_id: str) -> dict[str, Any]:
+        return store.design_state(run_id)
+
+    @app.post('/api/runs/{run_id}/autonomy', status_code=202)
+    def start_autonomy(run_id: str, model: str = Query(min_length=1, max_length=200),
+                       retry: bool = False) -> dict[str, Any]:
+        if not model.strip():
+            raise HTTPException(422, 'Choose an explicit design model')
+        if store.get(run_id)['stage'] != 'completed':
+            raise HTTPException(409, 'Complete extraction before generating the autonomous design')
+        if provider_factory is None and not (os.getenv('NEBIUS_API_KEY') or os.getenv('NEBIUS_TOKEN_FACTORY_KEY')):
+            raise HTTPException(503, 'Set NEBIUS_API_KEY or NEBIUS_TOKEN_FACTORY_KEY first')
+        with store.lock:
+            state = store.design_state(run_id)
+            if state['stage'] != 'not_started' and (state['stage'] != 'failed' or not retry):
+                return state
+            if not store.slots.acquire(blocking=False):
+                raise HTTPException(429, 'The analysis queue is full; wait before generating a design')
+            try:
+                path = store.path(run_id) / 'autonomy'
+                path.mkdir(exist_ok=True)
+                job = {'stage': 'queued', 'created_at': time.time(), 'attempt_id': uuid.uuid4().hex,
+                       'model': model.strip(), 'physical_validation': False}
+                save_json(path / 'job.json', job)
+                store.executor.submit(store.execute_design, run_id)
+                return job
+            except BaseException:
+                store.slots.release()
+                raise
+
+    @app.post('/api/runs/{run_id}/autonomy/costs')
+    def edit_costs(run_id: str, edits: CostEdits) -> dict[str, Any]:
+        with store.lock:
+            state = store.design_state(run_id)
+            if state['stage'] != 'completed':
+                raise HTTPException(409, 'Generate the autonomous design before editing its costs')
+            try:
+                economics = evaluate_proposal(AutonomyProposal.model_validate(state['design']['proposal']),
+                    ProtocolSpecification.model_validate_json((store.path(run_id) / 'extracted/extracted-protocol.json').read_bytes()),
+                    edits.values)
+            except ValueError as error:
+                raise HTTPException(422, str(error)) from error
+            path = store.path(run_id) / 'autonomy'
+            revision = {'values': edits.values, 'basis': 'user_assumptions', 'updated_at': time.time()}
+            save_json(path / ('cost-revision-' + uuid.uuid4().hex + '.json'), revision)
+            save_json(path / 'cost-overrides.tmp', revision)
+            (path / 'cost-overrides.tmp').replace(path / 'cost-overrides.json')
+            return economics
+
+    @app.get('/api/runs/{run_id}/autonomy/export')
+    def export_design(run_id: str) -> JSONResponse:
+        state = store.design_state(run_id)
+        if state['stage'] != 'completed':
+            raise HTTPException(409, 'Generate the design before exporting it')
+        return JSONResponse(state, headers={'Content-Disposition': f'attachment; filename="{run_id}-autonomous-design.json"'})
+
     @app.get("/api/runs/{run_id}/video")
     def video(run_id: str) -> FileResponse:
         """Serve the run's original video with byte-range support for seeking."""
@@ -404,8 +520,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--runs", type=Path, default=Path("runs/workbench"))
+    parser.add_argument("--reload", action="store_true", help="Automatically reload backend code during development")
     args = parser.parse_args()
-    uvicorn.run(create_app(args.runs), host="127.0.0.1", port=args.port)
+    if args.reload:
+        os.environ["WORKBENCH_RUNS"] = str(args.runs.resolve())
+        uvicorn.run("protocol_pipeline.web:create_app", factory=True, reload=True,
+                    reload_dirs=[str(Path(__file__).parent)], host="127.0.0.1", port=args.port)
+    else:
+        uvicorn.run(create_app(args.runs), host="127.0.0.1", port=args.port)
 
 
 if __name__ == "__main__":
