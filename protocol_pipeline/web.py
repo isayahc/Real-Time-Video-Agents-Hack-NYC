@@ -774,7 +774,9 @@ def create_app(root: Path | None = None,
 
     @app.get('/api/runs/{run_id}/machines/{key}/artifacts/{name}')
     def machine_artifact(run_id: str, key: str, name: str) -> FileResponse:
-        if name not in {'machine.forma.json', 'machine-report.json', 'machine-input.json','opencode-session.json','machine-assembly.json'}:
+        if name not in {'machine.forma.json', 'machine-report.json', 'machine-input.json',
+                        'opencode-session.json', 'machine-assembly.json', 'machine-cad-program.json',
+                        'machine.py', 'machine.step', 'machine.stl', 'machine.tree.json', 'machine-validation.json'}:
             raise HTTPException(404, 'Unknown machine artifact')
         row = next((row for row in store.machines_state(run_id)['machines'] if row['key'] == key), None)
         if not row or row['stage'] not in ('completed', 'needs_refinement'):

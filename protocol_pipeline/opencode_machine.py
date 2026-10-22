@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MPL-2.0
-"""Persistent OpenCode/Nebius CAD authoring with inspectable sessions and tool feedback."""
+"""Persistent OpenCode CAD-program authoring with inspectable native build feedback."""
 from __future__ import annotations
 import json
 import os
@@ -85,7 +85,8 @@ class OpenCodeMachineSession:
     def complete(self, contract, instruction: str, content: list[dict]):
         prompt = instruction + '\n\n' + '\n'.join(item['text'] for item in content)
         # Nebius rejected OpenCode's tool-based structured-output request in the live check.
-        # OpenCode owns the conversation; native tools run locally and return actual errors.
+        # JSON carries complete Python source, not a geometry vocabulary. The CAD worker
+        # executes it through Forma/OpenCAD and returns actual errors to this session.
         self.count += 1
         prompt += '\nReturn only valid JSON matching this schema, without markdown: ' + json.dumps(contract.model_json_schema())
         body = {'model':{'providerID':self.provider,'modelID':self.model},
@@ -111,4 +112,4 @@ class OpenCodeMachineSession:
         return parsed, {'authoring':'opencode','provider':self.provider,'session_id':self.session_id,
             'requested_model':self.model,'served_model':info.get('modelID'),'usage':info.get('tokens'),
             'latency_s':time.monotonic()-started,'output_mode':'json_text','request_count':self.count,
-            'provenance':'OpenCode model-authored CAD; native Forma validation/export follows'}
+            'provenance':'OpenCode-authored OpenCAD Python; native Forma/OCCT validation and export follows'}

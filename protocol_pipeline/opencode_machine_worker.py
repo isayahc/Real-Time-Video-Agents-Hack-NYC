@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 def execute(output: Path, source: dict) -> None:
     from forma_core import __version__
-    from forma_core.workspaces.projects.models import HardwareIR
+    from forma_core.workspaces.projects.models import HardwareIntermediateRepresentation as HardwareIR
     from .design import write_json
     from .machine_cad import author_machine_cad
     from .opencode_machine import OpenCodeMachineSession

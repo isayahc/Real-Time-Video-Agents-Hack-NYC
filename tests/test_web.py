@@ -454,12 +454,15 @@ def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, 
             output.mkdir()
             machine_calls.append(equipment_id)
             report = {'equipment_id': equipment_id, 'core_version': 'fixture', 'cad_meshes': 1, 'components': 1,
-                      'machine_specific_cad': {'parts':8,'description':'Explicit synthetic HTTP fixture'},
+                      'machine_specific_cad': {'parts':8,'description':'Explicit synthetic HTTP fixture',
+                                               'representation':'opencad-python'},
                       'source_proposal_sha256': hashlib.sha256(proposal_path.read_bytes()).hexdigest(),
                       'deterministic_is_valid': False, 'physical_validation': False}
             (output / 'machine-report.json').write_text(json.dumps(report))
             (output / 'machine.forma.json').write_text(json.dumps({'project_ir': {'cad_model': {'meshes': [
                 {'vertices': [0,0,0,100,0,0,0,100,0], 'faces': [0,1,2]}]}}}))
+            (output / 'machine.py').write_text('# Synthetic source download fixture\n')
+            (output / 'machine.step').write_text('Synthetic STEP download fixture')
             return report
         monkeypatch.setattr('protocol_pipeline.web.forma_runtime', lambda: {'available': True, 'message': 'Synthetic fixture'})
         monkeypatch.setattr('protocol_pipeline.web.generate_machine', synthetic_machine)
@@ -483,6 +486,12 @@ def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, 
         assert machine_calls == ['robot']
         assert browser.get(machines['machines'][0]['artifact_url']).status_code == 200
         row=machines['machines'][0]
+        for name in ('machine.py', 'machine.step'):
+            download = browser.get(f"{machines_url}/{row['key']}/artifacts/{name}")
+            assert download.status_code == 200
+            assert 'attachment' in download.headers['content-disposition']
+        assert browser.get(f"{machines_url}/{row['key']}/artifacts/worker.log").status_code == 404
+        assert browser.get(f"{machines_url}/{row['key']}/artifacts/machine.tree.json").status_code == 404
         assert row['preview']['ready'] is False
         assert browser.post(f"{machines_url}/{row['key']}/previews/{'0'*64}",headers=HEADERS,content=b'invalid').status_code==409
         gif=tmp_path/'preview-fixture.gif'

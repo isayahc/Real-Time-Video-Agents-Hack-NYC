@@ -24,17 +24,13 @@ def test_worker_liveness_checks_without_process_polling():
     assert not process_alive(-1)
 
 
-def test_machine_specific_cad_requires_a_bounded_part_assembly():
-    from protocol_pipeline.machine_cad import MachineAssembly, validate_machine_geometry
-    parts = [{'name':name,'role':'Synthetic fixture support','shape':'box','size_mm':[100,20,10],
-              'center_mm':[0,0,index*20]} for index,name in enumerate(('base','rail','carriage'))]
-    data = {'description':'Explicit test assembly','parts':parts,'assumptions':['Synthetic dimensions']}
-    validate_machine_geometry(MachineAssembly.model_validate(data))
+def test_machine_cad_requires_source_instead_of_legacy_primitive_data():
+    """Old primitive candidates cannot silently satisfy the new authoring contract."""
+    from protocol_pipeline.opencad_program import CadProgram
     with pytest.raises(ValueError):
-        MachineAssembly.model_validate({**data,'parts':parts[:1]})
-    parts[0]['size_mm'] = [-1,20,10]
-    with pytest.raises(ValueError, match='dimensions'):
-        validate_machine_geometry(MachineAssembly.model_validate(data))
+        CadProgram.model_validate({'description':'Legacy primitive fixture',
+            'parts':[{'name':'box','shape':'box','size_mm':[100,20,10],'center_mm':[0,0,0]}],
+            'assumptions':['Synthetic dimensions']})
 
 
 def test_forma_batch_is_independent_of_server_reload(tmp_path, monkeypatch):

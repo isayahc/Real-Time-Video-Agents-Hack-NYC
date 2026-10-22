@@ -67,7 +67,7 @@ def forma_runtime() -> dict:
 
 
 def generate_machine(proposal_path: Path, equipment_id: str, output: Path, model: str,
-                     resume_from: Path | None = None, authoring: str = 'forma', visual_feedback: dict | None = None,
+                     resume_from: Path | None = None, authoring: str = 'opencode', visual_feedback: dict | None = None,
                      provider: str = 'nebius') -> dict:
     if not forma_runtime()['available']:
         raise ValueError(forma_runtime()['message'])
@@ -102,7 +102,7 @@ def generate_machine(proposal_path: Path, equipment_id: str, output: Path, model
     environment['PYTHONPATH'] = os.pathsep.join(roots)
     result = subprocess.run([sys.executable, '-m', 'protocol_pipeline.machine_worker', str(output.resolve())],
                             cwd=output, env=environment, capture_output=True, text=True, encoding='utf-8',
-                            timeout=480, check=False)
+                            timeout=1800, check=False)
     (output / 'worker.log').write_text(result.stdout + '\n' + result.stderr, encoding='utf-8')
     if result.returncode:
         failure = output / 'machine-failure.json'

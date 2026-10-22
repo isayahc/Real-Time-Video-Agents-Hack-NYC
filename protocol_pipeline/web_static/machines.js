@@ -42,6 +42,15 @@ function renderMachines(state){
    ? `OpenCode session ${row.report.opencode_session_id} · ${row.report.machine_specific_cad.parts} CAD parts · Forma schema and CAD export validated · electrical design not evaluated`
    : `Forma ${row.report.core_version} · ${row.report.machine_specific_cad?.parts || 0} machine CAD parts · ${row.report.components} hardware components · ${row.report.deterministic_is_valid?'deterministic checks passed':'validation findings require review'}`,'hint'));
     const link=element('a','Download generated Forma project →');link.href=row.artifact_url;details.append(link);
+    if(row.report.machine_specific_cad?.representation==='opencad-python'){
+     details.append(element('p','Parametric OpenCAD source · native solids checked','hint'));
+     const exports=element('p');
+     for(const [filename,label] of [['machine.py','Python source'],['machine.step','STEP'],['machine.stl','STL'],['machine.tree.json','Feature tree'],['machine-validation.json','Geometry checks']]){
+      const download=element('a',label);download.href=row.artifact_url.replace(/machine\.forma\.json$/,filename);
+      exports.append(download,document.createTextNode(' · '));
+     }
+     details.append(exports);
+    }else{details.append(element('p','Legacy primitive CAD; regenerate for OpenCode-authored OpenCAD.','hint'));}
   }
   const button=element('button',row.stage==='completed'?'Regenerate machine':'Generate machine');button.type='button';
   button.disabled=['queued','generating'].includes(row.stage)||!state.runtime.available;
