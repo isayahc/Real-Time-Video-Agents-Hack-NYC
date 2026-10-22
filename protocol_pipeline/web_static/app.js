@@ -89,7 +89,7 @@ labels.correcting_observations = 'Correcting observation evidence';
 let selectedFile = null, objectURL = null, activeRun = null, pollTimer = null, generation = 0;
 let sampledRun = null;
 let wizardStep = 'video', analysisStarted = false, resultsReady = false;
-const wizardSteps = ['video', 'models', 'analysis', 'results', 'autonomy', 'machines', 'scene', 'lab'];
+const wizardSteps = ['video', 'models', 'analysis', 'results', 'autonomy', 'machines', 'scene'];
 const stepContext = {
  video:'Start with the human procedure you want to automate.',
  models:'Choose the models that interpret the video and compile its procedure.',
@@ -97,16 +97,15 @@ const stepContext = {
  results:'Review the human workflow and its evidence before proposing a machine.',
  autonomy:'Propose the machine workflow and compare planning costs. Next, generate the actual machine assets with Forma.',
  machines:'Generate and inspect each required machine through Forma before placing it into the scene.',
- scene:'Render the generated Forma CAD in the original OpenIndustries viewer. Orbit, zoom and play the workflow.',
- lab:'Place subsystems by function and operation relationships inside a fixed laboratory template.',
+ scene:'Inspect the machine, play its workflow, and place the assembly in the lab—all in one view.',
 };
 function showWizardStep(step, focus = true) {
-  const available = {video:true, models:Boolean(selectedFile || activeRun), analysis:analysisStarted || Boolean(activeRun), results:resultsReady, autonomy:resultsReady, machines:resultsReady, scene:resultsReady, lab:resultsReady};
+  const available = {video:true, models:Boolean(selectedFile || activeRun), analysis:analysisStarted || Boolean(activeRun), results:resultsReady, autonomy:resultsReady, machines:resultsReady, scene:resultsReady};
  if (!available[step]) return;
  wizardStep = step;
  $('step-context').textContent = stepContext[step];
   if (step !== 'scene' && typeof leaveScene === 'function') leaveScene();
-  if (step !== 'lab' && typeof leaveLab === 'function') leaveLab();
+  if (step !== 'scene' && typeof leaveLab === 'function') leaveLab();
  if (step !== 'machines' && typeof pauseMachinePreviews === 'function') pauseMachinePreviews();
  for (const name of wizardSteps) {
   $(`wizard-${name}`).hidden = name !== step;
@@ -119,7 +118,7 @@ function showWizardStep(step, focus = true) {
  if (step === 'autonomy' && typeof loadAutonomy === 'function') loadAutonomy(activeRun, generation);
  if (step === 'scene' && typeof loadScene === 'function') loadScene(activeRun, generation);
   if (step === 'machines' && typeof loadMachines === 'function') loadMachines(activeRun, generation);
-  if (step === 'lab' && typeof loadLab === 'function') loadLab();
+  if (step === 'scene' && typeof loadLab === 'function' && $('lab-layout').open) loadLab();
 }
 function element(tag, text, className) { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; if (className) node.className = className; return node; }
 function showError(message) { $('error').textContent = message; $('error').hidden = !message; }
@@ -183,14 +182,36 @@ function renderResults(data) { const spec = data.protocol; $('empty-results').hi
  showWizardStep(wizardStep === 'analysis' ? 'results' : wizardStep);
 }
 async function poll(runId, token) { if(token!==generation)return;try { const job=await api(`/api/runs/${runId}`);if(token!==generation)return;showStage(job);if(job.stage==='completed'){const data=await api(`/api/runs/${runId}/results`);if(token!==generation)return;renderResults(data);}else if(job.stage==='failed'){showError(`${job.error}${job.error_type ? ` (${job.error_type})` : ''}`);}await refreshHistory();if(token!==generation)return;if(!['completed','failed'].includes(job.stage)){pollTimer=setTimeout(()=>poll(runId,token),1000);}}catch(error){if(token!==generation)return;showError(`Could not refresh run: ${error.message}. Reopen it from saved runs to reconnect.`);}}
-async function openRun(runId) { stopPolling();activeRun=runId;const token=generation;resetResults();location.hash=runId;showWizardStep('analysis');try{const job=await api(`/api/runs/${runId}`);if(token!==generation)return;switchVideo(`/api/runs/${runId}/video`,job.filename);await poll(runId,token);}catch(error){if(token===generation)showError(error.message);}}
+function restoreSnapshotChoices(job){
+ analysisProvider=job.provider==='gmi'?'gmi':'nebius';$('analysis-provider').value=analysisProvider;
+ for(const [id,value] of [['model',job.model],['vision-model',job.vision_model]]){chooseModel(id,value);editedModels.add(id);}
+ $('frame-count').value=String(job.frame_count);$('design-model').value=job.model;
+ $('reset-models').disabled=analysisProvider!=='nebius';
+ $('model-catalog-status').textContent=`Restored run models · vision provider: ${job.vision_provider||job.provider}. Saved results loaded without inference.`;
+}
+async function openRun(runId) { stopPolling();activeRun=runId;const token=generation;resetResults();location.hash=runId;showWizardStep('analysis');try{const job=await api(`/api/runs/${runId}`);if(token!==generation)return;if(job.imported_snapshot)restoreSnapshotChoices(job);switchVideo(`/api/runs/${runId}/video`,job.filename);await poll(runId,token);}catch(error){if(token===generation)showError(error.message);}}
 $('file').addEventListener('change',()=>{stopPolling();analysisStarted=false;resetResults();selectedFile=$('file').files[0]||null;location.hash='';if(objectURL)URL.revokeObjectURL(objectURL);if(selectedFile){objectURL=URL.createObjectURL(selectedFile);switchVideo(objectURL,selectedFile.name);$('stage').textContent='Ready';$('status').textContent='Ready to analyze selected video.';document.querySelectorAll('#stages li').forEach(n=>n.classList.remove('done','active'));}showWizardStep('video');});
 $('video').addEventListener('error',()=>{$('playback-error').hidden=false;});
 $('run-form').addEventListener('submit',async event=>{event.preventDefault();if(!selectedFile){showWizardStep('video');showError('Choose a video first.');return;}if(selectedFile.size>100*1024*1024){showError('Video exceeds the 100 MiB limit.');return;}stopPolling();resetResults();analysisStarted=true;showWizardStep('analysis');$('start').disabled=true;$('file').disabled=true;$('history').disabled=true;$('status').textContent='Uploading video…';$('submission-status').hidden=false;$('submission-status').textContent='Uploading video to the backend. Analysis will start after the upload finishes.';const query=new URLSearchParams({filename:selectedFile.name,provider:analysisProvider,model:$('model').value.trim(),vision_model:$('vision-model').value.trim(),frame_count:$('frame-count').value});try{const job=await api(`/api/runs?${query}`,{method:'POST',headers:{'Content-Type':'application/octet-stream','X-Workbench-Request':'1'},body:selectedFile});await openRun(job.id);await refreshHistory();}catch(error){showError(error.message);$('status').textContent='Run was not started.';$('submission-status').textContent=`Run was not started: ${error.message}`;}finally{$('start').disabled=false;$('file').disabled=false;$('history').disabled=false;}});
 $('history').addEventListener('change',()=>{if($('history').value){selectedFile=null;$('file').value='';openRun($('history').value);}});
+async function importSnapshot(file=null){
+ $('snapshot-import').disabled=true;$('snapshot-file').disabled=true;$('snapshot-status').textContent='Verifying and restoring saved artifacts…';
+ try{
+  const result=await api(file?'/api/snapshots/upload':'/api/snapshots/import',{method:'POST',headers:{'X-Workbench-Request':'1','Content-Type':file?'application/zip':'application/json'},body:file||JSON.stringify({path:$('snapshot-path').value})});
+  selectedFile=null;$('file').value='';await refreshHistory();await openRun(result.id);
+  const job=await api(`/api/runs/${result.id}`);
+  restoreSnapshotChoices(job);
+  $('snapshot-status').textContent=`Imported ${result.imported_files} files. All available saved stages are loaded.`;
+  showWizardStep(job.stage==='completed'?'results':'analysis');
+ }catch(error){$('snapshot-status').textContent=`Import failed: ${error.message}`;}
+ finally{$('snapshot-import').disabled=false;$('snapshot-file').disabled=false;}
+}
+$('snapshot-import').addEventListener('click',()=>importSnapshot());
+$('snapshot-file').addEventListener('change',()=>{const file=$('snapshot-file').files[0];if(file)importSnapshot(file);});
 for(const button of document.querySelectorAll('[data-view]'))button.addEventListener('click',()=>{document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.querySelectorAll('.view').forEach(view=>view.hidden=view.id!==button.dataset.view);});
 for (const step of wizardSteps) $(`step-${step}`).addEventListener('click',()=>showWizardStep(step));
 $('configure-next').addEventListener('click',()=>{
+ if(activeRun&&!selectedFile){showWizardStep('models');return;}
  if (!selectedFile) { showError('Choose a video first.'); return; }
  if (selectedFile.size > 100*1024*1024) { showError('Video exceeds the 100 MiB limit.'); return; }
  showError(''); showWizardStep('models');

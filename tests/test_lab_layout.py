@@ -53,6 +53,18 @@ def test_oversized_machine_remains_unplaced_without_scaling():
     assert next(i for i in scene['instances'] if i['id']=='0')['visible'] is False
 
 
+def test_storyboard_workpiece_follows_host_without_becoming_another_machine():
+    manifest,preview,proposal=inputs()
+    manifest['instances'][0]['rotation']=[0,0,0]
+    manifest['instances'].append({'id':'sheet-A','assetId':'robot','name':'Workpiece','visible':True,'position':[.1,.1,.1],'rotation':[0,0,0]})
+    manifest['storyboard']={'host_instance_id':'0','payload_instance_ids':['sheet-A']}
+    report,scene=plan_lab(manifest,preview,proposal)
+    assert report['total_count']==4
+    host=next(i for i in scene['instances'] if i['id']=='0')
+    payload=next(i for i in scene['instances'] if i['id']=='sheet-A')
+    assert abs(payload['position'][1]-host['position'][1]-.1)<1e-9
+
+
 def test_lab_endpoint_persists_separate_plan_and_rejects_stale_source(tmp_path, monkeypatch):
     from protocol_pipeline.web import create_app
     run = 'a'*32

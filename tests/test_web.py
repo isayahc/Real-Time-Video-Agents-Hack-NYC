@@ -177,6 +177,39 @@ def test_observation_correction_retains_candidates(client: TestClient, video: by
         assert not (output / 'observations.json').exists()
 
 
+def test_import_snapshot_populates_existing_workbench(client: TestClient, video: bytes, tmp_path: Path) -> None:
+    from protocol_pipeline.snapshots import E2EConfig, file_index
+    run_id=start(client,video)
+    assert wait_job(client,run_id)['stage']=='completed'
+    root=tmp_path/'saved-snapshot'
+    copied=root/'workbench'/run_id
+    shutil.copytree(client.app.state.store.path(run_id),copied)
+    document={'kind':'workbench-e2e','schema_version':1,'version':1,'status':'completed',
+              'config':E2EConfig().model_dump(),'run_path':f'workbench/{run_id}',
+              'source':{'path':f'workbench/{run_id}/source.mp4','sha256':hashlib.sha256(video).hexdigest()},
+              'files':file_index(root)}
+    (root/'snapshot.json').write_text(json.dumps(document))
+    response=client.post('/api/snapshots/import',headers=HEADERS,json={'path':str(root)})
+    assert response.status_code==200,response.text
+    imported=response.json()['id']
+    assert imported!=run_id
+    assert client.get(f'/api/runs/{imported}').json()['stage']=='completed'
+    result=client.get(f'/api/runs/{imported}/results')
+    assert result.status_code==200
+    original=client.get(f'/api/runs/{run_id}/results').json()['protocol']
+    assert result.json()['protocol']['protocol_id']==original['protocol_id']
+    assert result.json()['protocol']['operations'][0]['evidence'][0]['url'].startswith(f'/api/runs/{imported}/')
+    assert client.get(f'/api/runs/{imported}/video').content==video
+    archive=io.BytesIO()
+    with zipfile.ZipFile(archive,'w') as bundle:
+        for path in root.rglob('*'):
+            if path.is_file():bundle.write(path,path.relative_to(root).as_posix())
+    uploaded=client.post('/api/snapshots/upload',headers={**HEADERS,'Content-Type':'application/zip'},content=archive.getvalue())
+    assert uploaded.status_code==200,uploaded.text
+    assert client.get(f"/api/runs/{uploaded.json()['id']}/results").status_code==200
+    assert client.post('/api/snapshots/upload',headers=HEADERS,content=b'not a zip').status_code==422
+
+
 def test_complete_flow_evidence_ranges_and_export(client: TestClient, video: bytes) -> None:
     """Compile a replayed video, seek media, resolve frames and verify ZIP hashes."""
     run_id = start(client, video)
@@ -454,12 +487,15 @@ def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, 
             output.mkdir()
             machine_calls.append(equipment_id)
             report = {'equipment_id': equipment_id, 'core_version': 'fixture', 'cad_meshes': 1, 'components': 1,
-                      'machine_specific_cad': {'parts':8,'description':'Explicit synthetic HTTP fixture'},
+                      'machine_specific_cad': {'parts':8,'description':'Explicit synthetic HTTP fixture',
+                                               'representation':'opencad-python'},
                       'source_proposal_sha256': hashlib.sha256(proposal_path.read_bytes()).hexdigest(),
                       'deterministic_is_valid': False, 'physical_validation': False}
             (output / 'machine-report.json').write_text(json.dumps(report))
             (output / 'machine.forma.json').write_text(json.dumps({'project_ir': {'cad_model': {'meshes': [
                 {'vertices': [0,0,0,100,0,0,0,100,0], 'faces': [0,1,2]}]}}}))
+            (output / 'machine.py').write_text('# Synthetic source download fixture\n')
+            (output / 'machine.step').write_text('Synthetic STEP download fixture')
             return report
         monkeypatch.setattr('protocol_pipeline.web.forma_runtime', lambda: {'available': True, 'message': 'Synthetic fixture'})
         monkeypatch.setattr('protocol_pipeline.web.generate_machine', synthetic_machine)
@@ -478,11 +514,17 @@ def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, 
                 break
             time.sleep(.02)
         assert machines['stage'] == 'ready', machines
-        assert machine_calls == ['robot']
+        assert machine_calls == ['workcell']
         assert browser.post(machines_url, headers=HEADERS, json={'model': 'fixture'}).json()['stage'] == 'ready'
-        assert machine_calls == ['robot']
+        assert machine_calls == ['workcell']
         assert browser.get(machines['machines'][0]['artifact_url']).status_code == 200
         row=machines['machines'][0]
+        for name in ('machine.py', 'machine.step'):
+            download = browser.get(f"{machines_url}/{row['key']}/artifacts/{name}")
+            assert download.status_code == 200
+            assert 'attachment' in download.headers['content-disposition']
+        assert browser.get(f"{machines_url}/{row['key']}/artifacts/worker.log").status_code == 404
+        assert browser.get(f"{machines_url}/{row['key']}/artifacts/machine.tree.json").status_code == 404
         assert row['preview']['ready'] is False
         assert browser.post(f"{machines_url}/{row['key']}/previews/{'0'*64}",headers=HEADERS,content=b'invalid').status_code==409
         gif=tmp_path/'preview-fixture.gif'
@@ -520,7 +562,7 @@ def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, 
         assert browser.get(scene_url + '/artifacts/secrets').status_code == 404
         assert browser.post(scene_url, headers=HEADERS, json={}).json()['attempt_id'] == scene['attempt_id']
         assert len(contracts) == 3  # scene creation does not repeat vision or design inference
-        edits = browser.post(url + '/costs', headers=HEADERS, json={'values': {'equipment.robot.unit_cost_usd': 2000}})
+        edits = browser.post(url + '/costs', headers=HEADERS, json={'values': {'equipment.workcell.unit_cost_usd': 4000}})
         assert edits.status_code == 200, edits.text
         assert edits.json()['equipment_total_usd'] == 4000
         assert browser.post(url + '/costs', headers=HEADERS, json={'values': {'utilization': 2}}).status_code == 422

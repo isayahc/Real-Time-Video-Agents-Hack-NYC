@@ -14,6 +14,7 @@ import re
 import platform
 import subprocess
 import sys
+import tempfile
 from importlib.metadata import PackageNotFoundError, version
 import shutil
 import threading
@@ -43,6 +44,8 @@ from .machine_previews import MAX_GIF_BYTES,preview_info,preview_file,save_previ
 from starlette.concurrency import run_in_threadpool
 from .model_config import DEFAULT_COMPILER_MODEL, DEFAULT_VISION_MODEL, model_presets
 from .lab_layout import plan_lab
+from .snapshot_import import restore_snapshot, MAX_SNAPSHOT_BYTES
+from .system_metrics import artifact_metrics
 
 STATIC = Path(__file__).with_name("web_static")
 MAX_UPLOAD = 100 * 1024 * 1024
@@ -52,6 +55,10 @@ logger = logging.getLogger(__name__)
 
 class CostEdits(StrictModel):
     values: dict[str, float | None]
+
+
+class SnapshotImport(StrictModel):
+    path: str
 
 ARTIFACTS = (
     "source-manifest.json", "observations.json", "extracted-protocol.json",
@@ -415,6 +422,7 @@ class JobStore:
             ingest_video(path / job["video_file"], path / "ingested", job["frame_count"])
             extract_protocol(provider, job["model"], path / "extracted", run=path / "ingested",
                              vision_model=job["vision_model"],
+                             vision_provider=create_provider(job['vision_provider']) if job.get('vision_provider') else None,
                              progress=lambda stage: self.update(run_id, stage=stage))
             self.update(run_id, stage="completed", finished_at=time.time())
         except Exception as error:
@@ -594,6 +602,30 @@ def create_app(root: Path | None = None,
         catalog_cache[provider] = (time.monotonic(), models)
         return {"provider": provider, "models": models}
 
+    @app.post('/api/snapshots/import')
+    def import_saved_snapshot(body: SnapshotImport) -> dict[str, Any]:
+        """Restore completed artifacts into a new saved run; no inference or CAD execution."""
+        try:
+            if not body.path.strip():
+                raise ValueError('Enter a snapshot path')
+            with store.lock:
+                return restore_snapshot(Path(body.path.strip().strip('"')), store.root)
+        except (ValueError, OSError, KeyError, TypeError, zipfile.BadZipFile) as error:
+            raise HTTPException(422, str(error)) from error
+
+    @app.post('/api/snapshots/upload')
+    async def upload_saved_snapshot(request: Request) -> dict[str, Any]:
+        with tempfile.TemporaryDirectory(prefix='snapshot-upload-') as temporary:
+            path = Path(temporary) / 'snapshot.zip'
+            size = 0
+            with path.open('wb') as stream:
+                async for chunk in request.stream():
+                    size += len(chunk)
+                    if size > MAX_SNAPSHOT_BYTES:
+                        raise HTTPException(413, 'Snapshot archive exceeds 1 GiB')
+                    stream.write(chunk)
+            return await run_in_threadpool(import_saved_snapshot, SnapshotImport(path=str(path)))
+
     @app.get("/api/runs")
     def runs() -> list[dict[str, Any]]:
         """List stored runs, newest first."""
@@ -662,6 +694,13 @@ def create_app(root: Path | None = None,
     def results(run_id: str) -> dict[str, Any]:
         """Return validated completed results."""
         return store.results(run_id)
+
+    @app.get('/api/runs/{run_id}/system-metrics')
+    def system_metrics(run_id: str) -> dict[str, Any]:
+        design=store.design_state(run_id)
+        if design['stage']!='completed':
+            raise HTTPException(409,'Complete the design before inspecting system metrics')
+        return artifact_metrics(store.path(run_id),design['design']['proposal'])
 
     @app.get('/api/runs/{run_id}/autonomy')
     def autonomy_status(run_id: str) -> dict[str, Any]:
@@ -774,7 +813,9 @@ def create_app(root: Path | None = None,
 
     @app.get('/api/runs/{run_id}/machines/{key}/artifacts/{name}')
     def machine_artifact(run_id: str, key: str, name: str) -> FileResponse:
-        if name not in {'machine.forma.json', 'machine-report.json', 'machine-input.json','opencode-session.json','machine-assembly.json'}:
+        if name not in {'machine.forma.json', 'machine-report.json', 'machine-input.json',
+                        'opencode-session.json', 'machine-assembly.json', 'machine-cad-program.json',
+                        'machine.py', 'machine.step', 'machine.stl', 'machine.tree.json', 'machine-validation.json'}:
             raise HTTPException(404, 'Unknown machine artifact')
         row = next((row for row in store.machines_state(run_id)['machines'] if row['key'] == key), None)
         if not row or row['stage'] not in ('completed', 'needs_refinement'):
@@ -843,11 +884,13 @@ def create_app(root: Path | None = None,
 
     @app.get('/api/runs/{run_id}/scene/artifacts/{name}')
     def scene_artifact(run_id: str, name: str) -> FileResponse:
-        if name not in {'scene.oi.json', 'preview.json', 'scene-report.json', 'scene-input.json'}:
+        if name not in {'scene.oi.json', 'preview.json', 'scene-report.json', 'scene-input.json', 'storyboard.gif', 'storyboard.mp4', 'storyboard-report.json', 'storyboard-poster.png'}:
             raise HTTPException(404, 'Unknown scene artifact')
         state = store.scene_state(run_id)
         if state['stage'] != 'completed':
             raise HTTPException(409, 'Build a current scene before accessing its artifacts')
+        if not (store.path(run_id) / 'scene' / state['attempt_id'] / name).is_file():
+            raise HTTPException(404, 'This scene artifact has not been generated')
         return FileResponse(store.path(run_id) / 'scene' / state['attempt_id'] / name,
                             filename=f'{run_id}-{name}')
 

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MPL-2.0
-"""Persistent OpenCode/Nebius CAD authoring with inspectable sessions and tool feedback."""
+"""Persistent OpenCode CAD-program authoring with inspectable native build feedback."""
 from __future__ import annotations
 import json
 import os
@@ -7,6 +7,8 @@ from pathlib import Path
 import shutil
 import subprocess
 import time
+import uuid
+import hashlib
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -40,7 +42,10 @@ def ensure_server() -> str:
     if os.name == 'nt' and Path(executable).suffix.lower() in ('.cmd', '.bat'):
         args = [os.getenv('COMSPEC', 'cmd.exe'), '/c', *args]
     with (logs / 'opencode-machines.log').open('ab') as log:
+        environment = dict(os.environ)
+        environment.setdefault('OPENCODE_CONFIG', str(root / 'opencode.json'))
         process = subprocess.Popen(args, cwd=root, stdout=log, stderr=subprocess.STDOUT,
+            env=environment,
             **({'creationflags': subprocess.CREATE_NO_WINDOW | subprocess.CREATE_NEW_PROCESS_GROUP}
                if os.name == 'nt' else {'start_new_session': True}))
     deadline = time.monotonic() + 20
@@ -59,6 +64,8 @@ class OpenCodeMachineSession:
         self.output, self.model, self.equipment = output, model, equipment
         self.url = ensure_server()
         self.provider = provider or os.getenv('OPENCODE_PROVIDER', 'nebius')
+        if resume is None and (output/'opencode-session.json').is_file():
+            resume=json.loads((output/'opencode-session.json').read_text(encoding='utf-8'))
         can_resume=bool(resume and resume.get('url')==self.url and resume.get('model')==model and resume.get('provider')==self.provider)
         self.directory=resume.get('directory',str(output.resolve())) if can_resume else str(output.resolve())
         tools=self.request('GET','/experimental/tool/ids')
@@ -75,8 +82,9 @@ class OpenCodeMachineSession:
                           headers={'Content-Type':'application/json'},
                           data=None if body is None else json.dumps(body).encode())
         try:
-            with urlopen(request, timeout=240) as response:
-                return json.load(response)
+            with urlopen(request, timeout=30) as response:
+                raw=response.read()
+                return json.loads(raw) if raw else None
         except HTTPError as error:
             raise RuntimeError(f'OpenCode HTTP {error.code} for session {getattr(self,"session_id","new")}: {error.read().decode("utf-8",errors="replace")}') from None
         except URLError as error:
@@ -85,13 +93,42 @@ class OpenCodeMachineSession:
     def complete(self, contract, instruction: str, content: list[dict]):
         prompt = instruction + '\n\n' + '\n'.join(item['text'] for item in content)
         # Nebius rejected OpenCode's tool-based structured-output request in the live check.
-        # OpenCode owns the conversation; native tools run locally and return actual errors.
+        # JSON carries complete Python source, not a geometry vocabulary. The CAD worker
+        # executes it through Forma/OpenCAD and returns actual errors to this session.
         self.count += 1
         prompt += '\nReturn only valid JSON matching this schema, without markdown: ' + json.dumps(contract.model_json_schema())
         body = {'model':{'providerID':self.provider,'modelID':self.model},
                 'parts':[{'type':'text','text':prompt}], 'tools':self.tools}
         started = time.monotonic()
-        response = self.request('POST', f'/session/{self.session_id}/message', body)
+        digest=hashlib.sha256(json.dumps(body,sort_keys=True).encode()).hexdigest()
+        request_path=self.output/f'opencode-request-{digest[:16]}.json'
+        pending=json.loads(request_path.read_text(encoding='utf-8')) if request_path.is_file() else None
+        if pending is None:
+            pending={'message_id':'msg_'+uuid.uuid4().hex,'session_id':self.session_id,'state':'submitting',
+                     'submitted_at':time.time(),'deadline':time.time()+float(os.getenv('MACHINE_AUTHORING_TIMEOUT_SECONDS','900'))}
+            request_path.write_text(json.dumps(pending,indent=2),encoding='utf-8')
+            body['messageID']=pending['message_id']
+            self.request('POST', f'/session/{self.session_id}/prompt_async', body)
+            pending['state']='running';request_path.write_text(json.dumps(pending,indent=2),encoding='utf-8')
+        # An HTTP request is only a status read; its lifetime does not own the job.
+        while True:
+            try:
+                messages=self.request('GET',f'/session/{self.session_id}/message')
+            except (RuntimeError,TimeoutError) as error:
+                messages=[];pending['last_poll_error']=str(error)
+            response=next((row for row in reversed(messages or [])
+                if row.get('info',{}).get('role')=='assistant'
+                and row['info'].get('parentID')==pending['message_id']
+                and (row['info'].get('time',{}).get('completed') or row['info'].get('error'))),None)
+            if response is not None:
+                pending['state']='completed';pending['completed_at']=time.time()
+                request_path.write_text(json.dumps(pending,indent=2),encoding='utf-8')
+                break
+            if time.time()>=pending['deadline']:
+                pending['state']='awaiting_reconciliation'
+                request_path.write_text(json.dumps(pending,indent=2),encoding='utf-8')
+                raise TimeoutError(f'OpenCode authoring deadline reached; session {self.session_id}, message {pending["message_id"]} may still be running. Request identity is retained for recovery.')
+            time.sleep(2)
         (self.output / f'opencode-response-{self.count}.json').write_text(json.dumps(response,indent=2),encoding='utf-8')
         info = response.get('info', {})
         if not isinstance(info,dict):
@@ -111,4 +148,4 @@ class OpenCodeMachineSession:
         return parsed, {'authoring':'opencode','provider':self.provider,'session_id':self.session_id,
             'requested_model':self.model,'served_model':info.get('modelID'),'usage':info.get('tokens'),
             'latency_s':time.monotonic()-started,'output_mode':'json_text','request_count':self.count,
-            'provenance':'OpenCode model-authored CAD; native Forma validation/export follows'}
+            'provenance':'OpenCode-authored OpenCAD Python; native Forma/OCCT validation and export follows'}

@@ -15,6 +15,10 @@ def execute(output: Path) -> None:
         from .opencode_machine_worker import execute as execute_opencode
         execute_opencode(output,source)
         return
+    # Both routes author detailed CAD through OpenCode. Fail before paid Forma calls
+    # if that dependency is missing, rather than silently generating primitive CAD.
+    from .opencode_machine import ensure_server
+    ensure_server()
     # Native Forma reads its component catalog even when project persistence is disabled.
     os.environ['DATABASE_BACKEND'] = 'sqlite'
     os.environ['SQLITE_DATABASE_URL'] = 'sqlite:///' + (output / 'forma.db').as_posix()
@@ -81,7 +85,7 @@ def execute(output: Path) -> None:
             if not previous_path.is_file():
                 previous_path = previous / 'candidate.forma.json'
             if previous_path.is_file():
-                from forma_core.workspaces.projects.models import HardwareIR
+                from forma_core.workspaces.projects.models import HardwareIntermediateRepresentation as HardwareIR
                 candidate = HardwareIR.model_validate(json.loads(previous_path.read_text(encoding='utf-8'))['project_ir'])
                 if not any(record.get('status') == 'failed' for record in (candidate.assembly_metadata or {}).get('generation_stage_failures', [])):
                     previous_project = candidate

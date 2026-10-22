@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MPL-2.0
 /* Step 6 tracks each actual Forma generation and keeps failures visible. */
 'use strict';
-let machinesTimer=null,machinesEpoch=0,machinesState=null;
+let machinesTimer=null,machinesEpoch=0,machinesState=null,machineControlsRun=null;
 const machineProviderModels=new Map();let previousMachineProvider='nebius';
 $('machine-provider').addEventListener('change',()=>{
  machineProviderModels.set(previousMachineProvider,$('machine-model').value);
@@ -17,10 +17,13 @@ async function loadMachines(runId,token){
  }catch(error){if(epoch!==machinesEpoch||token!==generation||runId!==activeRun)return;$('machines-error').textContent=`Could not refresh machine status: ${error.message}. Retrying in 3 seconds; generation may still be running.`;$('machines-error').hidden=false;machinesTimer=setTimeout(()=>loadMachines(runId,token),3000);}
 }
 function renderMachines(state){
+ if(machineControlsRun!==activeRun){const saved=state.machines.find(row=>row.model&&row.provider);if(saved){$('machine-model').value=saved.model;$('machine-provider').value=saved.provider;$('machine-authoring').value=saved.authoring||'opencode';previousMachineProvider=saved.provider;}machineControlsRun=activeRun;}
  $('machines-runtime').textContent=state.runtime.message;
  if(!$('machine-model').value)$('machine-model').value=$('design-model').value||state.model||$('model').value;
  const ready=state.machines.filter(row=>row.stage==='completed').length;
- $('machines-status').textContent=state.stage==='needs_design'?state.message:`${ready}/${state.machines.length} Forma CAD assets ready. Each machine is generated independently; existing assets are reused.`;
+  const integrated=state.machines.length===1&&state.machines[0].id==='workcell';
+  $('machines-status').textContent=state.stage==='needs_design'?state.message:integrated?`${ready}/1 integrated machine CAD ready. One shared assembly covers the task and capability requirements.`:`${ready}/${state.machines.length} Forma CAD assets ready. Legacy component-based proposal; existing assets are reused.`;
+  $('machines-generate-all').textContent=integrated?'Generate integrated machine ↗':'Generate remaining legacy assets ↗';
  $('machines-generate-all').disabled=state.stage==='needs_design'||state.stage==='generating'||!state.runtime.available||state.stage==='ready';
  $('machines-to-scene').disabled=state.stage!=='ready';
  const list=$('machine-list'),existing=new Map([...list.children].map(card=>[card.dataset.machineKey,card]));
@@ -42,6 +45,15 @@ function renderMachines(state){
    ? `OpenCode session ${row.report.opencode_session_id} · ${row.report.machine_specific_cad.parts} CAD parts · Forma schema and CAD export validated · electrical design not evaluated`
    : `Forma ${row.report.core_version} · ${row.report.machine_specific_cad?.parts || 0} machine CAD parts · ${row.report.components} hardware components · ${row.report.deterministic_is_valid?'deterministic checks passed':'validation findings require review'}`,'hint'));
     const link=element('a','Download generated Forma project →');link.href=row.artifact_url;details.append(link);
+    if(row.report.machine_specific_cad?.representation==='opencad-python'){
+     details.append(element('p','Parametric OpenCAD source · native solids checked','hint'));
+     const exports=element('p');
+     for(const [filename,label] of [['machine.py','Python source'],['machine.step','STEP'],['machine.stl','STL'],['machine.tree.json','Feature tree'],['machine-validation.json','Geometry checks']]){
+      const download=element('a',label);download.href=row.artifact_url.replace(/machine\.forma\.json$/,filename);
+      exports.append(download,document.createTextNode(' · '));
+     }
+     details.append(exports);
+    }else{details.append(element('p','Legacy primitive CAD; regenerate for OpenCode-authored OpenCAD.','hint'));}
   }
   const button=element('button',row.stage==='completed'?'Regenerate machine':'Generate machine');button.type='button';
   button.disabled=['queued','generating'].includes(row.stage)||!state.runtime.available;
