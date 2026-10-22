@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from protocol_pipeline.autonomy import AutonomyProposal, evaluate_proposal, validate_coverage
+from protocol_pipeline.autonomy import AutonomyProposal, evaluate_proposal, validate_coverage, integrate_workcell
 from protocol_pipeline.compiler import ProtocolSpecification
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +63,22 @@ def test_design_coverage_and_human_activity_rejected(protocol):
             raw['operation_designs'][0]['equipment_ids'] = ['invented']
         with pytest.raises(ValueError):
             validate_coverage(AutonomyProposal.model_validate(raw), protocol)
+
+
+def test_attributes_become_requirements_for_one_machine(protocol):
+    original=AutonomyProposal.model_validate(proposal_fixture(protocol))
+    result=integrate_workcell(original,protocol)
+    assert result.design_scope=='integrated_workcell'
+    assert len(result.equipment)==1 and result.equipment[0].quantity==1
+    assert result.equipment[0].id=='workcell'
+    assert result.component_bill_of_materials==original.equipment
+    assert all(op.equipment_ids==['workcell'] for op in result.operation_designs)
+    assert {r.id for r in result.machine_requirements}>={f'task-{op.id}' for op in protocol.operations}
+    assert result.machine_requirements[0].source_refs==protocol.operations[0].source_refs
+    assert evaluate_proposal(result,protocol)['equipment_total_usd']==evaluate_proposal(original,protocol)['equipment_total_usd']
+    validate_coverage(result,protocol)
+    assert integrate_workcell(result,protocol)==result
+    assert original.design_scope=='equipment_list'
 
 
 def test_cost_arithmetic_overrides_and_no_verified_decision(protocol):

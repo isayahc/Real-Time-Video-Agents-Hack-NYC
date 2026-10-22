@@ -73,3 +73,26 @@ export async function renderMachineGif(document: unknown,digest: string,progress
     region:{x:0,z:0,width:1,depth:1},size:320,duration:2,fps:10},signal,progress);
   return result.blob;
 }
+
+/** Persistent native renderer for full-length source-action storyboard exports. */
+export function storyboardCapture(document: unknown) {
+  const workspace=hydrateManifest(readManifest(document),[]);
+  if(workspace.items.some((item:any)=>item.missing))throw new Error('Missing storyboard geometry');
+  const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+  renderer.setSize(960,640);renderer.setPixelRatio(1);
+  const world=createWorld(workspace.items.map((item:any)=>item.asset),workspace.room);
+  const bounds=new THREE.Box3();
+  for(let i=0;i<=36;i++){applyWorldPoses(world.groups,evaluateWorkspace(workspace.items,workspace.animation,workspace.animation.duration*i/36));world.groups.forEach((g:any)=>bounds.union(new THREE.Box3().setFromObject(g)));}
+  const center=bounds.getCenter(new THREE.Vector3()),distance=Math.max(1,bounds.getSize(new THREE.Vector3()).length()*1.25);
+  const camera=new THREE.PerspectiveCamera(42,1.5,.01,1000);
+  camera.position.copy(center.clone().add(new THREE.Vector3(.55,1.65,1.35).normalize().multiplyScalar(distance)));camera.lookAt(center);camera.updateProjectionMatrix();camera.updateMatrixWorld();
+  const canvas=window.document.createElement('canvas');canvas.width=960;canvas.height=640;const ctx=canvas.getContext('2d')!;
+  const caption=(document as any).storyboard?.caption||'Source-aligned CAD storyboard - not physical execution';
+  return {frame(time:number,label:string){
+    applyWorldPoses(world.groups,evaluateWorkspace(workspace.items,workspace.animation,time));renderer.render(world.scene,camera);
+    ctx.drawImage(renderer.domElement,0,0);ctx.fillStyle='rgba(16,29,28,.94)';ctx.fillRect(0,0,960,56);ctx.fillRect(0,604,960,36);
+    ctx.fillStyle='#e6f2cb';ctx.font='bold 19px system-ui';ctx.fillText(label,20,34);
+    ctx.fillStyle='#d0dcd5';ctx.font='13px system-ui';ctx.fillText(`SCENARIO 05 | ${time.toFixed(1)}s / ${workspace.animation.duration.toFixed(1)}s | ${caption}`,18,627);
+    return canvas.toDataURL('image/png');
+  },dispose(){world.dispose();renderer.dispose();renderer.forceContextLoss();}};
+}

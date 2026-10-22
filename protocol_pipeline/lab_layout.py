@@ -48,6 +48,8 @@ def plan_lab(manifest: dict, preview: dict, proposal: dict) -> tuple[dict, dict]
     assets = {row['id']: row for row in manifest['assets']}
     operations = proposal['operation_designs']
     records, placed, issues = [], [], []
+    if proposal.get('design_scope') == 'integrated_workcell':
+        issues.append('The integrated machine is placed as one assembly. Task performance, axis travel, grip force and camera coverage remain unverified; successful placement does not close its machine requirements.')
     zones = {zone['id']: zone for zone in TEMPLATE['zones']}
 
     def semantics(instance):
@@ -58,7 +60,12 @@ def plan_lab(manifest: dict, preview: dict, proposal: dict) -> tuple[dict, dict]
         return eq, ops, peers
 
     # Large CAD first; fixtures before smaller dependent tools at equal size.
-    instances = sorted(scene['instances'], key=lambda i: -math.prod(assets[i['assetId']]['dimensions']))
+    payload_ids=set(scene.get('storyboard',{}).get('payload_instance_ids',[]))
+    host_id=scene.get('storyboard',{}).get('host_instance_id')
+    original_host=next((deepcopy(i) for i in scene['instances'] if i['id']==host_id),None)
+    if payload_ids and original_host is None:
+        raise ValueError('Storyboard workpieces require their machine host')
+    instances = sorted([i for i in scene['instances'] if i['id'] not in payload_ids], key=lambda i: -math.prod(assets[i['assetId']]['dimensions']))
     for instance in instances:
         eq, ops, peers = semantics(instance)
         w,h,d = assets[instance['assetId']]['dimensions']
@@ -108,6 +115,16 @@ def plan_lab(manifest: dict, preview: dict, proposal: dict) -> tuple[dict, dict]
             instance['visible'] = False
             issues.append(f"{instance['name']}: no collision-free fit in its permitted zones. Change CAD or the lab template; not silently scaled or moved into the aisle.")
         records.append(record)
+    if original_host:
+        host=next(i for i in scene['instances'] if i['id']==host_id)
+        theta=math.radians(host['rotation'][1]-original_host['rotation'][1])
+        for payload in scene['instances']:
+            if payload['id'] not in payload_ids:continue
+            dx,dy,dz=[a-b for a,b in zip(payload['position'],original_host['position'])]
+            payload['position']=[host['position'][0]+dx*math.cos(theta)+dz*math.sin(theta),host['position'][1]+dy,
+                                 host['position'][2]-dx*math.sin(theta)+dz*math.cos(theta)]
+            payload['rotation'][1]+=math.degrees(theta)
+            payload['visible']=host['visible']
     for zone in TEMPLATE['zones']:
         if not zone['surface_y']: continue
         asset = bench_asset(zone)

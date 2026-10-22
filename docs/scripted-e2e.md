@@ -1,5 +1,18 @@
 # Scripted workbench E2E and versioned snapshots
 
+## Open saved outputs in the existing workbench
+
+Use **Import snapshot · populate this workbench** above the wizard navigation.
+Enter a local snapshot directory/`snapshot.json`/`snapshot.zip` path, or upload a ZIP.
+The importer verifies the indexed checksums and restores the saved run under a new
+ID in the normal saved-run list. Video, frames, extraction, proposal/costs, machine
+CAD, and available scene/lab artifacts open in the same seven-step UI, with scene and lab combined. No inference,
+archived Python execution, or regeneration occurs. Partial snapshots retain failed
+or missing stages; in-flight stages become interrupted failures rather than resuming.
+The original snapshot is not modified. Both scripted E2E snapshots and the full-run
+archive from PR #50 are supported; source-video-only or CAD-only ZIPs are not full
+workbench snapshots. ZIPs may contain at most 1 GiB of expanded content.
+
 Run the full workbench without browser clicks:
 
 ```bash

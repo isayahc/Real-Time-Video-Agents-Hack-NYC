@@ -93,6 +93,9 @@ def generate_machine(proposal_path: Path, equipment_id: str, output: Path, model
         'source_proposal_sha256': sha256(proposal_path),
         'authoring': authoring,
         'provider':provider,
+        'design_scope':proposal.design_scope,
+        'machine_requirements':[item.model_dump() for item in proposal.machine_requirements],
+        'component_bill_of_materials':[item.model_dump() for item in proposal.component_bill_of_materials],
         'visual_feedback':visual_feedback,
         'resume_from': str(resume_from.resolve()) if resume_from and resume_from.is_dir() else None,
     })
@@ -101,8 +104,9 @@ def generate_machine(proposal_path: Path, equipment_id: str, output: Path, model
     environment['FORMA_CAD_ADAPTER_PATH'] = runtime['cad_adapter']
     environment['PYTHONUNBUFFERED'] = '1'
     roots = [str(Path(__file__).resolve().parents[1])]
-    if runtime['source_root']:
-        roots.append(runtime['source_root'])
+    # FORMA_ROOT locates the hardware adapter, not a replacement Python package.
+    # Prepending that checkout shadows the installed/pinned Forma used by preflight
+    # and in-process tests, and may expose an incompatible development API.
     if environment.get('PYTHONPATH'):
         roots.append(environment['PYTHONPATH'])
     environment['PYTHONPATH'] = os.pathsep.join(roots)

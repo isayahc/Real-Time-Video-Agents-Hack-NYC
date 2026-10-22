@@ -18,12 +18,17 @@ from test_opencad_program import program_data
 def offline_api_reference(monkeypatch: pytest.MonkeyPatch) -> None:
     """Keep transport/correction tests independent of a native OpenCAD installation."""
     monkeypatch.setattr('protocol_pipeline.machine_cad.cad_api_reference', lambda: 'Fixture OpenCAD API')
+    monkeypatch.setattr('protocol_pipeline.opencode_machine.uuid.uuid4', lambda: SimpleNamespace(hex='fixture'))
+
+
+def completed_message(info, parts=None):
+    return [{'info':{**info,'role':'assistant','parentID':'msg_fixture','time':{'completed':1}},'parts':parts or []}]
 
 
 def test_opencode_session_accepts_schema_valid_json_text_without_fabricating_output(tmp_path):
-    responses=[['bash','read','write'],{'id':'ses_test'},
-               {'info':{'modelID':'served-model','tokens':{'output':10}},
-                'parts':[{'type':'text','text':json.dumps(program_data())}]}]
+    responses=[['bash','read','write'],{'id':'ses_test'},None,
+               completed_message({'modelID':'served-model','tokens':{'output':10}},
+                [{'type':'text','text':json.dumps(program_data())}])]
     with patch('protocol_pipeline.opencode_machine.ensure_server',return_value='http://local'), \
          patch.object(OpenCodeMachineSession,'request',side_effect=responses) as request:
         session=OpenCodeMachineSession(tmp_path,'chosen-model',{'name':'fixture'})
@@ -70,25 +75,38 @@ def test_native_cad_error_returns_to_the_author_and_corrections_are_bounded(tmp_
 
 
 def test_provider_error_is_explicit_without_a_hidden_retry(tmp_path):
-    responses=[[],{'id':'session'}, {'info':{'error':{'name':'APIError','data':{'statusCode':400,'message':'invalid request'}}}}]
+    responses=[[],{'id':'session'},None,completed_message({'error':{'name':'APIError','data':{'statusCode':400,'message':'invalid request'}}})]
     with patch('protocol_pipeline.opencode_machine.ensure_server',return_value='http://local'), \
          patch.object(OpenCodeMachineSession,'request',side_effect=responses) as request:
         session=OpenCodeMachineSession(tmp_path,'model',{'name':'fixture'})
         with pytest.raises(RuntimeError,match='invalid request'):
             session.complete(CadProgram,'Author',[])
-    assert request.call_count==3
+    assert request.call_count==4
 
 
 def test_gmi_is_explicit_and_does_not_replace_the_default_provider(tmp_path):
     from protocol_pipeline.machines import MachineOptions
     assert MachineOptions(model='existing').provider=='nebius'
     assert MachineOptions(model='openai/gpt-6.1-sol',provider='gmi').provider=='gmi'
-    responses=[[],{'id':'gmi-session'},{'info':{'modelID':'openai/gpt-6.1-sol'},'parts':[{'type':'text','text':json.dumps(program_data())}]}]
+    responses=[[],{'id':'gmi-session'},None,completed_message({'modelID':'openai/gpt-6.1-sol'},[{'type':'text','text':json.dumps(program_data())}])]
     with patch('protocol_pipeline.opencode_machine.ensure_server',return_value='http://local'), \
          patch.object(OpenCodeMachineSession,'request',side_effect=responses) as request:
         session=OpenCodeMachineSession(tmp_path,'openai/gpt-6.1-sol',{'name':'fixture'},provider='gmi')
         session.complete(CadProgram,'Author',[])
-    assert request.call_args.args[2]['model']=={'providerID':'gmi','modelID':'openai/gpt-6.1-sol'}
+    assert request.call_args_list[2].args[2]['model']=={'providerID':'gmi','modelID':'openai/gpt-6.1-sol'}
+
+
+def test_async_authoring_survives_poll_timeout_without_resubmitting(tmp_path,monkeypatch):
+    monkeypatch.setattr('protocol_pipeline.opencode_machine.time.sleep',lambda _:None)
+    answer=completed_message({'modelID':'model'},[{'type':'text','text':json.dumps(program_data())}])
+    with patch('protocol_pipeline.opencode_machine.ensure_server',return_value='http://local'),patch.object(OpenCodeMachineSession,'request',side_effect=[[],{'id':'session'},None,TimeoutError('read timed out'),[],answer]) as request:
+        session=OpenCodeMachineSession(tmp_path,'model',{'name':'fixture'})
+        result,_=session.complete(CadProgram,'Author',[])
+    assert len(result.components)==2
+    assert len([c for c in request.call_args_list if c.args[1].endswith('prompt_async')])==1
+    record=json.loads(next(tmp_path.glob('opencode-request-*.json')).read_text())
+    assert record['state']=='completed'
+    assert record['message_id']=='msg_fixture'
 
 
 def test_forma_context_also_uses_opencode_and_preserves_previous_source(
