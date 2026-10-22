@@ -1,5 +1,61 @@
 # Human Procedure → Machine Procedure
 
+## Demo: video in → one integrated machine out
+
+| Input video · researcher procedure | Output example · integrated-machine animation |
+| --- | --- |
+| [![Original research procedure — CREOLab / Toyota CRDL](docs/media/scenario05-input.gif)](docs/media/scenario05-input.mp4) | [![Watch the machine stack copper, paper and copper](docs/media/stacking-output.gif)](docs/media/stacking-output.mp4) |
+| **[Watch input MP4](docs/media/scenario05-input.mp4)** · **[Download input GIF](docs/media/scenario05-input.gif)** · 17.6 seconds | **[Watch output MP4](docs/media/stacking-output.mp4)** · **[Download GIF](docs/media/stacking-output.gif)** · 24 seconds |
+
+**Input footage credit:** [CREOLab — Toyota Central R&D Labs., Inc. (Toyota CRDL)](https://github.com/ToyotaCRDL/CREOLab#dataset), clip `scenario05_decoy0.mp4`. The input GIF preserves the full clip at reduced resolution/frame rate and adds an attribution banner. Original footage is not our work; upstream noncommercial research terms apply.
+
+**The output demo:** place a copper plate on the receiving paper, pick a paper separator
+from the visible paper supply and place it on the copper, then add the second copper
+plate. Final stack: **paper → copper → paper → copper**.
+
+The machine is one shared-base assembly with **12 named CAD bodies**, designed against
+**11 task/capability requirements**. Its static CAD envelope is **1.100 × 0.700 × 0.445 m**,
+with a **0.77 m²** footprint. The workflow is available in the original workbench:
+Video → Models → Analysis → Results → Design → Machine → Scene & lab.
+
+**Provenance:** the input is CREOLab `scenario05_decoy0.mp4` ([upstream dataset](https://github.com/ToyotaCRDL/CREOLab#dataset), noncommercial research terms).
+The output is a **user-directed stacking demonstration**, using live-model-authored CAD
+with recorded local geometry/placement refinements and authored animation. It is not
+an unedited automatic reconstruction, physical execution, or a measured 24-second machine cycle.
+
+### Sample prices and processing-cost scenario
+
+These are **saved model planning assumptions—not supplier quotes or measured costs**.
+The component allowances were carried forward into the integrated design and need
+re-costing for a final bill of materials.
+
+| Datapoint | Sample value | Scope |
+| --- | ---: | --- |
+| Equipment allowance | **$29,000** | Aggregate component estimate for one workcell |
+| Installation | **$2,000** | Assumed deployment allowance |
+| Engineering integration | **$12,000** | Assumed tooling, vision and programming work |
+| Training | **$1,000** | Assumed setup/training allowance |
+| Total estimated deployment | **$44,000** | Equipment + installation + integration + training |
+| Manual processing cost | **$0.3534/output** | Labor + electricity + consumables; materials excluded |
+| Machine processing cost | **$0.0554/output** | Same processing-only scope |
+| Annual processing saving | **$980.33/year** | At 10,000 outputs/year, after fixed-overhead difference |
+| Conditional simple payback | **44.88 years** | Exceeds the assumed seven-year equipment life |
+
+This scenario assumes **$30/hour labor**, **40 seconds manual labor vs. 3 seconds machine
+attendance per output**, and **$500 vs. $2,500 annual fixed overhead**. Material prices,
+loss differences and equivalent accepted outputs remain unverified; full costs stay
+unknown. The sample assumptions do **not** establish an attractive ROI. The requested
+stacking sequence needs its own measured operating baseline before an investment decision.
+
+<details>
+<summary>View the sample pricing dashboard</summary>
+
+![Processing-only cost dashboard with assumptions and conditional payback](docs/media/sample-prices.png)
+
+</details>
+
+---
+
 Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus planning. Existing designs and estimates remain in [snapshots/v1](snapshots/v1/) and [snapshots/v2](snapshots/v2/); the [Nebius epic](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/16) tracks the broader product.
 
 ## What the implemented pipeline does
@@ -14,7 +70,7 @@ For automated video-to-CAD-to-lab runs with the requested Nebius/GMI models, use
 6. Stores possible off-camera preparation separately as unverified candidates. Numerical parameters, costs, labor, power and byproducts require separate sourced engineering inputs; unknowns stay null.
 7. Exports typed apparatus requirements consumed by the Forma/OpenIndustries build command. Plant simulation and automatic cost/resource adapters remain subsequent integrations; the local evaluator accepts separately supplied resource/cost inputs.
 
-This is sampled-frame visual reasoning, not continuous YOLO tracking, measured motion/force, physical validation or proof of experiment success. Merely naming a tool does not establish its function. Vision and compiler models are preset; availability still depends on your account. See [model presets and NVIDIA verification](docs/nebius-model-presets.md). Live Nebius text extraction has passed a smoke test; live video inference remains unverified. Tests exercise deterministic contracts and local ffmpeg ingestion.
+This is sampled-frame visual reasoning, not continuous YOLO tracking, measured motion/force, physical validation or proof of experiment success. Merely naming a tool does not establish its function. Vision and compiler models are preset; availability still depends on your account. See [model presets and NVIDIA verification](docs/nebius-model-presets.md). The demo above includes live video extraction and live-model CAD authoring with retained corrections; it does not establish general extraction accuracy or physical feasibility. Tests also exercise deterministic contracts and native integration.
 
 ## Sample protocol videos
 
@@ -55,7 +111,7 @@ python -m protocol_pipeline ingest \
   --output runs/t1-001 --frames 8
 ```
 
-Ingestion is local and makes no model calls. It refuses an existing output directory and mismatched video/annotation take filenames. No CREOLab data is bundled; obtain authorized data from the [upstream dataset](https://github.com/ToyotaCRDL/CREOLab). Its source license limits dataset/code use to noncommercial research; confirm applicable permission before uploading or redistributing source assets.
+Ingestion is local and makes no model calls. It refuses an existing output directory and mismatched video/annotation take filenames. The demo clip above is included as an example; obtain additional authorized data from the [upstream dataset](https://github.com/ToyotaCRDL/CREOLab). Its source license limits dataset/code use to noncommercial research.
 
 ## Live analysis
 

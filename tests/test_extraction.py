@@ -163,6 +163,37 @@ class ExtractionTests(unittest.TestCase):
             with patch("protocol_pipeline.pipeline.urlopen",side_effect=[BytesIO(json.dumps(value).encode()) for value in envelopes]) as calls:
                 extract_protocol(NebiusProvider(),"compiler-model",root/"extracted",run=run,vision_model="vision-model")
             self.assertEqual(calls.call_count,2)
+            # Actual transport parsing must enter the same bounded correction loop
+            # as evidence validation, including schema echo + a second JSON value.
+            for malformed in [json.dumps(ObservationGraph.model_json_schema()) + '\n' + json.dumps(graph),
+                              '{"objects": "wrong type"}']:
+                with self.subTest(malformed=malformed[:30]):
+                    def response(text):
+                        return BytesIO(json.dumps({'model':'vision-model','choices':[
+                            {'finish_reason':'stop','message':{'content':text}}]}).encode())
+                    output = root / ('corrected-' + str(len(list(root.iterdir()))))
+                    stages = []
+                    with patch('protocol_pipeline.pipeline.urlopen', side_effect=[response(malformed), response(json.dumps(graph)), response(json.dumps(spec))]) as corrected_calls:
+                        extract_protocol(NebiusProvider(), 'compiler-model', output, run=run,
+                                         vision_model='vision-model', progress=stages.append)
+                    self.assertEqual(corrected_calls.call_count, 3)
+                    self.assertIn('correcting_observations', stages)
+                    candidate = json.loads((output/'observation-candidate-1.json').read_text())
+                    self.assertEqual(candidate['raw_response'], malformed)
+                    self.assertEqual(candidate['trace']['response_json_text'], malformed)
+                    self.assertNotIn('FIXTURE_KEY', json.dumps(candidate))
+                    correction = json.loads(corrected_calls.call_args_list[1].args[0].data)['messages'][1]['content']
+                    self.assertTrue(any(part['type']=='image_url' for part in correction))
+                    self.assertIn(malformed, correction[-1]['text'])
+                    self.assertTrue((output/'compiled/report.md').exists())
+                    failed = root / ('malformed-' + str(len(list(root.iterdir()))))
+                    with patch('protocol_pipeline.pipeline.urlopen', side_effect=[response(malformed), response(malformed)]) as failed_calls:
+                        with self.assertRaisesRegex(ValueError, 'invalid ObservationGraph JSON'):
+                            extract_protocol(NebiusProvider(), 'compiler-model', failed, run=run, vision_model='vision-model')
+                    self.assertEqual(failed_calls.call_count, 2)
+                    self.assertTrue((failed/'observation-candidate-2.json').exists())
+                    self.assertFalse((failed/'observations.json').exists())
+                    self.assertFalse((failed/'compiled').exists())
             for call in calls.call_args_list:
                 self.assertNotIn("SECRET_GROUND_TRUTH_DO_NOT_SEND",call.args[0].data.decode())
             observed=ObservationGraph.model_validate(graph)
