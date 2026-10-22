@@ -22,3 +22,7 @@ include = ["protocol_pipeline*"]
 [tool.setuptools.package-data]
 protocol_pipeline = ["*.mts", "*.mjs", "*.tsx", "web_static/*"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["runs", "snapshots", ".git", ".venv", "node_modules"]
+

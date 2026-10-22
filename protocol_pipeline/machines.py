@@ -14,6 +14,7 @@ from typing import Literal
 from pydantic import Field
 
 from .autonomy import AutonomyProposal
+from .cad_runtime import cad_adapter_path, forma_source
 from .design import write_json
 from .models import StrictModel
 from .pipeline import sha256
@@ -56,10 +57,15 @@ def process_alive(pid: int) -> bool:
 
 
 def forma_runtime() -> dict:
+    """Check installed geometry packages and the adapter used by actual native builds."""
     installed = importlib.util.find_spec('forma_core') is not None
-    source = Path(os.getenv('FORMA_ROOT') or Path(__file__).resolve().parents[2] / 'forma-oss')
-    adapter = Path(os.getenv('FORMA_CAD_ADAPTER_PATH') or source / '.agents/skills/forma-hardware/scripts/cad.py')
-    ready = installed and adapter.is_file() and importlib.util.find_spec('opencad') is not None and importlib.util.find_spec('cadquery') is not None
+    source = forma_source()
+    try:
+        adapter = cad_adapter_path()
+    except ValueError as error:
+        return {'available': False, 'source_root': str(source) if (source / 'forma_core').is_dir() else None,
+                'cad_adapter': None, 'message': str(error)}
+    ready = installed and importlib.util.find_spec('opencad') is not None and importlib.util.find_spec('cadquery') is not None
     return {'available': ready, 'source_root': str(source) if (source / 'forma_core').is_dir() else None,
             'cad_adapter': str(adapter) if adapter.is_file() else None,
             'message': 'Forma Core and its native CAD adapter are available.' if ready else

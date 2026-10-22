@@ -27,6 +27,16 @@ python -m playwright install chromium
 
 Install FFmpeg/FFprobe, Node.js, OpenCode CLI, and the native Forma/OpenCAD and OpenIndustries dependencies described in [the workbench guide](video-workbench.md). Linux may also require `python -m playwright install-deps chromium`. Set `FORMA_ROOT` to the Forma checkout supplying `cad.py`, and `OPENINDUSTRIES_ROOT` to a compatible OpenIndustries checkout with npm dependencies installed.
 
+Installing the Forma Python package may not install its hardware skill. Both preflight and direct CAD builds now use the same resolver: `FORMA_CAD_ADAPTER_PATH`, then `FORMA_ROOT` (or the sibling `forma-oss` checkout), then installed-package/cwd skill locations. An explicitly invalid adapter path is an error. On Windows PowerShell, for your existing checkout:
+
+```powershell
+$env:FORMA_ROOT = Join-Path $env:USERPROFILE 'forma-oss'
+# Alternatively, select the adapter directly:
+$env:FORMA_CAD_ADAPTER_PATH = Join-Path $env:FORMA_ROOT '.agents\skills\forma-hardware\scripts\cad.py'
+```
+
+Native CAD exporters run in a short temporary directory instead of the deeply nested snapshot attempt directory. All generated artifacts and partial failure/timeout diagnostics are copied back before cleanup. If your system temp directory itself is long, select a short writable root such as `$env:WORKBENCH_CAD_TEMP_ROOT = 'C:\cad-tmp'`. The worker creates that directory if needed. It exports and validates the complete STEP assembly and each component's native mesh itself; adapters without optional `articulated_bodies` metadata remain usable. The adapter's own STEP/metadata are retained separately as diagnostics, and cannot replace the complete assembly output.
+
 Set both `NEBIUS_API_KEY` (or `NEBIUS_TOKEN_FACTORY_KEY`) and `GMI_API_KEY` in your environment or repository `.env`. The script loads `.env` from the current directory and does not copy it into snapshots. The repository `opencode.json` registers the GMI model. The managed OpenCode server starts automatically if its CLI is on PATH, with an absolute `OPENCODE_CONFIG` path so external snapshot directories work too. To reuse a server, start it with this repository's `opencode.json` and set `MACHINE_OPENCODE_URL`. Restart existing servers after configuration changes.
 
 Check installation and account catalogs without inference:
@@ -94,3 +104,13 @@ WORKBENCH_NATIVE_E2E_TESTS=1 WORKBENCH_NATIVE_CAD_TESTS=1 \
 ```
 
 The native test verifies exact provider/model routing, real STEP output, matched before/after cameras, changed render hashes, accepted correction, lab renders and final checksums. It tests integration, not the quality or availability of live models.
+
+Pytest discovery is restricted to `tests/`; expanded historical snapshots under `runs/` or `snapshots/` are excluded. The symlink tampering test skips only when Windows reports missing symlink privileges (WinError 1314); it still runs on capable systems. No privilege or Developer Mode changes are required by the suite.
+
+Equivalent PowerShell native-test invocation:
+
+```powershell
+$env:WORKBENCH_NATIVE_E2E_TESTS = '1'
+$env:WORKBENCH_NATIVE_CAD_TESTS = '1'
+python -m pytest -q
+```

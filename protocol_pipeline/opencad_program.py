@@ -14,13 +14,16 @@ import json
 import math
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
+import tempfile
 from typing import Any
 
 from pydantic import Field, model_validator
 
 from .models import StrictModel
+from .cad_runtime import cad_adapter_path
 
 MODELING_METHODS = frozenset({
     'box', 'cylinder', 'sphere', 'cone', 'torus', 'extrude', 'revolve', 'loft', 'sweep',
@@ -166,21 +169,50 @@ def execute_program(program_path: Path, directory: Path) -> dict[str, Any]:
         part.export_stl(str(directory / f'component-{component.id}.stl'))
         native_shapes.append(shape)
         shape_ids.append(part.shape_id)
-        bodies.append({**component.model_dump(), 'shape_id': part.shape_id})
+        mesh = part.context.kernel.tessellate(part.shape_id, deflection=0.1)
+        bodies.append({**component.model_dump(), 'shape_id': part.shape_id,
+                       'coordinate_system': 'z-up', 'units': 'mm',
+                       'mesh': {'shapeId': part.shape_id, 'name': component.name,
+                                'vertices': mesh.vertices, 'faces': mesh.faces}})
         checks.append({'id': component.id, 'native_valid': True, 'solids': len(solids),
                        'volume_mm3': volume, 'dimensions_mm': dimensions})
-    cq.exporters.export(cq.Compound.makeCompound(native_shapes), str(directory / 'machine.stl'))
+    validate_body_meshes(program, bodies)
+    assembly = cq.Compound.makeCompound(native_shapes)
+    cq.exporters.export(assembly, str(directory / 'machine.step'))
+    cq.exporters.export(assembly, str(directory / 'machine.stl'))
+    reopened = cq.importers.importStep(str(directory / 'machine.step')).val()
+    if not reopened.isValid() or len(reopened.Solids()) != sum(item['solids'] for item in checks):
+        raise ValueError('Native STEP round-trip did not preserve every component solid')
+    (directory / 'machine-bodies.json').write_text(json.dumps({
+        'schema_version': 1, 'source': 'native OpenCAD tessellation of validated component solids',
+        'bodies': bodies}, indent=2, allow_nan=False), encoding='utf-8')
     (directory / 'machine-validation.json').write_text(json.dumps({
         'status': 'native_geometry_valid', 'components': checks, 'physical_validation': False,
         'scope': 'OCCT solid validity, positive volume, finite dimensions, component identity and native exports; '
                  'assembly compatibility, collisions, reachability and fabrication remain unverified.'}, indent=2), encoding='utf-8')
+    # Newer Forma adapters also use these globals. Our artifact contract does not
+    # depend on the installed adapter recognizing its optional preview extension.
     return {'FORMA_EXPORT_SHAPE_IDS': shape_ids, 'FORMA_PREVIEW_BODIES': bodies}
 
 
-def build_program(program: CadProgram, directory: Path) -> dict[str, Any]:
-    """Compile once through Forma, retaining the real errors and named-body meshes."""
-    from forma_core.workspaces.projects.cad_generation import _adapter_path
+def validate_body_meshes(program: CadProgram, bodies: Any) -> None:
+    """Require one finite, indexed native triangle mesh per declared component."""
+    if not isinstance(bodies, list) or any(not isinstance(body, dict) for body in bodies):
+        raise ValueError('OpenCAD body metadata must be a list of component objects')
+    if len(bodies) != len(program.components) or {body.get('id') for body in bodies} != {c.id for c in program.components}:
+        raise ValueError('OpenCAD did not produce a native mesh for every component ID')
+    for body in bodies:
+        mesh = body.get('mesh') or {}
+        vertices, faces = mesh.get('vertices'), mesh.get('faces')
+        if (not isinstance(vertices, list) or len(vertices) < 9 or len(vertices) % 3
+                or any(not isinstance(v, (int, float)) or isinstance(v, bool) or not math.isfinite(v) for v in vertices)
+                or not isinstance(faces, list) or len(faces) < 3 or len(faces) % 3
+                or any(not isinstance(i, int) or isinstance(i, bool) or i < 0 or i >= len(vertices) // 3 for i in faces)):
+            raise ValueError(f'{body["id"]}: OpenCAD native mesh must contain finite vertices and valid triangle indices')
 
+
+def build_program(program: CadProgram, directory: Path) -> dict[str, Any]:
+    """Build in a short native workspace, then retain all artifacts and diagnostics."""
     validate_program(program)
     directory = directory.resolve()
     directory.mkdir(parents=True, exist_ok=False)
@@ -190,7 +222,8 @@ def build_program(program: CadProgram, directory: Path) -> dict[str, Any]:
     wrapper = directory / '_export.py'
     wrapper.write_text('from pathlib import Path\n'
                        'from protocol_pipeline.opencad_program import execute_program\n'
-                       f'globals().update(execute_program(Path({str(program_path)!r}), Path({str(directory)!r})))\n',
+                       'root = Path(__file__).resolve().parent\n'
+                       'globals().update(execute_program(root / "program.json", root))\n',
                        encoding='utf-8')
     # Provider credentials and unrelated app configuration never enter generated CAD execution.
     runtime_keys = ('PATH', 'SYSTEMROOT', 'WINDIR', 'TEMP', 'TMP', 'HOME', 'USERPROFILE',
@@ -200,16 +233,36 @@ def build_program(program: CadProgram, directory: Path) -> dict[str, Any]:
     environment['PYTHONPATH'] = os.pathsep.join(filter(None, [
         str(Path(__file__).resolve().parents[1]), os.environ.get('PYTHONPATH', '')]))
     environment['PYTHONIOENCODING'] = 'utf-8'
-    command = [sys.executable, str(_adapter_path()), 'build', str(wrapper),
-               str(directory / 'machine.step'), '--tree-output', str(directory / 'machine.tree.json')]
-    try:
-        result = subprocess.run(command, cwd=directory, env=environment, capture_output=True,
-                                text=True, encoding='utf-8', timeout=BUILD_TIMEOUT_SECONDS, check=False)
-    except subprocess.TimeoutExpired as error:
-        (directory / 'build-error.txt').write_text('OpenCAD build exceeded 180 seconds', encoding='utf-8')
-        raise RuntimeError('OpenCAD build exceeded 180 seconds; simplify the failing operations') from error
-    (directory / 'build.stdout.log').write_text(result.stdout, encoding='utf-8')
-    (directory / 'build.stderr.log').write_text(result.stderr, encoding='utf-8')
+    adapter = cad_adapter_path()
+    # Native OCCT/tree writers need short paths even if Python can access a long
+    # Windows snapshot path. Never run native exporters inside the snapshot tree.
+    temporary_root = os.getenv('WORKBENCH_CAD_TEMP_ROOT')
+    if temporary_root:
+        Path(temporary_root).expanduser().mkdir(parents=True, exist_ok=True)
+        temporary_root = str(Path(temporary_root).expanduser().resolve())
+    with tempfile.TemporaryDirectory(prefix='ocad-', dir=temporary_root) as temporary:
+        work = Path(temporary).resolve()
+        for source in (program_path, directory / 'machine.py', wrapper):
+            shutil.copyfile(source, work / source.name)
+        command = [sys.executable, str(adapter), 'build', str(work / '_export.py'),
+                   str(work / 'adapter.step'), '--tree-output', str(work / 'machine.tree.json')]
+        try:
+            result = subprocess.run(command, cwd=work, env=environment, capture_output=True,
+                                    text=True, encoding='utf-8', timeout=BUILD_TIMEOUT_SECONDS, check=False)
+            (work / 'build.stdout.log').write_text(result.stdout, encoding='utf-8')
+            (work / 'build.stderr.log').write_text(result.stderr, encoding='utf-8')
+        except subprocess.TimeoutExpired as error:
+            (work / 'build-error.txt').write_text('OpenCAD build exceeded 180 seconds', encoding='utf-8')
+            for name, content in (('stdout', error.stdout), ('stderr', error.stderr)):
+                if content:
+                    text = content.decode('utf-8', errors='replace') if isinstance(content, bytes) else content
+                    (work / f'build.{name}.log').write_text(text, encoding='utf-8')
+            raise RuntimeError('OpenCAD build exceeded 180 seconds; simplify the failing operations') from error
+        finally:
+            # Include partial outputs on failures/timeouts, before temp cleanup.
+            for artifact in work.iterdir():
+                if artifact.is_file():
+                    shutil.copyfile(artifact, directory / artifact.name)
     if result.returncode:
         raise RuntimeError(f'OpenCAD native build failed: {(result.stderr or result.stdout)[-6000:]}')
     try:
@@ -221,9 +274,13 @@ def build_program(program: CadProgram, directory: Path) -> dict[str, Any]:
     for name in ('machine.step', 'machine.stl', 'machine.tree.json', 'machine-validation.json'):
         if not (directory / name).is_file() or (directory / name).stat().st_size == 0:
             raise ValueError(f'OpenCAD did not produce {name}')
-    bodies = summary.get('articulated_bodies') or []
-    if len(bodies) != len(program.components) or any(
-        not body.get('mesh', {}).get('vertices') or not body.get('mesh', {}).get('faces') for body in bodies
-    ):
-        raise ValueError('OpenCAD did not produce a native mesh for every component')
-    return summary
+    bodies_path = directory / 'machine-bodies.json'
+    if not bodies_path.is_file():
+        raise ValueError('OpenCAD did not produce native component tessellation metadata')
+    bodies = json.loads(bodies_path.read_text(encoding='utf-8'))['bodies']
+    validate_body_meshes(program, bodies)
+    return {'valid': True, 'path': str(directory / 'machine.step'),
+            'tree_path': str(directory / 'machine.tree.json'), 'model_path': str(wrapper),
+            'opencad_version': summary.get('opencad_version'), 'features': summary.get('features'),
+            'articulated_bodies': bodies, 'adapter_metadata': summary,
+            'mesh_source': 'native OpenCAD tessellation; independent of adapter preview metadata'}

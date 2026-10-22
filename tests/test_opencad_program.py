@@ -10,7 +10,7 @@ from typing import Any
 
 import pytest
 
-from protocol_pipeline.opencad_program import CadProgram, build_program, validate_program
+from protocol_pipeline.opencad_program import CadProgram, build_program, validate_program, validate_body_meshes
 
 
 def program_data() -> dict[str, Any]:
@@ -52,10 +52,7 @@ def test_native_build_is_bounded_and_does_not_inherit_provider_credentials(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Check the actual subprocess boundary without requiring the native runtime."""
-    # The module import is isolated so the ordinary offline suite needs no Forma install.
-    import sys
-    adapter = SimpleNamespace(_adapter_path=lambda: Path('/native/cad.py'))
-    monkeypatch.setitem(sys.modules, 'forma_core.workspaces.projects.cad_generation', adapter)
+    monkeypatch.setattr('protocol_pipeline.opencad_program.cad_adapter_path', lambda: Path('/native/cad.py'))
     monkeypatch.setenv('NEBIUS_API_KEY', 'must-not-reach-cad')
     monkeypatch.setenv('GMI_API_KEY', 'must-not-reach-cad')
     monkeypatch.setenv('DATABASE_URL', 'must-not-reach-cad')
@@ -65,6 +62,8 @@ def test_native_build_is_bounded_and_does_not_inherit_provider_credentials(
         assert kwargs['timeout'] == 180
         assert not {'NEBIUS_API_KEY', 'GMI_API_KEY', 'DATABASE_URL'}.intersection(kwargs['env'])
         assert command[2] == 'build'
+        assert kwargs['cwd'] != tmp_path / 'attempt'
+        assert Path(command[3]).parent == kwargs['cwd']
         return SimpleNamespace(returncode=1, stdout='', stderr='OCCT: invalid loft section')
 
     monkeypatch.setattr('protocol_pipeline.opencad_program.subprocess.run', run)
@@ -72,6 +71,86 @@ def test_native_build_is_bounded_and_does_not_inherit_provider_credentials(
         build_program(CadProgram.model_validate(program_data()), tmp_path / 'attempt')
     assert (tmp_path / 'attempt/machine.py').read_text() == program_data()['python_source']
     assert 'invalid loft' in (tmp_path / 'attempt/build.stderr.log').read_text()
+
+
+def test_short_build_workspace_preserves_timeout_diagnostics(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Native code sees short paths; a deep snapshot retains partial artifacts on timeout."""
+    import subprocess
+
+    output = tmp_path
+    while len(str(output)) < 200:
+        output = output / 'deep-snapshot'
+    output = output / 'attempt'
+    monkeypatch.setenv('WORKBENCH_CAD_TEMP_ROOT', str(tmp_path / 'native'))
+    monkeypatch.setattr('protocol_pipeline.opencad_program.cad_adapter_path', lambda: Path('/native/cad.py'))
+    workspaces = []
+
+    def run(command: list[str], **kwargs: Any) -> None:
+        """Emulate a native Windows writer with a path-length limit and a timeout."""
+        work = kwargs['cwd']
+        workspaces.append(work)
+        assert all(len(argument) < 240 for argument in command[3:] if argument != '--tree-output')
+        (work / 'partial.step').write_text('partial native output')
+        raise subprocess.TimeoutExpired(command, 180, output=b'partial stdout', stderr=b'native stalled')
+
+    monkeypatch.setattr('protocol_pipeline.opencad_program.subprocess.run', run)
+    with pytest.raises(RuntimeError, match='exceeded 180 seconds'):
+        build_program(CadProgram.model_validate(program_data()), output)
+    assert (output / 'partial.step').read_text() == 'partial native output'
+    assert (output / 'build.stderr.log').read_text() == 'native stalled'
+    assert not workspaces[0].exists()
+
+
+@pytest.mark.parametrize('problem', ['missing', 'duplicate', 'nan', 'index'])
+def test_component_mesh_contract_rejects_partial_or_invalid_exports(problem: str) -> None:
+    """Compatibility does not weaken identity, finiteness or topology validation."""
+    program = CadProgram.model_validate(program_data())
+    bodies = [{'id': c.id, 'mesh': {'vertices': [0, 0, 0, 1, 0, 0, 0, 1, 0], 'faces': [0, 1, 2]}}
+              for c in program.components]
+    if problem == 'missing':
+        bodies.pop()
+    elif problem == 'duplicate':
+        bodies[1]['id'] = bodies[0]['id']
+    elif problem == 'nan':
+        bodies[0]['mesh']['vertices'][0] = float('nan')
+    else:
+        bodies[0]['mesh']['faces'][0] = 99
+    with pytest.raises(ValueError):
+        validate_body_meshes(program, bodies)
+
+
+@pytest.mark.skipif(os.getenv('WORKBENCH_NATIVE_CAD_TESTS') != '1', reason='Opt-in native CAD runtime test')
+def test_older_adapter_without_preview_or_multibody_metadata(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Real native geometry survives an adapter exposing only its final shape."""
+    import cadquery as cq
+    from protocol_pipeline.cad_runtime import cad_adapter_path
+
+    adapter = cad_adapter_path()
+    legacy = tmp_path / 'legacy_adapter.py'
+    legacy.write_text(
+        'import os, runpy, sys\n'
+        f'api = runpy.run_path({str(adapter)!r}, run_name="legacy_test_adapter")\n'
+        'original = runpy.run_path\n'
+        'def load_model(*args, **kwargs):\n'
+        '    result = original(*args, **kwargs)\n'
+        '    result.pop("FORMA_PREVIEW_BODIES", None)\n'
+        '    result.pop("FORMA_EXPORT_SHAPE_IDS", None)\n'
+        '    return result\n'
+        'runpy.run_path = load_model\n'
+        'code = api["main"]()\n'
+        'sys.stdout.flush()\n'
+        'sys.stderr.flush()\n'
+        'os._exit(code)\n', encoding='utf-8')
+    monkeypatch.setenv('FORMA_CAD_ADAPTER_PATH', str(legacy))
+    output = tmp_path / 'legacy-output'
+    summary = build_program(CadProgram.model_validate(program_data()), output)
+    assert summary['adapter_metadata'].get('articulated_bodies') is None
+    assert len(cq.importers.importStep(str(output / 'adapter.step')).val().Solids()) == 1
+    assert len(cq.importers.importStep(str(output / 'machine.step')).val().Solids()) == 2
+    assert {body['id'] for body in summary['articulated_bodies']} == {'mount', 'collar'}
+    mount = cq.importers.importStep(str(output / 'component-mount.step')).val()
+    assert not mount.isInside((-25, -15, 4))
+    assert mount.isInside((0, 20, 4))
 
 
 @pytest.mark.skipif(os.getenv('WORKBENCH_NATIVE_CAD_TESTS') != '1', reason='Opt-in native CAD runtime test')

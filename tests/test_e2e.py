@@ -106,7 +106,12 @@ def test_snapshot_tampering_rejected_before_new_run(tmp_path: Path, stub_pipelin
         document['files'][0]['path'] = '../video.mp4'
     elif mutation == 'symlink':
         source.unlink()
-        source.symlink_to(video)
+        try:
+            source.symlink_to(video)
+        except OSError as error:
+            if getattr(error, 'winerror', None) == 1314:
+                pytest.skip('Windows session lacks symlink creation privilege (WinError 1314)')
+            raise
     else:
         document['schema_version'] = 99
     atomic_json(manifest, document)
