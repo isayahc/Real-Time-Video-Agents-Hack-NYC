@@ -23,6 +23,21 @@ HEADERS = {'X-Workbench-Request': '1'}
 PARAMS = {'filename': 'fixture.mp4', 'model': 'fixture-compiler', 'vision_model': 'fixture-vision', 'frame_count': 2}
 
 
+def test_status_read_retries_transient_windows_access(monkeypatch: Any, tmp_path: Path) -> None:
+    from unittest.mock import Mock
+    from protocol_pipeline.web import read_json
+    read = Mock(side_effect=[PermissionError('busy'), '{"stage":"completed"}'])
+    monkeypatch.setattr(Path, 'read_text', read)
+    monkeypatch.setattr('protocol_pipeline.web.time.sleep', lambda _: None)
+    assert read_json(tmp_path / 'job.json') == {'stage': 'completed'}
+    assert read.call_count == 2
+    read.side_effect = PermissionError('persistent denial')
+    read.reset_mock()
+    with pytest.raises(PermissionError):
+        read_json(tmp_path / 'job.json')
+    assert read.call_count == 4
+
+
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required for frontend tests')
 def test_frontend_model_workflow() -> None:
     """Run the shipped JavaScript through preset, override and persistence flows."""
@@ -85,6 +100,81 @@ def start(client: TestClient, content: bytes) -> str:
     response = client.post('/api/runs', params=PARAMS, headers=HEADERS, content=content)
     assert response.status_code == 202, response.text
     return response.json()['id']
+
+
+def test_account_catalog_is_cached_per_provider(client: TestClient, monkeypatch: Any) -> None:
+    from types import SimpleNamespace
+    calls = []
+
+    def provider(name: str) -> Any:
+        def available_models() -> list[str]:
+            calls.append(name)
+            return [f'{name}/model-a', f'{name}/model-b']
+        return SimpleNamespace(client=SimpleNamespace(available_models=available_models))
+
+    monkeypatch.setattr('protocol_pipeline.web.create_provider', provider)
+    for name in ('nebius', 'gmi'):
+        for _ in range(2):
+            response = client.get(f'/api/models/{name}')
+            assert response.status_code == 200
+            assert response.json() == {'provider': name, 'models': [f'{name}/model-a', f'{name}/model-b']}
+    assert calls == ['nebius', 'gmi']
+    assert client.get('/api/models/unknown').status_code == 422
+
+
+def test_gmi_analysis_uses_selected_provider(client: TestClient, video: bytes, monkeypatch: Any) -> None:
+    calls = []
+    replay = client.app.state.store.provider_factory()
+
+    def provider(name: str) -> Any:
+        calls.append(name)
+        return replay
+
+    monkeypatch.setattr('protocol_pipeline.web.create_provider', provider)
+    response = client.post('/api/runs', params={**PARAMS, 'provider': 'gmi'}, headers=HEADERS, content=video)
+    assert response.status_code == 202
+    assert response.json()['provider'] == 'gmi'
+    assert wait_job(client, response.json()['id'])['stage'] == 'completed'
+    assert calls == ['gmi']
+
+
+@pytest.mark.parametrize('repair', [True, False])
+def test_observation_correction_retains_candidates(client: TestClient, video: bytes, repair: bool) -> None:
+    from protocol_pipeline.models import ObservationGraph
+    original = client.app.state.store.provider_factory
+    calls = []
+
+    class Provider:
+        name = 'test-live'
+        live = True
+
+        def __init__(self) -> None:
+            self.replay = original()
+            self.graph = None
+
+        def complete(self, model: str, contract: Any, instruction: str, content: Any) -> Any:
+            if contract is ObservationGraph:
+                calls.append(content)
+                if self.graph is None:
+                    self.graph, self.trace = self.replay.complete(model, contract, instruction, content)
+                graph = self.graph.model_copy(deep=True)
+                if len(calls) == 1 or not repair:
+                    graph.actions[0].start_s = 0.5
+                return graph, self.trace
+            return self.replay.complete(model, contract, instruction, content)
+
+    client.app.state.store.provider_factory = Provider
+    run_id = start(client, video)
+    job = wait_job(client, run_id)
+    assert job['stage'] == ('completed' if repair else 'failed')
+    assert len(calls) == 2
+    assert 'frame_0000' in calls[1][-1]['text']
+    assert any(event['stage'] == 'correcting_observations' for event in job['events'])
+    output = client.app.state.store.path(run_id) / 'extracted'
+    assert (output / 'observation-candidate-1.json').is_file()
+    assert (output / 'observation-candidate-2.json').is_file()
+    if not repair:
+        assert not (output / 'observations.json').exists()
 
 
 def test_complete_flow_evidence_ranges_and_export(client: TestClient, video: bytes) -> None:
@@ -319,7 +409,7 @@ def test_reload_launcher_preserves_run_directory(tmp_path: Path, monkeypatch: py
     assert os.environ['WORKBENCH_RUNS'] == str(tmp_path.resolve())
 
 
-def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, video: bytes) -> None:
+def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, video: bytes, monkeypatch: pytest.MonkeyPatch) -> None:
     """One design call, no new vision request, immutable extraction and reopenable assumptions."""
     from protocol_pipeline.autonomy import AutonomyProposal
     from protocol_pipeline.compiler import ProtocolSpecification
@@ -344,6 +434,8 @@ def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, 
         original = (root / run_id / 'extracted/extracted-protocol.json').read_bytes()
         url = f'/api/runs/{run_id}/autonomy'
         assert browser.get(url).json()['stage'] == 'not_started'
+        assert browser.get(f'/api/runs/{run_id}/scene').json()['stage'] == 'needs_design'
+        assert browser.post(f'/api/runs/{run_id}/scene', headers=HEADERS, json={}).status_code == 409
         assert browser.post(url, headers=HEADERS, params={'model': 'design-fixture'}).status_code == 202
         deadline = time.monotonic() + 10
         while time.monotonic() < deadline:
@@ -356,6 +448,78 @@ def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, 
         assert contracts == ['ObservationGraph', 'ProtocolSpecification', 'AutonomyProposal']
         assert browser.post(url, headers=HEADERS, params={'model': 'design-fixture'}).json()['stage'] == 'completed'
         assert len(contracts) == 3
+        machine_calls = []
+        def synthetic_machine(proposal_path, equipment_id, output, model, resume_from=None, authoring='forma',provider='nebius'):
+            """Deterministic HTTP fixture; does not claim a live Forma call."""
+            output.mkdir()
+            machine_calls.append(equipment_id)
+            report = {'equipment_id': equipment_id, 'core_version': 'fixture', 'cad_meshes': 1, 'components': 1,
+                      'machine_specific_cad': {'parts':8,'description':'Explicit synthetic HTTP fixture'},
+                      'source_proposal_sha256': hashlib.sha256(proposal_path.read_bytes()).hexdigest(),
+                      'deterministic_is_valid': False, 'physical_validation': False}
+            (output / 'machine-report.json').write_text(json.dumps(report))
+            (output / 'machine.forma.json').write_text(json.dumps({'project_ir': {'cad_model': {'meshes': [
+                {'vertices': [0,0,0,100,0,0,0,100,0], 'faces': [0,1,2]}]}}}))
+            return report
+        monkeypatch.setattr('protocol_pipeline.web.forma_runtime', lambda: {'available': True, 'message': 'Synthetic fixture'})
+        monkeypatch.setattr('protocol_pipeline.web.generate_machine', synthetic_machine)
+        def launch_fixture(store, run_id, keys, batch_id):
+            store.slots.acquire()
+            store.execute_machines(run_id, keys)
+        monkeypatch.setattr('protocol_pipeline.web.JobStore.launch_machines', launch_fixture)
+        machines_url = f'/api/runs/{run_id}/machines'
+        assert browser.get(f'/api/runs/{run_id}/scene').json()['stage'] == 'needs_machines'
+        assert browser.post(f'/api/runs/{run_id}/scene', headers=HEADERS, json={}).status_code == 409
+        assert browser.post(machines_url, headers=HEADERS, json={'model': 'fixture'}).status_code == 202
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline:
+            machines = browser.get(machines_url).json()
+            if machines['stage'] == 'ready':
+                break
+            time.sleep(.02)
+        assert machines['stage'] == 'ready', machines
+        assert machine_calls == ['robot']
+        assert browser.post(machines_url, headers=HEADERS, json={'model': 'fixture'}).json()['stage'] == 'ready'
+        assert machine_calls == ['robot']
+        assert browser.get(machines['machines'][0]['artifact_url']).status_code == 200
+        row=machines['machines'][0]
+        assert row['preview']['ready'] is False
+        assert browser.post(f"{machines_url}/{row['key']}/previews/{'0'*64}",headers=HEADERS,content=b'invalid').status_code==409
+        gif=tmp_path/'preview-fixture.gif'
+        subprocess.run(['ffmpeg','-v','error','-f','lavfi','-i','testsrc=size=320x320:rate=10','-t','2',str(gif)],check=True,capture_output=True,timeout=15)
+        cached=browser.post(f"{machines_url}/{row['key']}/previews/{row['preview']['cache_key']}",headers={**HEADERS,'Content-Type':'image/gif'},content=gif.read_bytes())
+        assert cached.status_code==200,cached.text
+        assert cached.json()['ready'] is True
+        image=browser.get(cached.json()['gif_url'])
+        assert image.headers['content-type']=='image/gif'
+        assert 'immutable' in image.headers['cache-control']
+        assert browser.get(cached.json()['poster_url']).headers['content-type']=='image/png'
+        def synthetic_scene(proposal_path, protocol_path, output, options, machine_assets):
+            """HTTP lifecycle fixture; real native generation is tested separately."""
+            output.mkdir()
+            report = {'source_proposal_sha256': hashlib.sha256(proposal_path.read_bytes()).hexdigest(),
+                      'machine_asset_sha256': {item['equipment_id']: hashlib.sha256(Path(item['path']).read_bytes()).hexdigest() for item in machine_assets},
+                      'engine': 'synthetic HTTP fixture, not the native engine', 'physical_validation': False}
+            (output / 'scene-report.json').write_text(json.dumps(report))
+            (output / 'scene.oi.json').write_text(json.dumps({'format': 'synthetic HTTP fixture'}))
+            (output / 'preview.json').write_text(json.dumps({'samples': []}))
+            return report
+
+        monkeypatch.setattr('protocol_pipeline.web.openindustries_runtime', lambda: {'available': True, 'message': 'Synthetic fixture'})
+        monkeypatch.setattr('protocol_pipeline.web.build_rehearsal', synthetic_scene)
+        scene_url = f'/api/runs/{run_id}/scene'
+        assert browser.post(scene_url, headers=HEADERS, json={}).status_code == 202
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline:
+            scene = browser.get(scene_url).json()
+            if scene['stage'] in ('completed', 'failed'):
+                break
+            time.sleep(.02)
+        assert scene['stage'] == 'completed', scene
+        assert browser.get(scene_url + '/artifacts/scene.oi.json').status_code == 200
+        assert browser.get(scene_url + '/artifacts/secrets').status_code == 404
+        assert browser.post(scene_url, headers=HEADERS, json={}).json()['attempt_id'] == scene['attempt_id']
+        assert len(contracts) == 3  # scene creation does not repeat vision or design inference
         edits = browser.post(url + '/costs', headers=HEADERS, json={'values': {'equipment.robot.unit_cost_usd': 2000}})
         assert edits.status_code == 200, edits.text
         assert edits.json()['equipment_total_usd'] == 4000
@@ -366,4 +530,5 @@ def test_step_five_generates_separately_and_persists_cost_edits(tmp_path: Path, 
         state = browser.get(url).json()
         assert state['stage'] == 'completed'
         assert state['economics']['equipment_total_usd'] == 4000
+        assert browser.get(scene_url).json()['stage'] == 'completed'
         assert len(contracts) == 3

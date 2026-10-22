@@ -31,11 +31,47 @@ Use a fresh output directory. This is a paid live request using your account; th
 
 ## Step 5: autonomous design and planning costs
 
-After extraction completes, select **Design autonomous version** or **05 / Autonomous**. This makes a separate, explicit model request using the saved protocol. The source procedure remains unchanged. The new proposal maps every source operation to concrete hardware or an explicit automation gap, and lists remaining human tasks and verification needs. A schema/coverage failure can make at most one additional correction request.
+After extraction completes, select **Design autonomous version** or **05 / Design**. This makes a separate, explicit model request using the saved protocol. The source procedure remains unchanged. The new proposal maps every source operation to concrete hardware or an explicit automation gap, and lists remaining human tasks and verification needs. A schema/coverage failure can make at most one additional correction request.
 
 Prices and performance figures are rough **model planning estimates**, each with a rationale; they are not supplier quotations or measurements. Edit equipment unit prices, manual/autonomous labor and cycle times, energy, materials, recurring overhead, demand and deployment assumptions, then select **Save & recalculate costs**. The existing process/investment evaluator calculates conditional unit costs, annual savings, capacity and simple payback. Unknown inputs remain null, and output-equivalence/capacity gates still apply. The scenario assumes an existing, sunk-cost manual setup and separates capital from annual fixed costs.
 
 Generated candidates, provider traces and source-protocol hashes live under the run's `autonomy/` directory. Cost edits are saved separately with revision records, survive restarts, and never modify the original extraction. **Download design + cost scenario** exports the proposal, current assumptions and comparison. Reopening a completed design does not make another inference request.
+
+## Step 6: required machines and Forma generation
+
+The default authoring runtime is **OpenCode → Nebius**. One retained OpenCode session authors the mechanical CAD parts for a machine. Forma validates the object schema and exports real geometry; schema/kernel/export errors go back to that same conversation for correction, with at most three CAD candidates. Session IDs, raw model envelopes, candidates and native failures are retained. This route uses schema-validated JSON text because the live Nebius request rejected OpenCode's tool-based structured-output mode. Native CAD commands are executed by the worker, with their actual errors returned to OpenCode; unrelated agent tools are disabled for these authoring messages. There is no silent fallback to a different provider.
+
+**GMI Cloud is an optional provider**, selected explicitly in Step 6 or in the visual-review CAD-correction controls. Existing Nebius/provider/model defaults are preserved. Selecting GMI offers `openai/gpt-6.1-sol`, verified in the authenticated GMI catalog and in a live OpenCode/schema smoke test. The project `opencode.json` adds only the GMI provider and references `{env:GMI_API_KEY}`; it does not change OpenCode's default model or embed credentials. Provider/model are recorded per job and session. Restart OpenCode after configuration edits; the workbench's managed server must also reload its configuration before using a newly added provider.
+
+Machine cards show lazy **still posters and click-to-play turntable GIFs** of their actual generated CAD. A single shared temporary OpenIndustries renderer generates uncached 320 × 320, two-second, 20-frame previews sequentially for visible cards. GIFs/posters are cached privately by CAD content and preview version, so later visits use images only, without loading a 3D component or regenerating previews. Regeneration or vision-assisted CAD changes select a new cache key automatically. Leaving Machines pauses image playback and aborts pending render work. Turntables orbit the review camera; they are not physical operating-cycle animations and make no model calls.
+
+OpenCode uses its existing configured Nebius connection and starts a local server on port 4097 when needed. Set `MACHINE_OPENCODE_URL` to reuse another server; the CLI must be installed on PATH. Mechanical CAD authoring does not imply an electrical BOM, wiring validation or physical verification. Reports explicitly distinguish OpenCode mechanical authoring from the optional **Forma native pipeline → Nebius** runtime, which runs the longer hardware/electronics workflow.
+
+The workbench follows **human video → evidence-grounded procedure → machine proposal and costs → generated Forma machines → native OpenIndustries scene**. Step 5 is a proposal; Step 6 turns each equipment line into a separately generated hardware project and CAD asset.
+
+Select **06 / Machines** and generate an individual machine or all missing machines. The actual Forma default hardware workflow runs with mandatory native CAD and strict fallback controls. It uses its OpenAI-compatible provider adapter routed to Nebius with server-side credentials; model selection is explicit. A separate machine-specific CAD stage authors named structural/mechanical parts and exports the assembly through Forma's OpenCAD adapter as STEP/STL and inline meshes. This avoids treating Forma's generic enclosure/base-plate CAD as a complete machine. The model returns bounded declarative part data, not executable Python; the adapter runs a fixed CAD template. Each machine has its own status, native pipeline progress, retained candidates/checkpoints, validation findings and downloadable Forma project. Failed or envelope-only output is not scene-ready. A batch stops after its first failure, retaining completed assets. Retry resumes completed Forma checkpoints or reuses a completed hardware project when the proposal/model match.
+
+Forma Core, OpenCAD, CadQuery and Forma's `cad.py` adapter are required. A sibling `forma-oss` checkout supplies the adapter and component seed catalog; `FORMA_ROOT` and `FORMA_CAD_ADAPTER_PATH` can override these locations. Each generation initializes a private SQLite catalog using Forma's own seed data. Long-running batches execute independently of the web process so hot reloads do not block HTTP or erase progress. Generation incurs the configured provider's usage; restarting the web server never silently repeats it. Named CAD parts are exported separately through the native adapter and assembled as a CAD compound, preserving disconnected moving components instead of trying to Boolean-fuse an entire machine.
+
+## Step 7: the native OpenIndustries viewer
+
+Select **07 / Scene** once all required machine CAD assets are ready. Only those generated meshes are imported; no generic equipment cubes or fabricated workbench are substituted. Each installed machine unit becomes a scene instance. Stocked consumables use one labeled sample by default, retaining full quantities in the proposal, inventory report and cost inputs. Enable **Show every stocked consumable unit separately** to expand those copies explicitly. The original OpenIndustries React `WorkspaceViewer` is bundled directly from the configured checkout, including its Three.js WebGL renderer, OrbitControls, part selection and native animation evaluator. The former custom 2D schematic renderer is removed.
+
+Drag to orbit, scroll to zoom, select a part, play/pause, restart, or scrub the timeline. **Download native OpenIndustries scene** exports bundled Forma geometry and editable native animation tracks. Scene assembly/rendering makes no model calls.
+
+Set `OPENINDUSTRIES_ROOT` (or `OI_ROOT`) to a compatible checkout with its npm dependencies installed. A sibling `OpenIndustries` / `Open-Industries` checkout is detected automatically. Node.js and `node_modules/tsx` are required. Missing runtimes and failed native builds are reported explicitly.
+
+Room dimensions and seconds per operation are editable planning inputs. Positions, clearance gaps and motion cues remain planning assumptions; this is not collision checking, robot kinematics, physical simulation or measured cycle time. Geometry uses the dimensions in the actual generated CAD. Scene timing does not change Step 5 cost assumptions. Sources, options, machine hashes, native output and provenance remain under the run's `machines/` and `scene/` directories. Changed proposals or regenerated machine files invalidate old scenes until rebuilt.
+
+Layout uses each CAD asset's own footprint, with assumed clearance and animation margins. It does not allocate a largest-machine-sized grid cell to every object. Planning rooms expand to fit by default; actual room dimensions and any adjustment are recorded and displayed. Uncheck **Expand the planning room** to enforce the entered dimensions. An insufficient strict room produces a structured suggestion and a **Use suggested room & render** action. Room fitting never rescales the machine geometry or changes cost/inventory quantities.
+
+### Vision-assisted self-correction
+
+In Step 7, **Review & improve once** captures three labeled canonical views with OpenIndustries' actual native world/renderer and adds two source-video frame references. The vision model returns image-cited issues, proposed placements/mounting relationships and targeted CAD feedback. The worker can revise one machine through its retained OpenCode session, export real Forma CAD, and build a candidate native scene. The browser then captures matching after-views using the original camera metadata, and the vision model reassesses the same criteria.
+
+This is a single bounded pass, not an endless regeneration loop. The default scope is layout plus at most one machine revision; **Layout only** skips CAD authoring. It uses up to two vision assessments plus the selected CAD correction session. Review requests use provider JSON-object mode and local full-contract/evidence validation; malformed or ungrounded output is retained and rejected. An image-grounded, native-valid candidate is automatically applied only when its model-assessed score increases by at least five points and existing high-severity issues decrease (or remain zero). Identical renders, worse/invalid/insufficient-evidence candidates, or concurrent source changes leave the original active scene unchanged. Unchanged machine poses and mounting anchors are preserved when CAD dimensions change. Prices, source procedure and inventory quantities are not changed by the visual pass.
+
+Critiques, provider traces, labeled before/after PNGs, source hashes, candidates and original job versions are retained in `visual-reviews/`. The UI shows the critique, remaining/resolved issues and matched images, and can **Restore original scene & CAD** while that correction remains current. Scores are model judgments about visual plausibility, not engineering/physical validation. Keep a browser page open for after-capture; if it closes, generation pauses at that stage and resumes when Step 7 is reopened. Model/CAD work runs in detached workers so the HTTP server remains responsive.
 
 ## Evidence bundle contents
 
@@ -90,3 +126,42 @@ node --check protocol_pipeline/web_static/app.js
 
 The web tests use actual FFmpeg decoding, extraction/compiler code and HTTP handlers with explicitly synthetic replay responses. They cover completed output, source/frame mapping, media ranges, ZIP checksums, invalid video, upload limits, cross-origin protection, missing credentials and restart recovery. They do not establish browser rendering, model accuracy or live provider compatibility.
 
+# Request scheduling and recovery
+
+Analysis uses one queued worker by default. Vision extraction, evidence correction,
+and protocol compilation run sequentially within each run. To change analysis/design
+queue concurrency, set `WORKBENCH_ANALYSIS_WORKERS=1` (serial) or `2`–`4` (concurrent)
+in the server environment and restart the workbench. This does not control independent
+machine or visual-review subprocesses; machine batches generate their members sequentially.
+
+Provider requests retry transient HTTP 429/502/503/504 failures. Configure
+`MODEL_REQUEST_ATTEMPTS` (1–6, default 3) and `MODEL_RETRY_BASE_SECONDS`
+(1–60, default 10). Retries honor numeric or HTTP-date `Retry-After` headers,
+with each wait capped at 120 seconds; otherwise exponential backoff is used.
+Provider quotas may still reject serialized requests.
+
+Invalid observation evidence receives at most one correction request to the same
+vision model using the original frames. Both unvalidated candidates are retained
+as `observation-candidate-1.json` / `observation-candidate-2.json` for diagnosis.
+Validation is not bypassed if the correction fails.
+# Step 8: semantic lab layout
+
+After building an up-to-date Step 7 scene, open **08 / Lab layout** and choose
+**Map subsystems into lab**. The fixed `compact-lab-v1` template is 8 × 6 × 3 m,
+with a process bench, floor automation cell, controls/utilities zone, staging bench
+and reserved 1.2 m access aisle. Step 7 remains a separate original scene.
+
+Placement uses equipment categories/roles, shared operation IDs and actual CAD
+bounding boxes. Related equipment is placed close together within permitted zones.
+Bench elevations, ceiling height and footprint clearance are checked. Oversized
+assets are reported unplaced instead of scaled or moved into the aisle. Consumable
+instance counts follow the source scene. Missing mounts and camera/tool interfaces
+remain explicit unresolved requirements; this is a subsystem location plan, not
+an automatically validated mechanical assembly or robot reach simulation.
+
+The UI provides a labeled floor plan, the original OpenIndustries viewer with
+unchanged machine CAD and explicitly labeled furniture envelopes, placement
+rationales, and downloadable scene/report artifacts. Plans are retained under
+`runs/workbench/<run>/lab/<attempt>/`; source scene/proposal hashes invalidate stale
+plans. `POST /api/runs/<run>/lab` builds a plan; `GET` reads its status. This planner
+is deterministic and does not require an LLM/API call.

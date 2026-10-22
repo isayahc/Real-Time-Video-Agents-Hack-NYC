@@ -53,6 +53,16 @@ class NebiusProvider:
         return response, trace
 
 
+class GMIProvider(NebiusProvider):
+    """Use the explicitly selected GMI account for text and vision requests."""
+
+    name = "gmi"
+
+    def __init__(self) -> None:
+        self.client = NebiusClient(os.environ.get("GMI_API_KEY", ""),
+                                   api_base_url="https://api.gmi-serving.com/v1", provider="gmi")
+
+
 class OpenCodeProvider:
     """Use an OpenCode server for schema-constrained extraction and retries."""
 
@@ -169,6 +179,8 @@ def create_provider(name: str, replay: Path | None = None) -> ExtractionProvider
     """Select a provider explicitly; fail rather than fall back when keys are absent."""
     if replay is None and name == "nebius":
         return NebiusProvider()
+    if replay is None and name == "gmi":
+        return GMIProvider()
     if replay is None and name == "opencode":
         return OpenCodeProvider()
     if name == "replay" and replay is not None:
@@ -274,11 +286,31 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
     try:
         if run is not None:
             notify("extracting_observations")
-            graph, trace = provider.complete(vision_model or "", ObservationGraph,
+            observation_instruction = (
                 "Interpret visible objects/actions/state changes only. Cite supplied frame IDs and valid sampled-frame intervals. "
-                "All interpretations are uncertain model inference. Do not invent exact dimensions, forces, off-camera activities or physical results.", content)
-            traces.append(trace)
-            validate_graph(graph, frames)
+                "Every cited evidence frame timestamp must fall within its action's inclusive start_s/end_s interval. "
+                "Use supplied timestamps exactly, without rounding interval boundaries. "
+                "All interpretations are uncertain model inference. Do not invent exact dimensions, forces, off-camera activities or physical results.")
+            observation_content = content
+            for attempt in range(2):
+                graph, trace = provider.complete(vision_model or "", ObservationGraph,
+                                                 observation_instruction, observation_content)
+                traces.append(trace)
+                write_json(output / f"observation-candidate-{attempt+1}.json", {
+                    "status": "unvalidated_provider_candidate", "candidate": graph.model_dump(), "trace": trace,
+                })
+                try:
+                    validate_graph(graph, frames)
+                    break
+                except ValueError as error:
+                    if not provider.live or attempt == 1:
+                        raise
+                    notify("correcting_observations")
+                    observation_content = content + [{"type": "text", "text":
+                        "Correct the previous observation graph against the original supplied frames. "
+                        "Do not invent evidence or arbitrarily widen intervals just to pass validation. "
+                        "Reconsider the action and its citations using the visible evidence and exact timestamps. "
+                        f"Validation error: {error}\nPrevious candidate:\n{graph.model_dump_json()}"}]
             write_json(output / "observations.json", {"basis": "model_inference" if provider.live else "replayed_synthetic_response",
                                                        "graph": graph.model_dump()})
             if not graph.actions:
@@ -334,6 +366,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
         return result
     except (ValueError, RuntimeError, OSError, KeyError, TypeError) as error:
         failure = {"status": "failed", "provider": provider.name,
+                   "error": str(error),
                    "error_type": type(error).__name__, "physical_validation": False,
                    "completed_stage_traces": traces}
         if isinstance(error, ProviderResponseError):
