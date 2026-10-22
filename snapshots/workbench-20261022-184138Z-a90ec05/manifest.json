@@ -1,0 +1,3466 @@
+{
+  "created_utc": "20261022-184138Z",
+  "commit": "a90ec05b1ffc7019993003b3f722655f3ee8c836",
+  "run_id": "2b36990135d7406c8db35e9504221fce",
+  "excluded_patterns": [
+    ".env",
+    ".env.*",
+    "*.log",
+    "*.tmp",
+    "__pycache__",
+    "*.pyc",
+    "opencode-response-*.json",
+    "opencode-session.json"
+  ],
+  "screenshots": [
+    "machine-status-recovery-after.png",
+    "step8-lab-layout-desktop.png",
+    "step8-lab-layout-mobile.png",
+    "machine-card-gifs-desktop.png",
+    "machine-card-gifs-mobile.png",
+    "step2-gpt61-dropdowns-after.png"
+  ],
+  "missing_screenshots": [],
+  "files": [
+    {
+      "path": "evidence/machine-card-gifs-desktop.png",
+      "bytes": 316932,
+      "sha256": "b074887995145b846e4e64878b596febf09b4da945fc121a843cf251943acdfe"
+    },
+    {
+      "path": "evidence/machine-card-gifs-mobile.png",
+      "bytes": 318447,
+      "sha256": "e729b8b8645406e02af4c30842df410ba2ae74ee3a0589d765f563914cb07cda"
+    },
+    {
+      "path": "evidence/machine-status-recovery-after.png",
+      "bytes": 67572,
+      "sha256": "f1441be7b87aa7d38087016ffab617ac8ab5c25c4f5dad3e44b9b0edb860f19f"
+    },
+    {
+      "path": "evidence/step2-gpt61-dropdowns-after.png",
+      "bytes": 47399,
+      "sha256": "61fb2f853844758040dd2816092f2ac1a65fb0c516a20009a773fa3b6c40d02c"
+    },
+    {
+      "path": "evidence/step8-lab-layout-desktop.png",
+      "bytes": 254724,
+      "sha256": "d47f4fdf3d262ecbdc8a64bfc53b3f2f6f13c45e557d93ca259f8e75ecbac753"
+    },
+    {
+      "path": "evidence/step8-lab-layout-mobile.png",
+      "bytes": 207533,
+      "sha256": "63cfc7d1bb326befbc488c260ffcfa31677e6d66f4338d8f9855afdb350a50d7"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2446,
+      "sha256": "6be0310eecbdeed415e1656e6f6c68082ccb728f25b6ed7ddbebd1c94e9daf8f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/autonomy/8733724b2d30457c9acac6c518caa5ac/candidate-1.json",
+      "bytes": 9914,
+      "sha256": "78bca383d10e87885cde4710762bfc60e5158865a683f32a8bc361c251fbc7ef"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/autonomy/8733724b2d30457c9acac6c518caa5ac/proposal.json",
+      "bytes": 11352,
+      "sha256": "07c085d0396a52f405d5b29c8191fa2d658a48da6bd67802384fae482e8d7ef7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/autonomy/job.json",
+      "bytes": 241,
+      "sha256": "98adb1cf97254bb8181d6c3af6615f98fe5566327c9f7308ee701c261bf3114f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/compiled/apparatus-requirements.json",
+      "bytes": 3170,
+      "sha256": "89a68bcee4d5e399711c5ef0e32c964e128d7c938855b0d0ec6e83a79b6b2775"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/compiled/process-graph.json",
+      "bytes": 1384,
+      "sha256": "277fd180253da9a949a85e61ff787f2634ee1d5d50f90cd8ae7650a1a240a622"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/compiled/process-input.json",
+      "bytes": 465,
+      "sha256": "8a485ef4e829314e97ac0a4639abbfd65ef691bc7e31e7351cbc45ded8b6c3ee"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/compiled/protocol-input.json",
+      "bytes": 4474,
+      "sha256": "18784849bf5da3d5b83fe0d3cdf8c1ec5ef5423319914ec49cbf7a11e24fefc9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/compiled/report.md",
+      "bytes": 2871,
+      "sha256": "436e32e12fed2505f114a0a68e5cc4daebe6bcefac2703072c4630da366685d5"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/compiled/summary.json",
+      "bytes": 11836,
+      "sha256": "14265cbe59e9e8ad2a78f331b241b8ccd43fac9f3ec055c08786e0a09d20a438"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/extracted-protocol.json",
+      "bytes": 4474,
+      "sha256": "18784849bf5da3d5b83fe0d3cdf8c1ec5ef5423319914ec49cbf7a11e24fefc9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/extraction-summary.json",
+      "bytes": 4632,
+      "sha256": "ce9d8d86915711b4d865baef0b3c81f6882ed5b4a52b0f9d384c35132673a4a6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/frames/frame_0000.jpg",
+      "bytes": 40989,
+      "sha256": "1e8c54a0c65c033dbcf2a6057edeb6a47c09e1e143aaef5f125c1bd78cb1cb19"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/frames/frame_0001.jpg",
+      "bytes": 43881,
+      "sha256": "f84e05fa7a179567607f7345b56e7713de0fdee3a602cdda9815f988f2b9cec2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/frames/frame_0002.jpg",
+      "bytes": 68650,
+      "sha256": "525372cb8aacd9c312fc5914a4ce98e616c7a96cb1146074b19f7b025fbea837"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/frames/frame_0003.jpg",
+      "bytes": 56614,
+      "sha256": "ebfbdc779fce7079f38b2cea37ff49feaebc7032930ed96a457f8667c6ef6d76"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/frames/frame_0004.jpg",
+      "bytes": 42032,
+      "sha256": "9bb18f4a2c7f0a92ec32c728abb42b4ac3431a3e61599ce4cc87085c20c48868"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/frames/frame_0005.jpg",
+      "bytes": 33511,
+      "sha256": "bee8b3cbf37ead3c21fbe73fd6e5a86b9c224f50eb5e8e313492d5901d25df88"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/frames/frame_0006.jpg",
+      "bytes": 25556,
+      "sha256": "20bf31095e2b96846e495af046314c0fbfe1fb7cc3a4d5b99b88f2aa608973c1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/frames/frame_0007.jpg",
+      "bytes": 25553,
+      "sha256": "0161c36e78c73a11261ef000ab9f46cca51b09838ad74aa62ddd6b4cfc529e16"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/observation-candidate-1.json",
+      "bytes": 5920,
+      "sha256": "dc9266a1cb32d0ec5e9f2c388874f36fbdf730a86689e08e9c5e540f67291623"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/observations.json",
+      "bytes": 4981,
+      "sha256": "bb3267131d3efae6320ecf1826c88556769da9e0d3df3786c52108d59864d2da"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/provider-candidate-1.json",
+      "bytes": 5284,
+      "sha256": "8e45199ad40edeff0f8d1db00f547e7ad8c6ce3b143046d5cc8712b4424be2c9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/extracted/source-manifest.json",
+      "bytes": 2651,
+      "sha256": "f13569ee710657de09427ee52fbe77da4bf574ad7d9fc25f548fa8244b32a55d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/frames/frame_0000.jpg",
+      "bytes": 40989,
+      "sha256": "1e8c54a0c65c033dbcf2a6057edeb6a47c09e1e143aaef5f125c1bd78cb1cb19"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/frames/frame_0001.jpg",
+      "bytes": 43881,
+      "sha256": "f84e05fa7a179567607f7345b56e7713de0fdee3a602cdda9815f988f2b9cec2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/frames/frame_0002.jpg",
+      "bytes": 68650,
+      "sha256": "525372cb8aacd9c312fc5914a4ce98e616c7a96cb1146074b19f7b025fbea837"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/frames/frame_0003.jpg",
+      "bytes": 56614,
+      "sha256": "ebfbdc779fce7079f38b2cea37ff49feaebc7032930ed96a457f8667c6ef6d76"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/frames/frame_0004.jpg",
+      "bytes": 42032,
+      "sha256": "9bb18f4a2c7f0a92ec32c728abb42b4ac3431a3e61599ce4cc87085c20c48868"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/frames/frame_0005.jpg",
+      "bytes": 33511,
+      "sha256": "bee8b3cbf37ead3c21fbe73fd6e5a86b9c224f50eb5e8e313492d5901d25df88"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/frames/frame_0006.jpg",
+      "bytes": 25556,
+      "sha256": "20bf31095e2b96846e495af046314c0fbfe1fb7cc3a4d5b99b88f2aa608973c1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/frames/frame_0007.jpg",
+      "bytes": 25553,
+      "sha256": "0161c36e78c73a11261ef000ab9f46cca51b09838ad74aa62ddd6b4cfc529e16"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/ingested/manifest.json",
+      "bytes": 2485,
+      "sha256": "0ab183001bd2a5772d928f134274a22fe3128ee39f6078b7f444d084b42e0fc3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/job.json",
+      "bytes": 1214,
+      "sha256": "2b9b8211e5a08b741ea2e5737628b79a4fc32b857c481e39f50988c548dcf342"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/lab/0aaa36b4a629435b945080076046aa4e/report.json",
+      "bytes": 8904,
+      "sha256": "b94810a63a35c5a3e4a7c6b49e26782545af354e5cb023fc32b6bf99f2c86ca9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/lab/0aaa36b4a629435b945080076046aa4e/scene.oi.json",
+      "bytes": 12563337,
+      "sha256": "6247464ca6ee60f74d68bc51194e3ca6ffee51c809494f226fa1f123fa5f48ba"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/lab/current.json",
+      "bytes": 58,
+      "sha256": "7b84fe2acc86dfdc53c0f48fa414163218ee257c007f6e844abd9df42a3b36b4"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/cad-candidate-1.json",
+      "bytes": 4849,
+      "sha256": "4d576f4958c34fc6356b86614c7581ea1eac905aa606aa74209d976e0d9cbeb6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-assembly.json",
+      "bytes": 4849,
+      "sha256": "4d576f4958c34fc6356b86614c7581ea1eac905aa606aa74209d976e0d9cbeb6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/adapter-proof.step",
+      "bytes": 15514,
+      "sha256": "ae422be5119445275c3641482a4c40b8bab868b9c85dee64d3805778834c75d5"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/assembly.json",
+      "bytes": 4849,
+      "sha256": "4d576f4958c34fc6356b86614c7581ea1eac905aa606aa74209d976e0d9cbeb6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/assembly.py",
+      "bytes": 1785,
+      "sha256": "b78caf375b1b8fbc4f494419709c239be7127d0d435377cd925fc01f4818442a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/machine.step",
+      "bytes": 162881,
+      "sha256": "27e0db5615f5c689fdf53ce248018c25fef6e9317214b17665e7ae245a75c4d4"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/machine.stl",
+      "bytes": 204284,
+      "sha256": "0cd1ca029f57962015c2c4ca3cf168f600e0a43e71681cb3fc14955fe68bd248"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/machine.tree.json",
+      "bytes": 86916,
+      "sha256": "4c0512a4d3e8a1910cf98bfd3b6e679562eb04cae29934124ead454e4d76b68a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-0.step",
+      "bytes": 15499,
+      "sha256": "779864a1281c1e4e7f4d98eb9094a57e9aabb0c55c2c7292c87d5783ca0da9fa"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-0.stl",
+      "bytes": 684,
+      "sha256": "cdcb073fec2300342a1fe5f970d963947492da5517f1bf1d71132519af316c4f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-1.step",
+      "bytes": 5750,
+      "sha256": "f9cad3318c16405d5ab116e77099e6feb4b7a4b64d8dabb316ff5de0e4ce868b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-1.stl",
+      "bytes": 25084,
+      "sha256": "83c2952cf36ca00fff17524ab37cae0a6ddffb48d7bb5b2661dedfb807ed591d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-10.step",
+      "bytes": 5663,
+      "sha256": "56cb27e56b38896ac2f8475fbb98239162b792adcee8d4c14f9b9f656598e854"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-10.stl",
+      "bytes": 25084,
+      "sha256": "48a5c671254912d629e3176a4ba189656b6f1a314e30deed92c07261182e0ce0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-11.step",
+      "bytes": 15526,
+      "sha256": "f34eeb60f2630a823e86fcc6392db66028208535b07aeeb05c189a2547a98ee7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-11.stl",
+      "bytes": 684,
+      "sha256": "50f754610906b8cfa36a7b08b1748489c6db037af17476bd7d4ff242c7271574"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-12.step",
+      "bytes": 5755,
+      "sha256": "0d80ce46ef26da0b46ce01b114d3089a3adf2eeab3485aceea91088d36923b04"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-12.stl",
+      "bytes": 25084,
+      "sha256": "8629e072dd81327f269a959bba8587f40cc622ce38dfd193bfcfca0165fe8004"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-13.step",
+      "bytes": 15450,
+      "sha256": "f7eb70a994206447d60c80c132a5da82e6163bc7a7d34ab40880c1ec680617f3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-13.stl",
+      "bytes": 684,
+      "sha256": "264b99ecd2966f342e05443a0f9484dc56796b69098b865557110b906034f486"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-14.step",
+      "bytes": 15514,
+      "sha256": "7eeab0183b90a94d4398aa044b93dc054ab65e9cbaf774a130c7840c1bb8812d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-14.stl",
+      "bytes": 684,
+      "sha256": "0cee4a40b2a1dc19ad2d30bda1d70613f092d85284548aca222129ca880deea9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-2.step",
+      "bytes": 15422,
+      "sha256": "b5de4ee943df4367fd0ec43ec091c678cc9f445ffb259d9c1e0279293c468d87"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-2.stl",
+      "bytes": 684,
+      "sha256": "0784df819163374ce4a040b2f43bd86921a7b41c213e394a3ef72bcd5ceb53aa"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-3.step",
+      "bytes": 15512,
+      "sha256": "2bf6b2ab8abd74c5574edf9bbb54eb0a3b9984b46f7eea202bd3433cda298729"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-3.stl",
+      "bytes": 684,
+      "sha256": "449aa66f4d5b6d76830d354ca5c02af9a0f8fd6be5038b7b505ede1dc6dab985"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-4.step",
+      "bytes": 5783,
+      "sha256": "33029c1f08d70127feb2cdc38a8ae09fcda03665eb8cc1e861960ca4da691cd5"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-4.stl",
+      "bytes": 25084,
+      "sha256": "bd6dddc5ae598b854d5cda29db1878b82011255af6a711d4296d8e0df72fdc43"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-5.step",
+      "bytes": 15533,
+      "sha256": "224d9a3de91e27102b5a6b0e5d57bab7694a7f8f68067ee3da1c9e1c50d53a3d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-5.stl",
+      "bytes": 684,
+      "sha256": "44eb1eb7d9029b55a2ea1e85b1fbe31434c73f93a1320ec584acf920c654d78d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-6.step",
+      "bytes": 5753,
+      "sha256": "0ab2ad099f6fec5ef0358cf7658f53148138a701e1694da6ecb4b0a741acbc35"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-6.stl",
+      "bytes": 25084,
+      "sha256": "76f100987d821cde77e3576fd8b9a64036129354b9d848d79faf91cf50b6a8e0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-7.step",
+      "bytes": 5645,
+      "sha256": "2f3feadbf840dfad77b8031ef944c2c057d6540b2fa7a4bb8cb401ee7446e13d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-7.stl",
+      "bytes": 25084,
+      "sha256": "1eb6d6a09499fe072ef93ef11987b2f65eeeb06322a7149a226b5e97f5c69087"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-8.step",
+      "bytes": 5653,
+      "sha256": "a150945c66a12f10bd9aa333deeec174c197547c9001d81ffe4f8703242b4b28"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-8.stl",
+      "bytes": 25084,
+      "sha256": "24d4a06eab0702364228788f8ff0fab13e80516f6e3128ab4f9217ce9c22a4dd"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-9.step",
+      "bytes": 5655,
+      "sha256": "fbbabc9347177a756a72663d878120f199c99a1b7ebedb9aedaaa0b54acd0b95"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad/1/part-9.stl",
+      "bytes": 25084,
+      "sha256": "7ebfc7bfd5e8f6387e30cd17bb87d629ed4e8fee688b496e8b713e327dc0d00b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-cad-provider.json",
+      "bytes": 566,
+      "sha256": "3e010fe11a9b142af0e7d4332026cbbdb881e02aae7d569e28bd26ee0c88feb8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-input.json",
+      "bytes": 3036,
+      "sha256": "b4d499954713b81f849e53d144a75edeae5f4e588e097a7d0fc891d163dece15"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine-report.json",
+      "bytes": 1645,
+      "sha256": "5c379d00d9a47dd109ea687b42b2afff0f5625b7c1876f9e061d714d28341b1a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/machine.forma.json",
+      "bytes": 373459,
+      "sha256": "90fdcf8611c20da7c2287d07b3195b04e0a4e36ec417c2d573b1f2a74b02263f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/09ad3d0a83944954a82aba43b695e65c/progress.json",
+      "bytes": 175,
+      "sha256": "4a38b056401eb659ccf2dcc677973c550be91f037bd99ccec47c616e37f974f9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/job.json",
+      "bytes": 502,
+      "sha256": "88e8d9088ec159135349ef14b5f91db913594c8ecd5b3be9ea73fd2f79eff972"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/previews/845362d1abe7f3102882dc9975e3f2a25626c9b29ac7ca821a375cda39c37b3a.gif",
+      "bytes": 196839,
+      "sha256": "573184e7c61452517ec6ca3913398b517048df3c8774969f3a563c67f502bcdf"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/previews/845362d1abe7f3102882dc9975e3f2a25626c9b29ac7ca821a375cda39c37b3a.json",
+      "bytes": 466,
+      "sha256": "66158088a423dcd0cb3457648cc145fafab295c4111968f23d68ebdad52be7a0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/154f9ba45672f355eff2897b/previews/845362d1abe7f3102882dc9975e3f2a25626c9b29ac7ca821a375cda39c37b3a.png",
+      "bytes": 15687,
+      "sha256": "5cff2dfc75678ee39bae8aeea46cad4d1397845c251a10a68921d9baa988fb1e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/cad-candidate-1.json",
+      "bytes": 8675,
+      "sha256": "3da3cd36a9d6195e5fb8c09ff4b3f147ae8de2d168f81ef55326efae210ea808"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-assembly.json",
+      "bytes": 8675,
+      "sha256": "3da3cd36a9d6195e5fb8c09ff4b3f147ae8de2d168f81ef55326efae210ea808"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/adapter-proof.step",
+      "bytes": 15560,
+      "sha256": "0e7f3d74507485c47cb21dea750601616d60daeecdceee682a9d10ab28c11cc7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/assembly.json",
+      "bytes": 8675,
+      "sha256": "3da3cd36a9d6195e5fb8c09ff4b3f147ae8de2d168f81ef55326efae210ea808"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/assembly.py",
+      "bytes": 1785,
+      "sha256": "628c1807c1436d4ea92518cf2bbbd355647f34ada86e563e85d2df8a73b613b4"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/machine.step",
+      "bytes": 378741,
+      "sha256": "42bfd80b20517924eee8aec30b2f214c60fd5554b21e338f036b2db3b48daacc"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/machine.stl",
+      "bytes": 286484,
+      "sha256": "70a064bdd5b6ae56c70ff3510bb7ec232ee21fafe3609eadfa1c0d58bb09f89d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/machine.tree.json",
+      "bytes": 192074,
+      "sha256": "b128072cad163d675d53314448c0834fcf39a1f6a0183d58b1296c1899f25ded"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-0.step",
+      "bytes": 15601,
+      "sha256": "139c0c9ee794ba3cb8e7f1aa1607d335b4160e75280b5b2a899e6bb48d46ce5f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-0.stl",
+      "bytes": 684,
+      "sha256": "8487324586b72a009e56d4eb0c4cdebdef891337aaad8a4fbff6b11fd82a1048"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-1.step",
+      "bytes": 15512,
+      "sha256": "74ca9106de47cb372b12b0df89fb3243adcd1e2e2323e3ed9241cb746fd158a6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-1.stl",
+      "bytes": 684,
+      "sha256": "5b96479122aebc254086cfbe26fa14b1d33a32ae7c95a5f4d972b95d51610c7a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-10.step",
+      "bytes": 5759,
+      "sha256": "2a25f7d0a9debd5d027f34b0e8004bbf1a24643c0145b62c79bec111a3604601"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-10.stl",
+      "bytes": 25084,
+      "sha256": "7c1e39678ddf7c5d8180ff9a798a94ab1d6991fc316c3ffc1f91f6aa84d21812"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-11.step",
+      "bytes": 15572,
+      "sha256": "dd46b21b4a8474cdce604d4dbd967067095e2f783f96383758e476ab2e74fb11"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-11.stl",
+      "bytes": 684,
+      "sha256": "5bcbbb125a32e06cb772999bc29e0d8f412da51fb73927932e836773b8ce558d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-12.step",
+      "bytes": 5734,
+      "sha256": "fdee60d15165b0b6a12c008f3d5a638758fd7cf3595625a541272d7052a99709"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-12.stl",
+      "bytes": 25084,
+      "sha256": "75db05a39ade8165abc0eae939f1a639e388d26a8bc71f24fcf938829813205a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-13.step",
+      "bytes": 5736,
+      "sha256": "e06308fbae178d7297648beee77843eccf57402428497bae67bf92fc13b08aed"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-13.stl",
+      "bytes": 25084,
+      "sha256": "2f2cfcb686762b188bcdf7a282ddd61f17664dc12cc962fa51c0a3c06a057841"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-14.step",
+      "bytes": 15544,
+      "sha256": "f968088aa84ce6e9ade6b7a2ad4ce022bea5418ee37932e3b4ecac98b592b77f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-14.stl",
+      "bytes": 684,
+      "sha256": "3a63cb6fc7ce27fd228ead5f66feb5a8acf4a975d68a7cc7c29cdb1ff24d348a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-15.step",
+      "bytes": 5774,
+      "sha256": "2288d3f7dfe61b230dfa4858f85cb07c7da1487eff6ee544fd130195b993076d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-15.stl",
+      "bytes": 25084,
+      "sha256": "afd04af5a8e9990543d3e962edf7ab54ee56e9e80d572bc418e654f9211e23d2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-16.step",
+      "bytes": 5714,
+      "sha256": "85d9e4522abe1446a1a099152d850df06fc941de07e2fa2204eb9d5a81b998d3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-16.stl",
+      "bytes": 25084,
+      "sha256": "70be0faf4934dffc89d7444ff91a322d7d83e7d82adf45928dc9c17493a8f85a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-17.step",
+      "bytes": 15526,
+      "sha256": "ca267b1b8d8323d803051189b12c984a10c2d326b3d410a5da8b2ec6647e235d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-17.stl",
+      "bytes": 684,
+      "sha256": "3025b4ddfafa620635ff9efa3c725aa228b021555ebccaa7652c98287c9127a4"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-18.step",
+      "bytes": 15536,
+      "sha256": "13c7fd52a6cd4c9a0f2539ba1f197d56242e8d6280f4e2202faad794d6ec1e21"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-18.stl",
+      "bytes": 684,
+      "sha256": "698a76f4533b6a529ca86929def09a0aa02bd44f1702a4bd97978bb06faa1f31"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-19.step",
+      "bytes": 15537,
+      "sha256": "ed7722f57d20223c34a254c5b2dcfb5b61cd23ec52fcf95cc1b8eb0341fa6566"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-19.stl",
+      "bytes": 684,
+      "sha256": "3c16ecff5201c1c2798238b570157c80eebf29427bd696660cefc655801ddbb9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-2.step",
+      "bytes": 15542,
+      "sha256": "efe6bfc7ebb7d0e96e486a473ef29f5797a30c4b8cdb6cd057eadaad248903c2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-2.stl",
+      "bytes": 684,
+      "sha256": "91084df34612dc755cb6727fa27133e0787319e8484d9ea5b491e4994367684b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-20.step",
+      "bytes": 15534,
+      "sha256": "69b91f1777a28b3f7081598ec2ba974649c1616bc93375a6bcfd6fc2c0cb3acb"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-20.stl",
+      "bytes": 684,
+      "sha256": "a19c247fc3ea9c35721e034552f212260bfa6b0b0d0fe3ac71e970dd1cd048bf"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-21.step",
+      "bytes": 15496,
+      "sha256": "36f95a1524e23f7d81b7560d878d75d2d0a3bfe4cfa281cde344a9dabac88429"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-21.stl",
+      "bytes": 684,
+      "sha256": "b08ec574eec6c32c5e7f0683bd512935cd440f29b64c6e7cf14751d18f918ea3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-22.step",
+      "bytes": 5727,
+      "sha256": "0da0b2bf1dbe02daf9a5d56e6e0e33672c149f94ff406b96a92d85d8cea30e26"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-22.stl",
+      "bytes": 25084,
+      "sha256": "8ffa323a14d2ad76c37053bafa17aa62a31046d9302e755690734ab85b48757e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-23.step",
+      "bytes": 5749,
+      "sha256": "cee78b03f7a7467b99fa0ff13b6f54a04dbefe40a24318d7404618a0c3dbcbb4"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-23.stl",
+      "bytes": 25084,
+      "sha256": "456202164a3dd75675ef5f67ee601e345f4ea7a116761fcca1c0e0767b90557b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-24.step",
+      "bytes": 15560,
+      "sha256": "dba7c5ef6c590535fb6dd2dd2fcd9b029372fc86cbc526d2e952a4e73901efaf"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-24.stl",
+      "bytes": 684,
+      "sha256": "81cca1fb526f04b0e45b952e3f3d0fe955daf3a1672edc59620bdb5d10030d8d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-25.step",
+      "bytes": 15558,
+      "sha256": "8054e049677bc0f86d68ef98c2920c2064bf05a245b14469d69a874d1b984922"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-25.stl",
+      "bytes": 684,
+      "sha256": "af392a835a4b131c700aa4101843ace898f044b8f536e604657f3c7096e60381"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-26.step",
+      "bytes": 15538,
+      "sha256": "a092acbc54e5d6fd1e721a5e09b904bc76ebc1ee31f0864e1dbecce80d1a058e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-26.stl",
+      "bytes": 684,
+      "sha256": "6699cd9e1618a34e6f532ab7ab8d471e0d6c40040ce03f57c362dec9bb00eb21"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-27.step",
+      "bytes": 5698,
+      "sha256": "a2ea40e49fd1142570f892f6b5765c6cfbc2a966110a2fc1076e44fe6a498531"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-27.stl",
+      "bytes": 25084,
+      "sha256": "9e5f60c7892f8b89ea4799b913345f58abbed52efc8b7598a0fe8d980268d434"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-28.step",
+      "bytes": 5786,
+      "sha256": "38ea5217233a0eaadc4ccbd5cb97e6711e6b53085471479fe38817a2842cd97c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-28.stl",
+      "bytes": 25084,
+      "sha256": "ad93d4100726232d17c8a916aa443004cab16e440cbbb5022deaa291434f733c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-29.step",
+      "bytes": 15560,
+      "sha256": "18402e47784d02ced777b744d1620c025158512efe1231ea9c121ccf02976b39"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-29.stl",
+      "bytes": 684,
+      "sha256": "b826cc85cde92f1c04b67580b8598cf9c6f5dd723516bb7c24908ef107666c12"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-3.step",
+      "bytes": 5727,
+      "sha256": "378df3c128f58c50852fc5a5037bb4fbd233368e7487db0bd58b7b369b11d51c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-3.stl",
+      "bytes": 25084,
+      "sha256": "ada4ce898e73b6ed3a42b0c7188a45d80be9a72abac224d0056f151ac2836c55"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-4.step",
+      "bytes": 5731,
+      "sha256": "0cb6f011f1b35f871dca11779a9f19c40245589ca33341fa10889a8ce2e2cae7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-4.stl",
+      "bytes": 25084,
+      "sha256": "2667d88eacd910d73a7421bf69e582ee962647c231181e9e8489327db9300e26"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-5.step",
+      "bytes": 15538,
+      "sha256": "143c5e9b7a09297073cb9d9efc864da7189358f205cd0c5886bf07773595c2c7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-5.stl",
+      "bytes": 684,
+      "sha256": "11ac1607d27df92ce9d4f2febd0329f97da0e2cb9a05010a1d1c76a7b4928e22"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-6.step",
+      "bytes": 15524,
+      "sha256": "72759de8255c86696205d0572d364ddd914db82409031294d4787f2dc91887c3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-6.stl",
+      "bytes": 684,
+      "sha256": "ab0e68fdcf49c54003b4e82ed1d34e93c96a7d3eb6cfe5c1aebaa0a0f1882499"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-7.step",
+      "bytes": 15544,
+      "sha256": "cb37e10e1f40f0878798c3fd43728a3522566c24ff37ffecb42525521d87f7dd"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-7.stl",
+      "bytes": 684,
+      "sha256": "f2759dca3817eb22301779f8bd2fb8a8a0653dfa5304c16a85de1b13918bca93"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-8.step",
+      "bytes": 15552,
+      "sha256": "3599dff6970f877f169b2837ede53b7a9ff360fa14dc8d08821f51fab3a24a6b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-8.stl",
+      "bytes": 684,
+      "sha256": "f58f89ba6dd8d22213020d42a4d36140a286bc786643e16ba680fc6dfaffc8ea"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-9.step",
+      "bytes": 15528,
+      "sha256": "95b80aa47d056339940090cb676b0859dcfe14ae9951a369bf7cf15eab49720c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad/1/part-9.stl",
+      "bytes": 684,
+      "sha256": "7bb5f5f7f2ed94daf129771054c7156ead5e0216a488f128489a30fc9ba6945a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-cad-provider.json",
+      "bytes": 565,
+      "sha256": "d5ee60c245e005cbba41bd48f0425797d7ee18bf3ecd52efc6b6f8bc3b08a0c0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-input.json",
+      "bytes": 3017,
+      "sha256": "9c89afa19bde3e3a4386d280c765229470c15d93a12338b94a2ceef20afe412b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine-report.json",
+      "bytes": 1588,
+      "sha256": "a148edf1f883147612a3efd38f7e9e9b71b905eff61d128faa91a7178acaed39"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/machine.forma.json",
+      "bytes": 525708,
+      "sha256": "5472211f7fbd2cf245ed0d54a1754a09f240fdd7b3c3874036c27bfddd4799a0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/684b6a9228764432aea1c3f5abf9fe5f/progress.json",
+      "bytes": 175,
+      "sha256": "d26eb586fe972d8d6d07a8a327a40fc4c25571c6bbe3ad63d7d4f2e88065de26"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/job.json",
+      "bytes": 498,
+      "sha256": "701558b9e0b0f68998459296781eea4c307c6ef102b76db88e526c2f660bdc00"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/previews/63cd9dbaaa993e9b509c4ecb91fd9cbb5f05d4322fe877b235a69a757f3856b1.gif",
+      "bytes": 134167,
+      "sha256": "c6f0ddcc4db05a01f47e05f4bcc1c209ce83499402c1948f1edda48fd45b90e8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/previews/63cd9dbaaa993e9b509c4ecb91fd9cbb5f05d4322fe877b235a69a757f3856b1.json",
+      "bytes": 468,
+      "sha256": "84c37d296ed3dbdd6bbd48076316dd7944b098dfdd437273f7ea7950cd869dcf"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/22701119e7061f15410dbaf1/previews/63cd9dbaaa993e9b509c4ecb91fd9cbb5f05d4322fe877b235a69a757f3856b1.png",
+      "bytes": 13751,
+      "sha256": "0856794255ddc2ea64451c06a5635386cda7400879bf6b4016588b6a23aed3c7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/cad-candidate-1.json",
+      "bytes": 9175,
+      "sha256": "928037af1c9a9dbeb7da66e4350defa735540014bc641099b14d4c2b14ddf249"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-assembly.json",
+      "bytes": 9175,
+      "sha256": "928037af1c9a9dbeb7da66e4350defa735540014bc641099b14d4c2b14ddf249"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/adapter-proof.step",
+      "bytes": 5667,
+      "sha256": "2bab5d21df1be0027dca9738f59446a48bb8352825e6f348ea4f55004a3ad4aa"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/assembly.json",
+      "bytes": 9175,
+      "sha256": "928037af1c9a9dbeb7da66e4350defa735540014bc641099b14d4c2b14ddf249"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/assembly.py",
+      "bytes": 1785,
+      "sha256": "dc8bae817c7b94b7261d78864c8e846e8e0fd2825d1d2fce457b5ba80a72ccbd"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/machine.step",
+      "bytes": 244042,
+      "sha256": "2599fb82288890a8d8c00780642a5ad7a977d861eb26553c32676823577f3cd0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/machine.stl",
+      "bytes": 603684,
+      "sha256": "952892a638687ce84a822b152fc7c25a9a052b81c0051d19dd8fbf60d7600faf"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/machine.tree.json",
+      "bytes": 141924,
+      "sha256": "29c3fa48bbe4242fc71cf8e2bed630bd3e3a965435f2793979cf0eeb93d3c288"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-0.step",
+      "bytes": 5749,
+      "sha256": "c3f97bc4bb2d9fa68f05bac131f54e0b2e5a503247d08f9e64eb08aacdc0b3e8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-0.stl",
+      "bytes": 25084,
+      "sha256": "3d28ba6a4b2636d8aa8ba6a11b977676347d058b98176d1b5bcc14b2f228c4d7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-1.step",
+      "bytes": 5749,
+      "sha256": "765bb1f1fb70616b3644f1d0bdf03364ddb8315db4b6bc29ef7e6ced7aa5378b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-1.stl",
+      "bytes": 25084,
+      "sha256": "e46b8865c38ddb3332f8e50dc090af66f1da0da7259a67d2868816d80f4ebdb4"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-10.step",
+      "bytes": 5724,
+      "sha256": "2808420aa4681934af2bbfc6e74d4e9970aff975c4cfe7b8b389282db58cf2d8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-10.stl",
+      "bytes": 25084,
+      "sha256": "a5150430c47df34c88904d5c475e942fad33958bc6543ed2a3d04eb9a8ce0442"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-11.step",
+      "bytes": 15466,
+      "sha256": "708d60844ec80cc8a94df5ed12403034801ec09bc976e48c90b5d55ff55cd4a7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-11.stl",
+      "bytes": 684,
+      "sha256": "3566254aa2954921c4bd468662091f4eeff016b2fb443a4be0ec951907ba2f3e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-12.step",
+      "bytes": 5743,
+      "sha256": "4d99164fd714785efaad1b6c2785a1899115c719dd1379e8e3613b31484db359"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-12.stl",
+      "bytes": 25084,
+      "sha256": "ecb64bd0c02ac46afd68c31f708f4ef8cabcb90f274232b2842d7a16abcbae06"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-13.step",
+      "bytes": 5636,
+      "sha256": "540dec5c3c69085d669e23304fb77488c9ebb982d108310521dd1e004f70a0f2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-13.stl",
+      "bytes": 25084,
+      "sha256": "d34216ba07ebe3dd1f5e9e032b935f478b0a6a0912573924290606a40674fd29"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-14.step",
+      "bytes": 15450,
+      "sha256": "5c8b26157907c09056643f109b55c7b521c9a4ec2635360737a44842cfdd62d7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-14.stl",
+      "bytes": 684,
+      "sha256": "87af3e83e66187aebe31ead18c8584e51fa47e656065a4b7056e05b257189be6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-15.step",
+      "bytes": 5751,
+      "sha256": "0b3770d4d84dba44124065e11e38017e625d4650af45745adf9e6f4f0e5dfc80"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-15.stl",
+      "bytes": 25084,
+      "sha256": "24e089a7bb888c7b98f498682c34677ace60804e25562e0c385e61ed538c9bf4"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-16.step",
+      "bytes": 15514,
+      "sha256": "b03bdd9504fb5b7b968fd998955fc7614b151297f1c3bd0b71692bbdf2ee1ae8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-16.stl",
+      "bytes": 684,
+      "sha256": "539712e374212855285bfa52335179005b18d5cb3d91b0d551538c976e354ac0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-17.step",
+      "bytes": 15514,
+      "sha256": "f18639539b5d90b8ec3ec6691eda0ac99d09b0ccc5e11670e1fa319675f0f77f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-17.stl",
+      "bytes": 684,
+      "sha256": "32e6cd214f0cd461dbf011eb2a828c4589bc2b4d3132e25d398d4dbd8c871bcc"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-18.step",
+      "bytes": 5763,
+      "sha256": "95342bf3bd9b18c5e39d579296b22fd75fb7a2662ff2b8bac9e3b5a36f34e20d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-18.stl",
+      "bytes": 25084,
+      "sha256": "e36bcc90865e55b3070c60f25e559ea8f0b4365155d9e960a6cfb3d720553814"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-19.step",
+      "bytes": 5747,
+      "sha256": "7a134dd9840fec644303dd8fbb3fed69114c3e6726797e72f7d28269e089bdbe"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-19.stl",
+      "bytes": 25084,
+      "sha256": "a88136029f799d894143f63221982ea9941191ea08bb5a87c7e8ac9a811d7ae0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-2.step",
+      "bytes": 15444,
+      "sha256": "dc3a4fe43d4ec7d6b1ee065ba4e05b6fd11df629dec7803b4b7766c2509be8b1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-2.stl",
+      "bytes": 684,
+      "sha256": "5fb5436a52a5448f63ccf690df05ef6c2446b2ae5f08fe9d01594dc1236073be"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-20.step",
+      "bytes": 5688,
+      "sha256": "6e841c50bb7962547ee8b4f7a98eff6f67bb51ff0eaed5d5f803fd2134e761a2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-20.stl",
+      "bytes": 25084,
+      "sha256": "05c042e028c77be6acfe2bceb7c3cf9329f23cd888eedab96a9ba3d050eb4dc8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-21.step",
+      "bytes": 5628,
+      "sha256": "4d425a818e8045d0d7cb12c627c175d7f67d0953003fd783b6ca5f95550a0484"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-21.stl",
+      "bytes": 25084,
+      "sha256": "f419ebf2b8cfb5d9692a13a0f3ccd0ad8e0ab12e0f147d77f07d5625c6999e70"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-22.step",
+      "bytes": 5647,
+      "sha256": "32b1fdfecfc729476a08a9f4e70e23e68fce683cc8658c82a0c1737477e49812"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-22.stl",
+      "bytes": 25084,
+      "sha256": "64e805fdbb156bb90d94a8faab8d76effa9408410e3fdfadf326a1fa40f293c3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-23.step",
+      "bytes": 5655,
+      "sha256": "f895b9b8fbb59b61bdc8b73831e0dba68181795b91c6cd59df2c614811aa9712"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-23.stl",
+      "bytes": 25084,
+      "sha256": "cd019bc304396e5ce1af84f360afc1ce1d846f18407e1ddd24a9af306abb2ff3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-24.step",
+      "bytes": 5655,
+      "sha256": "6fc623f8cd469bec7f0c8836d7d782a6b57afe64e29445a58dd4cb42ba73a57d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-24.stl",
+      "bytes": 25084,
+      "sha256": "07d8a7123ca33700d6064cbd438bd815347f9b2d9ceaf3db2e4310cd7d31a56d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-25.step",
+      "bytes": 5663,
+      "sha256": "9b3131d5a0617a2e9c4a5cfda580fea6025f999830f65bbfb75b4515cc7c1201"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-25.stl",
+      "bytes": 25084,
+      "sha256": "bb493935b035bc903ff85d0b0cafcf32cf469ef612a2c69aa931006800f4e2c9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-26.step",
+      "bytes": 5653,
+      "sha256": "1cc8df14318aeb2c826423d9e3beb990f3ee37f8efccdd910c60429ba029439d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-26.stl",
+      "bytes": 25084,
+      "sha256": "16fd60d69875e1879f8718cf568dcba1d8c9aa05dad1acd865fc3cbbebda2d90"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-27.step",
+      "bytes": 5689,
+      "sha256": "b435a23a9d3723240c9abdb674e7a684100ed845c678fd3910e5a1bd5b1150f8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-27.stl",
+      "bytes": 25084,
+      "sha256": "eb51066974f576490d2433a195e14c14cbed9b0e50bf0297cab741e30a549296"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-28.step",
+      "bytes": 5631,
+      "sha256": "6e8a510584e3381a53d2505b07a12b3b61e794251eb62f75ff7722ea098e8a5b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-28.stl",
+      "bytes": 25084,
+      "sha256": "356d3ce57e2bb18cfb711690fa2b425cf83370a11a2e7dd010f25f833ab14279"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-29.step",
+      "bytes": 5667,
+      "sha256": "82fa2aff078074aa13ceaeb08fa2a71443177cb885e0e2def20831c593a3a266"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-29.stl",
+      "bytes": 25084,
+      "sha256": "0dcec7f4b4e2b98a39bf2687fe0cc98ad46bf3d66129e350e4b89436ea3ac842"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-3.step",
+      "bytes": 5689,
+      "sha256": "e7635b726b92482fc5444372e406c1ef8fa3b924a49b8f1c9645b148fb4975c3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-3.stl",
+      "bytes": 25084,
+      "sha256": "d3c59e3b9be0e2d9657c2a41ceb21da9e5bef5c1b273384badab010c1b1cf787"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-4.step",
+      "bytes": 5754,
+      "sha256": "7b4ecd7a97ff33e0c9c85f30ab2003e1ad95bf78f14f3e79f94b9aae83570f06"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-4.stl",
+      "bytes": 25084,
+      "sha256": "3fed5ac44899b2f8fb8bc90bc205ea7ac08f748a4cdce6e731b148a8e3c0b695"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-5.step",
+      "bytes": 5753,
+      "sha256": "c91bce50f311300470837b89f2f1d2ecd30d6404265cc31d070638a0b6c1d9e0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-5.stl",
+      "bytes": 25084,
+      "sha256": "1854d067494d787934a610cd06c0799ca9d4c9c16eb3259ced29798d3ec768c7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-6.step",
+      "bytes": 5753,
+      "sha256": "e461858a74ea5fa82418ea2866c6337bad5df0e6628bea3e9aa51d847b93d607"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-6.stl",
+      "bytes": 25084,
+      "sha256": "8fface417c1eec6a3ad501fe753730415686f7a52eb05394b083e9462f8dc341"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-7.step",
+      "bytes": 5770,
+      "sha256": "f866eebe47e8634b48a906169653960c3933053031a5e943338ec99780a08d5c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-7.stl",
+      "bytes": 25084,
+      "sha256": "c0f5a3ad1fcb8dbd3ef0f2ba859167f77b4bdc221d792554331a5a03d92c3bb1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-8.step",
+      "bytes": 5750,
+      "sha256": "3b26803db5f8a905dd9c15f40a19b8596ad689fb03f32b2c5bd3b1489e3fd5d9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-8.stl",
+      "bytes": 25084,
+      "sha256": "5fbcc56c75ec4661853166162f0f75deb26ced8339d8787a3660e69e96d974bb"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-9.step",
+      "bytes": 15514,
+      "sha256": "5cd2d60794c59aa52b76539299b06028b681e72b95db676a1e6651d1f2809b43"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad/1/part-9.stl",
+      "bytes": 684,
+      "sha256": "923207472bded9ee18e0e94d3dbad88565c07deeda2ae0f1fa6284d3fdcd911a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-cad-provider.json",
+      "bytes": 564,
+      "sha256": "e1922d25b36ea0c2413ad132f20a259e0f74ad3cd46c7939a33e25af14e58e37"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-input.json",
+      "bytes": 3016,
+      "sha256": "458e6d0693c7b32f22df785c34dfd4c957e33dfa07fd7b961d10da42bedcfe9d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine-report.json",
+      "bytes": 1869,
+      "sha256": "89105a96a6722cb9290fc43e142694cf653ba08efa936c2b574e05e445fda251"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/machine.forma.json",
+      "bytes": 1096768,
+      "sha256": "81c6a9c23bcc4b395d75a732e4b4c31983133e509c82c6910ff210a5323973a8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/3732cc63bfe84039998bbed932e75a0d/progress.json",
+      "bytes": 175,
+      "sha256": "5d978e666ba56381b6585c5d3bad4ccc22764d3d69015fc469032c33ab34264a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/job.json",
+      "bytes": 504,
+      "sha256": "b119e4ab67f192e8aa18a06b71774e5547b88663d8ee1b9a1240b422aa27129a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/previews/6df0e6c2d2f3345fd8b717ea789f6e6375c49ab3d045d1c4060768c2e742a400.gif",
+      "bytes": 172424,
+      "sha256": "f809e14ebb45fe70a7f047f4dc82a2ce14b27c84f905f931b344faf536669d9e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/previews/6df0e6c2d2f3345fd8b717ea789f6e6375c49ab3d045d1c4060768c2e742a400.json",
+      "bytes": 468,
+      "sha256": "d611c3a32c814d7493bd3ad075cf185bbea13b9f22d56d57ca112967370a010b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/2689082a8998ba613fa273e4/previews/6df0e6c2d2f3345fd8b717ea789f6e6375c49ab3d045d1c4060768c2e742a400.png",
+      "bytes": 15997,
+      "sha256": "159d0a29e775fd019f00595d89db53c03c5715129832e3ff6ab0a7b54d7dc152"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/cad-candidate-1.json",
+      "bytes": 8794,
+      "sha256": "3f6ea662405a5afa77babf47583a83c0d5c9986eb22c9ca4f625991a8e904923"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-assembly.json",
+      "bytes": 8794,
+      "sha256": "3f6ea662405a5afa77babf47583a83c0d5c9986eb22c9ca4f625991a8e904923"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/adapter-proof.step",
+      "bytes": 15616,
+      "sha256": "52a037ce3f8672ee99d75015b9078804941efe1d07dc6fed8e47a1cb4b700bf9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/assembly.json",
+      "bytes": 8794,
+      "sha256": "3f6ea662405a5afa77babf47583a83c0d5c9986eb22c9ca4f625991a8e904923"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/assembly.py",
+      "bytes": 1785,
+      "sha256": "c2b927163d846dc9ec5434e54c3e5e0031359cafc1da67e8495e38dc7bf6f42a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/machine.step",
+      "bytes": 393495,
+      "sha256": "5a6ff426e50cd74da16d96b66dbb47f350c5f292aa3408748e67166d703c9f29"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/machine.stl",
+      "bytes": 212684,
+      "sha256": "321aa63b139623a4d60b288d3ffa48769627017b0b2dce8103e01654f8809236"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/machine.tree.json",
+      "bytes": 196486,
+      "sha256": "05ddd9f4c627cf8a89d438f984d4c977551e41071c8df5ba4d5ba974df005661"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-0.step",
+      "bytes": 15567,
+      "sha256": "53e124d001afcd1205c67711b090f318c34218bc0f52ebf3e735073edfabfe9e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-0.stl",
+      "bytes": 684,
+      "sha256": "d69817e87e61188fe684782358997ae061a9a98265a0e9fd7e9eab849d98847f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-1.step",
+      "bytes": 15571,
+      "sha256": "70fb7fe02f87f505f9bf1419d3bbd4e266163d2f05ace45b1bbdd10299feaa62"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-1.stl",
+      "bytes": 684,
+      "sha256": "48d42e28531a61fe67d67640de8ab7abf8b87b541ada3cb7e07eea14bf7f0ae5"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-10.step",
+      "bytes": 15521,
+      "sha256": "8f9c8946885b8f81bd1ab7772188a20d46424cfffbccf14e8e907cf7e4b4d8a6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-10.stl",
+      "bytes": 684,
+      "sha256": "42a7eff2d3285464ecf19c1a359a1fc6b1cb7666fa4e9ad19c78a3860afb7eec"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-11.step",
+      "bytes": 15544,
+      "sha256": "726c868432d2433c5c9332b622704810a12a30396e54fa1af4cc471b50c6365b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-11.stl",
+      "bytes": 684,
+      "sha256": "5033c0dbbd8ca30db8e86ae2404a68b1d9d92fbaaa55a4346aa86f745a90108c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-12.step",
+      "bytes": 5722,
+      "sha256": "be88d506ddfbf95af84b10b3a49546b70d06a9a706db010ce8b7266208ca0f02"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-12.stl",
+      "bytes": 25084,
+      "sha256": "d997b004f5c881e4c236c58fb6db0bfe5b6ff50dc3218f6f216cbbc1918633bf"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-13.step",
+      "bytes": 5749,
+      "sha256": "a8665e8fe886adedf388e471e773d9ec1526fb7d30786953b4ccaf72f885a5c8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-13.stl",
+      "bytes": 25084,
+      "sha256": "84fe149ffd4948074954f9e9192b68630aed51170d39237a35d521688fb1ac08"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-14.step",
+      "bytes": 5669,
+      "sha256": "18a7aaf37bcb9918ab03422a8c6d935d230ec98a54d2668dfab6f60b838f3033"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-14.stl",
+      "bytes": 25084,
+      "sha256": "77a77b9d38dee98dfee0ff7173cd426b2f38424e49da18d48f0ef1492c3ed13e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-15.step",
+      "bytes": 15611,
+      "sha256": "204b05f169a77b8374e2404e493ea48f169b509c857fd73388100eb394d8603f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-15.stl",
+      "bytes": 684,
+      "sha256": "2ad1b59adcc09f9dfe58de08f624f6dc9a61af264bb0d37b0503dda3f282d139"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-16.step",
+      "bytes": 15564,
+      "sha256": "71df7329e53c273dfde5b94edc3a9bfc6f3237552128195724105e19e7414cd9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-16.stl",
+      "bytes": 684,
+      "sha256": "07ea3c979683099cf4de56769b5fe0537fa6f597179b5f654e0d7f1691b1dd92"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-17.step",
+      "bytes": 15549,
+      "sha256": "e1f8a20c05f03a59015d8479a5629eb432a8703136b651c9dd0f23c1e7c1df4f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-17.stl",
+      "bytes": 684,
+      "sha256": "83e8bb63eba5a7e86be2f46e0827cb0e154db91c28232b3b13e7226ba9fc025c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-18.step",
+      "bytes": 15518,
+      "sha256": "270cbbf324b77275238a8c5e00e540c447971312e614a79d31a50ffb2c5c1d13"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-18.stl",
+      "bytes": 684,
+      "sha256": "21d96580b7b57156bd5adeab35bbfe5b01180e6f0b406620e33f2ca322b6f5df"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-19.step",
+      "bytes": 5756,
+      "sha256": "bd8bf8ad9a2ae549e70c6c9e1b35d29b7c01f38870b46ffd970fe49d93d280a1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-19.stl",
+      "bytes": 25084,
+      "sha256": "81bf0e5f731a58e2d3d9d0db8e6a2dbebfea186561861f9b2159bd3ab0553561"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-2.step",
+      "bytes": 15545,
+      "sha256": "c2f1bcf6dcc1bacee74beab65350893471264c9c4bc9c1bb493e499db66ad30b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-2.stl",
+      "bytes": 684,
+      "sha256": "26f79b72e472836b70143e77bfd7cc8023d7ce16ec0713b4dba021b514b1013f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-20.step",
+      "bytes": 15548,
+      "sha256": "d741a7270387d3d099d30b30dad667a5ae108efa61082976ac16efb1c4f89566"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-20.stl",
+      "bytes": 684,
+      "sha256": "fe3388a5656a4ce37594041e366917ea39fc08c3d03653e4b1b72bbe696aa114"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-21.step",
+      "bytes": 15509,
+      "sha256": "9b4244f1d6e7fdc94083f6b976d0349f298c2d9f100d529e7a430e9433a07a0f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-21.stl",
+      "bytes": 684,
+      "sha256": "91080e5c5d3e4440078ef77dad4a61fc70bd3fa58f4f7f07ed5f56c88d83d616"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-22.step",
+      "bytes": 5693,
+      "sha256": "4cdbfba60f690e5e257cd6b8633f55ff19d82bc207561cf5b076f34e7fca7b98"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-22.stl",
+      "bytes": 25084,
+      "sha256": "b72e3aaef28d134d1db6c15e8b4d443c828808d31474dcd5600575949caf7bbf"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-23.step",
+      "bytes": 15576,
+      "sha256": "df5db11d3b3ba47ce9a1f33a4cf07c651ada0d933ec823f89d8bc574c2542db7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-23.stl",
+      "bytes": 684,
+      "sha256": "e00f34d2cd6fc16f4880e54869500af501ec33cb45f0a80e62b31c36bf9b04db"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-24.step",
+      "bytes": 15586,
+      "sha256": "bba438e78053df5efcbc4da165edd982ca5a0d5f86948de295bb4f336313cf90"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-24.stl",
+      "bytes": 684,
+      "sha256": "59a6a6014942f72311d928fe33812a48a923b05f916a28bfe3c75f68440b3df8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-25.step",
+      "bytes": 15508,
+      "sha256": "fb1431be3eda47b39e7cfb7180daf86d5e026660bd4301b155324c70d50eaaa0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-25.stl",
+      "bytes": 684,
+      "sha256": "7a72e7320ef03d7b1d509c38bb5460710116c7b1cb32e1cb45ced4a2c80808a0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-26.step",
+      "bytes": 15590,
+      "sha256": "b6f7568283cd8dcab500e4fc7fdd16ccf2888219f60a6e8ee4f7db49a787125d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-26.stl",
+      "bytes": 684,
+      "sha256": "d424eae0f7db06d4bdb0af63dd08d6c61930cb1eee4dc4b7477330429e0c4912"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-27.step",
+      "bytes": 5695,
+      "sha256": "5b20f03b6b71a0be2207fef81afb1d33a6520493ec6031e81a1fc31dcf329517"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-27.stl",
+      "bytes": 25084,
+      "sha256": "cf978cfdd91d53ded2612c6fd793e5f0b99f6fd600f02a77b776c0a188148c52"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-28.step",
+      "bytes": 15616,
+      "sha256": "87de2b5d187dc0095f2e6e0921c3f4090a05c12ca4859f77ed8e9fc53f94441a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-28.stl",
+      "bytes": 684,
+      "sha256": "b873639a5b9343bd6c89009a0592cf68228c9dbafa14a12c85cdf3046a423627"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-3.step",
+      "bytes": 15576,
+      "sha256": "247e7cdfb8afe0f6feeb5ec0527c6d478f4d4f0bf81e72bec0def721bddde535"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-3.stl",
+      "bytes": 684,
+      "sha256": "0c13c0f27a446a244e88ee325d24fdd17f2ce7db49ac320117a8369d3da9109b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-4.step",
+      "bytes": 15576,
+      "sha256": "f02d28a13092b975a7bf31d46d09ca98d431fa2bad5bea70c8e9a146fa3cf2df"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-4.stl",
+      "bytes": 684,
+      "sha256": "832f4a0740d44587ac07ca266c08df64d6843692f9a90e5bc6768a4007a543e2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-5.step",
+      "bytes": 15542,
+      "sha256": "7be6df3661c899be9018c2a96845d5e3e527353705a2ad1416cef615002e3663"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-5.stl",
+      "bytes": 684,
+      "sha256": "c45ca5bcf2c278e7b4b50195db054e61a43ff10646b10efeace74a1cd333962f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-6.step",
+      "bytes": 5754,
+      "sha256": "dd07c4e81ce84d34631ddbef1aad7e723873764e085a5bae347282e117c3d07b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-6.stl",
+      "bytes": 25084,
+      "sha256": "b3ffcfce71112378254539640e94dc9db5a1cb2cf7d6a8b745efe497ef2ec31e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-7.step",
+      "bytes": 15576,
+      "sha256": "57d15bd9134e25ec49e79a5b6c57170165dd18b582130951131902794fd40b95"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-7.stl",
+      "bytes": 684,
+      "sha256": "ba919c38929900ff64e432b61057185468218320d11a63fdfd10e37fe66d1809"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-8.step",
+      "bytes": 15542,
+      "sha256": "642489b7161842b279a6e83b368d9ee3cb2e045890e2d6777bf80cfc7f586341"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-8.stl",
+      "bytes": 684,
+      "sha256": "08053e905b638ac52e607cf43b2338de2e26af5cf670eb3a60ef1b8a416c3bad"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-9.step",
+      "bytes": 5760,
+      "sha256": "305551b8ff3b978b65285fcb3f7ae7d51f92eff3a34e090d8dba38f214b97464"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad/1/part-9.stl",
+      "bytes": 25084,
+      "sha256": "bf3fb8e000d24bca9fe2ca433bfa0402e38a7656d6dd297756367b707a64e192"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-cad-provider.json",
+      "bytes": 567,
+      "sha256": "80b219d9a5f15f33dbe82b78c5e5828c67f5f95a4a8ee74a6a472d79960a1770"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-input.json",
+      "bytes": 3032,
+      "sha256": "e8801c69acfcc21c285edeb3935f182839a139be3072e643ce07aeb5574ae256"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine-report.json",
+      "bytes": 1815,
+      "sha256": "1a6e75e8fb12b1011d944174cbafcf25c37239c08f940aaf2ad71dda6e28c715"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/machine.forma.json",
+      "bytes": 390777,
+      "sha256": "f6123aeca0f160917c6ec5ed4818b75b29f10f756d46ea490c59d5a33f4f0dc1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/6cc16b980fe34762af63efad4eb28d9b/progress.json",
+      "bytes": 175,
+      "sha256": "327f28d710035b1a65ce5aba54abb32844cace673aca90d78ec17cbc4716bd44"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/job.json",
+      "bytes": 508,
+      "sha256": "89aef1d38be87b8d89c0d748fc28a00e56e8fe32c55fffbc7da53371978bd33f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/previews/eda27458d31d91524439831008ee1be7793ffc3d1b96d638749037120d501645.gif",
+      "bytes": 206157,
+      "sha256": "aea3507814479952def5c675ce4917da77fbd1859b54e7f7be0c42bd968d7765"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/previews/eda27458d31d91524439831008ee1be7793ffc3d1b96d638749037120d501645.json",
+      "bytes": 468,
+      "sha256": "96083254dcaf3f02da75d1b47eae61193733946b6fef9215ea2f342b54da3e0a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/39d13842fb1fb444021a957d/previews/eda27458d31d91524439831008ee1be7793ffc3d1b96d638749037120d501645.png",
+      "bytes": 21405,
+      "sha256": "8f4475dd0bef3ccab2f8c7e547fb4fb81473d6268b61c78bafe656d5012d5f2e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/cad-candidate-1.json",
+      "bytes": 3493,
+      "sha256": "c6cf032e5e7abd15ae0f690984385d759b5e19921c04db449a038a1756225f47"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-assembly.json",
+      "bytes": 3493,
+      "sha256": "c6cf032e5e7abd15ae0f690984385d759b5e19921c04db449a038a1756225f47"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/adapter-proof.step",
+      "bytes": 15564,
+      "sha256": "c949e6e4537cddf49d8d161064c455ed6c9533819f4731dda3de215d2bf3b373"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/assembly.json",
+      "bytes": 3493,
+      "sha256": "c6cf032e5e7abd15ae0f690984385d759b5e19921c04db449a038a1756225f47"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/assembly.py",
+      "bytes": 1785,
+      "sha256": "5526ecb1f515ef11191c9ec488c8b45fd8f1792ff3c778c3d05f610a41bcd1fc"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/machine.step",
+      "bytes": 165477,
+      "sha256": "ee70bacda7617be423f211344654b8021ffac4cfb785d145dffcf94c54c2febc"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/machine.stl",
+      "bytes": 80484,
+      "sha256": "81fad594fe63af2eb4f0bab210ad65b2a882455f8e9a5d39c85d247160aa71af"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/machine.tree.json",
+      "bytes": 82986,
+      "sha256": "9630146c7e78f5946101473d10928c948d005e164bd8788ee9d1e66103771fd3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-0.step",
+      "bytes": 15575,
+      "sha256": "ca7490f707f3597fb7de6fe07b54213137d4e2ef4076b6393b0e1d91eeea535b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-0.stl",
+      "bytes": 684,
+      "sha256": "e7b22b4e6df113c8cd2a225f578d8851f3f878c2ac42a6934838c2f339d0a2e9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-1.step",
+      "bytes": 15554,
+      "sha256": "73b1c79d202daaf4e1fb546e38c5358712868ab88e79cf905eca13682cfc2ace"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-1.stl",
+      "bytes": 684,
+      "sha256": "b623a3d9c72b7968991e0f6e0c41f0c759d7bd0aa2c8dec07a4265a5742f1c6f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-10.step",
+      "bytes": 15544,
+      "sha256": "c767565b004eb519beeed46b3ceecf20f140dfbaa2bfd5e4652c66ecea50aa49"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-10.stl",
+      "bytes": 684,
+      "sha256": "6aaecfab0f00f16b763c5447ba064c6ced2997746f43e13612aeaacf2f40a35e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-11.step",
+      "bytes": 15564,
+      "sha256": "2c18bae2d3c483bf31a8ee7bb7cd2995d77310f146f4f484597dfa31b849925c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-11.stl",
+      "bytes": 684,
+      "sha256": "7b2c7878e391fee8a8757aee116404c5a462c7218627e0c2fa0037c4b96b6611"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-2.step",
+      "bytes": 15528,
+      "sha256": "95f1dcc04f3e5c942e9e01ae70334aa2acff077816ae29b09f269d54fd72fbd8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-2.stl",
+      "bytes": 684,
+      "sha256": "ae1c3d7c70e8d1cbbd0acf3f5d4134bd6417316c086325c56ac33cbc030be6b9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-3.step",
+      "bytes": 15559,
+      "sha256": "3d9d37495b3b4fdc408d99d131a31e4d9441933ca015933bb2d177a894b5723f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-3.stl",
+      "bytes": 684,
+      "sha256": "df48b474543b3f8fbf2537ff7229f477dd3fc97496aa2c6a6a8f79031080e6ec"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-4.step",
+      "bytes": 15542,
+      "sha256": "a0434700b956103719d92b8e14719d05de7d0e3cf27aa59f87d3b09563313873"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-4.stl",
+      "bytes": 684,
+      "sha256": "160245bd86f6c065b3c9a930a624c6bea5aa714f2fc3b39b32a963720679f862"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-5.step",
+      "bytes": 15542,
+      "sha256": "2e934334d3fe4f3c308f9d68a61ca538d3127cbed0c025803b7e4e78ec8b8cdc"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-5.stl",
+      "bytes": 684,
+      "sha256": "44a7f6bbb9f79120b4dfc3fab7ce1bf013ee8e7f839c203886042271bde42854"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-6.step",
+      "bytes": 15525,
+      "sha256": "9da9f0d59f5c0a7bc7cfcba57d9d3908795759c9f84edddcbf5cba29d605ef37"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-6.stl",
+      "bytes": 684,
+      "sha256": "62a6e8b5f4941b58f5e16914f97e886581a607d1ea27dbdfdf7a9d9449fff12c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-7.step",
+      "bytes": 5671,
+      "sha256": "24cc466cecb9bd0e1d2b9b4bba7a3b7b4259c734a2f99e1160bf50e3ad255f93"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-7.stl",
+      "bytes": 25084,
+      "sha256": "9c212a6acd4aebca67cf98be0fb0a4a12dc80749c56a70618b54ef62273c1ee1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-8.step",
+      "bytes": 5679,
+      "sha256": "85bd2d967df795b4fcd79e9f2078c24f62a242c4597f74a0b3337de70597e22f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-8.stl",
+      "bytes": 25084,
+      "sha256": "6b0a8238e2cff2c6a727c940dacc30682538c90e180f8cd8b60ed2fff3de718b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-9.step",
+      "bytes": 5752,
+      "sha256": "2894d181c8a61be001775dec12858b6f3cb45301e54089eabc2bbe8de6a57f29"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad/1/part-9.stl",
+      "bytes": 25084,
+      "sha256": "3d996085091c62707e84ea480090fbd057c562141100b1b85fe0eeae37f3f2bb"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-cad-provider.json",
+      "bytes": 564,
+      "sha256": "06435c0b131ee08e5b616f62afebc5cb5fa61381201328f5349002e03ea63ffd"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-input.json",
+      "bytes": 2960,
+      "sha256": "032fd95bfb401267619cbf84d6b38848936c6312f4b8e8b48c54d8c3ff69b3a3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine-report.json",
+      "bytes": 1389,
+      "sha256": "8c1833814d7314755f6b2b29e35b7211810427c0bc31fe39550ebde445d19b76"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/machine.forma.json",
+      "bytes": 148567,
+      "sha256": "67e92bf2bcb2818e04df47e5619100569803fadf07ad2eff06cd16c7a55ab389"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/14c0f6c492a14a08ab08783e488d0d2e/progress.json",
+      "bytes": 175,
+      "sha256": "9a0ad950444b1ec8c6c0c8c9561b3692ee71fdaa44a11c9ab0641373eadf1921"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/job.json",
+      "bytes": 505,
+      "sha256": "2f4c94590f6b4c37f945f386dd9c6166a371785567045bc451742477ce889d81"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/previews/b17ba426ebd3cb56c6f1a6c87e64fd81f1dc6d6a6de7bdc6df7bc61a0e3ee0f2.gif",
+      "bytes": 141279,
+      "sha256": "a09a4af4b149b5303e51e9e45d91fae040045f322845e443c40f19188dee7f0d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/previews/b17ba426ebd3cb56c6f1a6c87e64fd81f1dc6d6a6de7bdc6df7bc61a0e3ee0f2.json",
+      "bytes": 466,
+      "sha256": "0298b8bc1d161a671a2280d3c5cfe74ea618f381bdbf8a268bb9857d819da00f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a4328311ba6a81fc89a785ed/previews/b17ba426ebd3cb56c6f1a6c87e64fd81f1dc6d6a6de7bdc6df7bc61a0e3ee0f2.png",
+      "bytes": 14185,
+      "sha256": "311f0e35cad20132b0a140fb5b4cf6340eee02b205f7b3b324e5c396d391bc72"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/cad-candidate-1.json",
+      "bytes": 5160,
+      "sha256": "1184ab82577b0b0f35bb7a4a3b8da8c0733456a7e174993bd888b378e2cb3481"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-assembly.json",
+      "bytes": 5160,
+      "sha256": "1184ab82577b0b0f35bb7a4a3b8da8c0733456a7e174993bd888b378e2cb3481"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/adapter-proof.step",
+      "bytes": 15506,
+      "sha256": "93e72c5608304ffd0953475731ef786930786b47edd7b973b938c07b164eb27e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/assembly.json",
+      "bytes": 5160,
+      "sha256": "1184ab82577b0b0f35bb7a4a3b8da8c0733456a7e174993bd888b378e2cb3481"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/assembly.py",
+      "bytes": 1785,
+      "sha256": "f4011b333d012b9c7bcae840b33abf368864d3255a208e118c99aa8c125554da"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/machine.step",
+      "bytes": 168839,
+      "sha256": "376eb91d0422cdb989ef91d87f78b2d265e051e1d200750de14148665f90be19"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/machine.stl",
+      "bytes": 229284,
+      "sha256": "f99b145409b4d6dec8785060bc47e4f2ef984fba2487b44af73ccb2445119cf2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/machine.tree.json",
+      "bytes": 91412,
+      "sha256": "5080f07d15b68ef894abb1be07f124e4aae7831d568ad9890bdc1604c7c615b1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-0.step",
+      "bytes": 15575,
+      "sha256": "26c6b6882aac6a7b329e34bcd2c829bb236fc4c16155777a1e987b055f81d89e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-0.stl",
+      "bytes": 684,
+      "sha256": "e7b22b4e6df113c8cd2a225f578d8851f3f878c2ac42a6934838c2f339d0a2e9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-1.step",
+      "bytes": 5641,
+      "sha256": "4f5803ef8adf96bf4263d6c269b0b4f9af2e5a208d885238e515855167a39632"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-1.stl",
+      "bytes": 25084,
+      "sha256": "06695199fe6c6857185cb2d6d15234d95d82f1db438651cc44ea86faddbea686"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-10.step",
+      "bytes": 5688,
+      "sha256": "3980856cf35c94072e82d001ee6488d1103eee31ac172f3303303f5d28d8863d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-10.stl",
+      "bytes": 25084,
+      "sha256": "3c345f4cdb02e338e3e9f5efb08bba246f43888729fed6f7b37f8d8549fcf828"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-11.step",
+      "bytes": 5696,
+      "sha256": "81aaa2089fae672bfc7fac881b71591f6ccf139741dfd611ac93e94c47396ffd"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-11.stl",
+      "bytes": 25084,
+      "sha256": "e37d2a11bc5da0bef8a1951985bb85aada92c5ed2fe8a25b9acd0093dfa271bc"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-12.step",
+      "bytes": 5671,
+      "sha256": "30e53eb4687e8eb5bfa7395795b95ae280379085804267338ab88b3f1be0820c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-12.stl",
+      "bytes": 25084,
+      "sha256": "0feef609ff7d10a9a94441c8cc4affe00f4d8cce86a25d7ab64bb8e118b6cfe9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-13.step",
+      "bytes": 5682,
+      "sha256": "adecda8ff7201d0ae94609b6fc027e319b4524816d864466b3e9eb3f7dc19159"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-13.stl",
+      "bytes": 25084,
+      "sha256": "44c9d6b38d36ec836d4a3973985e2b17e3cad9fa3532ec673279b22013201ec3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-14.step",
+      "bytes": 15505,
+      "sha256": "501afbcad1ac4e7a3c3d2d475412b8f3f1283179d6c6d8a2e26202e06466b628"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-14.stl",
+      "bytes": 684,
+      "sha256": "f8616294e44f9df24ea583c0b0ba0d9598132fc381874f58a8511e6e9bf329e3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-15.step",
+      "bytes": 15506,
+      "sha256": "4da86166ce13207f11f63d8a95cac5e9209fda02ea06f991f01065c883ba9ae3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-15.stl",
+      "bytes": 684,
+      "sha256": "c8de2060f5b34dbfa2b2cc4ee344685aa30e64501593b0858e4da46825a069b2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-2.step",
+      "bytes": 5657,
+      "sha256": "c278f2391e9c8c5b1e0742695e0514e623d483331c0bd21b376a810df20a2352"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-2.stl",
+      "bytes": 25084,
+      "sha256": "821f8a19a960a220ba20f4e3a511b67331ace4e5365eb8a6b88ac2850d7047a3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-3.step",
+      "bytes": 5649,
+      "sha256": "70e31b54cd5cd93af746c6dc504039df474ce6a07ca1517ad58f0ff30d7c87ed"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-3.stl",
+      "bytes": 25084,
+      "sha256": "af2d3df28bf930cd0fb076e6440d4aa2cb6988aa5493e0c60103454a3383e9e8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-4.step",
+      "bytes": 15561,
+      "sha256": "c62bf8703e10f39c5c5904a6e2387c47daa0b4f5c8450a64f6c63424c83e65d7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-4.stl",
+      "bytes": 684,
+      "sha256": "53f3aa70859e1745947f8d6dcd170b3bf14ec4ac2d4f0d63d8f1c9f997de3181"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-5.step",
+      "bytes": 15535,
+      "sha256": "7aff4db9ff3c92be1fad94c06cdcf786a73ea06db593f70a1b67964b579006f8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-5.stl",
+      "bytes": 684,
+      "sha256": "d18c71dce901f5d13b85380bc7a5c24cd07bb8f3429ea164d8d9faa7560b61cf"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-6.step",
+      "bytes": 15575,
+      "sha256": "c01c5822e5e7394e1d435d06fdc93d647bce9823bd79d14070070a72359b9b58"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-6.stl",
+      "bytes": 684,
+      "sha256": "6dab0394f0d6b38c5e91460e2f7a033b9a5a4d2e30345c39561a072ea3f82c9f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-7.step",
+      "bytes": 15549,
+      "sha256": "83ec4ed78368c76f8d37d8f327dde0b2b0d105e3a114c507c5d15aaaabfc6a69"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-7.stl",
+      "bytes": 684,
+      "sha256": "b451a996de00b00197ae40dc2f358dba642ab65113b1f3772d51157e358898f3"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-8.step",
+      "bytes": 5680,
+      "sha256": "6e92869fa3b8559afccf096db49d732fced73eceab2b20d8b337d929d8cec8a1"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-8.stl",
+      "bytes": 25084,
+      "sha256": "f1a27077d0545e7670cb01789569ba68e6208aee03acbfbea41baa36a5754413"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-9.step",
+      "bytes": 5690,
+      "sha256": "4f1a77f6673d8c6dc8b81c1c85457d00e3da603c7d884141644dd935b3f00c5a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad/1/part-9.stl",
+      "bytes": 25084,
+      "sha256": "ec7524205f1fe838b1a2f95d00c788025b633d2e9b86592d7f8e4a1c68fe8397"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-cad-provider.json",
+      "bytes": 566,
+      "sha256": "95decaeb6713e469c26c8541d82040cc450787030e0b4b706d2d132578e4667d"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-input.json",
+      "bytes": 3015,
+      "sha256": "f3d600bee1015a64cefa0152e98db29909b2e80fdb9e721e624c1a5ecb358878"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine-report.json",
+      "bytes": 1546,
+      "sha256": "2cbf306ae000c18b49a91b204b3d17e4b0a2c7e7177eed2f298bfdc1b569d24b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/machine.forma.json",
+      "bytes": 417505,
+      "sha256": "e3306fec69435e0c8b52d24061a2959f914dd3b14c6109be1a30681b0a509098"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/ee00b22e89bf471a88cf81ce94a651c4/progress.json",
+      "bytes": 175,
+      "sha256": "a6d590cdea18a375a617eefd8f0c37fb0dff25da648636c35eacca7ade0f4fa6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/job.json",
+      "bytes": 508,
+      "sha256": "cbf7849d00823cf5e21eb7602ba0288e2e5df801730e9bebc731e75cd8377e1f"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/previews/7f07cda8245a7236c4fdd3011e705a6f3618fa6b4f0653fd4a6514c3a6e12f0d.gif",
+      "bytes": 134059,
+      "sha256": "c71b04a2f40df54ef8c9a03b94bcf11ce53a3b029d2cba97c456b14f35046b91"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/previews/7f07cda8245a7236c4fdd3011e705a6f3618fa6b4f0653fd4a6514c3a6e12f0d.json",
+      "bytes": 468,
+      "sha256": "296a0326dc99c60ee88891ee1035ec4b0d4b5e4c60d3e71f593cc3215225a90a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/a83c2c8b2ddea9eaea2abecb/previews/7f07cda8245a7236c4fdd3011e705a6f3618fa6b4f0653fd4a6514c3a6e12f0d.png",
+      "bytes": 13970,
+      "sha256": "1c1ff062034c1fee7268bc9dd77ad131780230cbaf29b74f1b9645b6cae116e8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/batches/92bd1b3e2dc444f1bcb5a99874965ed0/worker.json",
+      "bytes": 103,
+      "sha256": "4950bbc3f0e2ea809c0440b0e362c128563b7babf564a714a3714d354903152c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/cad-candidate-1.json",
+      "bytes": 4060,
+      "sha256": "7062b3ba23f2c5ac464b5c791e298e143812d11c6c8800af746142f9b8564a88"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-assembly.json",
+      "bytes": 4060,
+      "sha256": "7062b3ba23f2c5ac464b5c791e298e143812d11c6c8800af746142f9b8564a88"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/adapter-proof.step",
+      "bytes": 15526,
+      "sha256": "d4c0071bf2258e3842948510bf2a2d7aeb1bce25a15910e056b24e68a0d093aa"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/assembly.json",
+      "bytes": 4060,
+      "sha256": "7062b3ba23f2c5ac464b5c791e298e143812d11c6c8800af746142f9b8564a88"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/assembly.py",
+      "bytes": 1785,
+      "sha256": "a63c6b16b79ae5a1b8c1d30f2d7718461293affb99f4a7c18e22438f2bcb404b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/machine.step",
+      "bytes": 134187,
+      "sha256": "1d0c7bfcfda50de3da0fc630d70eb01569eae68ef48cddd27b60fe743651a41e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/machine.stl",
+      "bytes": 153684,
+      "sha256": "c4e9e84f3c52920a4af0652c162c5917a5fc915aa652e8795318b531d11743e7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/machine.tree.json",
+      "bytes": 71548,
+      "sha256": "57405b27d6e784036f3bc320d1b60b7cabc00fa93e549207e643e67b9f8515ba"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-0.step",
+      "bytes": 15543,
+      "sha256": "c2c0cf0fcd00cde585d4cd977866ee4b8837a3157ab3336084bf9f7debcebf26"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-0.stl",
+      "bytes": 684,
+      "sha256": "34b8786c58041e158ca4ae63f94ceff7be653b422d3ebbeb370ca85153f6939e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-1.step",
+      "bytes": 15499,
+      "sha256": "740d0c1006a7775f29ebbc695edd1fd39794f271163bb8a37835496dd82eb338"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-1.stl",
+      "bytes": 684,
+      "sha256": "7d663c15a345099dc68fb18a4d3b0e33f24cbbf1ba615e098afa35f4d5b87434"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-10.step",
+      "bytes": 5686,
+      "sha256": "9b0a1ab85d1b139b9d9eee9c4531a525dbd7ccb908c7d2cd7501efbe3e64eff9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-10.stl",
+      "bytes": 25084,
+      "sha256": "9d48c005ba3f36f9e66d19af864c8aeca229b7f8766470f31e047f8dbc6c92d0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-11.step",
+      "bytes": 15526,
+      "sha256": "9d96c4de95170321504c0ab2bb439f2deb104614a45de078a495dfa64ec84c86"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-11.stl",
+      "bytes": 684,
+      "sha256": "38c31c82a745e9a2f9cee317ccbcd2001f92c360b3b5ebc358297fb5a2dced5a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-2.step",
+      "bytes": 5731,
+      "sha256": "e0583633c9331a16fe9e7bf95f3a27e79ca3c3e98a5dedfdcf9d0d14f268f4ec"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-2.stl",
+      "bytes": 25084,
+      "sha256": "fecd717cbe0dc3d77091f4c33ce7329e213f0f5b16df1195c3351e6b8475d09a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-3.step",
+      "bytes": 5725,
+      "sha256": "bb77c1dcc0c8c1cb83eca017821135ebabd581446b10357aa4dc46800849309c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-3.stl",
+      "bytes": 25084,
+      "sha256": "3881ef24460b1a8d1d373a988d291115b16aeaaa80d4e8c76d92238e22f3eb87"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-4.step",
+      "bytes": 15485,
+      "sha256": "3cd161cfdd2a7f4aa720bc262b5621eca0cccfbc14b7cf2050516fddc1b5e62c"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-4.stl",
+      "bytes": 684,
+      "sha256": "ea463f0322ed9fe1bc54ebb1fadf46735453ab4136d69320da9806914f482e9e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-5.step",
+      "bytes": 15483,
+      "sha256": "fe8a5db2bcfaddb00c06654afcb0bf0e400c335f6e54d0230253548c8937f800"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-5.stl",
+      "bytes": 684,
+      "sha256": "0adf679e505229bb8308673c7a933e5c403a3b3fe6add7959cb043db74557ca7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-6.step",
+      "bytes": 5694,
+      "sha256": "542771d4f81e7c01c5ca61449255778e24b9cc1aac3efc2c43ef457bec86f8ed"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-6.stl",
+      "bytes": 25084,
+      "sha256": "defd21af867595a54947c914526dd7250d18d0c6e3da93d67bbf757d219382f7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-7.step",
+      "bytes": 5686,
+      "sha256": "31558b54fdb3641d7958c31c0ab13e743999bb43b448dd423d96bb54170fa543"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-7.stl",
+      "bytes": 25084,
+      "sha256": "0caec757ad3e974bece3252f53549f4f118d2d0a61017904c26441e0e7613342"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-8.step",
+      "bytes": 15542,
+      "sha256": "3dc1c5a4425a49dd144c1f682883296e3956f17394dd915b2208d036f7785c6e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-8.stl",
+      "bytes": 684,
+      "sha256": "f7b3c873ec7778e12b0ca5eea54e9d5698f186bcb862695de3753ea9a6c62ef2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-9.step",
+      "bytes": 5696,
+      "sha256": "32d7ed4e1fcbd194996f24af928d3942ead505f1e99ae6a653d4216dbd1713c9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad/1/part-9.stl",
+      "bytes": 25084,
+      "sha256": "a316b099fa557eb9a490327c154c29accd7f9dffab84083028b587a2d96b557b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-cad-provider.json",
+      "bytes": 565,
+      "sha256": "0e92a9e6633214bf043f8cec7fb837202a4030f8266bd5c4de7707b1a4cde35b"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-input.json",
+      "bytes": 2399,
+      "sha256": "893ffb22d9a99c392e54a677a93ebc54ff2ec00c9016fc17af8f01367c318eb9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine-report.json",
+      "bytes": 1575,
+      "sha256": "4137d68324d34d238e6f9ba4b8862706a74b2d07eba9569e4e4bf46a81395eec"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/machine.forma.json",
+      "bytes": 281255,
+      "sha256": "ad2f0a1e1c6fb93e9892833c99552c6f859a090db2c7499f908dec989a9a22a5"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/431cafb222034387862ad132fb99467c/progress.json",
+      "bytes": 175,
+      "sha256": "13b7399976ebc581b0e1f7820070fcddde2e4db51247ac51addecd5bfe6453b7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/job.json",
+      "bytes": 515,
+      "sha256": "9f17edcb9fd922f8cee082a9ceb08b052219ee9d231763d5f06d6e7a92be26cc"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/previews/1f496d6e958d5ffb7f4792c415bdba32b843a2276e1290ed084520e41aecd4ed.gif",
+      "bytes": 152380,
+      "sha256": "6c0de21fc7365161e2455b5af598f1489a38561e2daa2009ab993c1a047999e0"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/previews/1f496d6e958d5ffb7f4792c415bdba32b843a2276e1290ed084520e41aecd4ed.json",
+      "bytes": 468,
+      "sha256": "6f7ca475625eccce60884457ec4cee6e95dcc5fc31ef5d55a70771106abc60c8"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/machines/c051142b324771d2ef2703da/previews/1f496d6e958d5ffb7f4792c415bdba32b843a2276e1290ed084520e41aecd4ed.png",
+      "bytes": 15225,
+      "sha256": "b82372cdf25a97b61bc2cc931f5d956e08855b29f36737d3133a21b0c961f6a5"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/scene/adb73bb6cb6c422bac5a094f950c5d87/layout-report.json",
+      "bytes": 982,
+      "sha256": "171dc346e5ab276addb1196b4c93d45e864567b494323f9d7f76d63edd712728"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/scene/adb73bb6cb6c422bac5a094f950c5d87/preview.json",
+      "bytes": 2134,
+      "sha256": "1940fd44b9902712c83c452cb249574b88a4785cb97853addc23eaaab92ac161"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/scene/adb73bb6cb6c422bac5a094f950c5d87/scene-input.json",
+      "bytes": 14498,
+      "sha256": "2f4635db6bfa237a54fae379ea8f7fec8568a84946d3a3f7c1aaa474675ec905"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/scene/adb73bb6cb6c422bac5a094f950c5d87/scene-report.json",
+      "bytes": 2898,
+      "sha256": "2cc5f4a44be0b61f4084f55574e395200457cd074d2d0d9ccd02b27c8b2188ee"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/scene/adb73bb6cb6c422bac5a094f950c5d87/scene.oi.json",
+      "bytes": 3489286,
+      "sha256": "4d51abfc2d0cf38d3c1747e5aafd4710f0111ef8ece098066f696b384acb2784"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/scene/job.json",
+      "bytes": 415,
+      "sha256": "619c95371baa60adc2b7a960f86ada4197d366fc02d8ba83b385ef5736a88099"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/source.mp4",
+      "bytes": 2944284,
+      "sha256": "c449a1ebe354b33f916a826f5c6d407911e3393031b23638a80140a3133606ff"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/baseline.json",
+      "bytes": 53109,
+      "sha256": "3ef666a1cf6b4be942ce78449d1ea46c8382d4fd78a94c36c753dd3278a9df19"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/before/captures.json",
+      "bytes": 1730,
+      "sha256": "e96caa7cd16f62e011072bad0333e8ad681eab88d7d82d1bb7c48133dd18dbf6"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/before/preview.json",
+      "bytes": 2134,
+      "sha256": "1940fd44b9902712c83c452cb249574b88a4785cb97853addc23eaaab92ac161"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/before/render-isometric.png",
+      "bytes": 142139,
+      "sha256": "9e209017e96b0c3381bb3d2947a94a3cc34a020fe06c467b2d5247da85c0480a"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/before/render-reverse.png",
+      "bytes": 156156,
+      "sha256": "d9c71345ab64a5096dd541c5e40776c4578d91230f728ee017482d95ff5c8e79"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/before/render-top.png",
+      "bytes": 63902,
+      "sha256": "785e57f94adf8efd5b886a701032e3c2e57fa24290097a5bf05deeb3ac6ff412"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/before/scene.oi.json",
+      "bytes": 3489286,
+      "sha256": "4d51abfc2d0cf38d3c1747e5aafd4710f0111ef8ece098066f696b384acb2784"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/before-candidate.json",
+      "bytes": 3915,
+      "sha256": "765083c42f2ba2ec268be282e671cb9a171373e2a1999feb05c40b3ceca41a0e"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/before-provider.json",
+      "bytes": 936,
+      "sha256": "d8bceb6dc9ce59b0a990ea097cb98282488e5721e1828319a6f203f8bcfc68a2"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/job.json",
+      "bytes": 850,
+      "sha256": "93d7302822b472f9416e66723ba2326b4c97cec94330dc441d24c68af08c81f5"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/source-proposal.json",
+      "bytes": 11352,
+      "sha256": "07c085d0396a52f405d5b29c8191fa2d658a48da6bd67802384fae482e8d7ef7"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/source-protocol.json",
+      "bytes": 4474,
+      "sha256": "18784849bf5da3d5b83fe0d3cdf8c1ec5ef5423319914ec49cbf7a11e24fefc9"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/068510d5e01a4621bba58dce9b6f4127/worker-before.json",
+      "bytes": 59,
+      "sha256": "0cd457c17420fde8d9a0dad437cc99ee03f82ba2c878d29a62fd8df8b142cf99"
+    },
+    {
+      "path": "runs/workbench/2b36990135d7406c8db35e9504221fce/visual-reviews/latest.json",
+      "bytes": 50,
+      "sha256": "c1cdc5c3f8be28f5c6720c4811dc484bc1807c33dccef9a50467031cd988c432"
+    },
+    {
+      "path": "source/.gitattributes",
+      "bytes": 120,
+      "sha256": "5c4f05fa91623fd67e20501be5855dafe87e80bd4ca1fee56981d91bebe1f1ce"
+    },
+    {
+      "path": "source/.github/workflows/offline.yml",
+      "bytes": 1348,
+      "sha256": "b50372581eafcd8bfbd8ccd1cc02432ac3e95e19a8428a605e58e2a695bb8292"
+    },
+    {
+      "path": "source/.gitignore",
+      "bytes": 74,
+      "sha256": "54a5fbc7f2d5b662bdd094c54898ba1e80c070f6b066a509b03ab65879fd939d"
+    },
+    {
+      "path": "source/benchmarks/coil-winding/baseline.json",
+      "bytes": 20697,
+      "sha256": "2e42330f7e04d3e9bec2319dabb2c8826fa20136d015e7bfaf32b85a1ce844dc"
+    },
+    {
+      "path": "source/benchmarks/coil-winding/measurement-template.json",
+      "bytes": 2347,
+      "sha256": "1004f8170eef346a135f5fd5aa3bdf2aca3b97897197f8c9a371624285ffd0a1"
+    },
+    {
+      "path": "source/benchmarks/coil-winding/README.md",
+      "bytes": 6213,
+      "sha256": "8bab72a7363683386c9ce3bfb7aae111f597c5335b8648ac277885b27d714bda"
+    },
+    {
+      "path": "source/docs/nebius-model-presets.md",
+      "bytes": 6331,
+      "sha256": "38c6164caa84f5ea251c0a29a2c470be7aa7bafbfad1ccf647777dc213f2f5ae"
+    },
+    {
+      "path": "source/docs/rfd-human-procedure-to-machine-procedure-compiler.md",
+      "bytes": 33149,
+      "sha256": "6a74e311f72ab1e787aa9a2e50c7950ba894e81f158b1c9b0fba7e36ff6755ff"
+    },
+    {
+      "path": "source/docs/video-workbench.md",
+      "bytes": 21934,
+      "sha256": "2d6f29654b797139236a48987ffd8c6a06e835bc7eb298932758bcb641e45b16"
+    },
+    {
+      "path": "source/example.env",
+      "bytes": 396,
+      "sha256": "2d4fc293c7c84801385592a40b446d448a27fb75531cdc11626d2e1ce748a55d"
+    },
+    {
+      "path": "source/examples/apparatus-alternatives/checks.json",
+      "bytes": 951,
+      "sha256": "80e82f63ff3f0566e27bae101977e5d0aab16af382e302c55ae6e5cd01edb394"
+    },
+    {
+      "path": "source/examples/apparatus-alternatives/evidence-input.json",
+      "bytes": 19386,
+      "sha256": "6f521ae4de73621d6b7b6c1441fe02f57e91d6b1b6b005eee8986b326f20fc3e"
+    },
+    {
+      "path": "source/examples/apparatus-alternatives/evidence-report.md",
+      "bytes": 6486,
+      "sha256": "b0531bad8fbdc64272dab62e0d2f216fd7edc4784d4b2464409176b3dc22aa03"
+    },
+    {
+      "path": "source/examples/apparatus-alternatives/evidence-summary.json",
+      "bytes": 100696,
+      "sha256": "db2305b8e0014b678d2a186435eee6b7ab8ff4df946d05cf69a2c1ca3aeb94ae"
+    },
+    {
+      "path": "source/examples/apparatus-alternatives/illustrative-input.json",
+      "bytes": 33193,
+      "sha256": "35af6f469a74414bf1c4e147a200364624c6b8adce9fbc7ffc379dac784869e9"
+    },
+    {
+      "path": "source/examples/apparatus-alternatives/illustrative-report.md",
+      "bytes": 11906,
+      "sha256": "57b7b97e1475bedf48984c0e7af1591c5561fbe4abd2b96478908489e1c8f4b2"
+    },
+    {
+      "path": "source/examples/apparatus-alternatives/illustrative-summary.json",
+      "bytes": 378023,
+      "sha256": "e1028bc85aec032c90afa4e059af74a3b861b29e12022bc7eb9d39dccee60767"
+    },
+    {
+      "path": "source/examples/apparatus-alternatives/README.md",
+      "bytes": 4993,
+      "sha256": "92f22ee96764545b870bbcaa615e0df3ce7e04000c7f498c5aa6eff3b7fde22d"
+    },
+    {
+      "path": "source/examples/coil-offline/apparatus-requirements.json",
+      "bytes": 19123,
+      "sha256": "d09ee9f765118a82d9ba98e36fec6c31328b0867ff20df0c100d5b14784eebfa"
+    },
+    {
+      "path": "source/examples/coil-offline/checks.json",
+      "bytes": 1041,
+      "sha256": "abfd6dd9c2f65ce00410440c8601e390d27d1fc12f0a7494c6c4e921aecfddd8"
+    },
+    {
+      "path": "source/examples/coil-offline/full-process-input.json",
+      "bytes": 2712,
+      "sha256": "5bca3602e0864a11ac4c7dca88303003c1f21b2681ceab5d86a1bd94266fbe44"
+    },
+    {
+      "path": "source/examples/coil-offline/measurement-checklist.json",
+      "bytes": 10767,
+      "sha256": "b594c98474e233e94ead8d9f0a23389338b834c90d5511875e85a2e016692296"
+    },
+    {
+      "path": "source/examples/coil-offline/process-graph.json",
+      "bytes": 12389,
+      "sha256": "c31c4857a0628b6498e43a142aa59335c8b8614d876bbd7824cf4aaf6a409c05"
+    },
+    {
+      "path": "source/examples/coil-offline/README.md",
+      "bytes": 3230,
+      "sha256": "5a4565153f8815d09017660e991ec3a57fa283bc1253844d05d69856aeba0713"
+    },
+    {
+      "path": "source/examples/coil-offline/report.html",
+      "bytes": 8270,
+      "sha256": "d15541adbe493c5d65faa0c5964ae92b824dc966c1067efbcd4b086c75b5bf21"
+    },
+    {
+      "path": "source/examples/coil-offline/report.md",
+      "bytes": 7946,
+      "sha256": "b9aa5c213688bbd81b1cc5f6169e7cbe99b567b2fe7b50ed6edef77ff9714824"
+    },
+    {
+      "path": "source/examples/coil-offline/summary.json",
+      "bytes": 50192,
+      "sha256": "020d7f06cd1a73d85485f5125122eb46d4185d947f3f45ee6383b78c3924fc70"
+    },
+    {
+      "path": "source/examples/debug-extraction/README.md",
+      "bytes": 1540,
+      "sha256": "4fc41fc9bd424fed6fa43310408a8167ee6085e4f4a67712d57640246d01e6c4"
+    },
+    {
+      "path": "source/examples/debug-extraction/requirements.txt",
+      "bytes": 22,
+      "sha256": "712070610f1fc1e7b82d098e41b30dec63cf6f96da5c33fbbe442449abe89f04"
+    },
+    {
+      "path": "source/examples/debug-extraction/run-opencode.py",
+      "bytes": 6896,
+      "sha256": "46e561d10762360653abc324ce39125dd4be2d931ddc2a8784173ae37392bb67"
+    },
+    {
+      "path": "source/examples/debug-extraction/run.py",
+      "bytes": 827,
+      "sha256": "bdf49cba205f704caf024929fa7f51729188291cb4a65173fc37c5feeac5ce1c"
+    },
+    {
+      "path": "source/examples/demo/checks.json",
+      "bytes": 367,
+      "sha256": "60cb245e3d63fe272a7db0859c28af80bde9f71e3a293ff6fe48b4377f3c098e"
+    },
+    {
+      "path": "source/examples/demo/README.md",
+      "bytes": 4376,
+      "sha256": "a409b97c3c244debec6edb1185552fbb666eaf5b2c403a42fd2207c107c2e271"
+    },
+    {
+      "path": "source/examples/demo/sample-report.md",
+      "bytes": 4195,
+      "sha256": "197fcb88b0cf26c7b55f1a4e20b537f39051f3b4fd78d1fa31e63f89420b2a4e"
+    },
+    {
+      "path": "source/examples/demo/sample-summary.json",
+      "bytes": 29462,
+      "sha256": "4339466be5fa86bf3f97ee5da9a8e95ea8a3da3e5d5e008474802c10f39b7ff1"
+    },
+    {
+      "path": "source/examples/design-handoff/coil-requirements.json",
+      "bytes": 1281,
+      "sha256": "26ffb27ce8cf546791dd06a944ccf7aabadde88da09f606f4b9677471f92dbac"
+    },
+    {
+      "path": "source/examples/design-handoff/integration-checks.json",
+      "bytes": 1755,
+      "sha256": "8b9bbfd9a07bb150209aa289f8a28bc0e4c884ba6435ffa63909321d538dbdcc"
+    },
+    {
+      "path": "source/examples/design-handoff/README.md",
+      "bytes": 6977,
+      "sha256": "11c3a06779d59594e2a5690c4b509786f09d16b5d1804376af15b52203fc638e"
+    },
+    {
+      "path": "source/examples/extraction/checks.json",
+      "bytes": 1684,
+      "sha256": "ad6f7901b71a1c7e39162c9282ad8c6a896bffde7e5d978fe3dc354557bc993e"
+    },
+    {
+      "path": "source/examples/extraction/executed/compiled/apparatus-requirements.json",
+      "bytes": 8853,
+      "sha256": "9c1239a1c0a7060f07242cac951c728a0cd14f3b61a1bc04380da7173f361256"
+    },
+    {
+      "path": "source/examples/extraction/executed/compiled/process-graph.json",
+      "bytes": 7136,
+      "sha256": "34617417871d9adf4f796e1822faae218875a2a79bcf403a6fc59a605f56a62e"
+    },
+    {
+      "path": "source/examples/extraction/executed/compiled/process-input.json",
+      "bytes": 2705,
+      "sha256": "1d6d1c1ecf1a01f596aab25d8fd535aa2c6ad963ac7e1386ad660e4b771c77b3"
+    },
+    {
+      "path": "source/examples/extraction/executed/compiled/protocol-input.json",
+      "bytes": 13714,
+      "sha256": "9066bcc9ce57af981d359b696ff7bf27b78eb88aa5ebfcad1345058122c6b2aa"
+    },
+    {
+      "path": "source/examples/extraction/executed/compiled/report.md",
+      "bytes": 3249,
+      "sha256": "9dfd827495e51e5ca31a85ad4e6a12de79b83cb231b161cf082d6cacb291168e"
+    },
+    {
+      "path": "source/examples/extraction/executed/compiled/summary.json",
+      "bytes": 14022,
+      "sha256": "8757e6f14b775b660b647c896a67133d21c2d2906aa346bbe425baf486d9b7a6"
+    },
+    {
+      "path": "source/examples/extraction/executed/extracted-protocol.json",
+      "bytes": 13714,
+      "sha256": "9066bcc9ce57af981d359b696ff7bf27b78eb88aa5ebfcad1345058122c6b2aa"
+    },
+    {
+      "path": "source/examples/extraction/executed/extraction-summary.json",
+      "bytes": 588,
+      "sha256": "ea9e68d2da213bd84faadf7bc8dfa344b5ab887acf0704398eeeefb1b83c53af"
+    },
+    {
+      "path": "source/examples/extraction/executed/source-manifest.json",
+      "bytes": 120,
+      "sha256": "b809c1e02b095f4aa54cb32d31e3cadb000745ad798bde0aabc69e0f4b29f936"
+    },
+    {
+      "path": "source/examples/extraction/executed/source.txt",
+      "bytes": 382,
+      "sha256": "578884be7f0af6b6bf29a25e3e4aaa3e3fdeeadaebabca4e9ae008b43cb0f51f"
+    },
+    {
+      "path": "source/examples/extraction/procedure.txt",
+      "bytes": 382,
+      "sha256": "578884be7f0af6b6bf29a25e3e4aaa3e3fdeeadaebabca4e9ae008b43cb0f51f"
+    },
+    {
+      "path": "source/examples/extraction/README.md",
+      "bytes": 7980,
+      "sha256": "064d80f87b3e0bc7ed73928e5aaa740cf8e85232a07750a647291b2b90fcca81"
+    },
+    {
+      "path": "source/examples/extraction/recorded-response.json",
+      "bytes": 16454,
+      "sha256": "c5b1132f5435345456891c24ddc6aad878425dcd7a37d55879925df9c3e7abfa"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/checks.json",
+      "bytes": 1235,
+      "sha256": "4823867403c41431affcc3a8bc24ab901539d9ed1acbac67f463e644a5d8fa18"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/fixture/report.md",
+      "bytes": 1714,
+      "sha256": "0934e226bf43faecd0d482f9c7dabecab839063cfd332349d8952b3732d3bdd5"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/fixture/review-template.json",
+      "bytes": 2693,
+      "sha256": "602b9d5eb1b38f8c2d5c58ac814225c3ad12e0606e2daf426190f2ffaf710772"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/fixture/summary.json",
+      "bytes": 4147,
+      "sha256": "1edbbc2bd04f072adeecc5b214fc72b28425b784be65ad19f022bf02af190f17"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/fixture-review.json",
+      "bytes": 2693,
+      "sha256": "602b9d5eb1b38f8c2d5c58ac814225c3ad12e0606e2daf426190f2ffaf710772"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/pending/report.md",
+      "bytes": 1933,
+      "sha256": "91b386a3c1051c867552c61650e9e41f1a8ddc01ac0f2cec369d6e0d1f4089a0"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/pending/review-template.json",
+      "bytes": 516,
+      "sha256": "a65060d2f54964fd64e2037e006df8f741e36d9f133094f80cfb0da0d45460f1"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/pending/summary.json",
+      "bytes": 3399,
+      "sha256": "96b4b1b97f13a18b46b67a70fb2bc28a8c460824b173b8c3765b05ffffcf08d1"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/README.md",
+      "bytes": 4338,
+      "sha256": "9f88e119e6675be9c2650c8c10671650f96f112f1900bf5c973c5fabdfeb3d01"
+    },
+    {
+      "path": "source/examples/extraction-benchmark/reference.json",
+      "bytes": 3305,
+      "sha256": "42b86dc3feade3a78f133d047368f44d82f268b1d8a968c5ba260f69c83043bf"
+    },
+    {
+      "path": "source/examples/failure-replay/checks.json",
+      "bytes": 422,
+      "sha256": "a385825a9a6ab17c28f8e1be725f19e897b012d04fd26511d2f5a411250a97b1"
+    },
+    {
+      "path": "source/examples/failure-replay/README.md",
+      "bytes": 2022,
+      "sha256": "ee0a0173fd57318c5696943b8072ecddab006414f12892bf3663959f80489d89"
+    },
+    {
+      "path": "source/examples/failure-replay/report.md",
+      "bytes": 943,
+      "sha256": "b7d5fdc3d1fbf4f8a48c8983edc9e743f687e4fabf958ad903a9e96c125f775a"
+    },
+    {
+      "path": "source/examples/failure-replay/summary.json",
+      "bytes": 111220,
+      "sha256": "995c996878ed826a4e911ab04d43e91edda5225b5f443468d2dec15f4e0beb78"
+    },
+    {
+      "path": "source/examples/investment-comparison/coil-investment-unknown-report.json",
+      "bytes": 20009,
+      "sha256": "b04207d9af473f8f892710aed876142e2ae5cdb10474ed39febd776050fd8291"
+    },
+    {
+      "path": "source/examples/investment-comparison/coil-investment-unknown.json",
+      "bytes": 9513,
+      "sha256": "96661dafcb7b3b04bdfdd167efbcd0976c6653109cd632049d762f1aed3fde06"
+    },
+    {
+      "path": "source/examples/investment-comparison/README.md",
+      "bytes": 8312,
+      "sha256": "2459b9bac709a07d7f679620684faed87190677c528c5a4527affed2ff5a0768"
+    },
+    {
+      "path": "source/examples/investment-comparison/synthetic-comparison.json",
+      "bytes": 11457,
+      "sha256": "55ffa10dd74606b44ff6f3355b9c5ad7c1e4aad50eec26faba3a27e8fa403fb3"
+    },
+    {
+      "path": "source/examples/investment-comparison/synthetic-report.json",
+      "bytes": 43974,
+      "sha256": "8aa3abda575e99e718ff9b9d0d7a054550a8ada38bc2e74db8907e30edb6d0ff"
+    },
+    {
+      "path": "source/examples/iteration-loop/coil-prediction-unknown.json",
+      "bytes": 13347,
+      "sha256": "73d57be77cbe80c93227132bcf6179f69d67c5c93e7bb982fb56c7a1cca08222"
+    },
+    {
+      "path": "source/examples/iteration-loop/outcome.json",
+      "bytes": 3560,
+      "sha256": "96b97b013bab7dd66364d1c1b4df1188c4c635b6bcdde9e1d8446689a7f3ffa2"
+    },
+    {
+      "path": "source/examples/iteration-loop/prediction.json",
+      "bytes": 15766,
+      "sha256": "80761b0e283b341bbf81ccbdcdcea4fbdce025346a7c22bef28009ba4f3cac4e"
+    },
+    {
+      "path": "source/examples/iteration-loop/README.md",
+      "bytes": 7423,
+      "sha256": "66b9ecb1c58e792c7063ddb04bfdc93ae81b6f521154b58126711af53f57e5a0"
+    },
+    {
+      "path": "source/examples/iteration-loop/revision.json",
+      "bytes": 17329,
+      "sha256": "c125a256df6efe3a26c9e7ad45fd36bf3c24ac3e75c3cd475b439ad35ba0f6a6"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/checks.json",
+      "bytes": 1271,
+      "sha256": "2ad9fafb9b9adc846cdbf22c6436246c597ac9d892d0edea5bff84672c62aaa0"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/demo-summary.json",
+      "bytes": 29305,
+      "sha256": "0c41de106f7d1c7643025bafcacb298c1204229f65e7593ed8a28b909c234a95"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/README.md",
+      "bytes": 1834,
+      "sha256": "f4c18f7cc03f357acea5c174028a937700c20e89659386d6ddfc5a3f6f799c21"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/records/coil-p1.json",
+      "bytes": 51612,
+      "sha256": "d27a1e29b62ede9174ae7a0e2192aa79ab9c1d9fb5448e8b5f24c5696c8ec086"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/records/o1.json",
+      "bytes": 68339,
+      "sha256": "5cbd2170b7980ddc8ee5f89f1eb50869c59ed1b85c61901bb194800150d9f08d"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/records/p1.json",
+      "bytes": 79284,
+      "sha256": "959900464fea6372c2b99ac067305e8ed937949d05c0ede9a9249500ca9df596"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/records/p2.json",
+      "bytes": 85855,
+      "sha256": "4e712fbf094ccf88dab3d2be43fba4e5aacf032aeb8309fe3fe2c337cbe67e85"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/report.html",
+      "bytes": 6651,
+      "sha256": "18ead52453c205965a2eb31dcb6ea10bfe25401df6d17ec3ede6a7c377816987"
+    },
+    {
+      "path": "source/examples/offline-run-20261014/report.md",
+      "bytes": 3480,
+      "sha256": "9dd00ed937ff2d981e6bef2a7aaed03c4227ba0bb5d7c2facf6beca4b5aa13b0"
+    },
+    {
+      "path": "source/examples/process-evaluation/coil-v2-partial-report.json",
+      "bytes": 11565,
+      "sha256": "1b13fb5799e88cd2f634684f0d94e581b120476df75762db07634253545aac80"
+    },
+    {
+      "path": "source/examples/process-evaluation/coil-v2-partial.json",
+      "bytes": 3346,
+      "sha256": "ec64703a3788ffda9033f4c766c92b66812bdf528b144d415d68d7d3ea68a5bf"
+    },
+    {
+      "path": "source/examples/process-evaluation/manual-baseline-unknown.json",
+      "bytes": 2680,
+      "sha256": "00db5e15ed67ae0d26baf623bf42831e36a0198a92d285f1a479de621630e006"
+    },
+    {
+      "path": "source/examples/process-evaluation/README.md",
+      "bytes": 6305,
+      "sha256": "8ee7085562f417fda7660dd78d5a8feb6070b87a5f47dea2b4be543c66851232"
+    },
+    {
+      "path": "source/examples/protocols/checks.json",
+      "bytes": 1816,
+      "sha256": "3067017a2234676dce4a063b22ab962861cf5ca873d3a7cac8ce18e4797a87f3"
+    },
+    {
+      "path": "source/examples/protocols/coil/apparatus-requirements.json",
+      "bytes": 19895,
+      "sha256": "3771c6ae42c288dae8d7b7b366d5f4380c8ae8ddfa2b9c394ba5f86d779f02f8"
+    },
+    {
+      "path": "source/examples/protocols/coil/process-graph.json",
+      "bytes": 17318,
+      "sha256": "36d3f61b284ac50c66f3eb39574fe319b9fcbff51b50b634e18e629bfa203a9f"
+    },
+    {
+      "path": "source/examples/protocols/coil/process-input.json",
+      "bytes": 2712,
+      "sha256": "5bca3602e0864a11ac4c7dca88303003c1f21b2681ceab5d86a1bd94266fbe44"
+    },
+    {
+      "path": "source/examples/protocols/coil/protocol-input.json",
+      "bytes": 26811,
+      "sha256": "23d58e402f7fba0fae5e224671093273e3039b622a7f5fde245f6e99f200c446"
+    },
+    {
+      "path": "source/examples/protocols/coil/report.md",
+      "bytes": 4855,
+      "sha256": "c2cb8674a76eaf341058404d311b6abd37508b03396b7d710f910665a8b1509c"
+    },
+    {
+      "path": "source/examples/protocols/coil/summary.json",
+      "bytes": 13646,
+      "sha256": "9621301cfcaa377e93aa94ae817a8158c2e840bc9ed60fff1ad0dc720c388784"
+    },
+    {
+      "path": "source/examples/protocols/coil.json",
+      "bytes": 26811,
+      "sha256": "23d58e402f7fba0fae5e224671093273e3039b622a7f5fde245f6e99f200c446"
+    },
+    {
+      "path": "source/examples/protocols/README.md",
+      "bytes": 4279,
+      "sha256": "fe40f8575ec2d2ec498dc8f0eb6655397d83a8340ad5422036b241c5ca153ec9"
+    },
+    {
+      "path": "source/examples/protocols/tube-transfer/apparatus-requirements.json",
+      "bytes": 9392,
+      "sha256": "75917d7634d41b5112b6e0828783d35a1d6024ed48fa812f4ce6af52153fc772"
+    },
+    {
+      "path": "source/examples/protocols/tube-transfer/process-graph.json",
+      "bytes": 7619,
+      "sha256": "0a08395e684334e4ff1e8f909e4dedcfb42ddb1d7054607938bc61d71d61c5c2"
+    },
+    {
+      "path": "source/examples/protocols/tube-transfer/process-input.json",
+      "bytes": 2705,
+      "sha256": "1d6d1c1ecf1a01f596aab25d8fd535aa2c6ad963ac7e1386ad660e4b771c77b3"
+    },
+    {
+      "path": "source/examples/protocols/tube-transfer/protocol-input.json",
+      "bytes": 14237,
+      "sha256": "bc389ba5cae124f7cdd0bb19e5b928bc4a0889612698e7829aec002ab61a0505"
+    },
+    {
+      "path": "source/examples/protocols/tube-transfer/report.md",
+      "bytes": 3218,
+      "sha256": "bd672f7384592b1774d490b57cf9fca4cd1a530e4f1158d50030d41711a11c2c"
+    },
+    {
+      "path": "source/examples/protocols/tube-transfer/summary.json",
+      "bytes": 14062,
+      "sha256": "173d541f6662f815f6c0e19d0702f6208df9923286dd8d89f34e4310c9230be7"
+    },
+    {
+      "path": "source/examples/protocols/tube-transfer.json",
+      "bytes": 14237,
+      "sha256": "bc389ba5cae124f7cdd0bb19e5b928bc4a0889612698e7829aec002ab61a0505"
+    },
+    {
+      "path": "source/LICENSE",
+      "bytes": 17098,
+      "sha256": "2684de17300e0a434686f1ec7f8af6045207a4b457a3fe04b2b9ce655e7c5d50"
+    },
+    {
+      "path": "source/opencode.json",
+      "bytes": 622,
+      "sha256": "a34a49084a2737fb3e75853a572382f1f92f93b81a38308438f7312429e329ad"
+    },
+    {
+      "path": "source/protocol_pipeline/__init__.py",
+      "bytes": 111,
+      "sha256": "1e018b5e8cc1141dc39301dbdb021a5b037f017cbeb5d8825ef5125bff850477"
+    },
+    {
+      "path": "source/protocol_pipeline/__main__.py",
+      "bytes": 12228,
+      "sha256": "3bfa28fa53f13fa77c1aacd8084829820b51e6b26f500c30ba57f5dc9bfacd1b"
+    },
+    {
+      "path": "source/protocol_pipeline/alternatives.py",
+      "bytes": 12582,
+      "sha256": "440254678bd08324a67692363dbde73d850c1a6adc32f2796a6f5a7668767434"
+    },
+    {
+      "path": "source/protocol_pipeline/autonomy.py",
+      "bytes": 15638,
+      "sha256": "7e2f6165dc0ef46b219fd01fb05cfa4c817390677dba112978fac46dc95e3c67"
+    },
+    {
+      "path": "source/protocol_pipeline/benchmark.py",
+      "bytes": 14005,
+      "sha256": "1c230a5c6a95f5888c18c31217d88893b42200d2402179d3bae7dd001112e256"
+    },
+    {
+      "path": "source/protocol_pipeline/compiler.py",
+      "bytes": 11015,
+      "sha256": "5518d29c5a34402437854f633a83482e87493ebcb84dc885b717a3afa67a8f05"
+    },
+    {
+      "path": "source/protocol_pipeline/demo.py",
+      "bytes": 16623,
+      "sha256": "dcd20f7e40aebb5b5faa391481ed2b97590ec2663198387a79ec5ea62936aeed"
+    },
+    {
+      "path": "source/protocol_pipeline/design.py",
+      "bytes": 10399,
+      "sha256": "3da298da5fdc2e5fa29f6bc29c6ab1de4b9bcdcded22f74607089127a03a71eb"
+    },
+    {
+      "path": "source/protocol_pipeline/environment.py",
+      "bytes": 366,
+      "sha256": "a997a74b75bc49be55f4ee9ad7f5a8fd0ca8bdc59c7211d2a17e053b3f4c38da"
+    },
+    {
+      "path": "source/protocol_pipeline/evaluation.py",
+      "bytes": 11922,
+      "sha256": "f00cffa3d5392bcd4455a9a881b540453498c8bf6a0461af38d6952d19099c15"
+    },
+    {
+      "path": "source/protocol_pipeline/extraction.py",
+      "bytes": 22110,
+      "sha256": "32c067d3318e3c319c645a97a008bb3d2a6d9841820d2f3a9b47fed4076e8cb9"
+    },
+    {
+      "path": "source/protocol_pipeline/failures.py",
+      "bytes": 6571,
+      "sha256": "1a65316fa5c2188f9d5416c876609342360207c3727b6e8d5275f5c68925f9f8"
+    },
+    {
+      "path": "source/protocol_pipeline/forma_worker.py",
+      "bytes": 3565,
+      "sha256": "d097d47705a48c259b8f31b96f0436d566b1629252c66e471494d7999c064fc4"
+    },
+    {
+      "path": "source/protocol_pipeline/investment.py",
+      "bytes": 17173,
+      "sha256": "acb1761abd7ca92e22888bde8b52d54a1c8a2461adeda803ef3e0c1cca5ec366"
+    },
+    {
+      "path": "source/protocol_pipeline/iteration.py",
+      "bytes": 18261,
+      "sha256": "bb5c5e4dac7826500eaca193de35db3453af3ccaa1cec45b2dc067a9a78c7690"
+    },
+    {
+      "path": "source/protocol_pipeline/lab_layout.py",
+      "bytes": 8320,
+      "sha256": "ccf3ccf28ec62ba0427ce1a8a6c881a00343725aa3768de9e5812ba8ed7e925c"
+    },
+    {
+      "path": "source/protocol_pipeline/machine_batch_worker.py",
+      "bytes": 1098,
+      "sha256": "5f353f67f4e8624819d9372c48a384a190e2672d2be27193029e4bbfa5833a8d"
+    },
+    {
+      "path": "source/protocol_pipeline/machine_cad.py",
+      "bytes": 9797,
+      "sha256": "e31cb14e5b328cbd38c5e3d8b18d3c9c71a48017752a5fb84c5a73dc9c510c60"
+    },
+    {
+      "path": "source/protocol_pipeline/machine_previews.py",
+      "bytes": 4439,
+      "sha256": "192433515fd878dd23ee735cc47fa83ed2a5b2c9cb067433dc91c94f3836a06c"
+    },
+    {
+      "path": "source/protocol_pipeline/machine_worker.py",
+      "bytes": 9320,
+      "sha256": "973b0d54a2c205ee2af10db45cf9e64acb6776c8e26e8bd0ed6f9fc8c1d15fef"
+    },
+    {
+      "path": "source/protocol_pipeline/machines.py",
+      "bytes": 6071,
+      "sha256": "43d937b95578b91b694bcce5f716823f6e1a8591fa25b72c8f3646155a3326d9"
+    },
+    {
+      "path": "source/protocol_pipeline/model_config.py",
+      "bytes": 1237,
+      "sha256": "f3f2dcda33cf4c5be44d5f5cdaafc99500011f46d53fdbc457a85a5800b90f91"
+    },
+    {
+      "path": "source/protocol_pipeline/models.py",
+      "bytes": 5851,
+      "sha256": "ea583b2bf552a08fa94f1a1c27594f33532eb64d5462bcad5948030a17e531c9"
+    },
+    {
+      "path": "source/protocol_pipeline/native_viewer.tsx",
+      "bytes": 5378,
+      "sha256": "f8199e3184f5105706c38a643da17501a2e94d825efe1442fce6117be1511a59"
+    },
+    {
+      "path": "source/protocol_pipeline/offline.py",
+      "bytes": 19311,
+      "sha256": "a8eabddfe51262e62bd51de65e679c0555208a97c9eb77144d587a441afda1bd"
+    },
+    {
+      "path": "source/protocol_pipeline/oi_bridge.mts",
+      "bytes": 5271,
+      "sha256": "7a4b4ec289527acfe72491307726c5af2c0d1690bc641a0f16277afd9a5b7fbb"
+    },
+    {
+      "path": "source/protocol_pipeline/opencode_machine.py",
+      "bytes": 6590,
+      "sha256": "e214247a921e2eac7f42fe5a9cf57f24ab54b0796fa79bc3eb830c9d9fd0e1db"
+    },
+    {
+      "path": "source/protocol_pipeline/opencode_machine_worker.py",
+      "bytes": 3998,
+      "sha256": "d9396d3b48f28cafd8f258efa253cef5aeb0fc54215f94d21931099e09beba7d"
+    },
+    {
+      "path": "source/protocol_pipeline/pipeline.py",
+      "bytes": 22781,
+      "sha256": "50becd3721d742b5e23f02bb70612453c364df2513c51021b7616efd19a0d909"
+    },
+    {
+      "path": "source/protocol_pipeline/scene_bridge.mts",
+      "bytes": 9675,
+      "sha256": "a459a82b7ab8cb4e6abab343aa37a8473af410e373b8f85ec632a04005c7decb"
+    },
+    {
+      "path": "source/protocol_pipeline/scene_layout.mjs",
+      "bytes": 4249,
+      "sha256": "4ad33c58f9ee381af812ce43d70a4bbce1d2cd49879884664ab1fb988f10599f"
+    },
+    {
+      "path": "source/protocol_pipeline/scenes.py",
+      "bytes": 6170,
+      "sha256": "af81d1c8f0992a1733ffc37f5e117ba2b875df4f8ef04e23f56e800924096790"
+    },
+    {
+      "path": "source/protocol_pipeline/viewer.py",
+      "bytes": 1496,
+      "sha256": "1dca71d0db06e6c3b6dcff549479e48dff3b30bede74a50f67900fb616935538"
+    },
+    {
+      "path": "source/protocol_pipeline/viewer_bundle.mts",
+      "bytes": 1443,
+      "sha256": "ca76cf5f4d96fd8587b30050561e42213988f097c743d7d29861d65c215a0cb2"
+    },
+    {
+      "path": "source/protocol_pipeline/visual_review.py",
+      "bytes": 29976,
+      "sha256": "cb5b56fee152adf1c7e20ef850059af2d8a40d37905e5e960b44ac66c2b6e102"
+    },
+    {
+      "path": "source/protocol_pipeline/visual_review_worker.py",
+      "bytes": 543,
+      "sha256": "38223299eb2afd5de2b8ea8a3bb4e537e66df105f38e06fa466dbf8fb35bbeef"
+    },
+    {
+      "path": "source/protocol_pipeline/web.py",
+      "bytes": 57892,
+      "sha256": "9e78cb4ecf6259d771033de4328887aa85d408d2c32862820de679517f809aa6"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/app.js",
+      "bytes": 19897,
+      "sha256": "7e9a6401feb172676265510a6374d866aba58ec2e13d460fe9a9e4dc39974a76"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/autonomy.js",
+      "bytes": 9939,
+      "sha256": "130c0e1f59373da1493a1263631f3441f725504e1856d471150bbff74fddd34b"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/index.html",
+      "bytes": 21254,
+      "sha256": "c7ee02b2ec46e7e52d144e100b1309d486d4fb18fc43a74cd80c6f5eb0ade740"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/lab.js",
+      "bytes": 4384,
+      "sha256": "b27e2f0965124a0f28d4af1ad55c012145a6a69eaaab48be1ca70fb263a9c9c5"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/machine_previews.js",
+      "bytes": 6572,
+      "sha256": "d57caf699f1e0abaf1be729ac967ba795eacda434f975bd38125aeec09c83bce"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/machines.js",
+      "bytes": 6411,
+      "sha256": "183fb3f3a3b9ce1e5c2267042f0619f1596288e6b87455f406e4f4ed0cc4c34f"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/scene.js",
+      "bytes": 9298,
+      "sha256": "58b990cb5b3651ef85dfb8c56d9e9f431793c9d620e9a8baba440f2982260064"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/style.css",
+      "bytes": 20428,
+      "sha256": "375f4354dd9cd85372036c871cf761b49cfec3546aca1fb247f23b026a4a1fe3"
+    },
+    {
+      "path": "source/protocol_pipeline/web_static/visual_review.js",
+      "bytes": 8371,
+      "sha256": "230c2fcdf7ab8c24ae52f9f2a5a78334cf18542bf42f99ea3df1a483fd7dba24"
+    },
+    {
+      "path": "source/pyproject.toml",
+      "bytes": 707,
+      "sha256": "cebe8539a46c118047a76a1647fd74e8cc25e1afaf95bde977d3f7fa80f8e2a5"
+    },
+    {
+      "path": "source/README.md",
+      "bytes": 17911,
+      "sha256": "f8375b900248848b148d47aad5f3887f3b37f1a244c6840c26a65505108f2897"
+    },
+    {
+      "path": "source/run-workbench.cmd",
+      "bytes": 197,
+      "sha256": "9a57cfc4d880fd5ebd6aaf2a4a0086da712a67e846b99e66fb523720a4166563"
+    },
+    {
+      "path": "source/schemas/apparatus-requirements.json",
+      "bytes": 6190,
+      "sha256": "b2b81dfd921ebacf53c54f190ce0be9b6b6a2fde05a029845bd6225312b0d66d"
+    },
+    {
+      "path": "source/schemas/design-job.json",
+      "bytes": 10546,
+      "sha256": "520a23aa3060d0eddc9b19df8a93634cd3fb2543bb49a862286907bfbb4e0874"
+    },
+    {
+      "path": "source/schemas/engineering-inputs.schema.json",
+      "bytes": 2131,
+      "sha256": "908692cafe7dbe5f63bc5f1108b06f91b7735f759dd074a6486e887245189f8d"
+    },
+    {
+      "path": "source/schemas/extraction-reference.json",
+      "bytes": 4101,
+      "sha256": "53384d31c7f73fe9990c450fb8a3fc61851e7fa8c85b2c6c2ea1e5e312908879"
+    },
+    {
+      "path": "source/schemas/extraction-review.json",
+      "bytes": 2965,
+      "sha256": "e35427c77bf85b783c2e5dbc93f52513113fe2ada56bf970721740ccb4677a79"
+    },
+    {
+      "path": "source/schemas/investment-comparison-input.json",
+      "bytes": 7662,
+      "sha256": "cbf58bbb4e4be363142271ad9343f20d2350faf6771424b15380c91959164436"
+    },
+    {
+      "path": "source/schemas/investment-comparison-report.json",
+      "bytes": 12182,
+      "sha256": "f4cc64288f2f7e292629c182f2fcad81e6399ddbbbf6310b57d0d4197fa54bb5"
+    },
+    {
+      "path": "source/schemas/iteration-outcome-request.json",
+      "bytes": 5175,
+      "sha256": "a5aaa69f1700f7ec257de38b11f866e88529bd88b47a3ac5ed0f8e264a23f712"
+    },
+    {
+      "path": "source/schemas/iteration-prediction-request.json",
+      "bytes": 9235,
+      "sha256": "f2fe706655c6419a969f0e32b94fdfbc2277758887d503562514ab7aad217ba3"
+    },
+    {
+      "path": "source/schemas/iteration-revision-request.json",
+      "bytes": 10006,
+      "sha256": "130249cebdf787ceaef262156b50ced453a8d312854f495e65a0bd9743b18236"
+    },
+    {
+      "path": "source/schemas/iteration-stored-record.json",
+      "bytes": 26839,
+      "sha256": "d14ebbc69ad9417da96bc349fcfe0d308be1441e4c0416cd2d47cb4b90b739cf"
+    },
+    {
+      "path": "source/schemas/observation-graph.schema.json",
+      "bytes": 4968,
+      "sha256": "a6b613926b148c2eca3734ee486c9a896d09d8113805d05ee7dd88367895ad3a"
+    },
+    {
+      "path": "source/schemas/process-evaluation-input.json",
+      "bytes": 4004,
+      "sha256": "30d038589378104bd934db348bba5dda0ecbc3287ee7537eec0894d2d5973aeb"
+    },
+    {
+      "path": "source/schemas/process-evaluation-report.json",
+      "bytes": 7844,
+      "sha256": "cec03c542c1f5a476f0592a2f28cc1ba4add4a01b10abf26852fbd233eac0bf9"
+    },
+    {
+      "path": "source/schemas/protocol-plan.schema.json",
+      "bytes": 4691,
+      "sha256": "bbc296da9ef76ae0b27dff63565afc3ebe6a4491d24e4b9d5306ef9a2b966eb8"
+    },
+    {
+      "path": "source/schemas/protocol-specification.json",
+      "bytes": 10233,
+      "sha256": "74848047065078255b554ca4230c5d948ef203a6273edfb9db88de496fb9730c"
+    },
+    {
+      "path": "source/scripts/verify_nebius.py",
+      "bytes": 5619,
+      "sha256": "171a11b187635c9d3710bf0a098e740c481ee1c9899a55c1caadaa908c9f109f"
+    },
+    {
+      "path": "source/scripts/verify_offline.py",
+      "bytes": 3106,
+      "sha256": "b9f7ef71382fd57d33dc764c71d4e70cd2e8efe3413f0f1719e90c3ee0bbb2c2"
+    },
+    {
+      "path": "source/snapshots/v1/artifacts.json",
+      "bytes": 937,
+      "sha256": "01d9f01b0c4254f926e5bf8cf119c1d0fa6094a75a5f55bff6fcb51da4e00403"
+    },
+    {
+      "path": "source/snapshots/v1/cost-estimate.json",
+      "bytes": 5113,
+      "sha256": "1617e8f917416b347092132548f62d41a61c0a908c32eadfbfed6e60445231b9"
+    },
+    {
+      "path": "source/snapshots/v1/human-costs.json",
+      "bytes": 2708,
+      "sha256": "3dfdf86ea87d6ff928c635ba89436c2bdd3b49056f5f892238139ed90ca0373a"
+    },
+    {
+      "path": "source/snapshots/v1/metadata.json",
+      "bytes": 6099,
+      "sha256": "88ca47f463d4496f4d43e495f8fd560b331884f0996e85d16d943818e877d66f"
+    },
+    {
+      "path": "source/snapshots/v1/preprocessing-estimates.json",
+      "bytes": 4564,
+      "sha256": "47e987f134a3766b1cf7bb80aa27eb80364dcb7c7954055883910cdf849bb8e3"
+    },
+    {
+      "path": "source/snapshots/v1/README.md",
+      "bytes": 4621,
+      "sha256": "a223bc7128746904bd45aacb15efb80fbb5aaba9fc06fddeb7c56241db57c353"
+    },
+    {
+      "path": "source/snapshots/v2/checks.json",
+      "bytes": 683,
+      "sha256": "a049b715ce825a0d25d594857e34f8a3f38630b554edce7d4adedf64a454f5f1"
+    },
+    {
+      "path": "source/snapshots/v2/coil-winder.forma.json",
+      "bytes": 710753,
+      "sha256": "fa7698f9f386c2b329f9f059a36ea856219ff67c4e1cd81900aebf14d201de3a"
+    },
+    {
+      "path": "source/snapshots/v2/coil-winder.gif",
+      "bytes": 512301,
+      "sha256": "17b2378d7b65093cc698d3eedc6f25ccebadd7e332fcb647f8fba7210f95a636"
+    },
+    {
+      "path": "source/snapshots/v2/coil-winder.oi.json",
+      "bytes": 1013074,
+      "sha256": "616a3686c72c637e3fc22e55fbe8a1016bb602bcad21c18243fe32494109638b"
+    },
+    {
+      "path": "source/snapshots/v2/estimate.py",
+      "bytes": 10793,
+      "sha256": "bd77a65189288ec2bf5f907be49d1bfc617f39cc3b30fe0b95ed5964804a0e59"
+    },
+    {
+      "path": "source/snapshots/v2/estimates.json",
+      "bytes": 2158,
+      "sha256": "11c27a65be7998df343b66d227eecd32b78902eb231c1a46535656d70bcf0283"
+    },
+    {
+      "path": "source/snapshots/v2/protocol.json",
+      "bytes": 1402,
+      "sha256": "6bdeaaf3964867fafa6fc2e3edc7ac56b76274dec515d5a189764b59fade4b43"
+    },
+    {
+      "path": "source/snapshots/v2/README.md",
+      "bytes": 8312,
+      "sha256": "fd610bad4c49da3d5520f369b61549469599f5f235a7861334729a287ff5c176"
+    },
+    {
+      "path": "source/snapshots/v2/render-checks.json",
+      "bytes": 94,
+      "sha256": "a10d217632eaa6bcb5ccd0b106d51b47ab69268c12067f4125b143a5ee703945"
+    },
+    {
+      "path": "source/tests/test_alternatives.py",
+      "bytes": 6107,
+      "sha256": "96832eb89c335db5a94e72e0d694c73d07fd2ee94830c4e1aabbede0acd48837"
+    },
+    {
+      "path": "source/tests/test_autonomy.py",
+      "bytes": 5960,
+      "sha256": "4f67c7a8c12fe236b67e210bfa8077341af982a8a6374c9f526a4d81db525b65"
+    },
+    {
+      "path": "source/tests/test_benchmark.py",
+      "bytes": 6887,
+      "sha256": "6f907e226c4cee972037db1142f6894599fcd8ba35fd014450301e190fad482e"
+    },
+    {
+      "path": "source/tests/test_compiler.py",
+      "bytes": 4675,
+      "sha256": "16ee9c59ae100c0021c48da9e8a2da0dc2dbb11caa104a273bea0a0a758ee486"
+    },
+    {
+      "path": "source/tests/test_demo.py",
+      "bytes": 4494,
+      "sha256": "ea9323bc8069ef40e5876392519316ecd16a248b6b676da45f8aa9fed3541343"
+    },
+    {
+      "path": "source/tests/test_design.py",
+      "bytes": 7123,
+      "sha256": "da5bab77e81d6a4820bc93d1b94ae69f71554ebe55da5ef1012b62b35bc28f21"
+    },
+    {
+      "path": "source/tests/test_environment.py",
+      "bytes": 2179,
+      "sha256": "3b843e2ed242baf15addf81bc77f4b42149a2338aad92af9291a6fb3043e4ead"
+    },
+    {
+      "path": "source/tests/test_evaluation.py",
+      "bytes": 7704,
+      "sha256": "d824d35f353880cb9df3c236ab3c500728a6680c575ac2e7703231bdb681ac7f"
+    },
+    {
+      "path": "source/tests/test_extraction.py",
+      "bytes": 12297,
+      "sha256": "e46d62d27df743ebd2209fcba6e57a6cf159b2908e82a9e7fad5a9f1ca68840f"
+    },
+    {
+      "path": "source/tests/test_failures.py",
+      "bytes": 3651,
+      "sha256": "e11540aac40fca083650504ccebbf38c43d2aee57d7f9254f92cc7e667bf7c77"
+    },
+    {
+      "path": "source/tests/test_investment.py",
+      "bytes": 8646,
+      "sha256": "664bcff6060c3200398a6cf0af10652a40da934e79d7aae682470476887c7aba"
+    },
+    {
+      "path": "source/tests/test_iteration.py",
+      "bytes": 10710,
+      "sha256": "0bec4a3ab947f66679f26d31ca0f5f4533d1b8a5fe26329632c85c54e430ff5c"
+    },
+    {
+      "path": "source/tests/test_lab_layout.py",
+      "bytes": 4654,
+      "sha256": "6750ff3458f11c85934c59e0407fca10d7498ce257844ee72a58e79d9dde450e"
+    },
+    {
+      "path": "source/tests/test_machine_previews.py",
+      "bytes": 2651,
+      "sha256": "274ef5e03590be6999462ba03fa8d2f7d6b2190b0abcfb4834ff01b2c9dea282"
+    },
+    {
+      "path": "source/tests/test_machines.py",
+      "bytes": 3991,
+      "sha256": "c1c74438717b280e2c3a8fbdcda1f6fe8af99d9cce8df0f8cdfeb79f9a6b0847"
+    },
+    {
+      "path": "source/tests/test_nebius_presets.py",
+      "bytes": 8396,
+      "sha256": "94d034a20a53fb0783ad6a0961fa0395d75d6a0d2262451d3b78d848d086048b"
+    },
+    {
+      "path": "source/tests/test_offline.py",
+      "bytes": 4819,
+      "sha256": "9cbfe518190fe7b83000f1616a8223920c9a1b22823750143268c1295d1936cd"
+    },
+    {
+      "path": "source/tests/test_opencode_example.py",
+      "bytes": 2231,
+      "sha256": "0ff0f557022ab6bf93ee43cd22f5c0954da03497bb10dc5548b96cbd7372dc59"
+    },
+    {
+      "path": "source/tests/test_opencode_machine.py",
+      "bytes": 4927,
+      "sha256": "a0fbaae71187e6fb0e4e2223c7d70244f24280ef0b0532d0289f86dd288c6960"
+    },
+    {
+      "path": "source/tests/test_opencode_provider.py",
+      "bytes": 2086,
+      "sha256": "e523fb5898f4e74b4b696e76c38441af0f395bbf7b704284f6af90cd8e959d25"
+    },
+    {
+      "path": "source/tests/test_pipeline.py",
+      "bytes": 7770,
+      "sha256": "4a6b071e9f9295baf7909d223eca56ec4e970847a5c76157cb8ac3c4de1d8906"
+    },
+    {
+      "path": "source/tests/test_provider_backoff.py",
+      "bytes": 1244,
+      "sha256": "b961a3c6f9fe1577a7355620ddc9b8366b12f3318ed9e1839cbb7299b5140833"
+    },
+    {
+      "path": "source/tests/test_scene_layout.cjs",
+      "bytes": 2944,
+      "sha256": "0c3d9478c4b92c8a0cc48a40a52e923b514c2732c2cc9ca2eead040906b11899"
+    },
+    {
+      "path": "source/tests/test_scenes.py",
+      "bytes": 4830,
+      "sha256": "e96320b7d3e9578cb6ff1b2169e64d5bbc3c1cf298d352c590a20936fd5083de"
+    },
+    {
+      "path": "source/tests/test_visual_review.py",
+      "bytes": 10162,
+      "sha256": "adb2eff4d707a16347320957183c4600d533805590101749c6e2a3f849a48d6e"
+    },
+    {
+      "path": "source/tests/test_web.py",
+      "bytes": 28676,
+      "sha256": "132b676e9b6e52098769b5dde53adfc1074438ce217b219702255b3ba9ce0d69"
+    },
+    {
+      "path": "source/tests/test_web_frontend.cjs",
+      "bytes": 8105,
+      "sha256": "c954f421b67cf0f1e8b3d1b341fa783439a891fafb7f70948479ad6f4debb8ee"
+    }
+  ]
+}
