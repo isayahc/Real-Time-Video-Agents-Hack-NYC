@@ -16,10 +16,10 @@ async function boot(storage = new Map(), blocked = false, beforeConfig = null, s
   if (!nodes.has(id)) nodes.set(id, {value: '', files: [], handlers: {},
    addEventListener(type, fn) { this.handlers[type] = fn; },
    setAttribute(name, value) { this[name] = value; }, append() {}, focus() {},
-   replaceChildren() {}, add() {}, classList: {remove() {}, toggle() {}}});
+   options: [], replaceChildren(...options) { this.options = options; this.value = options[0]?.value || ''; }, add(option) { this.options.push(option); }, classList: {remove() {}, toggle() {}}});
   return nodes.get(id);
  };
- node('vision-model').value = html.match(/id="vision-model"[^>]*value="([^"]+)"/)[1];
+  node('vision-model').value = preset;
  node('frame-count').value = '8';
  const requests = [];
  const context = {document: {getElementById: node, querySelectorAll: () => []},
@@ -28,13 +28,14 @@ async function boot(storage = new Map(), blocked = false, beforeConfig = null, s
    setItem(key, value) { if (blocked) throw Error('blocked'); storage.set(key, value); },
    removeItem(key) { if (blocked) throw Error('blocked'); storage.delete(key); }},
   location: {hash: ''}, URL: {createObjectURL: () => 'blob:test', revokeObjectURL() {}},
-  URLSearchParams, Option: function() {}, setTimeout, clearTimeout,
+   URLSearchParams, Option: function(text, value) { this.text = text; this.value = value; }, setTimeout, clearTimeout,
   fetch: async (url, options) => {
    if (url === '/api/config') {
     if (beforeConfig) beforeConfig(node);
     return {ok: true, json: async () => ({model: serverModel, vision_model: preset, presets: {model: compilerPreset, vision_model: preset}, ffmpeg_available: true, credentials_available: true})};
    }
-   if (url === '/api/runs') return {ok: true, json: async () => []};
+    if (url.startsWith('/api/models/')) return {ok: true, json: async () => ({models: url.endsWith('/gmi') ? ['openai/gpt-6.1-sol', 'other/gmi'] : [preset, compilerPreset, 'other/nebius']})};
+    if (url === '/api/runs') return {ok: true, json: async () => []};
    requests.push({url, options});
    return {ok: false, json: async () => ({detail: 'Upload captured'})};
   }};
@@ -52,6 +53,23 @@ test('fresh form sends the Nebius vision preset without editing', async () => {
  const app = await boot();
  assert.equal(app.node('vision-model').value, preset);
  assert.equal((await app.submit()).get('vision_model'), preset);
+});
+
+test('Step 2 provider dropdown loads catalog options and submits the selected provider', async () => {
+ const app = await boot();
+ assert.match(html, /<select id="vision-model"/);
+ assert.match(html, /<select id="model"/);
+ assert.ok(app.node('model').options.some(option => option.value === 'other/nebius'));
+ app.node('analysis-provider').value = 'gmi';
+ app.node('analysis-provider').handlers.change();
+ await new Promise(resolve => setImmediate(resolve));
+ assert.equal(app.node('model').value, 'openai/gpt-6.1-sol');
+ assert.deepEqual(Array.from(app.node('model').options, option => option.value), ['openai/gpt-6.1-sol', 'other/gmi']);
+ assert.equal((await app.submit()).get('provider'), 'gmi');
+ app.node('analysis-provider').value = 'nebius';
+ app.node('analysis-provider').handlers.change();
+ await new Promise(resolve => setImmediate(resolve));
+ assert.equal(app.node('model').value, compilerPreset);
 });
 
 test('override survives file selection, reload and saved-run selection', async () => {

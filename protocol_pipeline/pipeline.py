@@ -9,6 +9,8 @@ import math
 import os
 import subprocess
 import time
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any, TypeVar
 from urllib.error import HTTPError, URLError
@@ -19,6 +21,19 @@ from .model_config import generation_settings
 
 Model = TypeVar("Model", bound=StrictModel)
 NEBIUS_REQUEST_TIMEOUT_S = 180
+
+
+def retry_delay(error: HTTPError, attempt: int, base: float) -> float:
+    """Honor bounded Retry-After seconds/dates, otherwise use exponential backoff."""
+    value = error.headers.get('Retry-After') if error.headers else None
+    try:
+        delay = float(value)
+    except (TypeError, ValueError):
+        try:
+            delay = (parsedate_to_datetime(value) - datetime.now(timezone.utc)).total_seconds() if value else base * 2**attempt
+        except (TypeError, ValueError, OverflowError):
+            delay = base * 2**attempt
+    return min(120.0, max(0.0, delay))
 
 
 def save_json(path: Path, value: Any) -> None:
@@ -180,22 +195,31 @@ class IncompleteCompletionError(ProviderResponseError):
 class NebiusClient:
     """Small OpenAI-compatible Token Factory adapter with explicit model selection."""
 
-    def __init__(self, key: str, timeout_s: float = NEBIUS_REQUEST_TIMEOUT_S) -> None:
+    def __init__(self, key: str, timeout_s: float = NEBIUS_REQUEST_TIMEOUT_S,
+                 api_base_url: str = 'https://api.tokenfactory.nebius.com/v1', provider: str = 'nebius') -> None:
         """Keep the credential in memory; do not log authentication headers."""
         if not key:
             raise ValueError("Set NEBIUS_API_KEY or NEBIUS_TOKEN_FACTORY_KEY before live inference.")
         self.key = key
         self.timeout_s = timeout_s
+        self.api_base_url=api_base_url.rstrip('/')
+        self.provider=provider
+
+    def provider_http_error(self,status: int):
+        if status == 429:
+            return RuntimeError(f'{self.provider} HTTP 429: provider rate limit or capacity exhausted after retries. '
+                                'Wait before retrying or select another model; this is not a credential validation failure.')
+        return NebiusHTTPError(status) if self.provider=='nebius' else RuntimeError(f'GMI Cloud HTTP {status}; check account model access and credentials')
 
     def available_models(self) -> list[str]:
         """Read account-visible IDs once; catalog presence is not inference proof."""
-        request = Request("https://api.tokenfactory.nebius.com/v1/models",
-                          headers={"Authorization": f"Bearer {self.key}"})
+        request = Request(self.api_base_url+'/models',
+                          headers={"Authorization": f"Bearer {self.key}",'User-Agent':'MappedAssembly/0.1'})
         try:
             with urlopen(request, timeout=self.timeout_s) as response:
                 raw = json.load(response)
         except HTTPError as error:
-            raise NebiusHTTPError(error.code) from None
+            raise self.provider_http_error(error.code) from None
         except URLError:
             raise RuntimeError("Nebius model catalog request failed.") from None
         if not isinstance(raw, dict) or not isinstance(raw.get("data"), list):
@@ -204,26 +228,31 @@ class NebiusClient:
                        if isinstance(item, dict) and isinstance(item.get("id"), str)})
 
     def complete(self, model: str, contract: type[Model], instruction: str,
-                 content: list[dict[str, Any]], max_tokens: int = 6000) -> tuple[Model, dict[str, Any]]:
+                 content: list[dict[str, Any]], max_tokens: int = 6000,
+                 json_mode: bool = False) -> tuple[Model, dict[str, Any]]:
         """Request strict JSON and reject truncated, malformed or schema-invalid output."""
         body = {"model": model, "max_tokens": max_tokens, "messages": [
             {"role": "system", "content": instruction + " Return only a JSON object matching this schema; no markdown: " + json.dumps(contract.model_json_schema())},
             {"role": "user", "content": content}]}
-        settings = generation_settings(model)
+        settings = generation_settings(model) if self.provider=='nebius' else {}
         body.update(settings)
-        request = Request("https://api.tokenfactory.nebius.com/v1/chat/completions", data=json.dumps(body).encode(),
-                          headers={"Authorization": f"Bearer {self.key}", "Content-Type": "application/json"}, method="POST")
+        if json_mode:
+            body['response_format']={'type':'json_object'}
+        request = Request(self.api_base_url+'/chat/completions', data=json.dumps(body).encode(),
+                          headers={"Authorization": f"Bearer {self.key}", "Content-Type": "application/json",'User-Agent':'MappedAssembly/0.1'}, method="POST")
         start = time.monotonic()
-        for attempt in range(3):
+        attempts = max(1, min(6, int(os.getenv('MODEL_REQUEST_ATTEMPTS', '3'))))
+        retry_base = max(1.0, min(60.0, float(os.getenv('MODEL_RETRY_BASE_SECONDS', '10'))))
+        for attempt in range(attempts):
             try:
                 with urlopen(request, timeout=self.timeout_s) as response:
                     raw = json.load(response)
                 break
             except HTTPError as error:
-                if error.code in (429, 502, 503, 504) and attempt < 2:
-                    time.sleep(2**attempt)
+                if error.code in (429, 502, 503, 504) and attempt < attempts - 1:
+                    time.sleep(retry_delay(error, attempt, retry_base))
                     continue
-                raise NebiusHTTPError(error.code) from None
+                raise self.provider_http_error(error.code) from None
             except URLError:
                 raise RuntimeError("Nebius network request failed; no result was validated.") from None
         if not isinstance(raw, dict) or not isinstance(raw.get("choices"), list) or not raw["choices"] or not isinstance(raw["choices"][0], dict):
@@ -234,9 +263,11 @@ class NebiusClient:
                  "generation_settings": settings, "usage": raw.get("usage"),
                  "response_id": raw.get("id"), "latency_s": time.monotonic() - start,
                  "attempt_count": attempt + 1, "message": choice.get("message")}
+        if json_mode:
+            trace['response_format']={'type':'json_object'}
         if choice.get("finish_reason") != "stop":
             raise IncompleteCompletionError(trace)
-        if model.lower().startswith("nvidia/") and raw.get("model") != model:
+        if self.provider=='nebius' and model.lower().startswith("nvidia/") and raw.get("model") != model:
             raise ProviderResponseError(
                 "NVIDIA served-model identity does not match the requested canonical model ID; "
                 "no NVIDIA success is established.", trace)
@@ -248,7 +279,7 @@ class NebiusClient:
         parsed = contract.model_validate_json(text)
         trace.pop("message")
         trace.update({"response_json_text": text,
-                      "provenance": "live_nebius_model_inference; not source ground truth"})
+                       "provenance": f"live_{self.provider}_model_inference; not source ground truth"})
         return parsed, trace
 
 
@@ -274,8 +305,11 @@ def validate_graph(graph: ObservationGraph, frames: list[Frame]) -> None:
             raise ValueError("Action references an unknown object.")
         if action.end_s > frames[-1].timestamp_s or action.start_s < frames[0].timestamp_s:
             raise ValueError("Action interval exceeds observed footage.")
-        if any(not action.start_s <= evidence[id] <= action.end_s for id in action.evidence_frame_ids):
-            raise ValueError("Action evidence lies outside its declared interval.")
+        outside = {id: evidence[id] for id in action.evidence_frame_ids
+                   if not action.start_s <= evidence[id] <= action.end_s}
+        if outside:
+            raise ValueError(f"Action evidence lies outside its declared interval. Action {action.id!r}: "
+                             f"[{action.start_s}, {action.end_s}] seconds; conflicting frames: {outside}")
     for change in graph.state_changes:
         if change.object_id not in objects or not set(change.action_ids) <= actions:
             raise ValueError("State change has unresolved graph references.")
