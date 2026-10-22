@@ -415,6 +415,7 @@ class JobStore:
             ingest_video(path / job["video_file"], path / "ingested", job["frame_count"])
             extract_protocol(provider, job["model"], path / "extracted", run=path / "ingested",
                              vision_model=job["vision_model"],
+                             vision_provider=create_provider(job['vision_provider']) if job.get('vision_provider') else None,
                              progress=lambda stage: self.update(run_id, stage=stage))
             self.update(run_id, stage="completed", finished_at=time.time())
         except Exception as error:

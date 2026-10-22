@@ -4,6 +4,8 @@ Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus
 
 ## What the implemented pipeline does
 
+For automated video-to-CAD-to-lab runs with the requested Nebius/GMI models, use [the E2E snapshot runner](docs/scripted-e2e.md). `python scripts/run_e2e.py --snapshot <directory-or-zip>` runs every workbench stage and appends a checksummed version; subsequent invocations without input use the latest snapshot's video and settings.
+
 1. Copies the original annotation bytes unchanged and normalizes CREOLab's `video_id`, objects, normalized first-frame positions, `caption`, and alternative `reference_procedure` string/list.
 2. Uses ffprobe decoded-frame presentation timestamps and ffmpeg sampling to retain real frame indices, timestamps and SHA-256 hashes.
 3. Sends sampled pixels/timestamps to a selected Nebius vision model. Procedure ground truth is never included. Optional object hints are explicitly annotated first-frame positions, not tracks.

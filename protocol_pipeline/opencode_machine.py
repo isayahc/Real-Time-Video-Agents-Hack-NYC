@@ -40,7 +40,10 @@ def ensure_server() -> str:
     if os.name == 'nt' and Path(executable).suffix.lower() in ('.cmd', '.bat'):
         args = [os.getenv('COMSPEC', 'cmd.exe'), '/c', *args]
     with (logs / 'opencode-machines.log').open('ab') as log:
+        environment = dict(os.environ)
+        environment.setdefault('OPENCODE_CONFIG', str(root / 'opencode.json'))
         process = subprocess.Popen(args, cwd=root, stdout=log, stderr=subprocess.STDOUT,
+            env=environment,
             **({'creationflags': subprocess.CREATE_NO_WINDOW | subprocess.CREATE_NEW_PROCESS_GROUP}
                if os.name == 'nt' else {'start_new_session': True}))
     deadline = time.monotonic() + 20

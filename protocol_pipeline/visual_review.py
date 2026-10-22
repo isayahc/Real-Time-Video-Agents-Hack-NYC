@@ -291,7 +291,8 @@ def launch_review(store,run_id: str,review_id: str,phase: str) -> None:
     save_json(path/f'worker-{phase}.json',{'pid':process.pid,'created_at':time.time()})
 
 
-def start_review(store,run_id: str,start: VisualReviewStart) -> dict:
+def start_review(store,run_id: str,start: VisualReviewStart, *, launch: bool = True) -> dict:
+    """Persist a review, optionally leaving execution to the synchronous E2E runner."""
     decode_capture(start.capture)  # Preflight bytes before creating a job.
     scene=store.scene_state(run_id)
     if scene['stage']!='completed' or scene['attempt_id']!=start.scene_attempt_id:
@@ -328,11 +329,13 @@ def start_review(store,run_id: str,start: VisualReviewStart) -> dict:
         'options':start.options.model_dump(),'baseline_scene_attempt':scene['attempt_id'],'physical_validation':False,
         'message':'Vision model is reviewing the rendered scene. One correction pass is allowed.'})
     save_json(path.parent/'latest.json',{'id':review_id})
-    launch_review(store,run_id,review_id,'before')
+    if launch:
+        launch_review(store,run_id,review_id,'before')
     return review_state(store,run_id)
 
 
-def accept_after_capture(store,run_id: str,review_id: str,capture: CaptureBundle) -> dict:
+def accept_after_capture(store,run_id: str,review_id: str,capture: CaptureBundle, *, launch: bool = True) -> dict:
+    """Validate matching cameras and persist a candidate capture before execution."""
     path=review_path(store,run_id,review_id)
     job=json.loads((path/'job.json').read_text(encoding='utf-8'))
     if job['stage']!='awaiting_after_capture':return review_state(store,run_id)
@@ -341,7 +344,8 @@ def accept_after_capture(store,run_id: str,review_id: str,capture: CaptureBundle
         raise ValueError('Before and after captures must use the same cameras and timeline samples')
     save_capture(path/'after',capture)
     update_review(path,stage='reviewing_after',worker_phase='after',message='Comparing matched before/after native renders.')
-    launch_review(store,run_id,review_id,'after')
+    if launch:
+        launch_review(store,run_id,review_id,'after')
     return review_state(store,run_id)
 
 

@@ -246,7 +246,8 @@ def validate_source_ref(ref: str, mode: str, line_count: int, graph: Observation
 def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
                      text_path: Path | None = None, run: Path | None = None,
                      vision_model: str | None = None,
-                     progress: Callable[[str], None] | None = None) -> dict[str, Any]:
+                     progress: Callable[[str], None] | None = None,
+                     vision_provider: ExtractionProvider | None = None) -> dict[str, Any]:
     """Extract, ground, validate and compile a candidate plan from one source.
 
     Text is line-numbered. Video first yields a grounded observation graph; source
@@ -258,6 +259,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
     if bool(text_path) == bool(run) or not model.strip() or (run is not None and not vision_model):
         raise ValueError("Supply exactly one --text/--run, an explicit --model, and --vision-model for video")
     notify = progress or (lambda stage: None)
+    observer = vision_provider or provider
     graph: ObservationGraph | None = None
     line_count = 0
     if text_path is not None:
@@ -293,7 +295,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
                 "All interpretations are uncertain model inference. Do not invent exact dimensions, forces, off-camera activities or physical results.")
             observation_content = content
             for attempt in range(2):
-                graph, trace = provider.complete(vision_model or "", ObservationGraph,
+                graph, trace = observer.complete(vision_model or "", ObservationGraph,
                                                  observation_instruction, observation_content)
                 traces.append(trace)
                 write_json(output / f"observation-candidate-{attempt+1}.json", {
@@ -303,7 +305,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
                     validate_graph(graph, frames)
                     break
                 except ValueError as error:
-                    if not provider.live or attempt == 1:
+                    if not observer.live or attempt == 1:
                         raise
                     notify("correcting_observations")
                     observation_content = content + [{"type": "text", "text":
@@ -311,7 +313,7 @@ def extract_protocol(provider: ExtractionProvider, model: str, output: Path,
                         "Do not invent evidence or arbitrarily widen intervals just to pass validation. "
                         "Reconsider the action and its citations using the visible evidence and exact timestamps. "
                         f"Validation error: {error}\nPrevious candidate:\n{graph.model_dump_json()}"}]
-            write_json(output / "observations.json", {"basis": "model_inference" if provider.live else "replayed_synthetic_response",
+            write_json(output / "observations.json", {"basis": "model_inference" if observer.live else "replayed_synthetic_response",
                                                        "graph": graph.model_dump()})
             if not graph.actions:
                 raise ValueError("No source-supported actions were extracted; review frames before constructing a protocol")
