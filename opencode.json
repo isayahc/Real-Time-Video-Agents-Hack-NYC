@@ -10,6 +10,11 @@
         "apiKey": "{env:GMI_API_KEY}"
       },
       "models": {
+        "openai/gpt-6-astra": {
+          "name": "GPT-6 Astra (GMI Cloud)",
+          "temperature": false,
+          "headers": { "User-Agent": "MappedAssembly/0.1" }
+        },
         "openai/gpt-6.1-sol": {
           "name": "GPT-6.1 Sol (GMI Cloud)",
           "limit": { "context": 1050000, "output": 16384 },

@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, TypeVar
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+from pydantic import ValidationError
 
 from .models import Annotation, EngineeringInputs, Frame, ObservationGraph, ProtocolPlan, StrictModel
 from .model_config import generation_settings
@@ -173,6 +174,10 @@ class ProviderResponseError(ValueError):
         super().__init__(message)
 
 
+class StructuredResponseError(ProviderResponseError):
+    """A completed response is not one schema-valid JSON instance; retain raw output."""
+
+
 class IncompleteCompletionError(ProviderResponseError):
     """Retain provider evidence when generation stops before a completed response."""
 
@@ -232,7 +237,7 @@ class NebiusClient:
                  json_mode: bool = False) -> tuple[Model, dict[str, Any]]:
         """Request strict JSON and reject truncated, malformed or schema-invalid output."""
         body = {"model": model, "max_tokens": max_tokens, "messages": [
-            {"role": "system", "content": instruction + " Return only a JSON object matching this schema; no markdown: " + json.dumps(contract.model_json_schema())},
+            {"role": "system", "content": instruction + " Return exactly one JSON instance matching the following schema. Do not echo the schema, $defs, markdown, or additional JSON documents. Schema (reference only): " + json.dumps(contract.model_json_schema())},
             {"role": "user", "content": content}]}
         settings = generation_settings(model) if self.provider=='nebius' else {}
         body.update(settings)
@@ -276,10 +281,16 @@ class NebiusClient:
         text = choice["message"].get("content")
         if not isinstance(text, str) or not text.strip():
             raise ProviderResponseError("Provider returned no visible JSON content.", trace)
-        parsed = contract.model_validate_json(text)
         trace.pop("message")
         trace.update({"response_json_text": text,
                        "provenance": f"live_{self.provider}_model_inference; not source ground truth"})
+        try:
+            parsed = contract.model_validate_json(text)
+        except ValidationError as error:
+            trace['validation_errors'] = json.loads(error.json(include_input=False, include_url=False))
+            raise StructuredResponseError(
+                f"Provider returned invalid {contract.__name__} JSON: "
+                + json.dumps(trace['validation_errors']), trace) from error
         return parsed, trace
 
 

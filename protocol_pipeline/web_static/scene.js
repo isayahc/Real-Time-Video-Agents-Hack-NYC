@@ -39,9 +39,13 @@ async function loadScene(runId,token){
    nativeRenderer=viewer.mount($('scene-viewer'),manifest);
    $('scene-scrub').max=String(preview.duration);$('scene-scrub').value='0';
    $('scene-download').href=`/api/runs/${runId}/scene/artifacts/scene.oi.json`;
-   $('scene-report-download').href=`/api/runs/${runId}/scene/artifacts/scene-report.json`;
+    $('scene-report-download').href=`/api/runs/${runId}/scene/artifacts/scene-report.json`;
+    $('scene-storyboard').hidden=!state.report.storyboard;
+    if(state.report.storyboard)$('scene-storyboard-label').textContent=`${state.report.storyboard.basis} · illustrative CAD motion, not physical execution`;
+    if(state.report.storyboard){$('scene-gif-download').href=`/api/runs/${runId}/scene/artifacts/storyboard.gif`;$('scene-video-download').href=`/api/runs/${runId}/scene/artifacts/storyboard.mp4`;$('scene-action-gif').src=$('scene-gif-download').href;}
    const inventory=state.report.stock_inventory||[],stock=inventory.reduce((sum,item)=>sum+item.stock_quantity,0);
-   $('scene-meta').textContent=`Native OpenIndustries WorkspaceViewer · ${state.report.instances} CAD objects · ${state.report.animation_tracks} animation tracks · ${state.report.duration_s}s storyboard · room ${preview.room.join(' × ')} m${stock?` · ${stock} stocked consumables represented by ${inventory.length} labeled samples`:''}${state.report.layout?.room_adjusted?' · planning room expanded to fit unscaled CAD':''}`;
+    const objectLabel=state.report.storyboard?`${state.report.equipment_lines} integrated machine · ${state.report.instances-state.report.equipment_lines} source workpieces`:`${state.report.instances} CAD objects`;
+    $('scene-meta').textContent=`Native OpenIndustries WorkspaceViewer · ${objectLabel} · ${state.report.animation_tracks} animation tracks · ${state.report.duration_s.toFixed(1)}s storyboard · room ${preview.room.join(' × ')} m${stock?` · ${stock} stocked consumables represented by ${inventory.length} labeled samples`:''}${state.report.layout?.room_adjusted?' · planning room expanded to fit unscaled CAD':''}`;
    $('scene-limitations').replaceChildren(...state.report.limitations.map(text=>element('li',text)));
    $('scene-operations').replaceChildren(...preview.segments.map((segment,index)=>{
     const button=element('button',`${String(index+1).padStart(2,'0')} · ${segment.label}`);button.type='button';
@@ -79,8 +83,8 @@ function drawScene(){
  if(index!==sceneSegment){sceneSegment=index;$('scene-current').textContent=`${index+1}/${sceneData.segments.length} · ${segment.label}. ${segment.implementation}`;
   [...$('scene-operations').children].forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));}
 }
-function sceneTick(now){if(!scenePlaying||!sceneData)return;sceneTime=(sceneTime+Math.min(.2,(now-sceneLastTick)/1000))%sceneData.duration;sceneLastTick=now;drawScene();sceneAnimation=requestAnimationFrame(sceneTick);}
-$('scene-play').addEventListener('click',()=>{if(!sceneData)return;if(scenePlaying){pauseScene();return;}scenePlaying=true;sceneLastTick=performance.now();$('scene-play').textContent='Pause Ⅱ';sceneAnimation=requestAnimationFrame(sceneTick);});
+function sceneTick(now){if(!scenePlaying||!sceneData)return;sceneTime+=Math.min(.2,(now-sceneLastTick)/1000);if(sceneTime>=sceneData.duration){if(sceneManifest?.animation?.loop===false){sceneTime=sceneData.duration;drawScene();pauseScene();return;}sceneTime%=sceneData.duration;}sceneLastTick=now;drawScene();sceneAnimation=requestAnimationFrame(sceneTick);}
+$('scene-play').addEventListener('click',()=>{if(!sceneData)return;if(scenePlaying){pauseScene();return;}if(sceneTime>=sceneData.duration)sceneTime=0;scenePlaying=true;sceneLastTick=performance.now();$('scene-play').textContent='Pause Ⅱ';sceneAnimation=requestAnimationFrame(sceneTick);});
 $('scene-rewind').addEventListener('click',()=>{pauseScene();sceneTime=0;drawScene();});
 $('scene-fit').addEventListener('click',()=>nativeRenderer?.focusInstance(null));
 $('scene-scrub').addEventListener('input',()=>{pauseScene();sceneTime=Number($('scene-scrub').value);drawScene();});

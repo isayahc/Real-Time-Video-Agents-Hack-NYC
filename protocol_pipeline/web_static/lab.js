@@ -23,7 +23,7 @@ async function loadLab(build=false){
  const run=activeRun,token=generation;leaveLab();const epoch=labEpoch;
  if(!run)return;
  $('lab-build').disabled=true;$('lab-error').hidden=true;$('lab-status').textContent=build?'Mapping roles, operation relationships and CAD bounds…':'Loading lab layout…';
- const current=()=>epoch===labEpoch&&run===activeRun&&token===generation&&wizardStep==='lab';
+ const current=()=>epoch===labEpoch&&run===activeRun&&token===generation&&wizardStep==='scene'&&$('lab-layout').open;
  try{
   const report=await api(`/api/runs/${run}/lab`,build?{method:'POST',headers:{'X-Workbench-Request':'1'}}:undefined);
   if(!current())return;
@@ -32,7 +32,7 @@ async function loadLab(build=false){
   if(!current())return;
   $('lab-content').hidden=false;labRenderer=viewer.mount($('lab-viewer'),manifest);
   drawLabMap(report);
-  $('lab-status').textContent=`${report.placed_count}/${report.total_count} subsystem instances placed · ${report.template.name} · ${report.issues.length} unresolved requirements`;
+  $('lab-status').textContent=`${report.placed_count}/${report.total_count} subsystem instances placed · ${report.template.name} · ${report.issues.length} layout / verification findings`;
   $('lab-placements').replaceChildren(...report.placements.map((row,index)=>{
    const card=element('article',undefined,'operation');card.append(element('h4',`${index+1}. ${row.name}`),element('p',`${row.status==='placed'?report.template.zones.find(z=>z.id===row.zone).name:'UNPLACED'} · ${row.dimensions_m.map(v=>v.toFixed(2)).join(' × ')} m`),element('p',row.role),element('p',row.rationale),element('p',`Operations: ${row.operation_ids.join(', ')||'None supplied'} · Related equipment: ${row.related_equipment_ids.join(', ')||'None supplied'}`,'hint'));
    if(row.status==='placed'){const button=element('button','Focus subsystem');button.type='button';button.addEventListener('click',()=>labRenderer?.focusInstance(row.instance_id));card.append(button);}return card;
@@ -43,7 +43,8 @@ async function loadLab(build=false){
  }catch(error){if(current()){$('lab-error').textContent=error.message;$('lab-error').hidden=false;$('lab-status').textContent='Lab layout is not ready.';}}
  finally{if(current())$('lab-build').disabled=false;}
 }
-$('lab-next').addEventListener('click',()=>showWizardStep('lab'));
-$('lab-back').addEventListener('click',()=>showWizardStep('scene'));
+$('lab-next').addEventListener('click',()=>{$('lab-layout').open=true;$('lab-layout').scrollIntoView({behavior:'smooth',block:'start'});});
+$('lab-back').addEventListener('click',()=>{$('lab-layout').open=false;$('scene-heading').scrollIntoView({behavior:'smooth',block:'start'});});
+$('lab-layout').addEventListener('toggle',()=>{if($('lab-layout').open&&wizardStep==='scene')loadLab();else leaveLab();});
 $('lab-build').addEventListener('click',()=>loadLab(true));
 $('lab-viewer').addEventListener('openindustries-error',event=>{$('lab-error').textContent=event.detail;$('lab-error').hidden=false;});

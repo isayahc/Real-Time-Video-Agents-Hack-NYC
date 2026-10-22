@@ -156,9 +156,9 @@ Invalid observation evidence receives at most one correction request to the same
 vision model using the original frames. Both unvalidated candidates are retained
 as `observation-candidate-1.json` / `observation-candidate-2.json` for diagnosis.
 Validation is not bypassed if the correction fails.
-# Step 8: semantic lab layout
+# Scene & lab: semantic lab layout
 
-After building an up-to-date Step 7 scene, open **08 / Lab layout** and choose
+After building an up-to-date scene, open **07 / Scene & lab**, expand **Lab placement**, and choose
 **Map subsystems into lab**. The fixed `compact-lab-v1` template is 8 × 6 × 3 m,
 with a process bench, floor automation cell, controls/utilities zone, staging bench
 and reserved 1.2 m access aisle. Step 7 remains a separate original scene.
@@ -177,3 +177,22 @@ rationales, and downloadable scene/report artifacts. Plans are retained under
 `runs/workbench/<run>/lab/<attempt>/`; source scene/proposal hashes invalidate stale
 plans. `POST /api/runs/<run>/lab` builds a plan; `GET` reads its status. This planner
 is deterministic and does not require an LLM/API call.
+# Requirements-driven integrated machine design
+
+New autonomous proposals use one integrated workcell as the unit of CAD generation.
+Each source operation and proposed capability becomes a `machine_requirements` entry
+with source references, verification needs and constraints/unknowns. The original
+component estimates remain in `component_bill_of_materials`; they are not separate
+machine-generation jobs. A single `workcell` equipment instance covers the operations
+and carries the aggregate planning equipment cost. Older saved equipment-list designs
+remain readable without silently rewriting their artifacts.
+
+Step 5 displays requirements and the component cost breakdown. Step 6 generates one
+shared-base assembly with connected tooling, sensing, fixtures and controls; native
+CAD validity is not proof that the machine physically satisfies its requirements.
+
+OpenCode authoring uses asynchronous submission with a persisted message ID and
+independent status polling. `MACHINE_AUTHORING_TIMEOUT_SECONDS` sets the bounded
+authoring wait (default 900 seconds). Short status-read failures do not resubmit the
+generation. After the deadline, the saved session/request record can reconcile a
+late completion; the provider job is not silently canceled or restarted.

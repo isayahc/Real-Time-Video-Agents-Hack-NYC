@@ -14,6 +14,7 @@ from typing import Literal
 from pydantic import Field
 
 from .autonomy import AutonomyProposal
+from .cad_runtime import cad_adapter_path, forma_source
 from .design import write_json
 from .models import StrictModel
 from .pipeline import sha256
@@ -56,10 +57,15 @@ def process_alive(pid: int) -> bool:
 
 
 def forma_runtime() -> dict:
+    """Check installed geometry packages and the adapter used by actual native builds."""
     installed = importlib.util.find_spec('forma_core') is not None
-    source = Path(os.getenv('FORMA_ROOT') or Path(__file__).resolve().parents[2] / 'forma-oss')
-    adapter = Path(os.getenv('FORMA_CAD_ADAPTER_PATH') or source / '.agents/skills/forma-hardware/scripts/cad.py')
-    ready = installed and adapter.is_file() and importlib.util.find_spec('opencad') is not None and importlib.util.find_spec('cadquery') is not None
+    source = forma_source()
+    try:
+        adapter = cad_adapter_path()
+    except ValueError as error:
+        return {'available': False, 'source_root': str(source) if (source / 'forma_core').is_dir() else None,
+                'cad_adapter': None, 'message': str(error)}
+    ready = installed and importlib.util.find_spec('opencad') is not None and importlib.util.find_spec('cadquery') is not None
     return {'available': ready, 'source_root': str(source) if (source / 'forma_core').is_dir() else None,
             'cad_adapter': str(adapter) if adapter.is_file() else None,
             'message': 'Forma Core and its native CAD adapter are available.' if ready else
@@ -87,6 +93,9 @@ def generate_machine(proposal_path: Path, equipment_id: str, output: Path, model
         'source_proposal_sha256': sha256(proposal_path),
         'authoring': authoring,
         'provider':provider,
+        'design_scope':proposal.design_scope,
+        'machine_requirements':[item.model_dump() for item in proposal.machine_requirements],
+        'component_bill_of_materials':[item.model_dump() for item in proposal.component_bill_of_materials],
         'visual_feedback':visual_feedback,
         'resume_from': str(resume_from.resolve()) if resume_from and resume_from.is_dir() else None,
     })
@@ -95,8 +104,9 @@ def generate_machine(proposal_path: Path, equipment_id: str, output: Path, model
     environment['FORMA_CAD_ADAPTER_PATH'] = runtime['cad_adapter']
     environment['PYTHONUNBUFFERED'] = '1'
     roots = [str(Path(__file__).resolve().parents[1])]
-    if runtime['source_root']:
-        roots.append(runtime['source_root'])
+    # FORMA_ROOT locates the hardware adapter, not a replacement Python package.
+    # Prepending that checkout shadows the installed/pinned Forma used by preflight
+    # and in-process tests, and may expose an incompatible development API.
     if environment.get('PYTHONPATH'):
         roots.append(environment['PYTHONPATH'])
     environment['PYTHONPATH'] = os.pathsep.join(roots)

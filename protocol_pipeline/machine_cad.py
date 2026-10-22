@@ -63,6 +63,26 @@ def author_machine_cad(project: Any, source: dict[str, Any], output: Path,
         'assumptions': source.get('assumptions', []), 'limitations': source.get('limitations', []),
         'forma_mechanical': project.mechanical.model_dump(mode='json') if project.mechanical else None,
     }
+    if source.get('design_scope') == 'integrated_workcell':
+        context['machine_requirements'] = source['machine_requirements']
+        context['component_bill_of_materials'] = source.get('component_bill_of_materials', [])
+        instruction += (
+            '\nThis job is ONE INTEGRATED MACHINE, not one component. Treat the supplied capability attributes '
+            'as requirements; the component cost list is not a demand to generate standalone machines. '
+            'Choose the simplest mechanism satisfying every task: prefer a compact Cartesian positioning '
+            'stage/gantry and attached tweezer tool over a complex six-axis arm unless the tasks require it. '
+            'Use approximately 8–14 purposeful named bodies in a shared frame. Provide a common base with '
+            'registered mat/input and container/output nests, supported motion axes, a tool ATTACHED to the '
+            'moving carriage with its tips at the work area, a camera mounted on a bracket facing the work area, '
+            'and a controls housing secured to the base. No disconnected tools laid alongside the machine. '
+            'Record named interface/workspace coordinates in the source and explain requirement coverage in '
+            'component roles and assumptions. Dimensional assumptions must be explicit. Use robust overlapping '
+            'booleans and simple profiles; avoid tangent-only joins, uncertain arcs and gratuitous chamfers. '
+            'A generic robot alone is NOT a complete answer. Preserve task boundary and flag unverified '
+            'forces, travel limits, sensor performance and physical operation.'
+        )
+        instruction += (' Cut separated holes individually. Do not union disconnected hole cutters or unrelated '
+                        'parts into one Part: each union must have actual volumetric overlap and yield manifold geometry.')
     if previous:
         for name in ('machine-cad-program.json', 'machine-assembly.json'):
             if (previous / name).is_file():
