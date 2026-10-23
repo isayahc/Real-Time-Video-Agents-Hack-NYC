@@ -56,6 +56,109 @@ stacking sequence needs its own measured operating baseline before an investment
 
 ---
 
+## How to run
+
+### 1. Install
+
+Use **Python 3.11+** and install **FFmpeg / FFprobe** on your PATH. Run these commands
+from a terminal:
+
+```bash
+git clone https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC.git
+cd Real-Time-Video-Agents-Hack-NYC
+python -m pip install -e ".[e2e,design,test]"
+python -m playwright install chromium
+```
+
+Native CAD and 3D rendering additionally require **Node.js 22+**, **OpenCode CLI**,
+and compatible **Forma** and **OpenIndustries** checkouts. Install OpenIndustries'
+npm dependencies in its checkout and use Forma's managed CAD setup:
+
+```bash
+npm install -g opencode-ai
+npm --prefix "/path/to/OpenIndustries" install
+python "/path/to/forma-oss/.agents/skills/forma-hardware/scripts/cad.py" setup
+```
+
+Replace the example paths with your local checkout locations. Existing sibling
+`forma-oss` and `OpenIndustries` directories are detected automatically; otherwise
+set `FORMA_ROOT` and `OPENINDUSTRIES_ROOT` in `.env`.
+
+### 2. Configure model access
+
+Create **`.env` in the repository root** (or edit your existing file):
+
+```dotenv
+NEBIUS_API_KEY=your_nebius_key
+GMI_API_KEY=your_gmi_key
+# Optional if the native checkouts are not sibling directories:
+# FORMA_ROOT=/absolute/path/to/forma-oss
+# OPENINDUSTRIES_ROOT=/absolute/path/to/OpenIndustries
+```
+
+Keys stay on the server. The scripted live pipeline uses Nebius for vision and
+GMI/GPT-6 Astra for text and CAD authoring; account access is required. Restart the
+server after changing `.env`. See [native setup and troubleshooting](docs/scripted-e2e.md#setup-once)
+for adapter paths, Windows configuration and dependency checks.
+
+### 3. Open the workbench
+
+```bash
+python -m protocol_pipeline.web
+```
+
+Open **[http://127.0.0.1:8000](http://127.0.0.1:8000)**. Select a video, choose models,
+and follow **Video → Models → Analysis → Results → Design → Machine → Scene & lab**.
+On Windows, `run-workbench.cmd` starts the workbench with automatic reload.
+
+**To show saved results without fresh model calls:** expand **Import snapshot ·
+populate this workbench**, then upload a full snapshot ZIP or enter its local path.
+For example, `snapshots/workbench-20261022-184138Z-a90ec05/snapshot.zip` is the committed
+historical snapshot. It contains the earlier component-based example, not the newer
+integrated stacking demo. Importing preserves available stages; it does not generate
+missing outputs. The latest input/output demo media is available above without setup.
+
+### 4. Run the full pipeline from the command line
+
+```bash
+# Check native dependencies, browser rendering and account model catalogs first.
+python scripts/run_e2e.py --check
+
+# Make fresh live requests using the included example video.
+python scripts/run_e2e.py --video docs/media/scenario05-input.mp4
+```
+
+Each live run writes a new version under **`snapshots/e2e/vNNNNNN/`**, retaining
+results and failure diagnostics. Live runs incur provider usage and may need model
+corrections; they are distinct from opening a saved snapshot in the UI. The specific
+stacking GIF above is an authored demonstration, not a promise that a fresh run will
+reproduce the identical geometry or animation. See [the scripted E2E guide](docs/scripted-e2e.md).
+
+### Tests
+
+```bash
+python -m pytest -q
+```
+
+Enable real native CAD/browser integration tests in **PowerShell**:
+
+```powershell
+$env:WORKBENCH_NATIVE_E2E_TESTS = '1'
+$env:WORKBENCH_NATIVE_CAD_TESTS = '1'
+python -m pytest -q
+```
+
+Or on **macOS/Linux**:
+
+```bash
+WORKBENCH_NATIVE_E2E_TESTS=1 WORKBENCH_NATIVE_CAD_TESTS=1 python -m pytest -q
+```
+
+The native integration tests use deterministic model fixtures; they do not establish
+live provider availability or physical machine performance.
+
+---
+
 Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus planning. Existing designs and estimates remain in [snapshots/v1](snapshots/v1/) and [snapshots/v2](snapshots/v2/); the [Nebius epic](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/16) tracks the broader product.
 
 ## What the implemented pipeline does
