@@ -72,6 +72,17 @@ account availability can differ; restoring presets is a user action.
 
 ## Live NVIDIA verification
 
+First record catalog access without inference or source upload:
+
+```bash
+python -m scripts.verify_nebius --catalog-only --output runs/nebius-catalog-001
+```
+
+This records `catalog_verified` only when the requested model is listed. Both
+`live_inference` and `nvidia_model_verified` remain false. Missing credentials or
+an absent model fail; existing evidence directories cannot be overwritten.
+Obtain authorization for paid calls before proceeding with the following command.
+
 With a configured key, run from a source checkout:
 
 ```bash

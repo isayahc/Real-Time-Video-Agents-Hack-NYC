@@ -143,6 +143,42 @@ def test_verifier_compiles_actual_contract_with_mocked_transport(
         verify_nebius(out, DEFAULT_COMPILER_MODEL, ROOT / "examples/extraction/procedure.txt")
 
 
+@pytest.mark.parametrize("catalog_present", [True, False])
+def test_catalog_only_never_calls_inference(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, catalog_present: bool,
+) -> None:
+    """Catalog evidence must never imply inference success or issue a POST."""
+    monkeypatch.setenv("NEBIUS_API_KEY", "TEST_SECRET_NOT_EVIDENCE")
+    calls: list[Request] = []
+
+    def send(request: Request, **kwargs: Any) -> BytesIO:
+        """Reject inference requests even when the requested model is present."""
+        assert request.get_method() == "GET"
+        calls.append(request)
+        return BytesIO(json.dumps({"data": [{"id": DEFAULT_COMPILER_MODEL}]
+                                  if catalog_present else []}).encode())
+
+    monkeypatch.setattr("protocol_pipeline.pipeline.urlopen", send)
+    out = tmp_path / "catalog"
+    if catalog_present:
+        result = verify_nebius(out, DEFAULT_COMPILER_MODEL, tmp_path / "unused.txt", catalog_only=True)
+        assert result["status"] == "catalog_verified"
+        assert result["artifact_sha256"]["catalog.json"]
+        with pytest.raises(FileExistsError):
+            verify_nebius(out, DEFAULT_COMPILER_MODEL, tmp_path / "unused.txt", catalog_only=True)
+    else:
+        with pytest.raises(ValueError, match="not in this account"):
+            verify_nebius(out, DEFAULT_COMPILER_MODEL, tmp_path / "unused.txt", catalog_only=True)
+    record = json.loads((out / "verification.json").read_text())
+    assert record["nvidia_model_verified"] is False
+    assert record["live_inference"] is False
+    assert record["verification_scope"] == "catalog"
+    assert len(calls) == 1
+    assert not (out / "probe.json").exists()
+    assert not (out / "extraction").exists()
+    assert "TEST_SECRET_NOT_EVIDENCE" not in json.dumps(record)
+
+
 def test_cli_extraction_uses_preset_without_model_flag(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
 ) -> None:

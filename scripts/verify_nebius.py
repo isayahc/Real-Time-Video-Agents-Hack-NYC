@@ -25,10 +25,12 @@ class CompletionProbe(StrictModel):
     ready: Literal[True]
 
 
-def verify_nebius(output: Path, model: str, source: Path) -> dict[str, Any]:
+def verify_nebius(output: Path, model: str, source: Path, *,
+                  catalog_only: bool = False) -> dict[str, Any]:
     """Check the account catalog, probe JSON and compile a real extracted protocol.
 
-    Calls are paid when credentials are configured. Missing credentials, absent
+    Catalog-only mode makes no inference calls. Otherwise calls are paid when
+    credentials are configured. Missing credentials, absent
     models, incomplete output and failed compilation fail instead of skipping.
     Existing output directories are never overwritten. Evidence stays local for
     review before publication; source text and model outputs can be sensitive.
@@ -47,6 +49,7 @@ def verify_nebius(output: Path, model: str, source: Path) -> dict[str, Any]:
         "requested_model": model, "commit": commit.stdout.strip() if commit.returncode == 0 else None,
         "working_tree_dirty": bool(status.stdout) if status.returncode == 0 else None,
         "nvidia_model_verified": False, "physical_validation": False,
+        "live_inference": False, "verification_scope": "catalog" if catalog_only else "inference",
         "implementation_sha256": {
             str(path.relative_to(root)): sha256(path)
             for path in sorted((root / "protocol_pipeline").glob("*.py"))
@@ -61,6 +64,12 @@ def verify_nebius(output: Path, model: str, source: Path) -> dict[str, Any]:
         write_json(output / "catalog.json", {"model_ids": ids, "inference_verified": False})
         if model not in ids:
             raise ValueError(f"Configured NVIDIA model is not in this account's catalog: {model}")
+        if catalog_only:
+            record.update({"status": "catalog_verified", "artifact_sha256": {
+                "catalog.json": sha256(output / "catalog.json")},
+                "limitations": ["Catalog membership does not establish successful NVIDIA inference."]})
+            write_json(output / "verification.json", record)
+            return record
         stage = "probe"
         probe, trace = provider.client.complete(
             model, CompletionProbe, "Return ready=true as JSON.",
@@ -98,11 +107,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--model", default=model_presets()["model"])
+    parser.add_argument("--catalog-only", action="store_true",
+                        help="Record account catalog access without paid inference")
     parser.add_argument("--text", type=Path,
                         default=Path(__file__).resolve().parents[1] / "examples/extraction/procedure.txt")
     args = parser.parse_args()
     try:
-        result = verify_nebius(args.output, args.model, args.text)
+        result = verify_nebius(args.output, args.model, args.text, catalog_only=args.catalog_only)
     except (ValueError, RuntimeError, OSError) as error:
         parser.exit(1, f"NVIDIA verification failed: {error}\n")
     print(json.dumps({"status": result["status"], "model": args.model,
