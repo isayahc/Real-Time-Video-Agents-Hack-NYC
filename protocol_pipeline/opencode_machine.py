@@ -12,6 +12,7 @@ import hashlib
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from . import opencode_v2
 
 
 def server_url() -> str:
@@ -27,6 +28,14 @@ def server_available() -> bool:
 
 
 def ensure_server() -> str:
+    """Select the installed API version and start a compatible authenticated server."""
+    executable = shutil.which('opencode')
+    if executable:
+        version = subprocess.run(opencode_v2.command(executable, '--version'), capture_output=True,
+                                 text=True, timeout=10, check=True).stdout.strip()
+        if version.removeprefix('opencode ').lstrip('v').startswith('2.'):
+            return opencode_v2.ensure_server(executable, Path(__file__).resolve().parents[1],
+                                            os.getenv('MACHINE_OPENCODE_URL') or os.getenv('OPENCODE_URL'))
     url = server_url()
     if server_available():
         return url
@@ -63,17 +72,38 @@ class OpenCodeMachineSession:
     def __init__(self, output: Path, model: str, equipment: dict, resume: dict | None=None, provider: str | None=None):
         self.output, self.model, self.equipment = output, model, equipment
         self.url = ensure_server()
+        self.v2 = opencode_v2.is_v2(self.url)
         self.provider = provider or os.getenv('OPENCODE_PROVIDER', 'nebius')
         if resume is None and (output/'opencode-session.json').is_file():
             resume=json.loads((output/'opencode-session.json').read_text(encoding='utf-8'))
-        can_resume=bool(resume and resume.get('url')==self.url and resume.get('model')==model and resume.get('provider')==self.provider)
+        can_resume=bool(resume and (resume.get('url')==self.url or
+                       (self.v2 and resume.get('api_version') == 2)) and
+                       resume.get('model')==model and resume.get('provider')==self.provider)
         self.directory=resume.get('directory',str(output.resolve())) if can_resume else str(output.resolve())
-        tools=self.request('GET','/experimental/tool/ids')
-        self.tools={name:False for name in tools} if isinstance(tools,list) else {}
-        self.session_id = resume['session_id'] if can_resume else self.request('POST', '/session', {'title':f"Machine CAD: {equipment['name']}"})['id']
+        if self.v2:
+            self.tools = {}
+            if can_resume:
+                self.session_id = resume['session_id']
+                saved = opencode_v2.request(self.url, 'GET', f'/api/session/{self.session_id}')['data']
+                if (saved.get('model', {}).get('providerID') != self.provider
+                        or saved.get('model', {}).get('id') != self.model
+                        or saved.get('permissions') != [{'action': '*', 'resource': '*', 'effect': 'deny'}]):
+                    raise RuntimeError('OpenCode V2 saved session model or tool permissions changed; refusing to resume')
+            else:
+                self.session_id = opencode_v2.request(self.url, 'POST', '/api/session', {
+                    'title': f"Machine CAD: {equipment['name']}",
+                    'location': {'directory': self.directory},
+                    'model': {'providerID': self.provider, 'id': self.model},
+                    'permissions': [{'action': '*', 'resource': '*', 'effect': 'deny'}],
+                })['data']['id']
+        else:
+            tools=self.request('GET','/experimental/tool/ids')
+            self.tools={name:False for name in tools} if isinstance(tools,list) else {}
+            self.session_id = resume['session_id'] if can_resume else self.request('POST', '/session', {'title':f"Machine CAD: {equipment['name']}"})['id']
         self.count = 0
         (output / 'opencode-session.json').write_text(json.dumps({
             'url':self.url,'session_id':self.session_id,'provider':self.provider,'model':model,'directory':self.directory,
+            'api_version': 2 if self.v2 else 1,
         },indent=2),encoding='utf-8')
 
     def request(self, method: str, path: str, body=None):
@@ -91,6 +121,8 @@ class OpenCodeMachineSession:
             raise RuntimeError(f'OpenCode request failed: {error.reason}') from None
 
     def complete(self, contract, instruction: str, content: list[dict]):
+        if self.v2:
+            return self.complete_v2(contract, instruction, content)
         prompt = instruction + '\n\n' + '\n'.join(item['text'] for item in content)
         # Nebius rejected OpenCode's tool-based structured-output request in the live check.
         # JSON carries complete Python source, not a geometry vocabulary. The CAD worker
@@ -149,3 +181,60 @@ class OpenCodeMachineSession:
             'requested_model':self.model,'served_model':info.get('modelID'),'usage':info.get('tokens'),
             'latency_s':time.monotonic()-started,'output_mode':'json_text','request_count':self.count,
             'provenance':'OpenCode-authored OpenCAD Python; native Forma/OCCT validation and export follows'}
+
+    def complete_v2(self, contract: type, instruction: str,
+                    content: list[dict]) -> tuple[object, dict]:
+        """Persist a V2 input identity and poll its turn without resubmitting paid work."""
+        self.count += 1
+        prompt = instruction + '\n\n' + '\n'.join(item['text'] for item in content)
+        prompt += '\nReturn only valid JSON matching this schema, without markdown: ' + json.dumps(contract.model_json_schema())
+        digest = hashlib.sha256(json.dumps({'prompt': prompt, 'model': self.model,
+                                          'provider': self.provider, 'session': self.session_id}, sort_keys=True).encode()).hexdigest()
+        path = self.output / f'opencode-request-{digest[:16]}.json'
+        pending = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else None
+        started = time.monotonic()
+        if pending is None:
+            pending = {'message_id': 'msg_' + uuid.uuid4().hex, 'session_id': self.session_id,
+                       'state': 'submitting', 'api_version': 2, 'submitted_at': time.time(),
+                       'deadline': time.time() + float(os.getenv('MACHINE_AUTHORING_TIMEOUT_SECONDS', '900'))}
+            path.write_text(json.dumps(pending, indent=2), encoding='utf-8')
+            opencode_v2.request(self.url, 'POST', f'/api/session/{self.session_id}/prompt',
+                                {'id': pending['message_id'], 'text': prompt})
+            pending['state'] = 'running'
+            path.write_text(json.dumps(pending, indent=2), encoding='utf-8')
+        while True:
+            try:
+                rows = opencode_v2.messages(self.url, self.session_id)
+            except (OSError, RuntimeError) as error:
+                rows = []
+                pending['last_poll_error'] = str(error)
+            try:
+                response = opencode_v2.completed_response(rows, pending['message_id'])
+            except RuntimeError as error:
+                pending.update(state='failed', error=str(error))
+                path.write_text(json.dumps(pending, indent=2), encoding='utf-8')
+                (self.output / f'opencode-response-{self.count}.json').write_text(json.dumps(rows, indent=2), encoding='utf-8')
+                raise
+            if response is not None:
+                break
+            if time.time() >= pending['deadline']:
+                pending['state'] = 'awaiting_reconciliation'
+                path.write_text(json.dumps(pending, indent=2), encoding='utf-8')
+                raise TimeoutError(f'OpenCode V2 authoring deadline reached; session {self.session_id}, message {pending["message_id"]} retained for recovery')
+            time.sleep(2)
+        pending['state'] = 'completed'
+        path.write_text(json.dumps(pending, indent=2), encoding='utf-8')
+        (self.output / f'opencode-response-{self.count}.json').write_text(json.dumps(response, indent=2), encoding='utf-8')
+        served = response['model']
+        if served.get('providerID') != self.provider or served.get('id') != self.model:
+            raise RuntimeError('OpenCode V2 returned a different provider/model than requested')
+        text = '\n'.join(part['text'] for part in response['content'] if part['type'] == 'text').strip()
+        if text.startswith('```') and text.endswith('```'):
+            text = '\n'.join(text.splitlines()[1:-1])
+        parsed = contract.model_validate_json(text)
+        return parsed, {'authoring': 'opencode', 'api_version': 2, 'provider': self.provider,
+                        'session_id': self.session_id, 'requested_model': self.model,
+                        'served_model': served['id'], 'usage': response.get('tokens'),
+                        'finish_reason': response.get('finish'), 'latency_s': time.monotonic() - started,
+                        'output_mode': 'json_text', 'request_count': self.count,
+                        'provenance': 'OpenCode-authored OpenCAD Python; native Forma/OCCT validation and export follows'}

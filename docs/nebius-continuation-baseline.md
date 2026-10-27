@@ -1,5 +1,10 @@
 # Nebius continuation baseline — October 27, 2026
 
+Follow-up: [live NVIDIA text verification](nebius-live-verification-20261027.md)
+passed, and the [OpenCode V2 startup fix](opencode-v2-startup-verification.md)
+now passes the no-inference E2E preflight. Results below retain the original audit
+state; full paid video-to-CAD-to-scene verification remains outstanding.
+
 Audited starting commit `b6f6b8c138ef6e4191567561d59a4c4dde3699d0` on
 `nebius-continuation`, after fetching origin. The only pre-existing untracked
 content was `.playwright-mcp/`; it was preserved. This is a local-environment

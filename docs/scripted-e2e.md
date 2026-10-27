@@ -50,7 +50,27 @@ $env:FORMA_CAD_ADAPTER_PATH = Join-Path $env:FORMA_ROOT '.agents\skills\forma-ha
 
 Native CAD exporters run in a short temporary directory instead of the deeply nested snapshot attempt directory. All generated artifacts and partial failure/timeout diagnostics are copied back before cleanup. If your system temp directory itself is long, select a short writable root such as `$env:WORKBENCH_CAD_TEMP_ROOT = 'C:\cad-tmp'`. The worker creates that directory if needed. It exports and validates the complete STEP assembly and each component's native mesh itself; adapters without optional `articulated_bodies` metadata remain usable. The adapter's own STEP/metadata are retained separately as diagnostics, and cannot replace the complete assembly output.
 
-Set both `NEBIUS_API_KEY` (or `NEBIUS_TOKEN_FACTORY_KEY`) and `GMI_API_KEY` in your environment or repository `.env`. The script loads `.env` from the current directory and does not copy it into snapshots. The repository `opencode.json` registers the GMI model. The managed OpenCode server starts automatically if its CLI is on PATH, with an absolute `OPENCODE_CONFIG` path so external snapshot directories work too. To reuse a server, start it with this repository's `opencode.json` and set `MACHINE_OPENCODE_URL`. Restart existing servers after configuration changes.
+Set both `NEBIUS_API_KEY` (or `NEBIUS_TOKEN_FACTORY_KEY`) and `GMI_API_KEY` in your environment or repository `.env`. The script loads `.env` from the current directory and does not copy it into snapshots. The repository `opencode.json` registers the GMI model. The managed OpenCode server starts automatically if its CLI is on PATH, with an absolute `OPENCODE_CONFIG` path so external snapshot directories work too.
+
+With **OpenCode V2**, the adapter starts its own authenticated loopback server on
+an allocated port, inheriting the project environment. Its generated password stays
+in memory and is redacted from `runs/opencode-v2.log`. The owned process tree stops
+when the worker exits, including the Windows npm launcher. The user's shared
+OpenCode service is not restarted or reconfigured. Saved V2 sessions can be reopened
+from the same OpenCode database after the private server restarts.
+
+To reuse an explicit V2 server, start it with this repository's configuration and
+provider environment, set `MACHINE_OPENCODE_URL`, and supply its `OPENCODE_PASSWORD`
+(or compatible `OPENCODE_SERVER_PASSWORD`). Authentication failures are explicit.
+V2 automatically reloads configuration; server environment changes require starting
+the selected server with that environment. Existing V1 installations retain their
+legacy adapter path; the installed CLI determines the expected server API version.
+
+The V2 CAD session selects the exact provider/model at creation and denies tool
+execution; CAD source is returned as JSON for the existing native validation worker.
+Inputs retain their message identity before submission. Status-read failures do not
+resubmit paid prompts; completed turns must match the submitted input and requested
+model. Startup/catalog success is not proof of live CAD authoring compatibility.
 
 Check installation and account catalogs without inference:
 
