@@ -143,6 +143,33 @@ def test_verifier_compiles_actual_contract_with_mocked_transport(
         verify_nebius(out, DEFAULT_COMPILER_MODEL, ROOT / "examples/extraction/procedure.txt")
 
 
+def test_probe_boolean_failure_preserves_trace(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Retain the observed bare-boolean failure without starting downstream extraction."""
+    monkeypatch.setenv("NEBIUS_API_KEY", "test-only")
+    calls: list[Request] = []
+
+    def send(request: Request, **kwargs: Any) -> BytesIO:
+        """Replay the catalog and malformed probe, never live inference."""
+        calls.append(request)
+        if request.get_method() == "GET":
+            return BytesIO(json.dumps({"data": [{"id": DEFAULT_COMPILER_MODEL}]}).encode())
+        return response(True)
+
+    monkeypatch.setattr("protocol_pipeline.pipeline.urlopen", send)
+    out = tmp_path / "out"
+    with pytest.raises(ProviderResponseError, match="invalid CompletionProbe"):
+        verify_nebius(out, DEFAULT_COMPILER_MODEL, ROOT / "examples/extraction/procedure.txt")
+    record = json.loads((out / "verification.json").read_text())
+    assert record["failed_stage"] == "probe"
+    assert record["nvidia_model_verified"] is False
+    assert record["provider_trace"]["response_json_text"] == "true"
+    assert record["provider_trace"]["served_model"] == DEFAULT_COMPILER_MODEL
+    assert len(calls) == 2
+    assert not (out / "extraction").exists()
+
+
 @pytest.mark.parametrize("catalog_present", [True, False])
 def test_catalog_only_never_calls_inference(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, catalog_present: bool,

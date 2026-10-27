@@ -72,8 +72,9 @@ def verify_nebius(output: Path, model: str, source: Path, *,
             return record
         stage = "probe"
         probe, trace = provider.client.complete(
-            model, CompletionProbe, "Return ready=true as JSON.",
-            [{"type": "text", "text": "Confirm that you can return a complete JSON object."}],
+            model, CompletionProbe,
+            'Return exactly the JSON object {"ready": true}. Do not return a bare boolean.',
+            [{"type": "text", "text": 'Respond with {"ready": true}, matching the required object schema.'}],
             max_tokens=512)
         write_json(output / "probe.json", {"result": probe.model_dump(), "trace": trace})
         stage = "extract_and_compile"

@@ -110,6 +110,11 @@ or cost savings. A live vision run and source review remain separate gates.
 
 ## Verification status for this change
 
+**October 27 continuation update:** Authorized live Lightning text extraction and
+downstream compilation passed after making the probe's required JSON object
+explicit. See [the live verification record](nebius-live-verification-20261027.md).
+The historical status below describes the original preset change, not this new run.
+
 - Automated tests exercise actual HTTP payload construction, model presets,
   browser preference handling, identity checks and downstream compilation using
   explicitly synthetic transport responses. They are not live provider proof.
