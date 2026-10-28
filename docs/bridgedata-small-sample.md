@@ -131,3 +131,35 @@ valid correction. The full suite passed **227 tests and 12 subtests**, with **4 
 These changes have **not** been verified by a new live model call. No paid calls
 were made during the offline follow-up. Another paid attempt requires fresh
 authorization; improved prompt wording does not guarantee provider compliance.
+
+### Authorized retry: vision and protocol passed, proposal failed
+
+The user authorized one additional invocation after the offline fix. Code commit:
+`4f46ceb`. Snapshot: `snapshots/e2e/v000005/snapshot.json`; workbench run:
+`ab19d46ae1a4426cabe4f2b98e2bc6df`. Same input, providers, models and one visual pass.
+
+Preflight and extraction **passed**. Nebius returned a valid observation graph on
+its first attempt: **6 objects, 2 actions and 1 state change**. GMI consumed that
+graph and produced a validated **2-operation protocol**, compiled apparatus
+requirements, process graph/input, summary and report. This establishes successful
+live NVIDIA vision participation and downstream consumption for this sample;
+semantic accuracy still requires review.
+
+| Stage | Requested / served model | Result | Latency | Total tokens |
+| --- | --- | --- | --- | --- |
+| Observations | `nvidia/Nemotron-3.5-Super-VL` / same | Schema and grounding passed | 67.245 s | 9,351 |
+| Protocol | `openai/gpt-6-astra` / `gpt-6-astra-2026-09-03` | Validated and compiled | 29.123 s | 4,561 |
+| Proposal | `openai/gpt-6-astra` / `gpt-6-astra-2026-09-03` | Rejected integrated-workcell contract | 71.080 s | 6,817 |
+
+All three completions reported `finish_reason=stop`. Total reported usage:
+**20,729 tokens**; billing cost is unavailable. The proposal declared
+`design_scope=integrated_workcell` but supplied **8 equipment entries and 0 machine
+requirements**. The contract requires one machine instance and explicit
+requirements, so strict validation correctly rejected it. CAD, scene, visual
+review and lab stages were not reached.
+
+All **34 indexed snapshot artifacts** passed checksum verification. Original
+observations, compiled reports and failed proposal trace remain local and intact.
+No further paid invocation was started. Next: reproduce the proposal contract
+mismatch offline and fix proposal prompting/correction before another authorized
+live attempt; do not silently relabel or assemble rejected output into success.
