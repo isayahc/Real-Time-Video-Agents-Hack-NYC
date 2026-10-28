@@ -80,3 +80,20 @@ No new CAD/proposal calls or corrected machine snapshot were produced by this
 extraction-only approval. Next: use the explicitly reviewed task scope for a new
 design/CAD/animation pass, with paid-call approval. No code changed after the last
 277-pass offline suite; this review adds documentation and ignored local evidence.
+
+## Approved reviewed-design continuation
+
+The user subsequently approved one design/CAD/animation run. Its input is
+`runs/ha4m-joining-closeup-20261028/reviewed-design-input/`: `protocol.json` contains
+the explicit role corrections and a proposed integrated-station/named-body design
+brief; `review.json` binds that derivative to raw protocol and observation hashes.
+No guessed lobe count is used as an engineering dimension. No raw inference is edited.
+
+`scripts/design_reviewed_task.py` verifies those hashes and the clip/context binding,
+then appends a snapshot with mode `reviewed-extraction-live-design-continuation`.
+It retains raw extraction, reviewed input, cropped source and fresh downstream
+outputs separately. It does not claim a new blind or uninterrupted extraction run.
+The final result and presentation quality require inspection after completion.
+
+Offline tests after adding the continuation command: **278 passed, 4 skipped,
+12 subtests passed**, including rejection of changed review input before paid work.
