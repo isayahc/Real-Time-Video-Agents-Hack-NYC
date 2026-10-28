@@ -163,3 +163,30 @@ observations, compiled reports and failed proposal trace remain local and intact
 No further paid invocation was started. Next: reproduce the proposal contract
 mismatch offline and fix proposal prompting/correction before another authorized
 live attempt; do not silently relabel or assemble rejected output into success.
+
+### Offline proposal-contract fix
+
+The proposal prompt now explicitly requires `design_scope=integrated_workcell`,
+exactly one machine in `equipment` with quantity 1, constituent hardware in
+`component_bill_of_materials`, and explicit `machine_requirements` covering the
+original operation IDs. Operation designs reference the single machine, and its
+planning allowance must not double-count the component BOM.
+
+The existing two-attempt proposal loop previously treated all provider-response
+errors as terminal, including schema errors. It now permits **one** correction for
+`StructuredResponseError`, using the original protocol, rejected raw candidate and
+validation diagnostics. Truncation, other provider-response failures and transport
+errors remain terminal at this application layer. Replay never receives a live
+correction. A repeated schema failure or a schema-valid but coverage-invalid
+second candidate remains failed; no extra attempt or silent coercion is added.
+
+Rejected traces survive alongside a corrected proposal's trace. Successful legacy
+equipment-list integration remains supported through the existing validated path.
+Provider/model routing, cost contracts and strict workcell validation are unchanged.
+
+The original live proposal's failure was reproduced offline; all 34 snapshot
+artifact hashes still match. Focused tests cover valid correction, repeated invalid
+output, missing coverage, truncation and replay, including real adapter parsing and
+cost/BOM preservation. Full suite: **232 passed, 4 skipped, 12 subtests passed**.
+No paid calls were made. Live effectiveness remains unverified until another
+explicitly authorized attempt.
