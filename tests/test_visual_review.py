@@ -60,6 +60,43 @@ def test_visual_score_is_conditional_and_does_not_force_a_worse_candidate():
     after.issues=before.issues;assert not visibly_improved(before,after)
 
 
+@pytest.mark.parametrize('after', [False, True])
+def test_positional_image_aliases_rejected_with_retained_evidence(tmp_path: Path,monkeypatch: pytest.MonkeyPatch,after: bool) -> None:
+    """Reproduce the live reference failure offline without repairing or retrying it."""
+    from protocol_pipeline.visual_review import review_images,save_capture,VisualReviewOptions
+    save_capture(tmp_path/'before',capture_fixture())
+    phase='after' if after else 'before'
+    if after:save_capture(tmp_path/'after',capture_fixture(True))
+    source=tmp_path/'source.jpg';source.write_bytes(b'synthetic image; mocked transport')
+    raw=critique_fixture().model_dump()
+    raw['issues'][0]['evidence_view_ids']=['image 1','image 2','image 3']
+    calls=[]
+
+    class Client:
+        """Synthetic provider returning the same reference defect as the live response."""
+        def complete(self,model,contract,instruction,content,**kwargs):
+            """Check exact permitted IDs and return a rejected candidate once."""
+            calls.append(instruction)
+            expected=VIEW_IDS|{'source-1'}|({'before-'+v for v in VIEW_IDS} if after else set())
+            assert 'Allowed evidence_view_ids: '+json.dumps(sorted(expected)) in instruction
+            assert 'never use positional aliases' in instruction
+            assert 'HUMAN' not in json.dumps(content)
+            return contract.model_validate(raw),{'response_json_text':json.dumps(raw)}
+
+    monkeypatch.setattr('protocol_pipeline.visual_review.NebiusClient',lambda key:Client())
+    with pytest.raises(ValueError,match='evidence_view_ids.*image 1'):
+        review_images(tmp_path,phase,VisualReviewOptions(vision_model='vision',cad_model='cad'),
+            {'instances':[{'instance_id':'equipment-0','equipment_id':'robot'}]},
+            [{'id':'source-1','path':str(source)}],critique_fixture() if after else None)
+    assert len(calls)==1
+    assert json.loads((tmp_path/f'{phase}-candidate.json').read_text())==raw
+    assert json.loads((tmp_path/f'{phase}-provider.json').read_text())['response_json_text']==json.dumps(raw)
+    failure=json.loads((tmp_path/f'{phase}-validation-failure.json').read_text())
+    assert "unknown equipment IDs []" in failure['error']
+    assert 'render-isometric' in failure['allowed_evidence_view_ids']
+    assert not (tmp_path/f'{phase}-critique.json').exists()
+
+
 def test_cad_revision_does_not_move_an_unchanged_mounting_anchor():
     from protocol_pipeline.visual_review import correction_placements
     from protocol_pipeline.scenes import ScenePlacement

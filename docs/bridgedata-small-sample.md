@@ -234,3 +234,45 @@ All **113 indexed snapshot artifacts** passed checksum verification. No addition
 paid invocation was started. Next: reproduce visual-reference failure offline,
 clarify exact view-ID requirements, and inspect enclosure/render visibility using
 the saved CAD/scene before another authorized live run.
+
+### Offline visual-reference fix and enclosure diagnosis
+
+The critique request now enumerates the complete allowed `evidence_view_ids`,
+including source frames and matched before views when supplied, and explicitly
+forbids positional aliases such as `image 1`. Source references use neutral wording
+rather than assuming the demonstration is human. Occlusion must be distinguished
+from absent geometry. Validation still rejects aliases without translating them or
+retrying. Errors identify unknown equipment and image IDs separately and list the
+allowed IDs. Raw provider text, candidate JSON and separate validation-failure
+diagnostics are retained before re-raising a local validation failure.
+
+The original v000006 candidate was reproduced and rejected offline with all three
+invalid image IDs identified and no unknown equipment IDs. Synthetic before/after
+tests verify exact allowed IDs, one request only and retained rejected evidence.
+Full offline suite: **234 passed, 4 skipped, 12 subtests passed**. No paid calls.
+
+The saved native scene has 14 mesh parts. Removing only `Protective enclosure shell`
+and `Front access panel` in a separate diagnostic copy exposes the gantry, vertical
+tool/fingers, input mat and circular pot nest in the isometric render. This confirms
+occlusion by the authored closed enclosure, not loss of all internal geometry on
+scene import. It does not prove correct assembly, reachability or physical function.
+
+Reproducible helper: `scripts/render_scene_cutaway.py`, taking `--scene`,
+`--captures`, repeated `--hide-name`, and a new `--output` directory. It preserves
+the original camera geometry/times, prunes removed part references from the native
+hierarchy, records source hashes and removed part IDs, and labels each render as an
+altered diagnostic cutaway. It refuses to overwrite an existing output directory.
+Example inputs are v000006's `visual-reviews/<review-id>/before/scene.oi.json` and
+`captures.json`; hide the two exact names above.
+
+Local output: `runs/v000006-cutaway-diagnostic-02/`, with three native renders,
+derived scene and provenance. The initial local diagnostic attempt is preserved in
+`runs/v000006-cutaway-diagnostic/`; it failed native hierarchy validation before
+rendering, which prompted consistent hierarchy pruning. The successful attempt's
+three camera poses/times match the source exactly. All **113 original snapshot
+artifact hashes** still match. Diagnostic outputs remain ignored and are not an
+accepted after-review scene or a completed E2E run.
+
+Next smallest live gate: an explicitly authorized critique attempt with exact-ID
+guidance. Its compliance is unverified; the enclosure visibility issue remains a
+design/review concern, and final lab output is still outstanding.
