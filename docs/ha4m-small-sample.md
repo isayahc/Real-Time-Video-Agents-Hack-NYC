@@ -110,11 +110,17 @@ introduced and the earlier coil/BridgeData paths remain separate.
 
 ## Next smallest experiment
 
-Inspect block-joining intervals in these trials to determine whether alignment,
-grasping, insertion or recovery dominates. Compare a proposed locating/alignment
-fixture against a proposed screw-presentation aid using explicit predictions.
-Use full-resolution frames around the relevant intervals from these same ten
-trials if sparse previews are insufficient; additional downloads must remain bounded.
+**Inspection completed:** see [block-joining evidence and fixture hypothesis FJ-01](ha4m-joining-hypothesis.md).
+The same ten trials now have 110 targeted source images and frame-referenced
+observations. The proposed open mating guide preserves center access and rotational
+adjustment; dimensions, quality acceptance and time savings remain unresolved.
+
+Next, obtain actual part/support geometry and check the proposed guide's contact
+surfaces, rotation freedom and access against the existing supports. The sampled
+images support investigating the mating operation but do not establish whether
+alignment, gear phase or another mechanism dominates its duration. Keep a screw
+presenter as a separate action-11 candidate rather than mixing its possible gains
+into the joining-guide hypothesis.
 
 Keep fixture cycle savings, installation/setup costs, output equivalence and
 quality effects as hypotheses until tested. This pass supplies a dataset-backed
