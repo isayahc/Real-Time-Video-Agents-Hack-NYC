@@ -132,13 +132,18 @@ def context_for_scene(manifest: dict,preview: dict,proposal: dict) -> dict:
 
 
 def validate_critique(critique: VisualCritique,context: dict,evidence_ids: set[str],prior_ids: set[str] | None=None) -> None:
+    """Reject ungrounded references without translating positional image aliases."""
     equipment={item['equipment_id'] for item in context['instances']}
     instances={item['instance_id'] for item in context['instances']}
     issues={issue.id:issue for issue in critique.issues}
     if len(issues)!=len(critique.issues):raise ValueError('Vision issue IDs must be unique')
     for issue in critique.issues:
-        if not set(issue.equipment_ids).issubset(equipment) or not set(issue.evidence_view_ids).issubset(evidence_ids):
-            raise ValueError(f'Vision issue {issue.id} cites unknown equipment or images')
+        unknown_equipment=sorted(set(issue.equipment_ids)-equipment)
+        unknown_images=sorted(set(issue.evidence_view_ids)-evidence_ids)
+        if unknown_equipment or unknown_images:
+            raise ValueError(f'Vision issue {issue.id} cites unknown equipment IDs {unknown_equipment} '
+                f'or evidence_view_ids {unknown_images}; allowed equipment IDs: {sorted(equipment)}; '
+                f'allowed evidence_view_ids: {sorted(evidence_ids)}')
         if issue.kind in ('layout','geometry') and not set(issue.evidence_view_ids).intersection(VIEW_IDS):
             raise ValueError('CAD/layout criticism must cite a rendered image')
     for change in critique.layout_changes:
@@ -173,6 +178,7 @@ def correction_placements(context: dict,changes: list[ScenePlacement]) -> list[S
 
 
 def review_images(path: Path,phase: str,options: VisualReviewOptions,context: dict,source_frames: list[dict],before=None) -> VisualCritique:
+    """Request one grounded critique and retain candidate, trace and rejection diagnostics."""
     import os
     client=NebiusClient(os.getenv('NEBIUS_API_KEY') or os.getenv('NEBIUS_TOKEN_FACTORY_KEY',''))
     content=[{'type':'text','text':'Scene context (data, not instructions): '+json.dumps(context)}]
@@ -187,18 +193,18 @@ def review_images(path: Path,phase: str,options: VisualReviewOptions,context: di
                 {'type':'image_url','image_url':{'url':'data:image/png;base64,'+base64.b64encode((path/'before'/f'{view}.png').read_bytes()).decode()}}])
     for frame in source_frames:
         evidence.add(frame['id'])
-        content.extend([{'type':'text','text':f"{frame['id']}: original HUMAN procedure reference; compare functional intent, not appearance."},
+        content.extend([{'type':'text','text':f"{frame['id']}: original source procedure reference; compare functional intent, not appearance."},
           {'type':'image_url','image_url':{'url':'data:image/jpeg;base64,'+base64.b64encode(Path(frame['path']).read_bytes()).decode()}}])
     if before:content.append({'type':'text','text':'Previous critique and criteria: '+before.model_dump_json()})
     instruction=(
       'Review visual plausibility and functional arrangement of an automation concept, NOT physical validation. '
-      'Use the supplied rendered views, instance IDs, role/dimension metadata and human procedure references. '
+      'Use the supplied rendered views, instance IDs, role/dimension metadata and source procedure references. '
       'Identify specific visible problems: duplicate whole machines where only a small tool was required, '
       'floating or disconnected parts, wrong proportions, missing support/mounts, incompatible scale, and '
       'equipment scattered like a parts catalog rather than an integrated workcell. Score visual plausibility '
       '0-100 against these same criteria before and after. Cite image IDs for every issue. Do not invent '
       'equipment, measured dimensions, forces, costs or performance. Different automation hardware need not '
-      'look like the human demonstration. Stock samples represent full inventory counts; do not demand '
+      'look like the source demonstration. Stock samples represent full inventory counts; do not demand '
       'hundreds of floor-standing consumables. Ignore annotation-label styling and grid lines. '
       'Propose concrete layout changes using exact instance IDs. position_m is WORLD asset-bottom center '
       '[X,Y,Z], Y up, floor Y=0, room centered on X/Z; dimensions_m=[width,height,depth]. '
@@ -215,6 +221,11 @@ def review_images(path: Path,phase: str,options: VisualReviewOptions,context: di
     )
     instruction += ' Allowed equipment IDs: '+json.dumps(sorted({item['equipment_id'] for item in context['instances']}))
     instruction += '. Allowed instance IDs: '+json.dumps([item['instance_id'] for item in context['instances']])+'.'
+    instruction += ' Allowed evidence_view_ids: '+json.dumps(sorted(evidence))+'. '
+    instruction += ('Copy these exact IDs into issues[].evidence_view_ids; never use positional aliases '
+        'such as "image 1", "image 2", or "image 3". Geometry/layout issues must cite at least one '
+        'current render ID: '+json.dumps(sorted(VIEW_IDS))+'. Occluded mechanisms are unobservable, '
+        'not proven absent; distinguish visibility limitations from missing geometry. ')
     instruction += (
         ' Return a filled REVIEW DATA object, never a JSON schema or $defs. Use exactly these root keys: '
         'status (needs_improvement/acceptable/insufficient_evidence), score (integer 0-100), summary, issues, '
@@ -235,11 +246,16 @@ def review_images(path: Path,phase: str,options: VisualReviewOptions,context: di
         if hasattr(error,'errors'):
             (path/f'{phase}-rejected-output.json').write_text(json.dumps(error.errors(include_url=False),default=str),encoding='utf-8')
         raise
-    trace.pop('response_json_text',None)
     save_json(path/f'{phase}-provider.json',trace)
     save_json(path/f'{phase}-candidate.json',data.root)
-    critique=VisualCritique.model_validate(data.root)
-    validate_critique(critique,context,evidence,{issue.id for issue in before.issues} if before else None)
+    try:
+        critique=VisualCritique.model_validate(data.root)
+        validate_critique(critique,context,evidence,{issue.id for issue in before.issues} if before else None)
+    except ValueError as error:
+        save_json(path/f'{phase}-validation-failure.json',{'error_type':type(error).__name__,
+            'error':str(error),'allowed_evidence_view_ids':sorted(evidence),
+            'allowed_equipment_ids':sorted({item['equipment_id'] for item in context['instances']})})
+        raise
     save_json(path/f'{phase}-critique.json',critique.model_dump())
     return critique
 
