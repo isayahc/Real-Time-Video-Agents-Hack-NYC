@@ -107,3 +107,27 @@ The authorized single paid invocation is now consumed; no automatic rerun was
 started. Next: reproduce these schema/JSON failures offline, improve the constrained
 observation request while preserving strict validation, then obtain authorization
 before another live attempt. Existing failed evidence must not be rewritten as success.
+
+### Offline follow-up
+
+The observation prompt now explicitly lists inherited required fields for every
+object/action/state-change item, including `interpretation`, and supplies the exact
+allowed frame inventory/timestamps. JSON quoting is explicit in both the initial
+request and correction. The correction must regenerate one complete object, not a
+patch. Provider/model assignments, generation settings and the maximum of two
+observation attempts are unchanged. Invalid output is never repaired into acceptance.
+
+Failure reports now identify the active failing provider/model and stage, while
+retaining `orchestrator_provider` separately. Thus a Nebius vision failure in the
+GMI-orchestrated path is no longer labeled as a GMI provider failure.
+
+Offline validation reproduced the retained first response's six missing-field
+errors and the correction's JSON syntax error. All 24 original snapshot artifacts
+still match their checksums. Synthetic HTTP regression tests cover these failures,
+correct failure attribution, bounded corrections, preserved raw candidates,
+rejection of invented frame references and actual downstream compilation after a
+valid correction. The full suite passed **227 tests and 12 subtests**, with **4 skips**.
+
+These changes have **not** been verified by a new live model call. No paid calls
+were made during the offline follow-up. Another paid attempt requires fresh
+authorization; improved prompt wording does not guarantee provider compliance.
