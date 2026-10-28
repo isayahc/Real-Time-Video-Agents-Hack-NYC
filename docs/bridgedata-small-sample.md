@@ -190,3 +190,47 @@ output, missing coverage, truncation and replay, including real adapter parsing 
 cost/BOM preservation. Full suite: **232 passed, 4 skipped, 12 subtests passed**.
 No paid calls were made. Live effectiveness remains unverified until another
 explicitly authorized attempt.
+
+### Authorized third attempt: CAD/scene passed, visual-review references failed
+
+The user authorized another single invocation at code commit `605aaf1`, with the
+same clip/models and one visual-review pass. Snapshot:
+`snapshots/e2e/v000006/snapshot.json`; workbench run:
+`bd453c7d7eed4e0d81ded9d92e34e841`.
+
+**Preflight, extraction, proposal, CAD and scene completed.** The proposal passed
+on the first response. OpenCode V2/GMI authored the CAD on its first request, and
+the native worker exported `machine.step` (1,393,238 bytes), `machine.stl`
+(487,984 bytes), component geometry and a native OpenIndustries scene. Three
+before-review renders were captured. These are generated candidate artifacts,
+not physical validation or a completed end-to-end run.
+
+| Call | Requested / served model | Latency | Reported usage |
+| --- | --- | --- | --- |
+| Observation | `nvidia/Nemotron-3.5-Super-VL` / same | 34.681 s | 8,107 total tokens |
+| Protocol | `openai/gpt-6-astra` / `gpt-6-astra` | 55.112 s | 5,195 total tokens |
+| Proposal | `openai/gpt-6-astra` / `gpt-6-astra` | 94.234 s | 142,938 total tokens, including reported cached input |
+| CAD via OpenCode V2 | `openai/gpt-6-astra` / same | 238.111 s | input 3; output 7,138; cache write 7,146; cache read 0 |
+| Visual critique | `nvidia/Nemotron-3.5-Super-VL` / same | 72.729 s | 9,851 total tokens |
+
+Usage is copied from each retained provider trace. The proposal usage is unusually
+large relative to earlier calls and includes provider-specific billing/cache data;
+it is not normalized into a cost estimate. OpenCode uses a different token shape,
+so no combined billing total is asserted.
+
+Visual review failed with `Vision issue issue-01 cites unknown equipment or images`.
+The equipment ID `workcell` resolves, but the critique cited `image 1`, `image 2`,
+and `image 3` instead of the actual IDs `render-isometric`, `render-reverse`, and
+`render-top`. Strict reference validation rejected it before any correction.
+No matched after-review captures or final lab output were produced.
+
+Inspection of the isometric capture confirms an opaque, box-like exterior obscures
+the mechanism. Component CAD includes gripper/camera/axis-related parts; their
+presence in files does not establish visibility, assembly correctness or functional
+performance. The model also called the object a toy tomato in the proposal, whereas
+source-frame review described a toy mushroom. Semantic review remains necessary.
+
+All **113 indexed snapshot artifacts** passed checksum verification. No additional
+paid invocation was started. Next: reproduce visual-reference failure offline,
+clarify exact view-ID requirements, and inspect enclosure/render visibility using
+the saved CAD/scene before another authorized live run.
