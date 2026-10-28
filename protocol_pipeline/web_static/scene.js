@@ -18,7 +18,7 @@ function loadNativeViewer(capability=null){
  });return nativeViewerPromise;
 }
 function pauseScene(){scenePlaying=false;cancelAnimationFrame(sceneAnimation);$('scene-play').textContent='Play ▶';}
-function leaveScene(){pauseScene();if(nativeRenderer){nativeRenderer.dispose();nativeRenderer=null;}sceneAttempt=null;}
+function leaveScene(){pauseScene();$('comparison-source').pause();$('comparison-machine').pause();if(nativeRenderer){nativeRenderer.dispose();nativeRenderer=null;}sceneAttempt=null;}
 function resetScene(){if(typeof resetVisualReview==='function')resetVisualReview();clearTimeout(sceneTimer);sceneEpoch++;leaveScene();sceneData=null;sceneManifest=null;sceneTime=0;sceneSegment=-1;sceneSuggestedRoom=null;$('scene-fit-room').hidden=true;$('scene-content').hidden=true;$('scene-error').hidden=true;$('scene-setup').open=true;}
 
 async function loadScene(runId,token){
@@ -33,7 +33,17 @@ async function loadScene(runId,token){
     api(`/api/runs/${runId}/scene/artifacts/preview.json`),api(`/api/runs/${runId}/scene/artifacts/scene.oi.json`),loadNativeViewer()]);
    if(epoch!==sceneEpoch || token!==generation || runId!==activeRun || wizardStep!=='scene')return;
     leaveScene();sceneData=preview;sceneManifest=manifest;sceneAttempt=state.attempt_id;sceneTime=0;sceneSegment=-1;
-   $('scene-content').hidden=false;$('scene-setup').open=false;
+    $('scene-content').hidden=false;$('scene-setup').open=false;
+    const sourceVideo=$('comparison-source'),machineVideo=$('comparison-machine');
+    sourceVideo.src=`/api/runs/${runId}/video`;
+    machineVideo.removeAttribute('src');machineVideo.load();
+    machineVideo.hidden=!state.report.storyboard;$('comparison-native').hidden=Boolean(state.report.storyboard);
+    $('comparison-caption').textContent=state.report.storyboard?'Illustrative machine animation · independent timing, not measured performance':'No machine video was saved in this run. Interactive CAD preview only; not a fabrication or operating-cycle video.';
+    if(state.report.storyboard)machineVideo.src=`/api/runs/${runId}/scene/artifacts/storyboard.mp4`;
+    let toggle=$('comparison-toggle');
+    if(!toggle){toggle=element('button','Inspect interactive CAD','secondary');toggle.id='comparison-toggle';toggle.type='button';$('comparison-caption').after(toggle);
+     toggle.addEventListener('click',()=>{const showCAD=$('comparison-native').hidden;$('comparison-native').hidden=!showCAD;$('comparison-machine').hidden=showCAD;$('comparison-machine').pause();pauseScene();toggle.textContent=showCAD?'Back to machine video':'Inspect interactive CAD';});}
+    toggle.hidden=!state.report.storyboard;toggle.textContent='Inspect interactive CAD';
    $('scene-width').value=String(preview.room[0]);$('scene-depth').value=String(preview.room[1]);$('scene-height').value=String(preview.room[2]);
    $('scene-auto-fit').checked=state.options.auto_fit_room!==false;$('scene-expand-stock').checked=Boolean(state.options.expand_stock_quantities);
    nativeRenderer=viewer.mount($('scene-viewer'),manifest);
@@ -69,7 +79,7 @@ function renderSceneState(state){
  $('scene-status').textContent={needs_design:state.message,needs_machines:state.message,
   not_started:'Ready to assemble the generated Forma assets in the native OpenIndustries viewer.',
   queued:`Scene queued · ${state.elapsed_s||0}s.`,building:`Importing generated machine CAD into OpenIndustries · ${state.elapsed_s||0}s.`,
-  completed:'Native OpenIndustries scene ready. Drag to orbit, scroll to zoom, or click a machine part to select it.',
+   completed:'Compare the recorded input with the generated machine.',
   failed:'Scene creation failed. Generated machine assets are retained.',stale:state.message}[state.stage]||state.stage;
  if(state.stage!=='completed'){$('scene-content').hidden=true;leaveScene();}
 }

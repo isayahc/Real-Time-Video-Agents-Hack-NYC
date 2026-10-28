@@ -92,7 +92,7 @@ export function storyboardCapture(document: unknown) {
     applyWorldPoses(world.groups,evaluateWorkspace(workspace.items,workspace.animation,time));renderer.render(world.scene,camera);
     ctx.drawImage(renderer.domElement,0,0);ctx.fillStyle='rgba(16,29,28,.94)';ctx.fillRect(0,0,960,56);ctx.fillRect(0,604,960,36);
     ctx.fillStyle='#e6f2cb';ctx.font='bold 19px system-ui';ctx.fillText(label,20,34);
-    ctx.fillStyle='#d0dcd5';ctx.font='13px system-ui';ctx.fillText(`SCENARIO 05 | ${time.toFixed(1)}s / ${workspace.animation.duration.toFixed(1)}s | ${caption}`,18,627);
+     ctx.fillStyle='#d0dcd5';ctx.font='13px system-ui';ctx.fillText(`${time.toFixed(1)}s / ${workspace.animation.duration.toFixed(1)}s | ${caption}`,18,627);
     return canvas.toDataURL('image/png');
   },dispose(){world.dispose();renderer.dispose();renderer.forceContextLoss();}};
 }
