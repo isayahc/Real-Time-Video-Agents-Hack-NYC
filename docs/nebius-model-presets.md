@@ -72,6 +72,17 @@ account availability can differ; restoring presets is a user action.
 
 ## Live NVIDIA verification
 
+First record catalog access without inference or source upload:
+
+```bash
+python -m scripts.verify_nebius --catalog-only --output runs/nebius-catalog-001
+```
+
+This records `catalog_verified` only when the requested model is listed. Both
+`live_inference` and `nvidia_model_verified` remain false. Missing credentials or
+an absent model fail; existing evidence directories cannot be overwritten.
+Obtain authorization for paid calls before proceeding with the following command.
+
 With a configured key, run from a source checkout:
 
 ```bash
@@ -98,6 +109,11 @@ Passing this text smoke does not establish video accuracy, physical performance
 or cost savings. A live vision run and source review remain separate gates.
 
 ## Verification status for this change
+
+**October 27 continuation update:** Authorized live Lightning text extraction and
+downstream compilation passed after making the probe's required JSON object
+explicit. See [the live verification record](nebius-live-verification-20261027.md).
+The historical status below describes the original preset change, not this new run.
 
 - Automated tests exercise actual HTTP payload construction, model presets,
   browser preference handling, identity checks and downstream compilation using

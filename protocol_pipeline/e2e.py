@@ -21,6 +21,7 @@ from .extraction import GMIProvider, NebiusProvider
 from .lab_layout import plan_lab
 from .machines import forma_runtime
 from .opencode_machine import ensure_server
+from . import opencode_v2
 from .pipeline import sha256
 from .snapshots import (E2EConfig, allocate_snapshot, atomic_json, copy_source, file_index,
                         read_json, resolve_input)
@@ -43,12 +44,15 @@ def preflight(config: E2EConfig, directory: Path | None = None) -> dict[str, Any
         if model not in provider.client.available_models():
             raise ValueError(f'{provider.name} account does not list requested model {model}; no fallback was selected')
     url = ensure_server()
-    query = urlencode({'directory': str(directory or Path(__file__).resolve().parents[1])})
-    with urlopen(url + '/provider?' + query, timeout=30) as response:
-        providers = json.load(response)
-    gmi = next((row for row in providers.get('all', []) if row.get('id') == 'gmi'), {})
-    if config.text_model not in gmi.get('models', {}) or 'gmi' not in providers.get('connected', []):
-        raise ValueError(f'OpenCode must have connected provider gmi and model {config.text_model}; restart it with repository opencode.json')
+    if opencode_v2.is_v2(url):
+        opencode_v2.check_model(url, directory or Path(__file__).resolve().parents[1], 'gmi', config.text_model)
+    else:
+        query = urlencode({'directory': str(directory or Path(__file__).resolve().parents[1])})
+        with urlopen(url + '/provider?' + query, timeout=30) as response:
+            providers = json.load(response)
+        gmi = next((row for row in providers.get('all', []) if row.get('id') == 'gmi'), {})
+        if config.text_model not in gmi.get('models', {}) or 'gmi' not in providers.get('connected', []):
+            raise ValueError(f'OpenCode must have connected provider gmi and model {config.text_model}; check repository opencode.json')
     return {'status': 'passed', 'vision_provider': 'nebius', 'vision_model': config.vision_model,
             'text_provider': 'gmi', 'text_model': config.text_model,
             'model_catalogs_checked': True, 'inference_compatibility_verified': False}
