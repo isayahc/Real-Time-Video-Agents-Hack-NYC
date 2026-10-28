@@ -25,7 +25,7 @@ def export_scene_video(folder: Path) -> dict:
     for name in ('storyboard.mp4', 'storyboard.gif'):
         if (folder / name).exists():
             raise ValueError('Refusing to overwrite existing machine video')
-    manifest['storyboard'] = {'caption': 'Generated CAD concept | assumed timing | not physical execution'}
+    manifest.setdefault('storyboard', {}).setdefault('caption', 'Generated CAD concept | assumed timing | not physical execution')
     fps = 12
     count = math.ceil(duration * fps)
     with tempfile.TemporaryDirectory(prefix='scene-video-') as temporary:
