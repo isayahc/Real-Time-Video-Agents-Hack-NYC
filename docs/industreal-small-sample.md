@@ -1,5 +1,9 @@
 # IndustReal: capped recorded-baseline retrieval
 
+**Continuation:** the accessible [HA4M ten-trial baseline](ha4m-small-sample.md)
+now supplies authoritative action timelines. IndustReal remains a future option
+for richer error/state evaluation once its labels become accessible.
+
 ## Current result
 
 Retrieval is **blocked**, not a completed benchmark. The official 4TU landing page

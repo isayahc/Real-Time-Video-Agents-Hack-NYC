@@ -165,6 +165,9 @@ Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus
 
 **Current milestone:** [live BridgeData pipeline evidence and offline lab continuation](docs/bridgedata-small-sample.md).
 **Next mission gate:** [decision-proof roadmap and full-workflow measurement intake](docs/decision-proof-roadmap.md).
+**Dataset-backed baseline:** [ten HA4M manual assembly trials](docs/ha4m-small-sample.md),
+with complete action annotations and sparse RGB previews; recorded time allocations
+are established, while accepted-output quality and intervention savings remain unknown.
 The resource/investment/alternatives evaluators already exist; actual baseline
 measurements and accepted-output equivalence remain unresolved. Offline collection
 templates now connect sourced batch records to those evaluators without treating
