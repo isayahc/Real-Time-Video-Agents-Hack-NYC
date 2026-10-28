@@ -1,5 +1,13 @@
 # Next milestone: a defensible intervention decision
 
+## Dataset-first update
+
+The user selected public recorded data rather than collecting a new hardware
+batch. The active next step is a [ten-recording IndustReal subset](industreal-small-sample.md)
+with authoritative action/state labels. Retrieval is currently blocked; no
+dataset-backed baseline is established yet. The coil intake below remains an
+implemented reusable capability, rather than a request for user measurements.
+
 ## Checkpoint after PR #56
 
 The BridgeData path demonstrates live observation/protocol/proposal/CAD generation,
