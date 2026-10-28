@@ -1,5 +1,16 @@
 # Next milestone: a defensible intervention decision
 
+## Dataset-first update
+
+The user selected public recorded data rather than collecting a new hardware
+batch. [IndustReal retrieval](industreal-small-sample.md) remains blocked, so the
+active baseline now uses [ten HA4M trials from the official CNR host](ha4m-small-sample.md).
+Complete action-label timelines align with 42,378 RGB index entries; offline
+analysis establishes recorded action-duration allocations, while accepted-output
+quality, full-process labor and intervention benefits remain unknown. The coil
+intake below remains an implemented reusable capability, rather than a request
+for user measurements.
+
 ## Checkpoint after PR #56
 
 The BridgeData path demonstrates live observation/protocol/proposal/CAD generation,
