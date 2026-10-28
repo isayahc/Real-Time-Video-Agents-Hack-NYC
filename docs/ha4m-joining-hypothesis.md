@@ -5,6 +5,10 @@ existing lower-block support. It would aim to limit lateral offset/tilt while
 preserving access to the center and allowing the operator to adjust gear phase.
 This is a proposed experiment, not a validated fixture, simulated result or savings claim.
 
+**Geometry follow-up:** [original-CAD audit](ha4m-geometry-audit.md) rejects the
+tested full collar and finds limited discrete clearance for open arcs. It does
+not establish continuous rotational freedom, support fit or human-hand access.
+
 ## What was inspected
 
 Same ten trials as the [recorded baseline](ha4m-small-sample.md). Rebuilt action-9
