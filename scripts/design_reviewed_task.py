@@ -15,6 +15,7 @@ from protocol_pipeline.environment import load_environment
 from protocol_pipeline.pipeline import sha256, verify_manifest
 from protocol_pipeline.snapshots import E2EConfig, allocate_snapshot, atomic_json, copy_source, file_index, read_json
 from protocol_pipeline.web import runtime_provenance
+from scripts.retry_reviewed_cad import retain_cad_constraints
 
 
 def run(source: Path, reviewed: Path, root: Path) -> Path:
@@ -59,7 +60,7 @@ def run(source: Path, reviewed: Path, root: Path) -> Path:
                 shutil.copy2(item, extracted / item.name)
         shutil.copy2(reviewed / 'protocol.json', extracted / 'extracted-protocol.json')
         compile_protocol_file(extracted / 'extracted-protocol.json', extracted / 'compiled')
-        atomic_json(pipeline.run / 'job.json', {'id': pipeline.run_id, 'filename': 'HA4M human block joining — reviewed task',
+        atomic_json(pipeline.run / 'job.json', {'id': pipeline.run_id, 'filename': read_json(reviewed / 'protocol.json')['title'],
                     'video_file': 'source.mp4', 'provider': 'gmi', 'vision_provider': 'nebius',
                     'model': config.text_model, 'vision_model': config.vision_model, 'frame_count': 8,
                     'stage': 'completed', 'created_at': time.time(), 'finished_at': time.time(), 'events': [],
@@ -70,6 +71,7 @@ def run(source: Path, reviewed: Path, root: Path) -> Path:
         with native_capture() as capture:
             document['preflight'] = pipeline.stage('preflight', lambda: preflight(config, pipeline.run))
             pipeline.stage('proposal', pipeline.design)
+            pipeline.stage('reviewed_cad_handoff', lambda: retain_cad_constraints(pipeline.run))
             pipeline.stage('cad', pipeline.cad)
             pipeline.stage('scene', pipeline.scene)
             pipeline.stage('visual_review', lambda: pipeline.review(capture))
