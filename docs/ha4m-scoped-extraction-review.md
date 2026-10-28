@@ -49,3 +49,34 @@ needs normal frame ingestion; do not reuse the wide-view manifest with its new h
 Tests: **277 passed, 4 skipped, 12 subtests passed**. New regression tests enforce
 video/context binding and explicit annotation disclosure, including failure traces.
 Next smallest action: one cropped-input extraction retry, reviewed before CAD.
+
+## Approved close-up retry: task identity recovered
+
+The next user-authorized extraction-only retry used the fixed crop and the same
+eight timestamps (0, 1.2, 2.4, 3.6, 4.8, 6, 7.2, 8.4 seconds). Outputs:
+`runs/ha4m-joining-closeup-20261028/extracted/`. Both providers completed with finish
+reason `stop`; served vision ID matched `nvidia/Nemotron-3.5-Super-VL`. GMI returned
+`gpt-6-astra` for the requested `openai/gpt-6-astra`.
+
+- Graph now distinguishes `obj_circular_block` and `obj_clover_block` and includes
+  `act_join_blocks` with both objects. Protocol keeps both identities and a joining
+  operation. Card handling and the unrelated small piece are excluded.
+- Internal engagement, self-retention and successful assembly remain explicitly
+  unverified. Annotation assistance remains disclosed.
+- **Task identity: passes assistant review. Direct design handoff: needs two
+  explicit role/shape corrections.** The graph describes four lobes and both
+  blocks being lifted. Inspection of cropped frame 0000, frame 0002, and the
+  retained source contact sheet instead supports moving the ring-shaped upper
+  block from the left onto the lower subassembly on the right. Do not convert
+  the guessed lobe count into fabrication geometry or assume a two-part lift.
+
+An immutable-input review sidecar, `semantic-review.json`, hashes the raw outputs
+and records these corrections separately. The original provider responses are
+unchanged. The intended next design is **upper-block transfer/alignment onto a
+located lower block**, with actual contact geometry checked against source CAD.
+That does not establish insertion force, acceptable fit or required gear-phase motion.
+
+No new CAD/proposal calls or corrected machine snapshot were produced by this
+extraction-only approval. Next: use the explicitly reviewed task scope for a new
+design/CAD/animation pass, with paid-call approval. No code changed after the last
+277-pass offline suite; this review adds documentation and ignored local evidence.
