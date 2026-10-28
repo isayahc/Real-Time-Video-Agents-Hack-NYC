@@ -6,6 +6,7 @@ import json
 from pathlib import Path, PurePosixPath
 import re
 import shutil
+import time
 from typing import Any, Literal
 from zipfile import ZipFile
 
@@ -45,7 +46,16 @@ def atomic_json(path: Path, value: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix('.tmp')
     temporary.write_text(json.dumps(value, indent=2, allow_nan=False) + '\n', encoding='utf-8')
-    temporary.replace(path)
+    for attempt in range(6):
+        try:
+            temporary.replace(path)
+            break
+        except PermissionError as error:
+            # Windows readers/scanners can briefly deny atomic replacement.
+            # Retry only the filesystem operation, never the stage/provider call.
+            if getattr(error, 'winerror', None) not in {5, 32, 33} or attempt == 5:
+                raise
+            time.sleep(.05 * 2 ** attempt)
 
 
 def contained_file(root: Path, relative: str) -> Path:
@@ -95,7 +105,8 @@ def allocate_snapshot(root: Path) -> Path:
 def file_index(root: Path) -> list[dict[str, Any]]:
     """Inventory relative artifact paths and hashes, excluding the manifest itself."""
     return [{'path': p.relative_to(root).as_posix(), 'bytes': p.stat().st_size, 'sha256': sha256(p)}
-            for p in sorted(root.rglob('*')) if p.is_file() and p != root / 'snapshot.json']
+            for p in sorted(root.rglob('*')) if p.is_file()
+            and p not in {root / 'snapshot.json', root / 'snapshot.tmp'}]
 
 
 def verify_snapshot(manifest: Path) -> dict[str, Any]:
