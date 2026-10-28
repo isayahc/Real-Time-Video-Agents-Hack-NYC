@@ -31,6 +31,7 @@ class E2EConfig(StrictModel):
     frame_count: int = Field(default=8, ge=2, le=24)
     scene: SceneOptions = Field(default_factory=SceneOptions)
     visual_passes: int = Field(default=1, ge=1, le=10)
+    machine_video: bool = False
 
 
 def read_json(path: Path) -> dict[str, Any]:

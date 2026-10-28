@@ -19,6 +19,28 @@ Run the full workbench without browser clicks:
 python scripts/run_e2e.py --video /path/to/procedure.mp4
 ```
 
+For a side-by-side human-task demonstration, use a continuous human source clip
+and add `--machine-video` to export the final native scene's existing keyframes as
+MP4/GIF. This adds a required offline `machine_video` stage after visual review;
+encoding failure fails the run. The video is an illustrative CAD concept with
+assumed timing, not newly synthesized kinematics or verified machine operation.
+`--source-provenance path.json` retains source attribution/selection metadata in
+the snapshot; its `video_sha256` must match the input before any model calls.
+
+The existing HA4M sample can supply a bounded continuous action-9 clip:
+
+```powershell
+python scripts/prepare_ha4m_demo.py --input runs/ha4m-ten-20261028 --output runs/ha4m-human-demo-new
+python scripts/run_e2e.py --video runs/ha4m-human-demo-new/human-block-joining.mp4 --source-provenance runs/ha4m-human-demo-new/source-provenance.json --machine-video --visual-passes 1
+```
+
+The preparation downloads every consecutive frame in IDU001V001's joining interval
+(253 frames, 8.43 seconds at nominal 30 FPS), not a sparse slideshow. Selection is
+the first trial's bounded task, not an achievable automation-time target. It adds
+no participants to the ten-trial sample. Original frame bytes/hashes and timestamps
+stay in the local source package; attribution and their index accompany the snapshot.
+The second command incurs fresh inference charges and requires approval.
+
 The runner samples frames, extracts observations and a protocol, compiles resource reports, generates an autonomous proposal and economics, authors each machine through **OpenCode → GMI → OpenCAD**, validates/exports CAD through Forma, builds the native OpenIndustries scene, captures three real WebGL views, runs visual critique/correction with matched after captures, and builds and renders the final lab layout. A failed stage exits nonzero and retains its artifacts. It calls the same services as the web workbench without automating UI button selectors.
 
 | Stage | Provider | Model |

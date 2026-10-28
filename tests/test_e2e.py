@@ -41,6 +41,37 @@ def test_versions_are_atomic_under_concurrency(tmp_path: Path) -> None:
     assert sorted(int(path.name[1:]) for path in versions) == list(range(1, 17))
 
 
+def test_source_provenance_mismatch_stops_before_inference(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Never attach another recording's provenance to a fresh live run."""
+    video = tmp_path / 'source.mp4'
+    video.write_bytes(b'input fixture')
+    provenance = tmp_path / 'provenance.json'
+    atomic_json(provenance, {'video_sha256': 'wrong'})
+    def unexpected(*args: Any) -> None:
+        """Fail if provider preparation is reached after invalid provenance."""
+        pytest.fail('Preflight must not run')
+    monkeypatch.setattr(e2e, 'preflight', unexpected)
+    with pytest.raises(ValueError, match='provenance video checksum'):
+        e2e.run_e2e(tmp_path / 'versions', video=video, source_provenance=provenance)
+
+
+def test_video_export_failure_is_not_completed_snapshot(tmp_path: Path, stub_pipeline: None,
+                                                       monkeypatch: pytest.MonkeyPatch) -> None:
+    """An explicitly requested comparison video must succeed before completion."""
+    video = tmp_path / 'source.mp4'
+    video.write_bytes(b'input fixture')
+    def fail(self: e2e.PipelineRun) -> None:
+        """Represent an encoder failure without calling native tools."""
+        raise RuntimeError('encoding failed')
+    monkeypatch.setattr(e2e.PipelineRun, 'machine_video', fail)
+    with pytest.raises(RuntimeError, match='encoding failed'):
+        e2e.run_e2e(tmp_path / 'versions', video=video, overrides={'machine_video': True})
+    document = verify_snapshot(latest_snapshot(tmp_path / 'versions'))
+    assert document['status'] == 'failed'
+    assert document['stages']['machine_video']['status'] == 'failed'
+    assert 'lab' not in document['stages']
+
+
 def test_latest_roundtrip_relocation_and_config_inheritance(tmp_path: Path, stub_pipeline: None) -> None:
     """Move an entire snapshot, then append using only serialized input/settings."""
     video = tmp_path / 'source.mp4'
