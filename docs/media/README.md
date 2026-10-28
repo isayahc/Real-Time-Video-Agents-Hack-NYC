@@ -7,3 +7,7 @@
 - `sample-prices.png`: processing-only planning-cost dashboard, not a supplier quote.
 
 Input attribution: [Toyota CRDL CREOLab](https://github.com/ToyotaCRDL/CREOLab#dataset), noncommercial research terms. The output preserves a distinction between source evidence, model-authored geometry, local refinements, and requested demo choreography. No physical execution or production cycle time is established.
+
+The [submission permission review](../submission-asset-permissions.md) records the
+exact upstream restrictions and unresolved permission for the new hackathon run
+and public submission. Attribution is not a substitute for that permission.
