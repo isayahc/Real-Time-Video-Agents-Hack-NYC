@@ -353,3 +353,57 @@ and partly visible in the isometric view). Empty model limitations do not remove
 known physical/semantic uncertainty. Next smallest action: review the candidate's
 support/context requirements against the bounded task, then package an appropriate
 candidate for the remaining lab stage. Further paid inference requires approval.
+
+### Offline support review and lab continuation package
+
+Review of the retained protocol confirms the bounded task is `op_grasp` → `op_move`
+→ `op_release`, ending with candidate placement in the pot. Setup, calibration,
+pot positioning and manipulation of other scene objects are explicitly outside
+the boundary. Background objects have no demonstrated processing role. A tabletop
+support is appropriate for this concept; a stove/microwave is not a requirement
+established by those operations. The model's tomato/mushroom identification and
+final object placement still require semantic review.
+
+The existing offline lab planner places the corrected **0.620 × 0.516 × 0.486 m**
+assembly unscaled on its shared-process-bench envelope at
+**[-1.240, 0.900, -2.407] m**, yaw 0°. All three operation IDs remain attached to
+the same workcell. Its native machine asset is unchanged. The planner adds its
+standard process and inventory bench envelopes; these are template furniture,
+not generated or measured hardware. Support is represented at planning level;
+bench load limits, fasteners, anchoring, reach and cable routing remain unresolved.
+
+`scripts/package_reviewed_lab.py` provides an inference-free continuation path. It
+verifies the original snapshot and indexed correction artifacts, checks the saved
+before/after improvement gate, copies the candidate and source contracts to a new
+directory, runs the existing lab planner, checks original asset preservation, and
+captures three native lab views. It writes a separate `continuation.json` with
+hashes, explicit reuse/physical-validation limitations and status. Existing output
+directories are refused. This is not an input to `run_e2e.py --snapshot`, which
+continues to mean a new all-stage run from saved video.
+
+Reproduce locally with the retained ignored artifacts and configured native tools:
+
+```powershell
+python scripts/package_reviewed_lab.py `
+  --candidate runs/v000006-correction-20261028T022933Z `
+  --source-snapshot snapshots/e2e/v000006/snapshot.json `
+  --source-review snapshots/e2e/v000006/workbench/bd453c7d7eed4e0d81ded9d92e34e841/visual-reviews/4ad6483a4b984899b3e2484e3d7c0e68 `
+  --output runs/v000006-lab-continuation-20261028
+```
+
+That invocation completed: **1/1 machine placed**, **91 packaged artifact hashes
+verified**, three native lab renders, and all **113 original snapshot artifacts**
+still matching. The lab isometric overview shows the machine on the process bench;
+use `candidate/after/` for the closer matched mechanism views. No inference calls
+were made during packaging. Full offline suite: **234 passed, 4 skipped, 12 subtests
+passed**. The generated package stays local/ignored; no footage, keys, traces or
+local run outputs are included in the code PR.
+
+Milestone status: successful live observation/protocol/proposal/CAD stages, a
+separately validated live critique and CAD correction/after-review, and a completed
+offline lab continuation are evidenced. **A single uninterrupted full E2E run is
+not yet demonstrated.** The historical v000006 snapshot remains failed. Lab
+placement has not had live visual review; the prior 55/100 assessment describes the
+pre-lab corrected scene, not these new lab renders. Physical execution, protective
+performance, observed ROI and semantic correctness are not established. Next work
+should focus on these specific evidence gaps rather than cosmetic background props.
