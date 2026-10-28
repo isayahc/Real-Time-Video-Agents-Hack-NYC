@@ -309,3 +309,47 @@ additional test suite was needed for this evidence-only documentation update.
 Next: a focused, separately authorized correction/after-review path that preserves
 the mechanism and improves inspection visibility, followed by the remaining lab
 stage. Further paid calls require fresh approval.
+
+### Authorized focused CAD correction and matched after-review
+
+The user authorized a focused correction and after-review. Output:
+`runs/v000006-correction-20261028T022933Z/`. The existing generation/scene/review
+functions were used, with the validated standalone critique as the before
+assessment. Additional feedback required preservation of internal mechanisms,
+component identities, operation coverage and planning dimensions while exposing
+the mechanism for inspection. Baseline placements were retained: the suggested
+floor-level relocation did not address tabletop support.
+
+CAD generation, native scene construction and three matched after renders
+completed. The new enclosure is an open inspection frame; the isometric image
+shows the gantry, tool fingers and internal components. It is an inspection-access
+concept, not verified protective guarding. The Nebius after-review passed strict
+schema/reference validation, scored **55/100** versus **35/100** before, and marked
+`issue-001` (geometry visibility) resolved. The existing visual-improvement gate
+passed; assessment status remains `needs_improvement` with medium-severity context
+issue `issue-002` outstanding.
+
+| Call | Requested / served | Latency | Reported usage |
+| --- | --- | --- | --- |
+| CAD via OpenCode | `openai/gpt-6-astra` / same | 128.065 s | input 11,717; output 6,356; cache read 31,232; request_count 2 |
+| After critique | `nvidia/Nemotron-3.5-Super-VL` / same | 20.926 s | 9,860 total tokens (6,696 prompt; 3,164 completion) |
+
+Both traces report `finish_reason=stop`. CAD's reported request count is two within
+the single generation invocation; no additional generation invocation was started.
+Token shapes are preserved as reported, not combined into a billing estimate.
+
+All **82 indexed derivative artifacts** passed checksum verification; all three
+camera-frame records exactly match the before records. All **113 original snapshot
+artifacts** remain intact. No code changed or test suite was rerun for this
+evidence-only update; native generation/rendering and live after-review are the
+checks actually performed. The new candidate remains separate from the historical
+failed snapshot and has not been promoted into a completed E2E/lab output.
+
+The after-review asks for tabletop/context objects including a stove and microwave.
+Those may be source-background objects rather than required automation equipment;
+do not add them solely to optimize a model score. Its claim that no pot nest is
+visible also needs human inspection (a circular nest is present in the geometry
+and partly visible in the isometric view). Empty model limitations do not remove
+known physical/semantic uncertainty. Next smallest action: review the candidate's
+support/context requirements against the bounded task, then package an appropriate
+candidate for the remaining lab stage. Further paid inference requires approval.
