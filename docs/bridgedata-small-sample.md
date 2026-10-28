@@ -276,3 +276,36 @@ accepted after-review scene or a completed E2E run.
 Next smallest live gate: an explicitly authorized critique attempt with exact-ID
 guidance. Its compliance is unverified; the enclosure visibility issue remains a
 design/review concern, and final lab output is still outstanding.
+
+### Authorized standalone live critique: reference validation passed
+
+At commit `6b76cb1`, the user authorized one live critique of the original v000006
+renders. The first standalone command stopped before provider initialization because
+it omitted the project's environment loader; its failure is retained under
+`runs/v000006-live-critique-20261028T021530Z/`. After calling the supported
+`load_environment()`, the authorized critique completed under
+`runs/v000006-live-critique-20261028T021559Z/`. No CAD correction or E2E continuation
+was included in this invocation.
+
+Requested and served model: `nvidia/Nemotron-3.5-Super-VL`; finish reason: `stop`;
+latency: **15.592 s**; usage: **7,567 total tokens** (4,214 prompt, 3,353 completion).
+The returned critique **passed schema and reference validation** with exact current
+render IDs and source-frame IDs. It scored the original scene **35/100**, status
+`needs_improvement`, identifying high-severity mechanism visibility and a
+medium-severity tabletop/environment mismatch. This is live evidence that the
+updated ID guidance worked for this response, not a guarantee for future calls.
+
+The critique proposed an exposed/cutaway housing and relocation to `[1.5, 0, 1.5]`.
+These proposals were retained but not applied. Relocation remains floor-level and
+does not solve tabletop support. The separate offline cutaway already demonstrates
+internal parts exist, so the critique's featureless-box language must not be treated
+as proof they are absent. Its tomato terminology and empty limitations list also
+do not resolve the existing semantic/physical uncertainties.
+
+All **113 original snapshot artifact hashes** remain verified. The historical
+snapshot remains failed; this separately validated critique does not retroactively
+complete visual correction, after-review or lab stages. No code changed and no
+additional test suite was needed for this evidence-only documentation update.
+Next: a focused, separately authorized correction/after-review path that preserves
+the mechanism and improves inspection visibility, followed by the remaining lab
+stage. Further paid calls require fresh approval.
