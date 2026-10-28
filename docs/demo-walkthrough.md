@@ -1,5 +1,16 @@
 # Saved live-workflow demonstration (v000008)
 
+**Presentation correction:** this robot-input run is an integration diagnostic,
+not the intended human-work → generated-machine product demo. It has no saved
+machine MP4. A continuous human assembly clip and a corresponding generated
+machine animation are still needed; HA4M's sparse preview slideshows are not a
+substitute for that source video. Do not promote this package as demo-ready.
+
+The final tab now prioritizes original video and generated-machine playback side
+by side. Runs with a saved storyboard MP4 show two video players. Runs without one
+explicitly show an interactive CAD preview and the missing-video notice. Operations,
+visual review and exports are collapsed underneath; lab placement remains secondary.
+
 ## Open the verified package
 
 1. Start the workbench with `python -m protocol_pipeline.web` and open
