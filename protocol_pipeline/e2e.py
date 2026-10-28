@@ -8,6 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 import tempfile
 import time
@@ -220,9 +221,11 @@ class PipelineRun:
 
     def machine_video(self) -> None:
         """Export the final selected scene as a playable concept video."""
-        from .scene_video import export_scene_video
         scene = require_stage(self.store.scene_state(self.run_id))
-        export_scene_video(self.run / 'scene' / scene['attempt_id'])
+        # The parent already owns a synchronous Playwright context. Isolate the
+        # exporter so its browser cannot enter that context's active event loop.
+        subprocess.run([sys.executable, '-m', 'protocol_pipeline.scene_video',
+                        str(self.run / 'scene' / scene['attempt_id'])], check=True, timeout=600)
 
 
 def run_e2e(root: Path, video: Path | None = None, snapshot: Path | None = None,

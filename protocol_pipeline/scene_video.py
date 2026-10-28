@@ -61,3 +61,10 @@ def export_scene_video(folder: Path) -> dict:
     scene_report['storyboard'] = report
     atomic_json(folder / 'scene-report.json', scene_report)
     return report
+
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('folder', type=Path)
+    export_scene_video(parser.parse_args().folder)
