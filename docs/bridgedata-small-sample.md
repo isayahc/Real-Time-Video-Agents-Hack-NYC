@@ -74,3 +74,36 @@ python scripts/run_e2e.py --video data/bridgedata-v2-sample-10/episode-01/source
 
 Focused downloader checks: **8 tests passed**, including count boundaries, stopping
 index reads after ten rows, path validation and excessive-frame rejection.
+After acquisition, all **312 source/video SHA-256 hashes** were independently
+recomputed and matched. FFprobe decoded all ten videos and confirmed the expected
+302 total frames and 5 fps encoding.
+
+## Authorized live run result
+
+Starting code commit: `d9b3ec8`. Snapshot: `snapshots/e2e/v000004/snapshot.json`.
+Workbench run ID: `2dd3af2690ff49c79e4da8ec67095fa9`.
+
+**Failed at vision extraction; preflight passed.** Both calls requested and served
+`nvidia/Nemotron-3.5-Super-VL` through Nebius. No model substitution occurred.
+
+| Attempt | Result | Latency | Prompt tokens | Completion tokens |
+| --- | --- | --- | --- | --- |
+| Initial observations | Missing required `interpretation` fields on objects/state change; also referenced frame IDs beyond the eight sampled frames | 35.074 s | 3,721 | 4,742 |
+| Existing bounded correction | Invalid JSON: unquoted text after `interpretation`, beginning at line 17 column 25 | 17.337 s | 5,175 | 2,859 |
+
+Both reported `finish_reason=stop` and one transport attempt. Total reported usage:
+**16,497 tokens**, including reasoning tokens; no billing cost was returned.
+Strict validation rejected both candidates. No observations entered downstream
+reasoning, proposal, CAD, scene, visual-review or lab stages. GMI inference was not
+reached. This is live NVIDIA response evidence, not a completed application stage.
+
+Both candidates, provider traces and `extraction-failure.json` remain in the local
+snapshot. Its **24 indexed artifacts** passed checksum verification after failure.
+The failure envelope's top-level provider is the orchestrator's `gmi`; the retained
+requested/served model traces identify the actual failed vision calls as Nebius.
+Use those stage traces rather than misattributing this to GMI.
+
+The authorized single paid invocation is now consumed; no automatic rerun was
+started. Next: reproduce these schema/JSON failures offline, improve the constrained
+observation request while preserving strict validation, then obtain authorization
+before another live attempt. Existing failed evidence must not be rewritten as success.
