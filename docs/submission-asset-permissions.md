@@ -3,6 +3,10 @@
 Tracks #44. This is a source-based permission review, not a blanket determination
 that hackathon participation is commercial or noncommercial.
 
+**Replacement selected:** [ten BridgeData V2 trajectories](bridgedata-small-sample.md),
+explicitly licensed by the publisher under CC BY 4.0. The CREOLab findings below
+remain the historical review; the new E2E input uses BridgeData episode 01 instead.
+
 ## CREOLab source review
 
 Reviewed upstream revision
