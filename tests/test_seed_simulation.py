@@ -3,6 +3,7 @@
 import json
 import os
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -11,6 +12,7 @@ import numpy as np
 
 from protocol_pipeline.seed_benchmark import TrialManifest, validate_manifest
 from protocol_pipeline.seed_simulation import SimulationConfig, assess_placement, run, trajectory_difference
+from protocol_pipeline.seed_simulation import execute_trial, release_tracking_report
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -74,6 +76,10 @@ def test_config_rejects_invalid_frame_and_camera_rate() -> None:
     raw["video_fps"] = 17
     with pytest.raises(ValueError):
         SimulationConfig.model_validate(raw)
+    raw = json.loads((ROOT / "examples/so101-simulation/config.json").read_text())
+    raw["physics_substeps"] = 4
+    with pytest.raises(ValueError):
+        SimulationConfig.model_validate(raw)
 
 
 def test_executed_baseline_reset_negative_and_repeat(tmp_path: Path) -> None:
@@ -123,3 +129,87 @@ def test_invalid_action_rejected_before_motor_call(invalid: str) -> None:
         command["gripper"] = float("nan") if invalid == "nan" else 20.0
     with pytest.raises(ValueError, match="Action must|Invalid joint"):
         world.drive(command)
+
+
+@pytest.mark.parametrize("fault", [None, "position", "joint", "missing", "nan", "short"])
+def test_release_requires_sustained_measured_tracking(fault: str | None) -> None:
+    """Reject target misses, a transient joint error, missing data and short windows."""
+    cfg = SimulationConfig.model_validate_json((ROOT / "examples/so101-comparison/config.json").read_text())
+    samples = [{"time_s": float(t), "phase": "place", "grasp_xyz_m": [.1, .2, .08],
+                "joint_position_rad": {"joint": 0.}, "joint_target_rad": {"joint": 0.}}
+               for t in np.linspace(0, .1, 25)]
+    if fault == "position":
+        samples[10]["grasp_xyz_m"][2] -= .019
+    elif fault == "joint":
+        samples[10]["joint_position_rad"]["joint"] = .1
+    elif fault == "missing":
+        samples[10].pop("grasp_xyz_m")
+    elif fault == "nan":
+        samples[10]["joint_position_rad"]["joint"] = float("nan")
+    elif fault == "short":
+        samples = samples[1:]
+    world = SimpleNamespace(config=cfg, observations=samples, joints={"joint": 0})
+    report = release_tracking_report(world, np.array([.1, .2, .08]))
+    assert report["passed"] is (fault is None)
+    json.dumps(report, allow_nan=False)
+
+
+@pytest.mark.parametrize("placement_tracks", [False, True])
+def test_release_is_conditional_on_placement_tracking(tmp_path: Path, manifest: TrialManifest,
+                                                     placement_tracks: bool) -> None:
+    """Exercise both release and failure-stop paths after synthetic pickup."""
+    cfg = SimulationConfig.model_validate_json((ROOT / "examples/so101-comparison/config.json").read_text())
+
+    class MotorSpy:
+        """Synthetic control-flow fixture, not simulation evidence."""
+
+        def __init__(self) -> None:
+            """Supply the minimal trial interface and record every phase."""
+            self.config, self.manifest = cfg, manifest
+            self.command = {"gripper": cfg.gripper_open_rad}
+            self.joints = {"gripper": 0}
+            self.links = {"gripper_link": 4, "moving_jaw_so101_v1_link": 6}
+            self.contract = SimpleNamespace(reference_pose_rad=dict(self.command))
+            self.observations, self.frames, self.phases = [], [], []
+            self.collision_seen = False
+            self.reset_report = {}
+            self.reference_frame_max_error = 0.
+            self.step_index = 0
+            self.initial_observation = self.sample(0., "ready")
+
+        def sample(self, time_s: float, phase: str) -> dict:
+            """Use a lifted seed but an erroneous measured placement point."""
+            grasp = [.35, -.22, .08] if placement_tracks and phase == "place" else [0, 0, .1]
+            return {"time_s": time_s, "phase": phase, "seed_xyz_m": [0, 0, .1 if phase != "ready" else .07],
+                    "tcp_xyz_m": [0, 0, .1], "grasp_xyz_m": grasp,
+                    "seed_velocity_m_s": [0, 0, 0], "seed_robot_contact_links": [4, 6],
+                    "joint_position_rad": dict(self.command), "joint_target_rad": dict(self.command)}
+
+        def frame(self, observation: dict) -> dict:
+            """Frames are irrelevant to this orchestration test."""
+            return {}
+
+        def advance(self, command: dict, seconds: float, phase: str, writer: object = None) -> None:
+            """Record commands and produce a full observation window."""
+            self.phases.append(phase)
+            self.command = command
+            for _ in range(round(seconds / cfg.timestep_s)):
+                self.step_index += 1
+                self.observations.append(self.sample(self.step_index * cfg.timestep_s, phase))
+
+    world = MotorSpy()
+    planner = SimpleNamespace(solve=lambda xyz, opening: ({"gripper": opening}, 0.))
+    result = execute_trial(world, planner, (0, 0), 7, tmp_path / "trial", video=False)
+    assert result["picked_up"]
+    if placement_tracks:
+        assert result["release_tracking"]["passed"]
+        assert "release" in world.phases and "home" in world.phases
+        assert world.command["gripper"] == cfg.gripper_open_rad
+    else:
+        assert result["release_inhibited"]
+        assert result["motion_failure"] == "placement_tracking_failed"
+        assert result["failure"] == "invalid_observation"
+        assert world.phases[-1] == "place"
+        assert "release" not in world.phases and "home" not in world.phases
+        assert world.command["gripper"] == cfg.gripper_closed_rad
+    assert (tmp_path / "trial/trajectory.jsonl").is_file()

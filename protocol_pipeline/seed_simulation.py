@@ -34,6 +34,9 @@ class SimulationConfig(Contract):
     schema_version: Literal[1] = 1
     timestep_s: float = Field(gt=0, le=1 / 240)
     solver_iterations: int = Field(strict=True, ge=50, le=1000)
+    # Internal substeps inflate Bullet's position-motor impulse budget. Refine
+    # timestep_s instead until an independently verified mapping is available.
+    physics_substeps: Literal[0] = 0
     seed_mass_kg: float = Field(gt=0, le=0.001)
     friction: float = Field(ge=0, le=2)
     motor_force_Nm: float = Field(gt=0, le=10)
@@ -48,6 +51,9 @@ class SimulationConfig(Contract):
     lift_height_m: float = Field(gt=0.01, le=0.1)
     phase_seconds: float = Field(ge=0.5, le=4)
     video_fps: int = Field(strict=True, ge=5, le=30)
+    release_position_tolerance_m: float = Field(default=.002, gt=0, le=.005)
+    release_joint_tolerance_rad: float = Field(default=.02, gt=0, le=.05)
+    release_tracking_window_s: float = Field(default=.1, ge=.05, le=.5)
     notes: list[str] = Field(min_length=1)
 
     @model_validator(mode="after")
@@ -173,6 +179,7 @@ class SeedWorld:
         self.frames: list[dict[str, Any]] = []
         self.collision_seen = False
         self.p.setPhysicsEngineParameter(fixedTimeStep=config.timestep_s,
+                                        numSubSteps=config.physics_substeps,
                                         numSolverIterations=config.solver_iterations,
                                         deterministicOverlappingPairs=1, enableFileCaching=0)
         self.p.setGravity(0, 0, -9.81)
@@ -299,12 +306,14 @@ class SeedWorld:
             if c[8] < -.0001 and c[9] > .001:
                 unwanted.append(["self", int(c[3]), float(c[8]), float(c[9])])
         self.collision_seen |= bool(unwanted)
+        tcp_pose = self.link_pose("gripper_frame_link")
         observation = {"time_s": self.step_index * self.config.timestep_s, "phase": phase,
                        "joint_position_rad": {n: self.p.getJointState(self.robot, j)[0] for n, j in self.joints.items()},
                        "joint_target_rad": dict(self.command), "seed_xyz_m": list(xyz),
                        "seed_xyzw": list(quaternion), "seed_velocity_m_s": list(velocity),
                        "seed_angular_velocity_rad_s": list(angular),
-                       "tcp_xyz_m": self.link_pose("gripper_frame_link")[:3, 3].tolist(),
+                       "tcp_xyz_m": tcp_pose[:3, 3].tolist(),
+                       "grasp_xyz_m": (tcp_pose[:3, 3] + tcp_pose[:3, :3] @ np.asarray(self.config.grasp_offset_tcp_m)).tolist(),
                        "seed_robot_contact_links": touched,
                        "seed_normal_force_N": sum(c[9] for c in contacts), "unwanted_contacts": unwanted}
         if record:
@@ -485,6 +494,46 @@ def materialize_manifest(definition: TrialManifest, config: SimulationConfig, co
     return TrialManifest.model_validate_json((output / "manifest.json").read_text())
 
 
+class ReleaseTrackingError(RuntimeError):
+    """Stop an attempt before release when observed placement tracking fails."""
+
+
+def release_tracking_report(world: SeedWorld, destination: np.ndarray) -> dict[str, Any]:
+    """Require sustained measured grasp and joint tracking of the requested placement.
+
+    Compare against the requested Cartesian destination, not the possibly
+    inaccurate IK solution. Missing/nonfinite observations fail closed.
+    """
+    cfg = world.config
+    end = world.observations[-1]["time_s"]
+    samples = [s for s in world.observations if s["phase"] == "place"
+               and s["time_s"] >= end - cfg.release_tracking_window_s - 1e-9]
+    covered = bool(samples) and end - samples[0]["time_s"] >= cfg.release_tracking_window_s - 1e-8
+    position_errors, joint_errors = [], []
+    valid = bool(samples) and bool(np.all(np.isfinite(destination)))
+    for sample in samples:
+        grasp = np.asarray(sample.get("grasp_xyz_m", []))
+        measured, commanded = sample["joint_position_rad"], sample["joint_target_rad"]
+        if (grasp.shape != (3,) or not np.all(np.isfinite(grasp))
+                or set(measured) != set(world.joints) or set(commanded) != set(world.joints)
+                or not all(math.isfinite(v) for v in [*measured.values(), *commanded.values()])):
+            valid = False
+            continue
+        position_errors.append(float(np.linalg.norm(grasp - destination)))
+        joint_errors.append(max(abs(measured[n] - commanded[n]) for n in world.joints))
+    position = max(position_errors, default=None)
+    joint = max(joint_errors, default=None)
+    return {"passed": bool(valid and covered and position is not None and joint is not None
+                            and position <= cfg.release_position_tolerance_m
+                            and joint <= cfg.release_joint_tolerance_rad),
+            "window_covered": bool(covered), "observations_valid": bool(valid),
+            "requested_grasp_xyz_m": destination.tolist(), "samples": len(samples),
+            "maximum_position_error_m": position, "maximum_joint_error_rad": joint,
+            "position_tolerance_m": cfg.release_position_tolerance_m,
+            "joint_tolerance_rad": cfg.release_joint_tolerance_rad,
+            "window_s": cfg.release_tracking_window_s}
+
+
 def execute_trial(world: SeedWorld, planner: CartesianPlanner, target: tuple[int, int],
                   trial_seed: int, output: Path, *, keep_open: bool = False, video: bool = True) -> dict[str, Any]:
     """Execute one attempt through motors, stopping on missed pickup without retrying."""
@@ -501,6 +550,7 @@ def execute_trial(world: SeedWorld, planner: CartesianPlanner, target: tuple[int
     planner_errors = []
     picked_up = False
     timed_out = False
+    release_tracking = None
     writer = imageio.get_writer(output / "trial.mp4", fps=cfg.video_fps, codec="libx264", macro_block_size=1) if video else None
 
     def move(xyz: np.ndarray, opening: float, phase: str) -> None:
@@ -531,6 +581,9 @@ def execute_trial(world: SeedWorld, planner: CartesianPlanner, target: tuple[int
                            row * geometry.pitch_y_mm.value / 1000, .02, 1])[:3]
             move(destination + [0, 0, cfg.lift_height_m], command["gripper"], "transport")
             move(destination, command["gripper"], "place")
+            release_tracking = release_tracking_report(world, destination)
+            if not release_tracking["passed"]:
+                raise ReleaseTrackingError("Placement tracking failed; gripper release inhibited")
             opened = {**world.command, "gripper": cfg.gripper_open_rad}
             world.advance(opened, 1, "release", writer)
             move(destination + [0, 0, cfg.lift_height_m], cfg.gripper_open_rad, "retract")
@@ -539,6 +592,9 @@ def execute_trial(world: SeedWorld, planner: CartesianPlanner, target: tuple[int
         world.advance(world.command, manifest.benchmark.simulation.settling_time_s.value, "settle", writer)
     except TimeoutError:
         timed_out = True
+    except ReleaseTrackingError:
+        # End at the observed failure state; do not open, retry or teleport.
+        pass
     finally:
         if writer is not None:
             writer.close()
@@ -556,6 +612,14 @@ def execute_trial(world: SeedWorld, planner: CartesianPlanner, target: tuple[int
                   maximum_joint_motion_rad=max(abs(s["joint_position_rad"][n] - initial["joint_position_rad"][n])
                                                for s in world.observations for n in world.joints),
                   final_seed_lift_m=world.observations[-1]["seed_xyz_m"][2] - pickup[2])
+    if release_tracking is not None:
+        result["release_tracking"] = release_tracking
+        if not release_tracking["passed"]:
+            result["motion_failure"] = "placement_tracking_failed"
+            result["release_inhibited"] = True
+            # Preserve the frozen benchmark vocabulary and collision precedence.
+            if not result["collision"] and not result["timeout"]:
+                result["failure"] = "invalid_observation"
     write_json(output / "result.json", result)
     return result
 
