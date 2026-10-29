@@ -428,3 +428,7 @@ model weights, or other third-party assets. Their respective licenses and attrib
 requirements continue to apply. In particular, the CREOLab restrictions and source
 links documented above remain applicable. See [issue #44](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/44)
 for the separate asset-permissions and attribution review.
+
+The [SO-101 seed-presentation fixture](examples/so101-fixture/README.md) builds a real
+parametric OpenCAD candidate, exports STEP/STL and interface transforms, and verifies
+fit to the frozen ideal seed target while preserving the robot geometry.

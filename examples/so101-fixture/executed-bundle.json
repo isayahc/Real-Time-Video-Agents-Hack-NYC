@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "so101-seed-seat",
+  "revision": 1,
+  "parent_bundle_sha256": null,
+  "benchmark_sha256": "3c639a4d7f736407eb5abb35c6990b7294a9735c320c041ac934762231aba24c",
+  "robot_contract_sha256": "3dba648571df41892eeea0ac919093dd6cd66dc362203e5898f4613974ad7d15",
+  "robot_source_lock_sha256": "513c07599f6b28d0ab978354a1258539a8a6d79488d89302dc8433a0b5f37368",
+  "robot_urdf_sha256": "3a65d2d35e68a8d2f0c2cc176d19b884506543c93ba72980145b80abe276022c",
+  "runtime": {
+    "opencad": "0.2.4",
+    "backend": "occt"
+  },
+  "generation": "deterministic parametric authoring; no live provider",
+  "fabrication": {
+    "process": "candidate FDM, flat base down",
+    "material": "PLA assumed",
+    "tolerance_mm": null,
+    "print_validated": false,
+    "notes": "Seat resolution, shrinkage, seed friction, clamping and jaw access require measurement"
+  },
+  "files": {
+    "spec.json": {
+      "sha256": "7051296eb156b740e9a57c47666f9c7a4082ca4233e12f72535811f99beceebc",
+      "bytes": 465
+    },
+    "program.json": {
+      "sha256": "3309792fa36bc85198a5fd9e0599099350710d9345217803e95f75ead5abd348",
+      "bytes": 1805
+    },
+    "machine.py": {
+      "sha256": "6b9a773d3364eb4213d03d1d2ec5c7a7441b211dfb5baed5cf4c2f9eb8cf4fa8",
+      "bytes": 1235
+    },
+    "machine.step": {
+      "sha256": "e70d64d8127a2fff80040ec4ebbd9ccb3f4291c4f914daf9f6406931e89f20e8",
+      "bytes": 23272
+    },
+    "machine.stl": {
+      "sha256": "549c51c75d894fadff2c7828d2a67b3a039f73f993c6446f02bd86ec200f0434",
+      "bytes": 19884
+    },
+    "machine.tree.json": {
+      "sha256": "6fcdc2f2cec95a08cb25db5b8274b2d16ef0a9c66e1f442cb421683f96b0d80e",
+      "bytes": 11893
+    },
+    "machine-bodies.json": {
+      "sha256": "e4166bc9e19342db33ddbe7f249f443d4f3909bf03fa8f71533184b0dc603475",
+      "bytes": 47651
+    },
+    "machine-validation.json": {
+      "sha256": "492d9c8bb78f62cefbae3beea7fde44353230ff05c475f84226fefc855ae24e7",
+      "bytes": 484
+    },
+    "component-seed-seat.step": {
+      "sha256": "c57352f646d7b335f9720f4211e34aa511bd5126ee26d5c7184f38a8967d8ac3",
+      "bytes": 23272
+    },
+    "component-seed-seat.stl": {
+      "sha256": "24ec9b019f75df3bdfec88c752f796c33def3f695b6d45bcbb6c486ff4443b40",
+      "bytes": 85084
+    },
+    "interfaces.json": {
+      "sha256": "6e2fa852bf4aee9a50d4d743dc1247429f35a465f9767bdfe2911e4f930e3c39",
+      "bytes": 2457
+    },
+    "fit-report.json": {
+      "sha256": "3f54ee3a71a1c704ed9a5afe5278e1df549f17d8fa20a040b8ea41b125266c2b",
+      "bytes": 983
+    },
+    "robot-contract.json": {
+      "sha256": "3dba648571df41892eeea0ac919093dd6cd66dc362203e5898f4613974ad7d15",
+      "bytes": 13541
+    },
+    "robot-source-lock.json": {
+      "sha256": "513c07599f6b28d0ab978354a1258539a8a6d79488d89302dc8433a0b5f37368",
+      "bytes": 2937
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "so101-seed-seat",
+  "revision": 1,
+  "parent_bundle_sha256": null,
+  "benchmark_sha256": "3c639a4d7f736407eb5abb35c6990b7294a9735c320c041ac934762231aba24c",
+  "robot_contract_sha256": "3dba648571df41892eeea0ac919093dd6cd66dc362203e5898f4613974ad7d15",
+  "seed_diameter_mm": 3.0,
+  "base_x_mm": 40.0,
+  "base_y_mm": 30.0,
+  "base_thickness_mm": 4.0,
+  "post_radius_mm": 4.0,
+  "post_height_mm": 8.0,
+  "seat_mouth_radius_mm": 1.4
+}

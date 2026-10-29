@@ -18,7 +18,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import Field, model_validator
 
@@ -211,8 +211,11 @@ def validate_body_meshes(program: CadProgram, bodies: Any) -> None:
             raise ValueError(f'{body["id"]}: OpenCAD native mesh must contain finite vertices and valid triangle indices')
 
 
-def build_program(program: CadProgram, directory: Path) -> dict[str, Any]:
+def build_program(program: CadProgram, directory: Path, *,
+                  runtime: Literal["forma", "opencad"] = "forma") -> dict[str, Any]:
     """Build in a short native workspace, then retain all artifacts and diagnostics."""
+    if runtime not in ("forma", "opencad"):
+        raise ValueError("Unknown CAD runtime")
     validate_program(program)
     directory = directory.resolve()
     directory.mkdir(parents=True, exist_ok=False)
@@ -233,7 +236,8 @@ def build_program(program: CadProgram, directory: Path) -> dict[str, Any]:
     environment['PYTHONPATH'] = os.pathsep.join(filter(None, [
         str(Path(__file__).resolve().parents[1]), os.environ.get('PYTHONPATH', '')]))
     environment['PYTHONIOENCODING'] = 'utf-8'
-    adapter = cad_adapter_path()
+    adapter_command = ([sys.executable, str(cad_adapter_path())] if runtime == "forma" else
+                       [sys.executable, "-m", "protocol_pipeline.opencad_native"])
     # Native OCCT/tree writers need short paths even if Python can access a long
     # Windows snapshot path. Never run native exporters inside the snapshot tree.
     temporary_root = os.getenv('WORKBENCH_CAD_TEMP_ROOT')
@@ -244,7 +248,7 @@ def build_program(program: CadProgram, directory: Path) -> dict[str, Any]:
         work = Path(temporary).resolve()
         for source in (program_path, directory / 'machine.py', wrapper):
             shutil.copyfile(source, work / source.name)
-        command = [sys.executable, str(adapter), 'build', str(work / '_export.py'),
+        command = [*adapter_command, 'build', str(work / '_export.py'),
                    str(work / 'adapter.step'), '--tree-output', str(work / 'machine.tree.json')]
         try:
             result = subprocess.run(command, cwd=work, env=environment, capture_output=True,
