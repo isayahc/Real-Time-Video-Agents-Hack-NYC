@@ -1,3 +1,5 @@
 # Evidence/review hashes bind exact bytes; keep fixtures stable on Windows too.
 *.json text eol=lf
 *.txt text eol=lf
+# Unified patches preserve upstream context whitespace and apply with LF bytes.
+scripts/patches/*.patch text eol=lf -whitespace

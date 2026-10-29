@@ -1,0 +1,88 @@
+--- a/setup.py
++++ b/setup.py
+@@ -28,7 +28,7 @@
+       output_dir, macros, include_dirs, sources, depends, extra_postargs)
+   cc_args = self._get_cc_args(pp_opts, debug, extra_preargs)
+   # parallel code
+-  N = 2 * multiprocessing.cpu_count()  # number of parallel compilations
++  N = 4  # bounded local diagnostic build
+   try:
+     # On Unix-like platforms attempt to obtain the total memory in the
+     # machine and limit the number of parallel jobs to the number of Gbs
+@@ -505,7 +505,7 @@
+ 
+ setup(
+     name='pybullet',
+-    version='3.2.7',
++    version='3.2.7+issue71margin1',
+     description=
+     'Official Python Interface for the Bullet Physics SDK specialized for Robotics Simulation and Reinforcement Learning',
+     long_description=
+--- a/examples/SharedMemory/PhysicsClientC_API.h
++++ b/examples/SharedMemory/PhysicsClientC_API.h
+@@ -177,6 +177,7 @@
+ 	B3_SHARED_API int b3ChangeDynamicsInfoSetActivationState(b3SharedMemoryCommandHandle commandHandle, int bodyUniqueId, int activationState);
+ 	B3_SHARED_API int b3ChangeDynamicsInfoSetMaxJointVelocity(b3SharedMemoryCommandHandle commandHandle, int bodyUniqueId, double maxJointVelocity);
+ 	B3_SHARED_API int b3ChangeDynamicsInfoSetCollisionMargin(b3SharedMemoryCommandHandle commandHandle, int bodyUniqueId, double collisionMargin);
++	B3_SHARED_API int b3ChangeDynamicsInfoSetCollisionMarginForLink(b3SharedMemoryCommandHandle commandHandle, int bodyUniqueId, int linkIndex, double collisionMargin);
+ 	
+ 	
+ 	B3_SHARED_API b3SharedMemoryCommandHandle b3InitCreateUserConstraintCommand(b3PhysicsClientHandle physClient, int parentBodyUniqueId, int parentJointIndex, int childBodyUniqueId, int childJointIndex, struct b3JointInfo* info);
+--- a/examples/SharedMemory/PhysicsClientC_API.cpp
++++ b/examples/SharedMemory/PhysicsClientC_API.cpp
+@@ -3558,10 +3558,15 @@
+ 
+ B3_SHARED_API int b3ChangeDynamicsInfoSetCollisionMargin(b3SharedMemoryCommandHandle commandHandle, int bodyUniqueId, double collisionMargin)
+ {
++	return b3ChangeDynamicsInfoSetCollisionMarginForLink(commandHandle, bodyUniqueId, -1, collisionMargin);
++}
++
++B3_SHARED_API int b3ChangeDynamicsInfoSetCollisionMarginForLink(b3SharedMemoryCommandHandle commandHandle, int bodyUniqueId, int linkIndex, double collisionMargin)
++{
+ 	struct SharedMemoryCommand* command = (struct SharedMemoryCommand*)commandHandle;
+ 	b3Assert(command->m_type == CMD_CHANGE_DYNAMICS_INFO);
+ 	command->m_changeDynamicsInfoArgs.m_bodyUniqueId = bodyUniqueId;
+-	command->m_changeDynamicsInfoArgs.m_linkIndex = -1;
++	command->m_changeDynamicsInfoArgs.m_linkIndex = linkIndex;
+ 	command->m_changeDynamicsInfoArgs.m_collisionMargin = collisionMargin;
+ 	command->m_updateFlags |= CHANGE_DYNAMICS_INFO_SET_COLLISION_MARGIN;
+ 	return 0;
+--- a/examples/SharedMemory/PhysicsServerCommandProcessor.cpp
++++ b/examples/SharedMemory/PhysicsServerCommandProcessor.cpp
+@@ -10955,7 +10955,24 @@
+ 						}
+ 						if (clientCmd.m_updateFlags & CHANGE_DYNAMICS_INFO_SET_COLLISION_MARGIN)
+ 						{
+-							mb->getLinkCollider(linkIndex)->getCollisionShape()->setMargin(clientCmd.m_changeDynamicsInfoArgs.m_collisionMargin);
++							// Local diagnostic patch: propagate a requested margin through
++							// URDF compound wrappers without altering source mesh vertices.
++							btAlignedObjectArray<btCollisionShape*> pending;
++							pending.push_back(mb->getLinkCollider(linkIndex)->getCollisionShape());
++							for (int s = 0; s < pending.size(); s++)
++							{
++								btCollisionShape* shape = pending[s];
++								shape->setMargin(clientCmd.m_changeDynamicsInfoArgs.m_collisionMargin);
++								if (shape->isCompound())
++								{
++									btCompoundShape* compound = (btCompoundShape*)shape;
++									for (int child = 0; child < compound->getNumChildShapes(); child++)
++										pending.push_back(compound->getChildShape(child));
++								}
++							}
++							for (int s = pending.size() - 1; s >= 0; s--)
++								if (pending[s]->isCompound())
++									((btCompoundShape*)pending[s])->recalculateLocalAabb();
+ 						}
+ 					}
+ 
+--- a/examples/pybullet/pybullet.c
++++ b/examples/pybullet/pybullet.c
+@@ -1560,7 +1560,7 @@
+ 
+ 		if (collisionMargin >= 0)
+ 		{
+-			b3ChangeDynamicsInfoSetCollisionMargin(command, bodyUniqueId, collisionMargin);
++			b3ChangeDynamicsInfoSetCollisionMarginForLink(command, bodyUniqueId, linkIndex, collisionMargin);
+ 		}
+ 				
+ 		statusHandle = b3SubmitClientCommandAndWaitStatus(sm, command);
