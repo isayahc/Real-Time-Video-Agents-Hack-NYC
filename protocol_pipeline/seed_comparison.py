@@ -36,6 +36,7 @@ def verify_files(root: Path) -> dict[str, Any]:
 def matched_inputs(baseline: Path, candidate: Path) -> tuple[TrialManifest, TrialManifest]:
     """Verify materialized components before applying the existing tooling-only guard."""
     manifests = []
+    seed_pose_anchors = []
     for root in (baseline, candidate):
         validate_manifest(root / "manifest.json")
         manifest = TrialManifest.model_validate_json((root / "manifest.json").read_text())
@@ -43,6 +44,7 @@ def matched_inputs(baseline: Path, candidate: Path) -> tuple[TrialManifest, Tria
             raise ValueError("Comparison requires executed simulation manifests")
         tool = json.loads((root / manifest.components.tool.path).read_text())
         environment = json.loads((root / manifest.components.environment.path).read_text())
+        seed_pose_anchors.append(tool["reference_cad_archive_sha256"])
         if digest(root / "assets/fixture.obj") != tool["fixture_mesh_sha256"]:
             raise ValueError("Tool mesh differs from materialized identity")
         for name, expected in environment["assets"].items():
@@ -50,6 +52,8 @@ def matched_inputs(baseline: Path, candidate: Path) -> tuple[TrialManifest, Tria
                 raise ValueError("Environment mesh differs from materialized identity")
         manifests.append(manifest)
     require_matched_trials(*manifests)
+    if seed_pose_anchors[0] != seed_pose_anchors[1]:
+        raise ValueError("Nominal seed-pose reference archive must remain identical")
     if manifests[0].components.tool.sha256 == manifests[1].components.tool.sha256:
         raise ValueError("Comparison requires distinct tool candidates")
     return tuple(manifests)

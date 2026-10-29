@@ -49,7 +49,10 @@ contact rules. Tool-dependent settled positions are recorded rather than
 teleported back into agreement. Both must satisfy the same 1 mm reset bound,
 verified home pose, empty gripper and camera visibility. Changing the fixture
 can change its contact response; it does not authorize changing calibration,
-seed distributions, controller gains or the evaluator.
+seed distributions, controller gains or the evaluator. The comparator explicitly
+requires the same reference CAD archive hash in both tool identities because
+that archive defines the nominal seed height. A different seed-pose reference
+requires a new matched campaign rather than an unrestricted tool-only change.
 
 ## Reproduce from the repository root
 

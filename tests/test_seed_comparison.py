@@ -30,6 +30,7 @@ def input_pair(tmp_path: Path) -> tuple[Path, Path]:
             record = {"contract_fixture": role}
             if role == "tool":
                 record["fixture_mesh_sha256"] = digest(root / "assets/fixture.obj")
+                record["reference_cad_archive_sha256"] = "a" * 64
             if role == "environment":
                 record["assets"] = {"tray.obj": digest(root / "assets/tray.obj")}
             write_json(path, record)
@@ -59,7 +60,7 @@ def test_changed_control_rejected(tmp_path: Path, role: str) -> None:
         matched_inputs(a, b)
 
 
-@pytest.mark.parametrize("mutation", ["seed", "target", "tool_mesh", "tray_mesh", "same_tool"])
+@pytest.mark.parametrize("mutation", ["seed", "target", "tool_mesh", "tray_mesh", "same_tool", "seed_pose_anchor"])
 def test_schedule_and_geometry_mismatch_rejected(tmp_path: Path, mutation: str) -> None:
     """Hold seed order, targets and actual mesh identities constant beyond the tool change."""
     a, b = input_pair(tmp_path)
@@ -70,6 +71,11 @@ def test_schedule_and_geometry_mismatch_rejected(tmp_path: Path, mutation: str) 
         data["targets"].reverse()
     elif mutation in ("tool_mesh", "tray_mesh"):
         (b / "assets" / ("fixture.obj" if mutation == "tool_mesh" else "tray.obj")).write_text("changed")
+    elif mutation == "seed_pose_anchor":
+        artifact = b / "tool.json"; record = json.loads(artifact.read_text())
+        record["reference_cad_archive_sha256"] = "b" * 64
+        artifact.write_text(json.dumps(record))
+        data["components"]["tool"]["sha256"] = digest(artifact)
     else:
         (b / "assets/fixture.obj").write_bytes((a / "assets/fixture.obj").read_bytes())
         (b / "tool.json").write_bytes((a / "tool.json").read_bytes())
