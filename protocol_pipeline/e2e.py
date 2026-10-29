@@ -8,6 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 import tempfile
 import time
@@ -21,6 +22,7 @@ from .extraction import GMIProvider, NebiusProvider
 from .lab_layout import plan_lab
 from .machines import forma_runtime
 from .opencode_machine import ensure_server
+from . import opencode_v2
 from .pipeline import sha256
 from .snapshots import (E2EConfig, allocate_snapshot, atomic_json, copy_source, file_index,
                         read_json, resolve_input)
@@ -43,12 +45,15 @@ def preflight(config: E2EConfig, directory: Path | None = None) -> dict[str, Any
         if model not in provider.client.available_models():
             raise ValueError(f'{provider.name} account does not list requested model {model}; no fallback was selected')
     url = ensure_server()
-    query = urlencode({'directory': str(directory or Path(__file__).resolve().parents[1])})
-    with urlopen(url + '/provider?' + query, timeout=30) as response:
-        providers = json.load(response)
-    gmi = next((row for row in providers.get('all', []) if row.get('id') == 'gmi'), {})
-    if config.text_model not in gmi.get('models', {}) or 'gmi' not in providers.get('connected', []):
-        raise ValueError(f'OpenCode must have connected provider gmi and model {config.text_model}; restart it with repository opencode.json')
+    if opencode_v2.is_v2(url):
+        opencode_v2.check_model(url, directory or Path(__file__).resolve().parents[1], 'gmi', config.text_model)
+    else:
+        query = urlencode({'directory': str(directory or Path(__file__).resolve().parents[1])})
+        with urlopen(url + '/provider?' + query, timeout=30) as response:
+            providers = json.load(response)
+        gmi = next((row for row in providers.get('all', []) if row.get('id') == 'gmi'), {})
+        if config.text_model not in gmi.get('models', {}) or 'gmi' not in providers.get('connected', []):
+            raise ValueError(f'OpenCode must have connected provider gmi and model {config.text_model}; check repository opencode.json')
     return {'status': 'passed', 'vision_provider': 'nebius', 'vision_model': config.vision_model,
             'text_provider': 'gmi', 'text_model': config.text_model,
             'model_catalogs_checked': True, 'inference_compatibility_verified': False}
@@ -214,9 +219,17 @@ class PipelineRun:
         atomic_json(self.run / 'lab/current.json', {'attempt_id': attempt})
         save_capture(output / 'renders', capture(manifest, None))
 
+    def machine_video(self) -> None:
+        """Export the final selected scene as a playable concept video."""
+        scene = require_stage(self.store.scene_state(self.run_id))
+        # The parent already owns a synchronous Playwright context. Isolate the
+        # exporter so its browser cannot enter that context's active event loop.
+        subprocess.run([sys.executable, '-m', 'protocol_pipeline.scene_video',
+                        str(self.run / 'scene' / scene['attempt_id'])], check=True, timeout=600)
+
 
 def run_e2e(root: Path, video: Path | None = None, snapshot: Path | None = None,
-            overrides: dict[str, Any] | None = None) -> Path:
+            overrides: dict[str, Any] | None = None, source_provenance: Path | None = None) -> Path:
     """Append one full run, inheriting settings/source from a supplied or latest snapshot."""
     root = root.resolve()
     source, parent = resolve_input(video, snapshot, root)
@@ -233,6 +246,11 @@ def run_e2e(root: Path, video: Path | None = None, snapshot: Path | None = None,
     pipeline = None
     try:
         document['source'] = copy_source(source, output / 'input')
+        if source_provenance is not None:
+            provenance = read_json(source_provenance)
+            if provenance.get('video_sha256') != document['source']['sha256']:
+                raise ValueError('Source provenance video checksum mismatch')
+            shutil.copy2(source_provenance, output / 'input/source-provenance.json')
         if source.suffix.lower() == '.zip':
             document['imported_archive_sha256'] = sha256(source)
         pipeline = PipelineRun(output, document, config)
@@ -250,6 +268,8 @@ def run_e2e(root: Path, video: Path | None = None, snapshot: Path | None = None,
             pipeline.stage('cad', pipeline.cad)
             pipeline.stage('scene', pipeline.scene)
             pipeline.stage('visual_review', lambda: pipeline.review(capture))
+            if config.machine_video:
+                pipeline.stage('machine_video', pipeline.machine_video)
             pipeline.stage('lab', lambda: pipeline.lab(capture))
         document['status'] = 'completed'
     except BaseException as error:
@@ -274,16 +294,19 @@ def main() -> None:
     source.add_argument('--snapshot', type=Path, help='E2E directory/snapshot.json or legacy PR #50 ZIP/directory')
     parser.add_argument('--snapshots-dir', type=Path, default=Path('snapshots/e2e'))
     parser.add_argument('--config', type=Path, help='JSON settings overriding inherited snapshot settings')
+    parser.add_argument('--source-provenance', type=Path, help='Source metadata with a matching video_sha256')
     parser.add_argument('--vision-model')
     parser.add_argument('--text-model')
     parser.add_argument('--frames', type=int)
     parser.add_argument('--visual-passes', type=int)
+    parser.add_argument('--machine-video', action='store_true', default=None, help='Export final CAD animation as MP4/GIF')
     parser.add_argument('--check', action='store_true', help='Check tools, browser and account model catalogs without inference')
     args = parser.parse_args()
     overrides = read_json(args.config) if args.config else {}
     overrides.update({key: value for key, value in {
         'vision_model': args.vision_model, 'text_model': args.text_model,
-        'frame_count': args.frames, 'visual_passes': args.visual_passes}.items() if value is not None})
+        'frame_count': args.frames, 'visual_passes': args.visual_passes,
+        'machine_video': args.machine_video}.items() if value is not None})
     try:
         if args.check:
             parent = resolve_input(None, args.snapshot, args.snapshots_dir)[1] if args.snapshot else None
@@ -291,7 +314,7 @@ def main() -> None:
             with native_capture():
                 print(json.dumps(preflight(config)))
         else:
-            output = run_e2e(args.snapshots_dir, args.video, args.snapshot, overrides)
+            output = run_e2e(args.snapshots_dir, args.video, args.snapshot, overrides, args.source_provenance)
             print(json.dumps({'status': 'completed', 'snapshot': str(output / 'snapshot.json')}))
     except Exception as error:
         print(f'{type(error).__name__}: {error}', file=sys.stderr)

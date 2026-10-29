@@ -10,6 +10,11 @@ Compare three proposed coil-winding configurations:
 
 These are candidate architectures, not a verified hardware specification or demonstrated automation coverage.
 
+For the next evidence step, use the [full-workflow measurement intake](../../docs/decision-proof-roadmap.md).
+It connects sourced batch records to these same alternatives, reconciles the 15-step
+baseline and avoids double-counting overlapping operator attendance. Incomplete
+coverage keeps total labor unknown and cannot establish a winning intervention.
+
 ## Current evidence
 
 ```bash

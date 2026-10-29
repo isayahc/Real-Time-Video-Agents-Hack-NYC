@@ -19,6 +19,28 @@ Run the full workbench without browser clicks:
 python scripts/run_e2e.py --video /path/to/procedure.mp4
 ```
 
+For a side-by-side human-task demonstration, use a continuous human source clip
+and add `--machine-video` to export the final native scene's existing keyframes as
+MP4/GIF. This adds a required offline `machine_video` stage after visual review;
+encoding failure fails the run. The video is an illustrative CAD concept with
+assumed timing, not newly synthesized kinematics or verified machine operation.
+`--source-provenance path.json` retains source attribution/selection metadata in
+the snapshot; its `video_sha256` must match the input before any model calls.
+
+The existing HA4M sample can supply a bounded continuous action-9 clip:
+
+```powershell
+python scripts/prepare_ha4m_demo.py --input runs/ha4m-ten-20261028 --output runs/ha4m-human-demo-new
+python scripts/run_e2e.py --video runs/ha4m-human-demo-new/human-block-joining.mp4 --source-provenance runs/ha4m-human-demo-new/source-provenance.json --machine-video --visual-passes 1
+```
+
+The preparation downloads every consecutive frame in IDU001V001's joining interval
+(253 frames, 8.43 seconds at nominal 30 FPS), not a sparse slideshow. Selection is
+the first trial's bounded task, not an achievable automation-time target. It adds
+no participants to the ten-trial sample. Original frame bytes/hashes and timestamps
+stay in the local source package; attribution and their index accompany the snapshot.
+The second command incurs fresh inference charges and requires approval.
+
 The runner samples frames, extracts observations and a protocol, compiles resource reports, generates an autonomous proposal and economics, authors each machine through **OpenCode → GMI → OpenCAD**, validates/exports CAD through Forma, builds the native OpenIndustries scene, captures three real WebGL views, runs visual critique/correction with matched after captures, and builds and renders the final lab layout. A failed stage exits nonzero and retains its artifacts. It calls the same services as the web workbench without automating UI button selectors.
 
 | Stage | Provider | Model |
@@ -50,7 +72,27 @@ $env:FORMA_CAD_ADAPTER_PATH = Join-Path $env:FORMA_ROOT '.agents\skills\forma-ha
 
 Native CAD exporters run in a short temporary directory instead of the deeply nested snapshot attempt directory. All generated artifacts and partial failure/timeout diagnostics are copied back before cleanup. If your system temp directory itself is long, select a short writable root such as `$env:WORKBENCH_CAD_TEMP_ROOT = 'C:\cad-tmp'`. The worker creates that directory if needed. It exports and validates the complete STEP assembly and each component's native mesh itself; adapters without optional `articulated_bodies` metadata remain usable. The adapter's own STEP/metadata are retained separately as diagnostics, and cannot replace the complete assembly output.
 
-Set both `NEBIUS_API_KEY` (or `NEBIUS_TOKEN_FACTORY_KEY`) and `GMI_API_KEY` in your environment or repository `.env`. The script loads `.env` from the current directory and does not copy it into snapshots. The repository `opencode.json` registers the GMI model. The managed OpenCode server starts automatically if its CLI is on PATH, with an absolute `OPENCODE_CONFIG` path so external snapshot directories work too. To reuse a server, start it with this repository's `opencode.json` and set `MACHINE_OPENCODE_URL`. Restart existing servers after configuration changes.
+Set both `NEBIUS_API_KEY` (or `NEBIUS_TOKEN_FACTORY_KEY`) and `GMI_API_KEY` in your environment or repository `.env`. The script loads `.env` from the current directory and does not copy it into snapshots. The repository `opencode.json` registers the GMI model. The managed OpenCode server starts automatically if its CLI is on PATH, with an absolute `OPENCODE_CONFIG` path so external snapshot directories work too.
+
+With **OpenCode V2**, the adapter starts its own authenticated loopback server on
+an allocated port, inheriting the project environment. Its generated password stays
+in memory and is redacted from `runs/opencode-v2.log`. The owned process tree stops
+when the worker exits, including the Windows npm launcher. The user's shared
+OpenCode service is not restarted or reconfigured. Saved V2 sessions can be reopened
+from the same OpenCode database after the private server restarts.
+
+To reuse an explicit V2 server, start it with this repository's configuration and
+provider environment, set `MACHINE_OPENCODE_URL`, and supply its `OPENCODE_PASSWORD`
+(or compatible `OPENCODE_SERVER_PASSWORD`). Authentication failures are explicit.
+V2 automatically reloads configuration; server environment changes require starting
+the selected server with that environment. Existing V1 installations retain their
+legacy adapter path; the installed CLI determines the expected server API version.
+
+The V2 CAD session selects the exact provider/model at creation and denies tool
+execution; CAD source is returned as JSON for the existing native validation worker.
+Inputs retain their message identity before submission. Status-read failures do not
+resubmit paid prompts; completed turns must match the submitted input and requested
+model. Startup/catalog success is not proof of live CAD authoring compatibility.
 
 Check installation and account catalogs without inference:
 

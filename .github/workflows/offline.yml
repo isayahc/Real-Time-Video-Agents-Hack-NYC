@@ -3,7 +3,7 @@ name: Offline workflows
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [nebius-continuation]
   workflow_dispatch:
 
 permissions:

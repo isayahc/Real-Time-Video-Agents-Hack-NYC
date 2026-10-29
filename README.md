@@ -66,6 +66,7 @@ from a terminal:
 ```bash
 git clone https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC.git
 cd Real-Time-Video-Agents-Hack-NYC
+git checkout nebius-continuation
 python -m pip install -e ".[e2e,design,test]"
 python -m playwright install chromium
 ```
@@ -162,6 +163,16 @@ live provider availability or physical machine performance.
 Evidence-grounded CREOLab video ingestion and Nebius-assisted protocol/apparatus planning. Existing designs and estimates remain in [snapshots/v1](snapshots/v1/) and [snapshots/v2](snapshots/v2/); the [Nebius epic](https://github.com/isayahc/Real-Time-Video-Agents-Hack-NYC/issues/16) tracks the broader product.
 
 ## What the implemented pipeline does
+
+**Current milestone:** [live BridgeData pipeline evidence and offline lab continuation](docs/bridgedata-small-sample.md).
+**Next mission gate:** [decision-proof roadmap and full-workflow measurement intake](docs/decision-proof-roadmap.md).
+**Dataset-backed baseline:** [ten HA4M manual assembly trials](docs/ha4m-small-sample.md),
+with complete action annotations and sparse RGB previews; recorded time allocations
+are established, while accepted-output quality and intervention savings remain unknown.
+The resource/investment/alternatives evaluators already exist; actual baseline
+measurements and accepted-output equivalence remain unresolved. Offline collection
+templates now connect sourced batch records to those evaluators without treating
+unknown labor or incomplete workflow coverage as zero.
 
 For automated video-to-CAD-to-lab runs with the requested Nebius/GMI models, use [the E2E snapshot runner](docs/scripted-e2e.md). `python scripts/run_e2e.py --snapshot <directory-or-zip>` runs every workbench stage and appends a checksummed version; subsequent invocations without input use the latest snapshot's video and settings.
 
