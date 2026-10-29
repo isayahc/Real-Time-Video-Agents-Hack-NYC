@@ -1,0 +1,6 @@
+{
+  "id": "calibration-definition",
+  "version": "definition-v1",
+  "availability": "definition_only",
+  "description": "Robot home, tray frame, TCP, seed-pocket frame and transforms are unmeasured; pending #61/#64."
+}

@@ -32,6 +32,8 @@ jobs:
         run: python -m pytest -q
       - name: Execute offline workflows with connections blocked
         run: python -m scripts.verify_offline --output runs/ci-offline
+      - name: Validate frozen SO-101 benchmark inputs
+        run: python -m protocol_pipeline.seed_benchmark --manifest examples/so101-benchmark/manifest.json --output runs/ci-offline/so101-contract-validation.json
       - name: Preserve reports and evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

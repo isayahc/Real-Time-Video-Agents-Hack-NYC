@@ -1,0 +1,520 @@
+{
+  "$defs": {
+    "Acceptance": {
+      "additionalProperties": false,
+      "description": "An evidence-specific acceptance rule; physical tolerances may be unknown.",
+      "properties": {
+        "evidence_kind": {
+          "enum": [
+            "simulation",
+            "physical"
+          ],
+          "title": "Evidence Kind",
+          "type": "string"
+        },
+        "geometry": {
+          "$ref": "#/$defs/Geometry"
+        },
+        "seeds_per_cell": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "radial_tolerance_mm": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "settling_time_s": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "timeout_s": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "damage_rule": {
+          "enum": [
+            "no_damage_flag",
+            "no_visible_crack_or_crush_pre_post"
+          ],
+          "title": "Damage Rule",
+          "type": "string"
+        },
+        "observation": {
+          "enum": [
+            "simulator_state",
+            "calibrated_pre_post_images"
+          ],
+          "title": "Observation",
+          "type": "string"
+        },
+        "placement_rule": {
+          "const": "whole_seed_inside_target_cell_below_rim_after_settle",
+          "title": "Placement Rule",
+          "type": "string"
+        },
+        "damage_limitations": {
+          "minLength": 1,
+          "title": "Damage Limitations",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_kind",
+        "geometry",
+        "seeds_per_cell",
+        "radial_tolerance_mm",
+        "settling_time_s",
+        "timeout_s",
+        "damage_rule",
+        "observation",
+        "placement_rule",
+        "damage_limitations"
+      ],
+      "title": "Acceptance",
+      "type": "object"
+    },
+    "Benchmark": {
+      "additionalProperties": false,
+      "description": "Frozen task and separate simulation/physical acceptance definitions.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "seed_type": {
+          "minLength": 1,
+          "title": "Seed Type",
+          "type": "string"
+        },
+        "seed_lot": {
+          "minLength": 1,
+          "title": "Seed Lot",
+          "type": "string"
+        },
+        "simulation": {
+          "$ref": "#/$defs/Acceptance"
+        },
+        "physical": {
+          "$ref": "#/$defs/Acceptance"
+        },
+        "boundaries": {
+          "$ref": "#/$defs/Boundaries"
+        },
+        "initial_conditions": {
+          "$ref": "#/$defs/InitialConditions"
+        },
+        "failure_categories": {
+          "items": {
+            "enum": [
+              "pickup_miss",
+              "multiple_seeds",
+              "dropped_seed",
+              "wrong_cell",
+              "outside_tolerance",
+              "damaged_seed",
+              "collision",
+              "timeout",
+              "reset_failed",
+              "invalid_observation",
+              "execution_error"
+            ],
+            "type": "string"
+          },
+          "title": "Failure Categories",
+          "type": "array"
+        },
+        "numerical_protocol_source": {
+          "minLength": 1,
+          "title": "Numerical Protocol Source",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "seed_type",
+        "seed_lot",
+        "simulation",
+        "physical",
+        "boundaries",
+        "initial_conditions",
+        "failure_categories",
+        "numerical_protocol_source",
+        "limitations"
+      ],
+      "title": "Benchmark",
+      "type": "object"
+    },
+    "Boundaries": {
+      "additionalProperties": false,
+      "description": "One attempted placement per timed cycle, followed by separately timed reset.",
+      "properties": {
+        "cycle_start": {
+          "const": "ready_before_pickup",
+          "title": "Cycle Start",
+          "type": "string"
+        },
+        "cycle_end": {
+          "const": "acceptance_decided_and_robot_home_or_failure_stop",
+          "title": "Cycle End",
+          "type": "string"
+        },
+        "reset_start": {
+          "const": "cycle_end",
+          "title": "Reset Start",
+          "type": "string"
+        },
+        "reset_end": {
+          "const": "initial_conditions_verified",
+          "title": "Reset End",
+          "type": "string"
+        },
+        "reset_in_cycle": {
+          "const": false,
+          "title": "Reset In Cycle",
+          "type": "boolean"
+        },
+        "retry_policy": {
+          "const": "no_retry_within_attempt",
+          "title": "Retry Policy",
+          "type": "string"
+        },
+        "reset_failure_policy": {
+          "const": "retain_failure_and_abort_remaining_trials",
+          "title": "Reset Failure Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cycle_start",
+        "cycle_end",
+        "reset_start",
+        "reset_end",
+        "reset_in_cycle",
+        "retry_policy",
+        "reset_failure_policy"
+      ],
+      "title": "Boundaries",
+      "type": "object"
+    },
+    "Components": {
+      "additionalProperties": false,
+      "description": "Inputs held constant except tooling in a tooling-only comparison.",
+      "properties": {
+        "robot": {
+          "$ref": "#/$defs/Identity"
+        },
+        "tool": {
+          "$ref": "#/$defs/Identity"
+        },
+        "policy": {
+          "$ref": "#/$defs/Identity"
+        },
+        "evaluator": {
+          "$ref": "#/$defs/Identity"
+        },
+        "environment": {
+          "$ref": "#/$defs/Identity"
+        },
+        "calibration": {
+          "$ref": "#/$defs/Identity"
+        },
+        "cameras": {
+          "$ref": "#/$defs/Identity"
+        }
+      },
+      "required": [
+        "robot",
+        "tool",
+        "policy",
+        "evaluator",
+        "environment",
+        "calibration",
+        "cameras"
+      ],
+      "title": "Components",
+      "type": "object"
+    },
+    "Geometry": {
+      "additionalProperties": false,
+      "description": "Rectangular tray grid in millimetres, indexed from zero at cell (0, 0).",
+      "properties": {
+        "rows": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "columns": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "pitch_x_mm": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "pitch_y_mm": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "cell_opening_mm": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "cell_depth_mm": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "seed_diameter_mm": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "frame": {
+          "const": "tray_cell_0_0_center_z_rim_x_columns_y_rows_z_up",
+          "title": "Frame",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rows",
+        "columns",
+        "pitch_x_mm",
+        "pitch_y_mm",
+        "cell_opening_mm",
+        "cell_depth_mm",
+        "seed_diameter_mm",
+        "frame"
+      ],
+      "title": "Geometry",
+      "type": "object"
+    },
+    "Identity": {
+      "additionalProperties": false,
+      "description": "Versioned artifact identity, including honest definition-only placeholders.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "availability": {
+          "enum": [
+            "definition_only",
+            "materialized"
+          ],
+          "title": "Availability",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "path",
+        "sha256",
+        "availability"
+      ],
+      "title": "Identity",
+      "type": "object"
+    },
+    "InitialConditions": {
+      "additionalProperties": false,
+      "description": "Versioned procedures supplement the hashed environment and calibration.",
+      "properties": {
+        "seed_presentation": {
+          "minLength": 1,
+          "title": "Seed Presentation",
+          "type": "string"
+        },
+        "tray_preparation": {
+          "minLength": 1,
+          "title": "Tray Preparation",
+          "type": "string"
+        },
+        "robot_start": {
+          "minLength": 1,
+          "title": "Robot Start",
+          "type": "string"
+        },
+        "reset_procedure": {
+          "minLength": 1,
+          "title": "Reset Procedure",
+          "type": "string"
+        },
+        "verification": {
+          "minLength": 1,
+          "title": "Verification",
+          "type": "string"
+        },
+        "randomization": {
+          "minLength": 1,
+          "title": "Randomization",
+          "type": "string"
+        }
+      },
+      "required": [
+        "seed_presentation",
+        "tray_preparation",
+        "robot_start",
+        "reset_procedure",
+        "verification",
+        "randomization"
+      ],
+      "title": "InitialConditions",
+      "type": "object"
+    },
+    "Quantity": {
+      "additionalProperties": false,
+      "description": "Nonnegative quantity with explicit provenance; unknown is never zero.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "enum": [
+            "mm",
+            "s",
+            "count"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "assumption",
+            "measurement",
+            "definition",
+            "unknown"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "basis",
+        "source"
+      ],
+      "title": "Quantity",
+      "type": "object"
+    },
+    "Target": {
+      "additionalProperties": false,
+      "description": "Zero-based target cell in the declared row/column frame.",
+      "properties": {
+        "row": {
+          "minimum": 0,
+          "title": "Row",
+          "type": "integer"
+        },
+        "column": {
+          "minimum": 0,
+          "title": "Column",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "row",
+        "column"
+      ],
+      "title": "Target",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Inputs for matched repeated trials, never a report of executed outcomes.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "experiment_id": {
+      "minLength": 1,
+      "title": "Experiment Id",
+      "type": "string"
+    },
+    "evidence_kind": {
+      "enum": [
+        "assumption",
+        "simulation",
+        "physical"
+      ],
+      "title": "Evidence Kind",
+      "type": "string"
+    },
+    "benchmark": {
+      "$ref": "#/$defs/Benchmark"
+    },
+    "components": {
+      "$ref": "#/$defs/Components"
+    },
+    "boundaries": {
+      "$ref": "#/$defs/Boundaries"
+    },
+    "trial_seeds": {
+      "items": {
+        "minimum": 0,
+        "type": "integer"
+      },
+      "minItems": 1,
+      "title": "Trial Seeds",
+      "type": "array"
+    },
+    "targets": {
+      "items": {
+        "$ref": "#/$defs/Target"
+      },
+      "minItems": 1,
+      "title": "Targets",
+      "type": "array"
+    },
+    "execution_requested": {
+      "title": "Execution Requested",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "evidence_kind",
+    "benchmark",
+    "components",
+    "boundaries",
+    "trial_seeds",
+    "targets",
+    "execution_requested"
+  ],
+  "title": "TrialManifest",
+  "type": "object"
+}
