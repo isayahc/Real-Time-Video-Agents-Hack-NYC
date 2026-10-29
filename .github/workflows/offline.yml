@@ -109,3 +109,44 @@ jobs:
           path: runs/ci-so101-fixture/
           if-no-files-found: error
           retention-days: 14
+
+  seed-simulation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Checkout pinned OI replay runtime
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: Mapped-Assembly/Open-Industries
+          ref: 9b34ec217563e2a6788d5e60d9cc74c0bcd21330
+          path: runs/oi-runtime
+      - name: Install simulation and native replay dependencies
+        run: |
+          python -m pip install -e ".[test,robot,simulation]"
+          npm ci --ignore-scripts --prefix runs/oi-runtime
+          python -m protocol_pipeline.robot_contract --lock examples/so101-robot/source-lock.json --source-root runs/so101-source --fetch
+      - name: Check evaluator, actual motor execution, repeat and deliberate failure
+        env:
+          SO101_SOURCE_ROOT: ${{ github.workspace }}/runs/so101-source
+        run: python -m pytest -q tests/test_seed_simulation.py
+      - name: Execute all nine scheduled attempts, negative control and reset repeat
+        run: python -m protocol_pipeline.seed_simulation --source-root runs/so101-source --output runs/ci-so101-simulation
+      - name: Verify executed frames through native OI replay APIs
+        run: node --import ./runs/oi-runtime/node_modules/tsx/dist/loader.mjs protocol_pipeline/seed_oi_bridge.mts runs/oi-runtime runs/ci-so101-simulation
+      - name: Hash all executed evidence
+        run: python -m protocol_pipeline.seed_simulation --verify-output runs/ci-so101-simulation
+      - name: Preserve trajectories, videos, OI scenes, manifest and failure evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: so101-executed-simulation
+          path: runs/ci-so101-simulation/
+          if-no-files-found: error
+          retention-days: 30

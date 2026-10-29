@@ -17,6 +17,8 @@ e2e = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "playwright>=1.49,<2"]
 design = ["caid-forma-core==0.3.6", "cadquery>=2.6,<3"]
 # yourdfpy 0.0.58 uses an array-to-scalar conversion removed by newer NumPy.
 robot = ["yourdfpy==0.0.58", "trimesh==5.2.0", "numpy==2.3.5"]
+# PyBullet 3.2.7 supplies Linux wheels for Python 3.11; use that runtime for simulation.
+simulation = ["pybullet==3.2.7", "scipy==1.17.1", "imageio==2.37.2", "imageio-ffmpeg==0.6.0"]
 # Install OpenCAD from the pinned source revision in examples/so101-fixture/README.md.
 fixture = ["cadquery==2.7.0"]
 

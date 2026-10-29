@@ -443,3 +443,5 @@ for the separate asset-permissions and attribution review.
 The [SO-101 seed-presentation fixture](examples/so101-fixture/README.md) builds a real
 parametric OpenCAD candidate, exports STEP/STL and interface transforms, and verifies
 fit to the frozen ideal seed target while preserving the robot geometry.
+
+The [executed SO-101 simulation baseline](examples/so101-simulation/README.md) connects PyBullet motor/contact trials to native OI replay, with deterministic resets, observed failures, trajectories and videos. It is simulation evidence, not successful planting or physical validation.
