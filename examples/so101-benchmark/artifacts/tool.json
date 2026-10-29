@@ -1,0 +1,6 @@
+{
+  "id": "stock-gripper-definition",
+  "version": "definition-v1",
+  "availability": "definition_only",
+  "description": "Baseline stock gripper. Geometry and TCP calibration pending #61."
+}

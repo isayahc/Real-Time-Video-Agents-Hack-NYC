@@ -1,0 +1,6 @@
+{
+  "id": "so101-definition",
+  "version": "definition-v1",
+  "availability": "definition_only",
+  "description": "Fixed SO-101 embodiment; actual URDF, joint limits and interface verification pending #61."
+}

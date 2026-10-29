@@ -1,0 +1,6 @@
+{
+  "id": "camera-definition",
+  "version": "definition-v1",
+  "availability": "definition_only",
+  "description": "Camera poses, intrinsics, image resolution and uncertainty are unmeasured; pending #64/#71."
+}

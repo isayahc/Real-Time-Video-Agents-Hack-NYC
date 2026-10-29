@@ -1,0 +1,37 @@
+{
+  "status": "pass",
+  "evidence_kind": "executed_native_CAD",
+  "target": "ideal spherical seed; benchmark assumption, not measured seed",
+  "step_valid": true,
+  "solid_count": 1,
+  "volume_mm3": 5199.253223089096,
+  "bounds_mm": [
+    [
+      -20.0,
+      -15.0,
+      0.0
+    ],
+    [
+      20.0,
+      15.0,
+      12.0
+    ]
+  ],
+  "stl_watertight": true,
+  "stl_volume_mm3": 5195.417613440536,
+  "stl_contact_surface_error_mm": 0.015727192980413213,
+  "seed_center_z_mm": 12.721320343559642,
+  "seed_overlap_mm3": 0.0,
+  "seed_surface_distance_mm": 2.220446049250313e-16,
+  "support_probe_drop_mm": 0.05,
+  "support_probe_overlap_mm3": 0.10051134657322058,
+  "lift_distance_mm": 10.0,
+  "lift_sweep_overlap_mm3": 0.0,
+  "seed_equator_above_rim_mm": 0.7213203435596416,
+  "frames_match_geometry": true,
+  "robot_gripper_fit": "unknown",
+  "physics_trial_executed": false,
+  "physical_validation": false,
+  "live_provider_execution": false,
+  "robot_geometry_unchanged": true
+}

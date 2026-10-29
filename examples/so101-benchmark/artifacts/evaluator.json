@@ -1,0 +1,6 @@
+{
+  "id": "placement-evaluator-definition",
+  "version": "definition-v1",
+  "availability": "definition_only",
+  "description": "No physics evaluator exists in this fixture; implement #64 against the frozen acceptance rules."
+}
