@@ -1,0 +1,12 @@
+**
+!pyproject.toml
+!LICENSE
+!protocol_pipeline/
+!protocol_pipeline/**
+!examples/
+!examples/so101-*/
+!examples/so101-*/**
+!scripts/
+!scripts/run_so101_job.py
+**/__pycache__
+**/*.pyc

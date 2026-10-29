@@ -447,3 +447,8 @@ fit to the frozen ideal seed target while preserving the robot geometry.
 The [executed SO-101 simulation baseline](examples/so101-simulation/README.md) connects PyBullet motor/contact trials to native OI replay, with deterministic resets, observed failures, trajectories and videos. It is simulation evidence, not successful planting or physical validation.
 
 The [matched SO-101 tooling comparison](examples/so101-comparison/README.md) diagnoses the virtual-TCP/closure mismatch and compares a reference pocket with the OpenCAD seat under shared corrected controls. Failed attempts, resource unknowns and evidence hashes feed the existing accounting contract; no winner is inferred.
+
+The [Nebius Serverless Job setup](deploy/nebius/README.md) packages that comparison,
+video generation and OI evidence checks in a CPU container, with results and failure
+logs copied to a mounted output volume. Cloud execution requires a published image
+and configured Nebius project; the container configuration alone is not live proof.
