@@ -366,16 +366,6 @@ python -m protocol_pipeline extract-protocol \
 
 ## Extraction accuracy review
 
-The [SO-101 seed-placement benchmark](examples/so101-benchmark/README.md) freezes
-typed trial inputs, matched-comparison boundaries and separate simulation/physical
-acceptance. Its checked-in fixture is assumption-only; validation reports missing
-runtime artifacts and unknown physical measurements without claiming robot results.
-
-The [SO-101 robot contract](examples/so101-robot/README.md) loads the pinned upstream
-follower URDF and meshes, checks joint limits/TCP transforms, aligns a reference
-attachment and exports the same geometry for OpenCAD/Forma and native OI import.
-Its virtual mount and source-model values do not establish physical tool fit or payload.
-
 The [benchmark workflow](examples/extraction-benchmark/README.md) scores step coverage, ordering, reviewer-assessed grounding, preparation/evidence classification and acceptance checks against a source-bound reference. No review means pending scores. The initial authored text fixture verifies scoring behavior; it does not establish live Nebius quality.
 
 

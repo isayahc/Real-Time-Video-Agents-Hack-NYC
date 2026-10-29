@@ -1,6 +1,0 @@
-{
-  "id": "scripted-baseline-definition",
-  "version": "definition-v1",
-  "availability": "definition_only",
-  "description": "No controller exists in this fixture; deterministic baseline implementation pending #64. Not GR00T."
-}

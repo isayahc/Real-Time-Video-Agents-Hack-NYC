@@ -26,43 +26,17 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
-          python -m pip install -e ".[web,test,robot]"
+          python -m pip install -e ".[web,test]"
           python -m pip install pytest -r examples/debug-extraction/requirements.txt
-      - name: Fetch hash-pinned SO-101 model inputs
-        run: python -m protocol_pipeline.robot_contract --lock examples/so101-robot/source-lock.json --source-root runs/so101-source --fetch
       - name: Run tests including real frame ingestion
-        env:
-          SO101_SOURCE_ROOT: ${{ github.workspace }}/runs/so101-source
         run: python -m pytest -q
       - name: Execute offline workflows with connections blocked
         run: python -m scripts.verify_offline --output runs/ci-offline
-      - name: Validate frozen SO-101 benchmark inputs
-        run: python -m protocol_pipeline.seed_benchmark --manifest examples/so101-benchmark/manifest.json --output runs/ci-offline/so101-contract-validation.json
-      - name: Load SO-101 and export shared robot and tool contract
-        run: python -m protocol_pipeline.robot_contract --lock examples/so101-robot/source-lock.json --source-root runs/so101-source --contract examples/so101-robot/robot-contract.json --benchmark examples/so101-benchmark/manifest.json --output runs/ci-so101
-      - name: Checkout pinned Open-Industries importer
-        if: matrix.python == '3.12'
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          repository: Mapped-Assembly/Open-Industries
-          ref: 9b34ec217563e2a6788d5e60d9cc74c0bcd21330
-          path: runs/oi-runtime
-      - uses: actions/setup-node@v4
-        if: matrix.python == '3.12'
-        with:
-          node-version: '22'
-      - name: Verify robot import through native OI APIs
-        if: matrix.python == '3.12'
-        run: |
-          npm ci --ignore-scripts --prefix runs/oi-runtime
-          node --import ./runs/oi-runtime/node_modules/tsx/dist/loader.mjs protocol_pipeline/robot_oi_bridge.mts runs/oi-runtime runs/ci-so101
       - name: Preserve reports and evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: offline-python-${{ matrix.python }}
-          path: |
-            runs/ci-offline/
-            runs/ci-so101/
+          path: runs/ci-offline/
           if-no-files-found: warn
           retention-days: 14
