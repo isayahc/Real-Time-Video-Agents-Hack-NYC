@@ -2,6 +2,7 @@
 """Regression checks for observed outcomes and the real motor-driven baseline."""
 import json
 import os
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -156,9 +157,12 @@ def test_release_requires_sustained_measured_tracking(fault: str | None) -> None
 
 @pytest.mark.parametrize("placement_tracks", [False, True])
 def test_release_is_conditional_on_placement_tracking(tmp_path: Path, manifest: TrialManifest,
-                                                     placement_tracks: bool) -> None:
+                                                     placement_tracks: bool, monkeypatch: pytest.MonkeyPatch) -> None:
     """Exercise both release and failure-stop paths after synthetic pickup."""
     cfg = SimulationConfig.model_validate_json((ROOT / "examples/so101-comparison/config.json").read_text())
+    # Offline CI has no video extras; both control paths must work without them.
+    monkeypatch.setitem(sys.modules, "imageio", None)
+    monkeypatch.setitem(sys.modules, "imageio.v2", None)
 
     class MotorSpy:
         """Synthetic control-flow fixture, not simulation evidence."""

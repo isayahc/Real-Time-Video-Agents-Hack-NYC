@@ -537,8 +537,6 @@ def release_tracking_report(world: SeedWorld, destination: np.ndarray) -> dict[s
 def execute_trial(world: SeedWorld, planner: CartesianPlanner, target: tuple[int, int],
                   trial_seed: int, output: Path, *, keep_open: bool = False, video: bool = True) -> dict[str, Any]:
     """Execute one attempt through motors, stopping on missed pickup without retrying."""
-    import imageio.v2 as imageio
-
     output.mkdir()
     # Frozen v1 has no random perturbations. Retain explicit reseeding for schedule identity.
     np.random.seed(trial_seed)
@@ -551,7 +549,11 @@ def execute_trial(world: SeedWorld, planner: CartesianPlanner, target: tuple[int
     picked_up = False
     timed_out = False
     release_tracking = None
-    writer = imageio.get_writer(output / "trial.mp4", fps=cfg.video_fps, codec="libx264", macro_block_size=1) if video else None
+    writer = None
+    if video:
+        import imageio.v2 as imageio
+
+        writer = imageio.get_writer(output / "trial.mp4", fps=cfg.video_fps, codec="libx264", macro_block_size=1)
 
     def move(xyz: np.ndarray, opening: float, phase: str) -> None:
         """Plan bounded setpoints, retaining unreachable residuals rather than hiding them."""
