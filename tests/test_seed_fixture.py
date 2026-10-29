@@ -9,6 +9,8 @@ from typing import Any
 
 import pytest
 
+pytest.importorskip("yourdfpy", reason="Install .[robot] for fixture contract tests")
+
 from protocol_pipeline.seed_fixture import (
     FixtureSpec, build_fixture, check_geometry, interface_metadata, make_program, verify_bundle,
 )
