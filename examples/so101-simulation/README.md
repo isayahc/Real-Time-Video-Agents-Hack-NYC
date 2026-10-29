@@ -46,8 +46,10 @@ node --import ./runs/oi-runtime/node_modules/tsx/dist/loader.mjs protocol_pipeli
 python -m protocol_pipeline.seed_simulation --verify-output runs/so101-executed
 ```
 
-The `seed-simulation` job in `.github/workflows/offline.yml` performs these checks
-and retains the complete `so101-executed-simulation` artifact for 30 days.
+The `seed-simulation` job in `.github/workflows/offline.yml` now runs the
+[matched comparison](../so101-comparison/README.md) through the same checks.
+The original #64 `so101-executed-simulation` artifact remains on its historical CI run.
+Current comparison artifacts are retained for 30 days.
 Download it for longer retention. `--smoke` runs only the first pair plus repeat
 and negative control. `--no-video` is useful for diagnosis. Neither option can
 pass the completion-evidence verifier.
@@ -144,3 +146,8 @@ no convergence, compliant tissue, damage, germination, substrate, bulk
 singulation, camera-based perception, GR00T training or physical calibration
 has been established. The original robot/fixture provenance remains in #61/#63.
 No paid inference is used.
+
+The subsequent [#66 geometry audit](../so101-comparison/README.md) found that this
+legacy zero-radian gripper command leaves a 15.8 mm source-mesh gap, and the
+virtual TCP lies on the fixed jaw face. Its corrected shared controller is a
+new experiment; do not mix these archived baseline outcomes into that comparison.

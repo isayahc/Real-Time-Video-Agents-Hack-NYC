@@ -135,18 +135,23 @@ jobs:
       - name: Check evaluator, actual motor execution, repeat and deliberate failure
         env:
           SO101_SOURCE_ROOT: ${{ github.workspace }}/runs/so101-source
-        run: python -m pytest -q tests/test_seed_simulation.py
-      - name: Execute all nine scheduled attempts, negative control and reset repeat
-        run: python -m protocol_pipeline.seed_simulation --source-root runs/so101-source --output runs/ci-so101-simulation
+        run: python -m pytest -q tests/test_seed_simulation.py tests/test_seed_comparison.py
+      - name: Execute both matched nine-attempt schedules, negative controls and reset repeats
+        run: python -m protocol_pipeline.seed_comparison --source-root runs/so101-source --output runs/ci-so101-comparison
       - name: Verify executed frames through native OI replay APIs
-        run: node --import ./runs/oi-runtime/node_modules/tsx/dist/loader.mjs protocol_pipeline/seed_oi_bridge.mts runs/oi-runtime runs/ci-so101-simulation
+        run: |
+          node --import ./runs/oi-runtime/node_modules/tsx/dist/loader.mjs protocol_pipeline/seed_oi_bridge.mts runs/oi-runtime runs/ci-so101-comparison/reference_pocket
+          node --import ./runs/oi-runtime/node_modules/tsx/dist/loader.mjs protocol_pipeline/seed_oi_bridge.mts runs/oi-runtime runs/ci-so101-comparison/cad_seat
       - name: Hash all executed evidence
-        run: python -m protocol_pipeline.seed_simulation --verify-output runs/ci-so101-simulation
+        run: |
+          python -m protocol_pipeline.seed_simulation --verify-output runs/ci-so101-comparison/reference_pocket
+          python -m protocol_pipeline.seed_simulation --verify-output runs/ci-so101-comparison/cad_seat
+          python -m protocol_pipeline.seed_comparison --output runs/ci-so101-comparison --compare-only
       - name: Preserve trajectories, videos, OI scenes, manifest and failure evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: so101-executed-simulation
-          path: runs/ci-so101-simulation/
+          name: so101-matched-comparison
+          path: runs/ci-so101-comparison/
           if-no-files-found: error
           retention-days: 30

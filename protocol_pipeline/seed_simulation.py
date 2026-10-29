@@ -43,6 +43,7 @@ class SimulationConfig(Contract):
     world_from_tray: list[list[float]]
     gripper_open_rad: float
     gripper_closed_rad: float
+    grasp_offset_tcp_m: list[float] = Field(default_factory=lambda: [0., 0., 0.], min_length=3, max_length=3)
     approach_height_m: float = Field(gt=0, le=0.1)
     lift_height_m: float = Field(gt=0.01, le=0.1)
     phase_seconds: float = Field(ge=0.5, le=4)
@@ -354,9 +355,10 @@ class SeedWorld:
 class CartesianPlanner:
     """Bounded numerical IK using the pinned URDF FK in a separate kinematic model."""
 
-    def __init__(self, contract: RobotContract, robot: Any) -> None:
+    def __init__(self, contract: RobotContract, robot: Any, grasp_offset_tcp_m: list[float] | None = None) -> None:
         """Retain the loaded model; planning never writes into the Bullet trial world."""
         self.contract, self.robot = contract, robot
+        self.grasp_offset = np.array(grasp_offset_tcp_m or [0., 0., 0.])
         self.names = [n for n in contract.reference_pose_rad if n != "gripper"]
         self.previous = np.zeros(len(self.names))
 
@@ -368,7 +370,8 @@ class CartesianPlanner:
             """Compute metre position and softly weighted axis residuals from source FK."""
             self.robot.update_cfg({**dict(zip(self.names, q)), "gripper": gripper})
             matrix = self.robot.get_transform("gripper_frame_link")
-            return np.r_[matrix[:3, 3] - xyz, .005 * (matrix[:3, 2] - [0, 0, -1])]
+            return np.r_[matrix[:3, 3] + matrix[:3, :3] @ self.grasp_offset - xyz,
+                         .005 * (matrix[:3, 2] - [0, 0, -1])]
 
         lo = [self.contract.joints[n].lower_rad for n in self.names]
         hi = [self.contract.joints[n].upper_rad for n in self.names]
@@ -385,13 +388,29 @@ class CartesianPlanner:
 
 def prepare_assets(manifest: TrialManifest, config: SimulationConfig, robot: Any,
                    source_root: Path, lock_path: Path, fixture_archive: Path,
-                   output: Path) -> dict[str, Any]:
+                   output: Path, presentation: str = "cad_seat") -> dict[str, Any]:
     """Export checked collision geometry and local-link CAD meshes for OI replay."""
     assets = output / "assets"
     assets.mkdir()
     fixture = extract_fixture(fixture_archive, assets)
     seat = trimesh.load_mesh(assets / "fixture.stl")
     seat.apply_scale(.001)
+    (assets / "fixture.stl").rename(assets / "source-cad-fixture-mm.stl")
+    (assets / "SO101-LICENSE.txt").write_bytes(contained(source_root, "LICENSE").read_bytes())
+    (assets / "SO101-SOURCE-README.md").write_bytes(contained(source_root, "Simulation/SO101/README.md").read_bytes())
+    if presentation == "reference_pocket":
+        # Authored reference: same base/post envelope and nominal seed centre,
+        # with a shallow flat-bottom pocket instead of the CAD candidate's cone.
+        floor_z = fixture["seed_centre_mm"] / 1000 - manifest.benchmark.simulation.geometry.seed_diameter_mm.value / 2000
+        base = trimesh.creation.box(extents=[.04, .03, .004])
+        base.apply_translation([0, 0, .002])
+        post = trimesh.creation.cylinder(radius=.004, height=floor_z - .004, sections=64)
+        post.apply_translation([0, 0, (.004 + floor_z) / 2])
+        rim = trimesh.creation.annulus(r_min=.001 / math.cos(math.pi / 64), r_max=.004, height=.00025, sections=64)
+        rim.apply_translation([0, 0, floor_z + .000125])
+        seat = trimesh.util.concatenate([base, post, rim])
+    elif presentation != "cad_seat":
+        raise ValueError("Unknown presentation tool")
     support = trimesh.creation.box(extents=[.04, .03, config.fixture_xyz_m[2]])
     support.apply_translation([*config.fixture_xyz_m[:2], config.fixture_xyz_m[2] / 2])
     table = trimesh.creation.box(extents=[1.0, 1.0, .03])
@@ -425,7 +444,7 @@ def prepare_assets(manifest: TrialManifest, config: SimulationConfig, robot: Any
 
 
 def materialize_manifest(definition: TrialManifest, config: SimulationConfig, contract_path: Path,
-                         lock_path: Path, fixture_archive: Path, output: Path) -> TrialManifest:
+                         lock_path: Path, fixture_archive: Path, output: Path, presentation: str = "cad_seat") -> TrialManifest:
     """Pin all seven runtime components while preserving the frozen benchmark definition."""
     artifacts = output / "artifacts"
     artifacts.mkdir()
@@ -435,15 +454,16 @@ def materialize_manifest(definition: TrialManifest, config: SimulationConfig, co
     records = {
         "robot": json.loads(contract_path.read_text()),
         "tool": {"kind": "unaltered_stock_urdf_gripper", "source_lock_sha256": digest(lock_path),
-                 "open_rad": config.gripper_open_rad, "closed_rad": config.gripper_closed_rad},
-        "policy": {"kind": "bounded_fk_ik_position_motor_baseline_v1", "implementation_sha256": code_hash,
+                 "open_rad": config.gripper_open_rad, "closed_rad": config.gripper_closed_rad,
+                 "presentation": presentation, "fixture_mesh_sha256": digest(output / "assets/fixture.obj"),
+                 "reference_cad_archive_sha256": digest(fixture_archive)},
+        "policy": {"kind": "bounded_fk_ik_position_motor_baseline_v2", "implementation_sha256": code_hash,
                    "config": config.model_dump(), "no_retry": True, "seed_attachment": False},
         "evaluator": {"kind": "observed_state_settling_window_v1", "implementation_sha256": code_hash,
                       "damage_observable": False, "can_establish_full_acceptance": False,
                       "settled_speed_limit_m_s": .002, "floor_penetration_tolerance_m": .0001},
         "environment": {"kind": "pybullet_rigidbody", "config": config.model_dump(),
-                        "fixture_archive_sha256": digest(fixture_archive),
-                        "assets": {p.name: digest(p) for p in sorted((output / "assets").glob("*.obj"))},
+                        "assets": {p.name: digest(p) for p in sorted((output / "assets").glob("*.obj")) if p.name != "fixture.obj"},
                         "libraries": {n: version(n) for n in ("pybullet", "numpy", "scipy", "yourdfpy", "trimesh")}},
         "calibration": {"basis": "simulation_assumption", "world_from_tray": config.world_from_tray,
                         "fixture_xyz_m": config.fixture_xyz_m,
@@ -454,7 +474,7 @@ def materialize_manifest(definition: TrialManifest, config: SimulationConfig, co
                     "closeup": {"target": "observed_seed", "distance_m": .085, "yaw_deg": 30, "pitch_deg": -30},
                     "fov_deg": 50, "near_m": .001, "far_m": 3}}
     payload = definition.model_dump()
-    payload.update(experiment_id="so101-pybullet-stock-baseline-v1", evidence_kind="simulation", execution_requested=True)
+    payload.update(experiment_id=f"so101-pybullet-{presentation}-v2", evidence_kind="simulation", execution_requested=True)
     for name, record in records.items():
         path = artifacts / f"{name}.json"
         write_json(path, record)
@@ -560,7 +580,7 @@ def trajectory_difference(first: Path, second: Path) -> float:
 
 def run(config_path: Path, benchmark_path: Path, contract_path: Path, lock_path: Path,
         source_root: Path, fixture_archive: Path, output: Path, *, video: bool = True,
-        smoke: bool = False) -> dict[str, Any]:
+        smoke: bool = False, presentation: str = "cad_seat") -> dict[str, Any]:
     """Run the frozen schedule, negative control and fresh-world repeat, retaining failures."""
     if output.exists():
         raise FileExistsError(f"Output already exists: {output}")
@@ -569,8 +589,8 @@ def run(config_path: Path, benchmark_path: Path, contract_path: Path, lock_path:
     definition = TrialManifest.model_validate_json(benchmark_path.read_text())
     contract, robot = load_robot(contract_path, lock_path, source_root)
     output.mkdir(parents=True)
-    fixture = prepare_assets(definition, config, robot, source_root, lock_path, fixture_archive, output)
-    manifest = materialize_manifest(definition, config, contract_path, lock_path, fixture_archive, output)
+    fixture = prepare_assets(definition, config, robot, source_root, lock_path, fixture_archive, output, presentation)
+    manifest = materialize_manifest(definition, config, contract_path, lock_path, fixture_archive, output, presentation)
     schedule = [(seed, (target.row, target.column)) for seed in manifest.trial_seeds for target in manifest.targets]
     if smoke:
         schedule = schedule[:1]
@@ -587,7 +607,7 @@ def run(config_path: Path, benchmark_path: Path, contract_path: Path, lock_path:
                                                 "remaining_trials_aborted": True})
             raise
         try:
-            planner = CartesianPlanner(contract, robot)
+            planner = CartesianPlanner(contract, robot, config.grasp_offset_tcp_m)
             result = execute_trial(world, planner, target, seed, output / name, keep_open=keep_open, video=video)
             result["case"] = name
             result["reset_wall_seconds"] = reset_wall_seconds
@@ -694,6 +714,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path)
     parser.add_argument("--verify-output", type=Path, help="Verify and hash a complete executed bundle after OI replay")
     parser.add_argument("--no-video", action="store_true", help="Diagnostic only; not completion evidence")
+    parser.add_argument("--presentation", choices=["cad_seat", "reference_pocket"], default="cad_seat")
     parser.add_argument("--smoke", action="store_true", help="Only first pair plus repeat/negative; not full schedule")
     args = parser.parse_args()
     if args.verify_output:
@@ -702,7 +723,7 @@ def main() -> None:
     if args.source_root is None or args.output is None:
         parser.error("Execution requires --source-root and --output")
     run(args.config, args.benchmark, args.contract, args.lock, args.source_root, args.fixture,
-        args.output, video=not args.no_video, smoke=args.smoke)
+        args.output, video=not args.no_video, smoke=args.smoke, presentation=args.presentation)
 
 
 if __name__ == "__main__":
