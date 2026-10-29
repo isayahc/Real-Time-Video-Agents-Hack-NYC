@@ -44,6 +44,8 @@ An existing source checkout can replace `runs/so101-source` if all locked bytes
 match. `--fetch` only requests immutable public URLs from the named upstream.
 Modified cache files are rejected, never overwritten. Outputs must be new paths.
 No hardware, provider credentials, paid inference or server is used.
+The robot extra pins yourdfpy, trimesh and NumPy to the exercised versions;
+yourdfpy 0.0.58's array-to-scalar conversion is incompatible with newer NumPy.
 
 The bundle contains:
 
