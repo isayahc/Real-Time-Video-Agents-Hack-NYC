@@ -20,6 +20,9 @@ is pre-rendered with original SO-101/Unitree G1 meshes and authored motion; cust
 tooling uses saved CAD animation. Neither establishes physical performance.
 See [setup, evidence boundaries and current limitations](docs/process-workspace.md).
 
+**[Main user-flow walkthrough with screenshots](docs/main-user-flow.md)** — task
+selection, agent-review screen, saved cost comparison, and how to reach tab 3.
+
 ## Demo: video in → one integrated machine out
 
 | Input video · researcher procedure | Output example · integrated-machine animation |

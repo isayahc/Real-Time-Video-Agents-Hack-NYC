@@ -1,5 +1,7 @@
 # Process improvement workspace
 
+For a visual introduction, see the **[main user-flow walkthrough with screenshots](main-user-flow.md)**.
+
 ## Current judge-facing entry point
 
 ### Latest flow: automatic research and agent selection
