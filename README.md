@@ -1,5 +1,25 @@
 # Human Procedure → Machine Procedure
 
+## Process improvement workspace
+
+Run `python -m protocol_pipeline.web` and open **http://127.0.0.1:8000/** for the
+three-step flow: **See the task → Review the change → Compare costs**.
+Choose a pre-run screw-tightening or planet-gear-placement task. **Analyze task**
+automatically researches with Tavily, then uses GMI reasoning to assess **SO-101,
+Unitree G1 and custom tooling**, choose a candidate and select an illustrative
+planning allowance. Sources, model trace, assumptions and decisions are saved.
+Research or agent failures retain evidence without a fallback recommendation.
+
+Configure server-side `TAVILY_API_KEY` and `GMI_API_KEY`; optional `GMI_MODEL`
+overrides the scripted E2E text-model default. Analysis uses provider credits;
+reopening a saved analysis makes no calls. The existing video/design workbench
+remains at `/video`, and the broader editable review prototype at `/process-review`.
+
+**Local demo assets are required and are not bundled in this PR.** Robot animation
+is pre-rendered with original SO-101/Unitree G1 meshes and authored motion; custom
+tooling uses saved CAD animation. Neither establishes physical performance.
+See [setup, evidence boundaries and current limitations](docs/process-workspace.md).
+
 ## Demo: video in → one integrated machine out
 
 | Input video · researcher procedure | Output example · integrated-machine animation |

@@ -298,7 +298,7 @@ def test_artifact_confinement_and_static_app(client: TestClient, video: bytes) -
     assert client.get(f'/api/runs/{run_id}/artifacts/unknown.txt').status_code == 404
     assert client.get('/api/runs/not-a-run/video').status_code == 404
     assert client.get('/assets/web.py').status_code == 404
-    html = client.get('/')
+    html = client.get('/video')
     assert '<video' in html.text and 'id="result-content"' in html.text
     assert "frame-ancestors 'none'" in html.headers['content-security-policy']
     assert client.get('/assets/app.js').status_code == 200
