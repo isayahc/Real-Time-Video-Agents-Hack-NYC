@@ -46,6 +46,8 @@ from .model_config import DEFAULT_COMPILER_MODEL, DEFAULT_VISION_MODEL, model_pr
 from .lab_layout import plan_lab
 from .snapshot_import import restore_snapshot, MAX_SNAPSHOT_BYTES
 from .system_metrics import artifact_metrics
+from .process_workspace import router as process_router
+from .fastening_flow import router as fastening_router
 
 STATIC = Path(__file__).with_name("web_static")
 MAX_UPLOAD = 100 * 1024 * 1024
@@ -494,6 +496,8 @@ def create_app(root: Path | None = None,
 
     app = FastAPI(title="Procedure Workbench", lifespan=lifespan)
     app.state.store = store
+    app.include_router(process_router(store.root / 'processes', store))
+    app.include_router(fastening_router(store.root / 'fastening'))
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1", "[::1]", "testserver"])
 
     @app.middleware("http")
@@ -512,7 +516,17 @@ def create_app(root: Path | None = None,
 
     @app.get("/")
     def index() -> FileResponse:
-        """Serve the application shell."""
+        """Open the operator's process-comparison journey."""
+        return FileResponse(STATIC / "fastening.html")
+
+    @app.get('/process-review')
+    def process_review() -> FileResponse:
+        """Retain the broader comparison prototype while the main journey is focused."""
+        return FileResponse(STATIC / 'process.html')
+
+    @app.get('/video')
+    def video_workbench() -> FileResponse:
+        """Preserve extraction, CAD and scene tools as an optional intervention workspace."""
         return FileResponse(STATIC / "index.html")
 
     @app.get("/assets/{name}")
@@ -525,7 +539,7 @@ def create_app(root: Path | None = None,
                 return FileResponse(bundle, media_type='text/javascript')
             except (OSError, ValueError, RuntimeError) as error:
                 raise HTTPException(503, str(error)) from error
-        if name not in {"app.js", "autonomy.js", "machines.js", "machine_previews.js", "scene.js", "visual_review.js", "lab.js", "style.css"}:
+        if name not in {"app.js", "autonomy.js", "machines.js", "machine_previews.js", "scene.js", "visual_review.js", "lab.js", "style.css", "process.js", "process.css", "fastening.js", "fastening.css"}:
             raise HTTPException(404)
         return FileResponse(STATIC / name)
 

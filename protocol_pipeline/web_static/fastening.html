@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Task improvement · Mapped Assembly</title><link rel="stylesheet" href="/assets/process.css"><link rel="stylesheet" href="/assets/fastening.css"><script src="/assets/fastening.js" defer></script></head>
+<body>
+<header><a class="brand" href="/">MA <span>MAPPED ASSEMBLY</span></a><a href="/video">Advanced evidence tools ↗</a></header>
+<main>
+  <section class="intro"><p class="eyebrow">TASK → AGENT DECISION → COMPARISON</p><h1>Is this task worth automating?</h1><p>Choose a pre-run task. The agent researches SO-101, Unitree G1 and custom tooling, selects an approach, and prepares the cost comparison.</p></section>
+  <nav id="journey" aria-label="Decision journey"><button data-step="0">1 · See the task</button><button data-step="1">2 · Review the change</button><button data-step="2">3 · Compare costs</button></nav>
+  <p id="flow-error" class="error" role="alert" hidden></p><p id="flow-status" role="status" aria-live="polite"></p>
+  <section class="panel" id="task-panel">
+    <label>Pre-run demo task<select id="task-picker"></select></label>
+    <p class="muted">Recorded human footage and prepared 3D animations. Research and agent selection run when you click Analyze; animations are pre-rendered concepts.</p>
+    <div class="two"><div><h2 id="task-title"></h2><p id="task-description"></p><p id="task-timing" class="notice"></p><p id="task-requirements"></p></div><div><video id="task-video" controls playsinline preload="metadata"></video><p id="task-caption"></p></div></div>
+    <button id="review-change" class="primary">Analyze task →</button>
+    <p class="muted">Automatically uses Tavily research and the configured GMI reasoning model; provider credits are used.</p>
+  </section>
+  <section class="panel" id="change-panel" hidden>
+    <h2>The agent’s recommendation</h2><p id="recommendation" class="notice"></p><div id="candidate-cards" class="scenario-cards"></div><p id="estimate-preview"></p><p id="research-readiness"></p>
+    <button id="view-comparison" class="primary" hidden>See the side-by-side comparison →</button>
+    <h3>Sources used by the agent</h3><div id="agent-sources"></div>
+    <label>Reopen a saved analysis<select id="saved-analysis"><option value="">Choose an analysis</option></select></label>
+  </section>
+  <section id="result-panel" hidden>
+    <h2 id="result-title"></h2><p id="scenario-name" class="notice"></p>
+    <div class="two">
+      <article class="panel"><h3>Human task</h3><video id="human-result" controls playsinline preload="metadata"></video><p id="human-caption"></p><p id="human-cost" class="cost"></p><p>Estimated cost / assumed accepted task</p><div id="human-breakdown"></div></article>
+      <article class="panel"><h3 id="machine-title"></h3><video id="machine-result" controls playsinline preload="metadata"></video><p id="machine-caption"></p><p id="station-cost" class="cost"></p><p>Estimated cost / assumed accepted task</p><div id="station-breakdown"></div></article>
+    </div>
+    <section class="panel">
+      <button id="play-both">Play both views</button><button id="pause-both">Pause both</button><p>Independent visualizations, not a synchronized performance benchmark.</p>
+      <h3 id="cost-direction"></h3><p id="metrics"></p><h3>Decision: measure before committing</h3><p id="next-measurement"></p>
+      <h3>Research sources</h3><div id="research-sources"></div><details><summary>Assumptions and limitations</summary><pre id="assumptions"></pre><ul id="limitations"></ul></details>
+      <div class="actions"><button id="change-scenario">← Review agent decision</button><a id="download-report" class="button primary">Download decision & evidence</a></div><p id="snapshot-status"></p>
+    </section>
+  </section>
+  <footer>Human footage: Cicirelli et al., HA4M (2022), CC BY 4.0. Reference gearbox CAD: MindBot, DOI 10.5281/zenodo.5675810, CC BY-NC-SA 4.0. Robot meshes: MuJoCo Menagerie, SO-101 (Apache-2.0), Unitree G1 (BSD-3-Clause). Pre-run 3D concepts are authored motion, not validated physical execution.</footer>
+</main></body></html>

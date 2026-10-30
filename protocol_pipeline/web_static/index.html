@@ -3,11 +3,11 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Procedure Workbench · Mapped Assembly</title><link rel="stylesheet" href="/assets/style.css"><script src="/assets/app.js" defer></script><script src="/assets/autonomy.js" defer></script><script src="/assets/machine_previews.js" defer></script><script src="/assets/machines.js" defer></script><script src="/assets/scene.js" defer></script><script src="/assets/visual_review.js" defer></script></head>
 <body>
-<header><a href="/" class="brand">MA<span>MAPPED ASSEMBLY</span></a><span class="tag">PROCEDURE WORKBENCH / 01</span></header>
+<header><a href="/" class="brand">MA<span>MAPPED ASSEMBLY</span></a><a href="/">← Process comparison</a><span class="tag">VIDEO / DESIGN TOOLS</span></header>
 <main class="wizard">
-<div class="heading"><h1>Procedure workbench</h1><details class="saved-runs"><summary>Open a saved run</summary><label class="sr-only" for="history">Reopen a saved run</label><select id="history"><option value="">Select a previous run</option></select></details></div>
+<div class="heading"><h1>Video and design evidence</h1><details class="saved-runs"><summary>Open a saved run</summary><label class="sr-only" for="history">Reopen a saved run</label><select id="history"><option value="">Select a previous run</option></select></details></div>
 <details class="snapshot-import"><summary>Import snapshot · populate this workbench</summary><p>Restore the saved video, models, analysis, design, CAD and available scenes. No model calls or regeneration. Missing or failed stages remain visible.</p><label>Snapshot directory, JSON manifest, or ZIP path<input id="snapshot-path" placeholder="snapshots/e2e/v000003" aria-label="Snapshot path"></label><button id="snapshot-import" type="button">Import saved snapshot</button><label>Or upload a snapshot ZIP<input id="snapshot-file" type="file" accept=".zip,application/zip"></label><p id="snapshot-status" role="status"></p></details>
-<p class="journey-context">Observe the procedure → design and cost the system → generate its machines in Forma → render them in OpenIndustries.</p>
+<p class="journey-context">Import saved evidence at no model cost, or explicitly start video analysis/design generation using your configured provider (usage charges may apply). Bring a completed extraction back into the process comparison. CAD and animations illustrate a proposed intervention; they do not validate throughput, quality or safe operation.</p>
 <nav class="wizard-nav" aria-label="Analysis steps">
 <button id="step-video" type="button" data-step="video" aria-current="step"><span>01</span> Video</button>
 <button id="step-models" type="button" data-step="models" disabled><span>02</span> Models</button>
