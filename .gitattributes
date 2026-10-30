@@ -3,3 +3,5 @@
 *.txt text eol=lf
 # Unified patches preserve upstream context whitespace and apply with LF bytes.
 scripts/patches/*.patch text eol=lf -whitespace
+# Publisher bytes and packaged checksums must survive checkout unchanged.
+examples/ha4m-ten-previews/** -text

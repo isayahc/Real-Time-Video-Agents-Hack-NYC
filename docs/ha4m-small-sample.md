@@ -1,5 +1,9 @@
 # HA4M: ten-trial recorded assembly baseline
 
+**In-repository sample:** [ten compact previews, labels and timestamp indexes](../examples/ha4m-ten-previews/README.md)
+are available with CC BY 4.0 attribution and checksums. These are twelve-image
+slideshows per trial, not original-speed recordings. The raw sampled PNGs remain local.
+
 ## Why this dataset
 
 IndustReal's official annotation host remains inaccessible. HA4M's **official CNR

@@ -1,0 +1,2928 @@
+{
+  "schema_version": 1,
+  "kind": "ha4m-sparse-preview-sample",
+  "dataset_doi": "10.57760/sciencedb.01872",
+  "source": "https://cloud.cnr.it/owncloud/index.php/s/j5BZvG1sXPzh6x1",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution": "Cicirelli, Marani, Romeo, Garcia Dominguez, Heras, Perri and D'Orazio, Scientific Data 9, 745 (2022)",
+  "selection": "First trial of participants 001 through 010; convenience sample, not held-out.",
+  "timebase": "12 sampled images at 1 image/second; NOT original recording time",
+  "modifications": "RGB images uniformly sampled, resized to width 1024, encoded as H.264 slideshows. Labels unchanged. Full RGB timestamp indexes derived from publisher directory listings.",
+  "original_pngs_included": false,
+  "full_recordings_included": false,
+  "accepted_outputs": null,
+  "hands_on_labor": null,
+  "cost_per_accepted_output": null,
+  "recordings": [
+    {
+      "id": "IDU001V001",
+      "video": "IDU001V001/sparse-preview.mp4",
+      "labels": "IDU001V001/Labels.txt",
+      "rgb_index": "IDU001V001/rgb-index.json",
+      "frame_count": 2427,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 450817700,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID000000_DeviceTimeStamp450817700us.png",
+          "original_png_sha256": "f70b37783a366071014f017bda8943dd4962beb402ff634ea4b8ac73279c9aad"
+        },
+        {
+          "frame_id": 221,
+          "timestamp_us": 457951033,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID000221_DeviceTimeStamp457951033us.png",
+          "original_png_sha256": "43b76d0f8dd794beed40b170e5bf778a9b2e93593bc7e829a55f971be380cb27"
+        },
+        {
+          "frame_id": 441,
+          "timestamp_us": 465284366,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID000441_DeviceTimeStamp465284366us.png",
+          "original_png_sha256": "98dbc7b379183a77e56185c790717a0076131e14babd19bb284d557dcb1595f7"
+        },
+        {
+          "frame_id": 662,
+          "timestamp_us": 472651033,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID000662_DeviceTimeStamp472651033us.png",
+          "original_png_sha256": "990e76829df1328d0c8eeb2a8962eaea1b01391779f819835dd6fe5d415ed2a9"
+        },
+        {
+          "frame_id": 882,
+          "timestamp_us": 479984366,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID000882_DeviceTimeStamp479984366us.png",
+          "original_png_sha256": "bf52d4175f0cbf0db93cc03144ea0ee1f075073734fc2c3abbe22069fb911fa0"
+        },
+        {
+          "frame_id": 1103,
+          "timestamp_us": 487351033,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID001103_DeviceTimeStamp487351033us.png",
+          "original_png_sha256": "8edd45e4886a8c1d17f34c59fd5700f07bb2f782fd42c4b47cb1e4684b6a6eaf"
+        },
+        {
+          "frame_id": 1323,
+          "timestamp_us": 494684366,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID001323_DeviceTimeStamp494684366us.png",
+          "original_png_sha256": "6bbc2024f472cdc2e30dcd83dadf618dba847f0af56236e9b0d5da05a7dfad8f"
+        },
+        {
+          "frame_id": 1544,
+          "timestamp_us": 502051022,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID001544_DeviceTimeStamp502051022us.png",
+          "original_png_sha256": "777fc3882c5254777c12f2e1299773024a626f58f9642531c3a925da5a9ddc52"
+        },
+        {
+          "frame_id": 1764,
+          "timestamp_us": 509384355,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID001764_DeviceTimeStamp509384355us.png",
+          "original_png_sha256": "079c20017e0a8705c9cb593446625a4c10e912d6e761e25358b7eab69ba5b069"
+        },
+        {
+          "frame_id": 1985,
+          "timestamp_us": 516751033,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID001985_DeviceTimeStamp516751033us.png",
+          "original_png_sha256": "498cca67c75ac6ec53afae2ac72f3d4763b09662374d01c182d0530f685f078f"
+        },
+        {
+          "frame_id": 2205,
+          "timestamp_us": 524084366,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID002205_DeviceTimeStamp524084366us.png",
+          "original_png_sha256": "ab5f8e3f4cc8d21298fc5b5543ba90b9137a98313e17977b6d95eb2da767f1e0"
+        },
+        {
+          "frame_id": 2426,
+          "timestamp_us": 531451033,
+          "source_path": "/owncloud/public.php/webdav/IDU001V001/Color/000124702712/FrameID002426_DeviceTimeStamp531451033us.png",
+          "original_png_sha256": "5224e1b72b9c003aada2e6f694f448407bc9720a6ce226b982690bf313ce6553"
+        }
+      ],
+      "summary": {
+        "frame_count": 2427,
+        "nominal_fps": 30,
+        "nominal_recording_s": 80.9,
+        "device_first_to_last_s": 80.633333,
+        "duplicate_timestamp_intervals": 7,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 30,
+            "frame_count": 30,
+            "nominal_duration_s": 1.0,
+            "device_duration_s": 0.766666
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 30,
+            "end_frame_exclusive": 156,
+            "frame_count": 126,
+            "nominal_duration_s": 4.2,
+            "device_duration_s": 4.2
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 156,
+            "end_frame_exclusive": 261,
+            "frame_count": 105,
+            "nominal_duration_s": 3.5,
+            "device_duration_s": 3.5
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 261,
+            "end_frame_exclusive": 365,
+            "frame_count": 104,
+            "nominal_duration_s": 3.466666666666667,
+            "device_duration_s": 3.466667
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 365,
+            "end_frame_exclusive": 437,
+            "frame_count": 72,
+            "nominal_duration_s": 2.4,
+            "device_duration_s": 2.4
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 437,
+            "end_frame_exclusive": 515,
+            "frame_count": 78,
+            "nominal_duration_s": 2.6,
+            "device_duration_s": 2.6
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 515,
+            "end_frame_exclusive": 593,
+            "frame_count": 78,
+            "nominal_duration_s": 2.6,
+            "device_duration_s": 2.6
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 593,
+            "end_frame_exclusive": 675,
+            "frame_count": 82,
+            "nominal_duration_s": 2.7333333333333334,
+            "device_duration_s": 2.733344
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 675,
+            "end_frame_exclusive": 789,
+            "frame_count": 114,
+            "nominal_duration_s": 3.8,
+            "device_duration_s": 3.799989
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 789,
+            "end_frame_exclusive": 900,
+            "frame_count": 111,
+            "nominal_duration_s": 3.7,
+            "device_duration_s": 3.699989
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 900,
+            "end_frame_exclusive": 998,
+            "frame_count": 98,
+            "nominal_duration_s": 3.2666666666666666,
+            "device_duration_s": 3.266667
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 998,
+            "end_frame_exclusive": 1101,
+            "frame_count": 103,
+            "nominal_duration_s": 3.433333333333333,
+            "device_duration_s": 3.433344
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1101,
+            "end_frame_exclusive": 1221,
+            "frame_count": 120,
+            "nominal_duration_s": 4.0,
+            "device_duration_s": 4.0
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1221,
+            "end_frame_exclusive": 1474,
+            "frame_count": 253,
+            "nominal_duration_s": 8.433333333333334,
+            "device_duration_s": 8.433334
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 1474,
+            "end_frame_exclusive": 1757,
+            "frame_count": 283,
+            "nominal_duration_s": 9.433333333333334,
+            "device_duration_s": 9.433333
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 1757,
+            "end_frame_exclusive": 1917,
+            "frame_count": 160,
+            "nominal_duration_s": 5.333333333333333,
+            "device_duration_s": 5.333344
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 1917,
+            "end_frame_exclusive": 2048,
+            "frame_count": 131,
+            "nominal_duration_s": 4.366666666666666,
+            "device_duration_s": 4.366645
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 2048,
+            "end_frame_exclusive": 2367,
+            "frame_count": 319,
+            "nominal_duration_s": 10.633333333333333,
+            "device_duration_s": 10.633344
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 2367,
+            "end_frame_exclusive": 2427,
+            "frame_count": 60,
+            "nominal_duration_s": 2.0,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU001V001"
+      }
+    },
+    {
+      "id": "IDU002V001",
+      "video": "IDU002V001/sparse-preview.mp4",
+      "labels": "IDU002V001/Labels.txt",
+      "rgb_index": "IDU002V001/rgb-index.json",
+      "frame_count": 3802,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 86017700,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID000000_DeviceTimeStamp86017700us.png",
+          "original_png_sha256": "02f7bad6be781780d03fb76e640e572b8e45a7bf6d67b9090d1afd4ad0c11fbf"
+        },
+        {
+          "frame_id": 346,
+          "timestamp_us": 97351044,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID000346_DeviceTimeStamp97351044us.png",
+          "original_png_sha256": "c4c4665573be1f2a7d0d4785390dbceb2660102cc6868ae8a3613984e3495d85"
+        },
+        {
+          "frame_id": 691,
+          "timestamp_us": 108851022,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID000691_DeviceTimeStamp108851022us.png",
+          "original_png_sha256": "651742598c862d8d300365334329e52e7fb126ee42099bf2ca2e34f96370cafa"
+        },
+        {
+          "frame_id": 1037,
+          "timestamp_us": 120384355,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID001037_DeviceTimeStamp120384355us.png",
+          "original_png_sha256": "595e5ad777cc93a66499d71d9a02d476d48243627b73ba64424bfe964a0f9b97"
+        },
+        {
+          "frame_id": 1382,
+          "timestamp_us": 131884366,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID001382_DeviceTimeStamp131884366us.png",
+          "original_png_sha256": "cf7519822b5ab727ed9128c64732dc9ac71a20e4bfc28d86e03ffa274dd2967c"
+        },
+        {
+          "frame_id": 1728,
+          "timestamp_us": 143417711,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID001728_DeviceTimeStamp143417711us.png",
+          "original_png_sha256": "3848e0128f71b042340a629c7f2adee3db0d01d9179b72641025a196ba930df2"
+        },
+        {
+          "frame_id": 2073,
+          "timestamp_us": 154917688,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID002073_DeviceTimeStamp154917688us.png",
+          "original_png_sha256": "afc56304f971a7acf4651ffbab0f1bd6e966d6828233c83fbd1a29f3a0ec5fd1"
+        },
+        {
+          "frame_id": 2419,
+          "timestamp_us": 166451033,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID002419_DeviceTimeStamp166451033us.png",
+          "original_png_sha256": "3e4ee614a64fa9f60a410739b406b6060282fbd655b4fa4257808028bf1dc623"
+        },
+        {
+          "frame_id": 2764,
+          "timestamp_us": 177951033,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID002764_DeviceTimeStamp177951033us.png",
+          "original_png_sha256": "4387a6b4f0d2d23ebce3c9ccf93062ad7be75e3b18524b6f48edfc9cca34c1f7"
+        },
+        {
+          "frame_id": 3110,
+          "timestamp_us": 189484366,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID003110_DeviceTimeStamp189484366us.png",
+          "original_png_sha256": "27a94249aac35c7dfeec4fa116e033d8d03a9a2989ab036eb39e57b5d7a63f32"
+        },
+        {
+          "frame_id": 3455,
+          "timestamp_us": 200984355,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID003455_DeviceTimeStamp200984355us.png",
+          "original_png_sha256": "5ef5be607095932a2489a20c8c59ed4d8f3513fbdd150fa1629611e19c54faa0"
+        },
+        {
+          "frame_id": 3801,
+          "timestamp_us": 212517700,
+          "source_path": "/owncloud/public.php/webdav/IDU002V001/Color/000124702712/FrameID003801_DeviceTimeStamp212517700us.png",
+          "original_png_sha256": "e3c8501de2c6f6fdff6a3c3bc5b220837f87ae26587fc7d0ad06c477a62c0932"
+        }
+      ],
+      "summary": {
+        "frame_count": 3802,
+        "nominal_fps": 30,
+        "nominal_recording_s": 126.73333333333333,
+        "device_first_to_last_s": 126.5,
+        "duplicate_timestamp_intervals": 6,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 36,
+            "frame_count": 36,
+            "nominal_duration_s": 1.2,
+            "device_duration_s": 1.0
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 36,
+            "end_frame_exclusive": 181,
+            "frame_count": 145,
+            "nominal_duration_s": 4.833333333333333,
+            "device_duration_s": 4.833333
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 181,
+            "end_frame_exclusive": 265,
+            "frame_count": 84,
+            "nominal_duration_s": 2.8,
+            "device_duration_s": 2.8
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 265,
+            "end_frame_exclusive": 370,
+            "frame_count": 105,
+            "nominal_duration_s": 3.5,
+            "device_duration_s": 3.5
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 370,
+            "end_frame_exclusive": 501,
+            "frame_count": 131,
+            "nominal_duration_s": 4.366666666666666,
+            "device_duration_s": 4.366655
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 501,
+            "end_frame_exclusive": 619,
+            "frame_count": 118,
+            "nominal_duration_s": 3.933333333333333,
+            "device_duration_s": 3.933334
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 619,
+            "end_frame_exclusive": 718,
+            "frame_count": 99,
+            "nominal_duration_s": 3.3,
+            "device_duration_s": 3.300011
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 718,
+            "end_frame_exclusive": 827,
+            "frame_count": 109,
+            "nominal_duration_s": 3.6333333333333333,
+            "device_duration_s": 3.633322
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 827,
+            "end_frame_exclusive": 842,
+            "frame_count": 15,
+            "nominal_duration_s": 0.5,
+            "device_duration_s": 0.500022
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 842,
+            "end_frame_exclusive": 1091,
+            "frame_count": 249,
+            "nominal_duration_s": 8.3,
+            "device_duration_s": 8.299978
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 1091,
+            "end_frame_exclusive": 1123,
+            "frame_count": 32,
+            "nominal_duration_s": 1.0666666666666667,
+            "device_duration_s": 1.066667
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 1123,
+            "end_frame_exclusive": 1265,
+            "frame_count": 142,
+            "nominal_duration_s": 4.733333333333333,
+            "device_duration_s": 4.733333
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 1265,
+            "end_frame_exclusive": 1434,
+            "frame_count": 169,
+            "nominal_duration_s": 5.633333333333334,
+            "device_duration_s": 5.633345
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 1434,
+            "end_frame_exclusive": 1535,
+            "frame_count": 101,
+            "nominal_duration_s": 3.3666666666666667,
+            "device_duration_s": 3.366655
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1535,
+            "end_frame_exclusive": 1740,
+            "frame_count": 205,
+            "nominal_duration_s": 6.833333333333333,
+            "device_duration_s": 6.833345
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1740,
+            "end_frame_exclusive": 2224,
+            "frame_count": 484,
+            "nominal_duration_s": 16.133333333333333,
+            "device_duration_s": 16.133333
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 2224,
+            "end_frame_exclusive": 2480,
+            "frame_count": 256,
+            "nominal_duration_s": 8.533333333333333,
+            "device_duration_s": 8.533333
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 2480,
+            "end_frame_exclusive": 2859,
+            "frame_count": 379,
+            "nominal_duration_s": 12.633333333333333,
+            "device_duration_s": 12.633322
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 2859,
+            "end_frame_exclusive": 3257,
+            "frame_count": 398,
+            "nominal_duration_s": 13.266666666666667,
+            "device_duration_s": 13.266667
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 3257,
+            "end_frame_exclusive": 3744,
+            "frame_count": 487,
+            "nominal_duration_s": 16.233333333333334,
+            "device_duration_s": 16.233345
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 3744,
+            "end_frame_exclusive": 3802,
+            "frame_count": 58,
+            "nominal_duration_s": 1.9333333333333333,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU002V001"
+      }
+    },
+    {
+      "id": "IDU003V001",
+      "video": "IDU003V001/sparse-preview.mp4",
+      "labels": "IDU003V001/Labels.txt",
+      "rgb_index": "IDU003V001/rgb-index.json",
+      "frame_count": 4659,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 1303184366,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID000000_DeviceTimeStamp1303184366us.png",
+          "original_png_sha256": "4da855365a7f2a07780146ba19831fcf5151fa6c88a7f4020ba308b534be51f9"
+        },
+        {
+          "frame_id": 423,
+          "timestamp_us": 1317051022,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID000423_DeviceTimeStamp1317051022us.png",
+          "original_png_sha256": "ea1cd6195ebc472634376b399491f159ae05be29f2f79fdfc9d7796956ed3215"
+        },
+        {
+          "frame_id": 847,
+          "timestamp_us": 1331184366,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID000847_DeviceTimeStamp1331184366us.png",
+          "original_png_sha256": "a52fe7f25aaca5d4d17c3d91302cef7b7caf66e89206ba629cda832661b2ca41"
+        },
+        {
+          "frame_id": 1270,
+          "timestamp_us": 1345284377,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID001270_DeviceTimeStamp1345284377us.png",
+          "original_png_sha256": "a91218331ca512648229a56f0e369005ba3403c0d3563f3298d0c659116b452d"
+        },
+        {
+          "frame_id": 1694,
+          "timestamp_us": 1359417700,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID001694_DeviceTimeStamp1359417700us.png",
+          "original_png_sha256": "8db6bf293ce14ff2a5109146f0bebf0b7a285e5634c7da2ee515670d3ed8f8ae"
+        },
+        {
+          "frame_id": 2117,
+          "timestamp_us": 1373517688,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID002117_DeviceTimeStamp1373517688us.png",
+          "original_png_sha256": "69a2cd000217842b7c7b92a447583eb1af69d9c755c0a21bd9dc003f0c27f089"
+        },
+        {
+          "frame_id": 2541,
+          "timestamp_us": 1387651022,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID002541_DeviceTimeStamp1387651022us.png",
+          "original_png_sha256": "d63061b83c219a9e6bf8d13dd0ceb36e983ac9debb96cfc39d25ac0528ff30b4"
+        },
+        {
+          "frame_id": 2964,
+          "timestamp_us": 1401751044,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID002964_DeviceTimeStamp1401751044us.png",
+          "original_png_sha256": "29aeeec5b8e38f019a9cfac50c6c6ab3fcf1f95831965c985b57a79127707d3a"
+        },
+        {
+          "frame_id": 3388,
+          "timestamp_us": 1415884366,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID003388_DeviceTimeStamp1415884366us.png",
+          "original_png_sha256": "9625d6da02195def59c2887ad88a849b2fb56440e519d56644ce2ffbed93e2fe"
+        },
+        {
+          "frame_id": 3811,
+          "timestamp_us": 1429984366,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID003811_DeviceTimeStamp1429984366us.png",
+          "original_png_sha256": "b4b78c293a1049da65432d64902e62116239827c062f50389f03e6ef680bebdd"
+        },
+        {
+          "frame_id": 4235,
+          "timestamp_us": 1444117688,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID004235_DeviceTimeStamp1444117688us.png",
+          "original_png_sha256": "5d2fa1b7dea1e339176e6b8e7423082668cf5303538aa610c88f8d89a077fd30"
+        },
+        {
+          "frame_id": 4658,
+          "timestamp_us": 1458217700,
+          "source_path": "/owncloud/public.php/webdav/IDU003V001/Color/000124702712/FrameID004658_DeviceTimeStamp1458217700us.png",
+          "original_png_sha256": "dd754a22b2d6e323a709feb6986a306a24b55a0fe60a47edae3b8e0e1070d1bc"
+        }
+      ],
+      "summary": {
+        "frame_count": 4659,
+        "nominal_fps": 30,
+        "nominal_recording_s": 155.3,
+        "device_first_to_last_s": 155.033334,
+        "duplicate_timestamp_intervals": 7,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 20,
+            "frame_count": 20,
+            "nominal_duration_s": 0.6666666666666666,
+            "device_duration_s": 0.433345
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 20,
+            "end_frame_exclusive": 181,
+            "frame_count": 161,
+            "nominal_duration_s": 5.366666666666666,
+            "device_duration_s": 5.366644
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 181,
+            "end_frame_exclusive": 285,
+            "frame_count": 104,
+            "nominal_duration_s": 3.466666666666667,
+            "device_duration_s": 3.466667
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 285,
+            "end_frame_exclusive": 396,
+            "frame_count": 111,
+            "nominal_duration_s": 3.7,
+            "device_duration_s": 3.700011
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 396,
+            "end_frame_exclusive": 506,
+            "frame_count": 110,
+            "nominal_duration_s": 3.6666666666666665,
+            "device_duration_s": 3.666667
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 506,
+            "end_frame_exclusive": 609,
+            "frame_count": 103,
+            "nominal_duration_s": 3.433333333333333,
+            "device_duration_s": 3.433333
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 609,
+            "end_frame_exclusive": 719,
+            "frame_count": 110,
+            "nominal_duration_s": 3.6666666666666665,
+            "device_duration_s": 3.666667
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 719,
+            "end_frame_exclusive": 836,
+            "frame_count": 117,
+            "nominal_duration_s": 3.9,
+            "device_duration_s": 3.9
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 836,
+            "end_frame_exclusive": 1035,
+            "frame_count": 199,
+            "nominal_duration_s": 6.633333333333334,
+            "device_duration_s": 6.633322
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 1035,
+            "end_frame_exclusive": 1191,
+            "frame_count": 156,
+            "nominal_duration_s": 5.2,
+            "device_duration_s": 5.200011
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 1191,
+            "end_frame_exclusive": 1323,
+            "frame_count": 132,
+            "nominal_duration_s": 4.4,
+            "device_duration_s": 4.4
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 1323,
+            "end_frame_exclusive": 1453,
+            "frame_count": 130,
+            "nominal_duration_s": 4.333333333333333,
+            "device_duration_s": 4.333322
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1453,
+            "end_frame_exclusive": 1682,
+            "frame_count": 229,
+            "nominal_duration_s": 7.633333333333334,
+            "device_duration_s": 7.633345
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1682,
+            "end_frame_exclusive": 2461,
+            "frame_count": 779,
+            "nominal_duration_s": 25.966666666666665,
+            "device_duration_s": 25.966655
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 2461,
+            "end_frame_exclusive": 2784,
+            "frame_count": 323,
+            "nominal_duration_s": 10.766666666666667,
+            "device_duration_s": 10.766678
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 2784,
+            "end_frame_exclusive": 3350,
+            "frame_count": 566,
+            "nominal_duration_s": 18.866666666666667,
+            "device_duration_s": 18.866667
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 3350,
+            "end_frame_exclusive": 3632,
+            "frame_count": 282,
+            "nominal_duration_s": 9.4,
+            "device_duration_s": 9.4
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 3632,
+            "end_frame_exclusive": 4524,
+            "frame_count": 892,
+            "nominal_duration_s": 29.733333333333334,
+            "device_duration_s": 29.733333
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 4524,
+            "end_frame_exclusive": 4659,
+            "frame_count": 135,
+            "nominal_duration_s": 4.5,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU003V001"
+      }
+    },
+    {
+      "id": "IDU004V001",
+      "video": "IDU004V001/sparse-preview.mp4",
+      "labels": "IDU004V001/Labels.txt",
+      "rgb_index": "IDU004V001/rgb-index.json",
+      "frame_count": 3095,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 885517700,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID000000_DeviceTimeStamp885517700us.png",
+          "original_png_sha256": "0ece54772b1c9479825b8edf4df717874f913e286b85fe144b4f3647b803b031"
+        },
+        {
+          "frame_id": 281,
+          "timestamp_us": 894684366,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID000281_DeviceTimeStamp894684366us.png",
+          "original_png_sha256": "4478e4206d13ed54793553ebfdfe17a60b76f19908cb6cd099ac9cd7e8834de8"
+        },
+        {
+          "frame_id": 563,
+          "timestamp_us": 904084366,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID000563_DeviceTimeStamp904084366us.png",
+          "original_png_sha256": "607746a4ea2ec214232f570df32e8d4980960d33a15b2b137436164c4745dff9"
+        },
+        {
+          "frame_id": 844,
+          "timestamp_us": 913451022,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID000844_DeviceTimeStamp913451022us.png",
+          "original_png_sha256": "f16fa3307e85af09b9ff5ce77e6a93551b82b3a2d4df53dccea6a12fbec69747"
+        },
+        {
+          "frame_id": 1125,
+          "timestamp_us": 922817711,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID001125_DeviceTimeStamp922817711us.png",
+          "original_png_sha256": "184a192fff7ad4b4d91316f7fdc8abf75aa5887f0c317afa5f9c9f1f164cfbad"
+        },
+        {
+          "frame_id": 1406,
+          "timestamp_us": 932184355,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID001406_DeviceTimeStamp932184355us.png",
+          "original_png_sha256": "9f75f12f7e0b10dba8edaa83cea78ae8f91cd8b67d467a72eeb6821b0d0b3640"
+        },
+        {
+          "frame_id": 1688,
+          "timestamp_us": 941584366,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID001688_DeviceTimeStamp941584366us.png",
+          "original_png_sha256": "1dab8ebbe0e58289077f0d41b83bf92c80c52966f05db1db303e146d10d0904e"
+        },
+        {
+          "frame_id": 1969,
+          "timestamp_us": 950951033,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID001969_DeviceTimeStamp950951033us.png",
+          "original_png_sha256": "7353ae9c4f962490ffe416a28567bb1f08dd1af3327302963e3e3c350bf3ce14"
+        },
+        {
+          "frame_id": 2250,
+          "timestamp_us": 960317700,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID002250_DeviceTimeStamp960317700us.png",
+          "original_png_sha256": "cf4967796064f84b43814eda70dbca4f298d0a5cdc54a6152333e4dfc36bcbd1"
+        },
+        {
+          "frame_id": 2531,
+          "timestamp_us": 969684377,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID002531_DeviceTimeStamp969684377us.png",
+          "original_png_sha256": "14234ca8ee1186b554c68a0d08385993dfa1f359b9696dc48180a6955f5780dc"
+        },
+        {
+          "frame_id": 2813,
+          "timestamp_us": 979084366,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID002813_DeviceTimeStamp979084366us.png",
+          "original_png_sha256": "884f7f1485849f0beb542655000ab22669c0f55f3f3e1eeb665c22e33d53b15d"
+        },
+        {
+          "frame_id": 3094,
+          "timestamp_us": 988451022,
+          "source_path": "/owncloud/public.php/webdav/IDU004V001/Color/000124702712/FrameID003094_DeviceTimeStamp988451022us.png",
+          "original_png_sha256": "a6e0a585a42a1f4dc4437534a4402ee2f251f9141e2c5db61e13a89f7851d4b8"
+        }
+      ],
+      "summary": {
+        "frame_count": 3095,
+        "nominal_fps": 30,
+        "nominal_recording_s": 103.16666666666667,
+        "device_first_to_last_s": 102.933322,
+        "duplicate_timestamp_intervals": 6,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 48,
+            "frame_count": 48,
+            "nominal_duration_s": 1.6,
+            "device_duration_s": 1.399988
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 48,
+            "end_frame_exclusive": 185,
+            "frame_count": 137,
+            "nominal_duration_s": 4.566666666666666,
+            "device_duration_s": 4.566678
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 185,
+            "end_frame_exclusive": 273,
+            "frame_count": 88,
+            "nominal_duration_s": 2.933333333333333,
+            "device_duration_s": 2.933334
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 273,
+            "end_frame_exclusive": 341,
+            "frame_count": 68,
+            "nominal_duration_s": 2.2666666666666666,
+            "device_duration_s": 2.266666
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 341,
+            "end_frame_exclusive": 409,
+            "frame_count": 68,
+            "nominal_duration_s": 2.2666666666666666,
+            "device_duration_s": 2.266678
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 409,
+            "end_frame_exclusive": 488,
+            "frame_count": 79,
+            "nominal_duration_s": 2.6333333333333333,
+            "device_duration_s": 2.633311
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 488,
+            "end_frame_exclusive": 574,
+            "frame_count": 86,
+            "nominal_duration_s": 2.8666666666666667,
+            "device_duration_s": 2.866678
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 574,
+            "end_frame_exclusive": 662,
+            "frame_count": 88,
+            "nominal_duration_s": 2.933333333333333,
+            "device_duration_s": 2.933322
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 662,
+            "end_frame_exclusive": 751,
+            "frame_count": 89,
+            "nominal_duration_s": 2.966666666666667,
+            "device_duration_s": 2.966678
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 751,
+            "end_frame_exclusive": 860,
+            "frame_count": 109,
+            "nominal_duration_s": 3.6333333333333333,
+            "device_duration_s": 3.633322
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 860,
+            "end_frame_exclusive": 956,
+            "frame_count": 96,
+            "nominal_duration_s": 3.2,
+            "device_duration_s": 3.2
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 956,
+            "end_frame_exclusive": 1077,
+            "frame_count": 121,
+            "nominal_duration_s": 4.033333333333333,
+            "device_duration_s": 4.033345
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1077,
+            "end_frame_exclusive": 1203,
+            "frame_count": 126,
+            "nominal_duration_s": 4.2,
+            "device_duration_s": 4.2
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1203,
+            "end_frame_exclusive": 2021,
+            "frame_count": 818,
+            "nominal_duration_s": 27.266666666666666,
+            "device_duration_s": 27.266666
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 2021,
+            "end_frame_exclusive": 2280,
+            "frame_count": 259,
+            "nominal_duration_s": 8.633333333333333,
+            "device_duration_s": 8.633322
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 2280,
+            "end_frame_exclusive": 2469,
+            "frame_count": 189,
+            "nominal_duration_s": 6.3,
+            "device_duration_s": 6.300012
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 2469,
+            "end_frame_exclusive": 2714,
+            "frame_count": 245,
+            "nominal_duration_s": 8.166666666666666,
+            "device_duration_s": 8.166655
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 2714,
+            "end_frame_exclusive": 3045,
+            "frame_count": 331,
+            "nominal_duration_s": 11.033333333333333,
+            "device_duration_s": 11.033345
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 3045,
+            "end_frame_exclusive": 3095,
+            "frame_count": 50,
+            "nominal_duration_s": 1.6666666666666667,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU004V001"
+      }
+    },
+    {
+      "id": "IDU005V001",
+      "video": "IDU005V001/sparse-preview.mp4",
+      "labels": "IDU005V001/Labels.txt",
+      "rgb_index": "IDU005V001/rgb-index.json",
+      "frame_count": 4813,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 62017700,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID000000_DeviceTimeStamp62017700us.png",
+          "original_png_sha256": "fa64c6dc43fc7dff2729e4c9fe39a1a24a514a32af48cff25815b3426e21e44a"
+        },
+        {
+          "frame_id": 437,
+          "timestamp_us": 76384355,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID000437_DeviceTimeStamp76384355us.png",
+          "original_png_sha256": "e6ef621bf932a13f30fdf1a0f63cdb1e056ab0125e2ac52150e00b8540954dd7"
+        },
+        {
+          "frame_id": 875,
+          "timestamp_us": 90984355,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID000875_DeviceTimeStamp90984355us.png",
+          "original_png_sha256": "205d860e05843cab10e648e546bace79c8d424e027b01b2a546621c58f34e86b"
+        },
+        {
+          "frame_id": 1312,
+          "timestamp_us": 105551033,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID001312_DeviceTimeStamp105551033us.png",
+          "original_png_sha256": "743f4489e6a09e17f90ee8a9e4e80b15967215b0bb52f8cb7572f575ce1771a1"
+        },
+        {
+          "frame_id": 1750,
+          "timestamp_us": 120151033,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID001750_DeviceTimeStamp120151033us.png",
+          "original_png_sha256": "30009149c54ff374c4fdecd21c4ca72a071c9f2d06f3a9beda22b840620187e6"
+        },
+        {
+          "frame_id": 2187,
+          "timestamp_us": 134717700,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID002187_DeviceTimeStamp134717700us.png",
+          "original_png_sha256": "7c35860b1b52809113b0e0941cac33b870989fdf3bd5eeabf179293d9026e7c2"
+        },
+        {
+          "frame_id": 2625,
+          "timestamp_us": 149317700,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID002625_DeviceTimeStamp149317700us.png",
+          "original_png_sha256": "9d4ec65b310f610ded1d08b2637c899c5a51a869ba74f1ca83504870ffaa9b67"
+        },
+        {
+          "frame_id": 3062,
+          "timestamp_us": 163884377,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID003062_DeviceTimeStamp163884377us.png",
+          "original_png_sha256": "8cd9fd03b5d1a97f1eb58c09937a9466b5cdad3c16ebe6f2c1e17d6076fc0a52"
+        },
+        {
+          "frame_id": 3500,
+          "timestamp_us": 178484366,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID003500_DeviceTimeStamp178484366us.png",
+          "original_png_sha256": "2002ed6b47131b582248413128fb956d12f2e178052288ba46a1be1d9a68d474"
+        },
+        {
+          "frame_id": 3937,
+          "timestamp_us": 193051022,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID003937_DeviceTimeStamp193051022us.png",
+          "original_png_sha256": "f49434c97c2246147564b59db6b0a6a42624a36e2380441024cbddb5db92aca4"
+        },
+        {
+          "frame_id": 4375,
+          "timestamp_us": 207651033,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID004375_DeviceTimeStamp207651033us.png",
+          "original_png_sha256": "11d0a26f51454f40e7a782f2f24d46c128b1208d93cb9945c270ae2b1672738b"
+        },
+        {
+          "frame_id": 4812,
+          "timestamp_us": 222217700,
+          "source_path": "/owncloud/public.php/webdav/IDU005V001/Color/000124702712/FrameID004812_DeviceTimeStamp222217700us.png",
+          "original_png_sha256": "a237a6e1065baaacae9af22a670f6e22ad8906d1a4d9928be558189d8776a3b2"
+        }
+      ],
+      "summary": {
+        "frame_count": 4813,
+        "nominal_fps": 30,
+        "nominal_recording_s": 160.43333333333334,
+        "device_first_to_last_s": 160.2,
+        "duplicate_timestamp_intervals": 6,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 30,
+            "frame_count": 30,
+            "nominal_duration_s": 1.0,
+            "device_duration_s": 0.8
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 30,
+            "end_frame_exclusive": 231,
+            "frame_count": 201,
+            "nominal_duration_s": 6.7,
+            "device_duration_s": 6.7
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 231,
+            "end_frame_exclusive": 438,
+            "frame_count": 207,
+            "nominal_duration_s": 6.9,
+            "device_duration_s": 6.9
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 438,
+            "end_frame_exclusive": 535,
+            "frame_count": 97,
+            "nominal_duration_s": 3.2333333333333334,
+            "device_duration_s": 3.233333
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 535,
+            "end_frame_exclusive": 695,
+            "frame_count": 160,
+            "nominal_duration_s": 5.333333333333333,
+            "device_duration_s": 5.333333
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 695,
+            "end_frame_exclusive": 818,
+            "frame_count": 123,
+            "nominal_duration_s": 4.1,
+            "device_duration_s": 4.1
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 818,
+            "end_frame_exclusive": 940,
+            "frame_count": 122,
+            "nominal_duration_s": 4.066666666666666,
+            "device_duration_s": 4.066667
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 940,
+            "end_frame_exclusive": 1060,
+            "frame_count": 120,
+            "nominal_duration_s": 4.0,
+            "device_duration_s": 4.0
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 1060,
+            "end_frame_exclusive": 1254,
+            "frame_count": 194,
+            "nominal_duration_s": 6.466666666666667,
+            "device_duration_s": 6.466667
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 1254,
+            "end_frame_exclusive": 1464,
+            "frame_count": 210,
+            "nominal_duration_s": 7.0,
+            "device_duration_s": 7.0
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 1464,
+            "end_frame_exclusive": 1652,
+            "frame_count": 188,
+            "nominal_duration_s": 6.266666666666667,
+            "device_duration_s": 6.266677
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 1652,
+            "end_frame_exclusive": 1815,
+            "frame_count": 163,
+            "nominal_duration_s": 5.433333333333334,
+            "device_duration_s": 5.433323
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1815,
+            "end_frame_exclusive": 2066,
+            "frame_count": 251,
+            "nominal_duration_s": 8.366666666666667,
+            "device_duration_s": 8.366666
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 2066,
+            "end_frame_exclusive": 3157,
+            "frame_count": 1091,
+            "nominal_duration_s": 36.36666666666667,
+            "device_duration_s": 36.366656
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 3157,
+            "end_frame_exclusive": 3639,
+            "frame_count": 482,
+            "nominal_duration_s": 16.066666666666666,
+            "device_duration_s": 16.066678
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 3639,
+            "end_frame_exclusive": 3907,
+            "frame_count": 268,
+            "nominal_duration_s": 8.933333333333334,
+            "device_duration_s": 8.933322
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 3907,
+            "end_frame_exclusive": 4083,
+            "frame_count": 176,
+            "nominal_duration_s": 5.866666666666666,
+            "device_duration_s": 5.866678
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 4083,
+            "end_frame_exclusive": 4741,
+            "frame_count": 658,
+            "nominal_duration_s": 21.933333333333334,
+            "device_duration_s": 21.933333
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 4741,
+            "end_frame_exclusive": 4813,
+            "frame_count": 72,
+            "nominal_duration_s": 2.4,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU005V001"
+      }
+    },
+    {
+      "id": "IDU006V001",
+      "video": "IDU006V001/sparse-preview.mp4",
+      "labels": "IDU006V001/Labels.txt",
+      "rgb_index": "IDU006V001/rgb-index.json",
+      "frame_count": 6126,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 363751033,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID000000_DeviceTimeStamp363751033us.png",
+          "original_png_sha256": "8c0cf2e55abd6fc862a367b4fac9bcb716890b8e41b047a0763a3c95c816dc27"
+        },
+        {
+          "frame_id": 557,
+          "timestamp_us": 382117700,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID000557_DeviceTimeStamp382117700us.png",
+          "original_png_sha256": "f28d907983451d563d77bbb99181fd9ebed7c93d9f488e31beb05c90a23a9203"
+        },
+        {
+          "frame_id": 1114,
+          "timestamp_us": 400684366,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID001114_DeviceTimeStamp400684366us.png",
+          "original_png_sha256": "7ab38169947d04fda565ea98e8b5e3e9dd99869d548b49449d578f43f67f2977"
+        },
+        {
+          "frame_id": 1670,
+          "timestamp_us": 419217700,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID001670_DeviceTimeStamp419217700us.png",
+          "original_png_sha256": "2f249e20b92ea12728028a8440f68dd20664977b4f9ea1e4eb9c4f796c3ebed0"
+        },
+        {
+          "frame_id": 2227,
+          "timestamp_us": 437784355,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID002227_DeviceTimeStamp437784355us.png",
+          "original_png_sha256": "cbf1b209037122706a4c0112e41c26274dc9b6146e7a8c2c2e8c906a35364b87"
+        },
+        {
+          "frame_id": 2784,
+          "timestamp_us": 456351033,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID002784_DeviceTimeStamp456351033us.png",
+          "original_png_sha256": "d5fe14d3b5071e5c507bf88cf3a5d56660b4c10631f863707943c7f2f53e4f06"
+        },
+        {
+          "frame_id": 3341,
+          "timestamp_us": 474917700,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID003341_DeviceTimeStamp474917700us.png",
+          "original_png_sha256": "726d6cc25be1d3e6bf429545abeb849e6ff41b62b10c53efcfde80818193ff08"
+        },
+        {
+          "frame_id": 3898,
+          "timestamp_us": 493484366,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID003898_DeviceTimeStamp493484366us.png",
+          "original_png_sha256": "05c1a731caaf44e45a5c8c8a8d8cd3ec6584c7e4972d0604dd6cbd3491169e0f"
+        },
+        {
+          "frame_id": 4455,
+          "timestamp_us": 512051022,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID004455_DeviceTimeStamp512051022us.png",
+          "original_png_sha256": "b31ed45c290389f12f6b868b09311ef8b454ea368c10cf3948a06751f871444e"
+        },
+        {
+          "frame_id": 5011,
+          "timestamp_us": 530584366,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID005011_DeviceTimeStamp530584366us.png",
+          "original_png_sha256": "eca638b519f4baa9afa100fbd3d183868e0efe17b3f8b777a55aaca326777ec4"
+        },
+        {
+          "frame_id": 5568,
+          "timestamp_us": 549151033,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID005568_DeviceTimeStamp549151033us.png",
+          "original_png_sha256": "bd7cbdd420c9acd73c31fc49c6504eae22601db5acc81eae243f6cd4d14d326d"
+        },
+        {
+          "frame_id": 6125,
+          "timestamp_us": 567717688,
+          "source_path": "/owncloud/public.php/webdav/IDU006V001/Color/000124702712/FrameID006125_DeviceTimeStamp567717688us.png",
+          "original_png_sha256": "d245a5d14d954a36e20dfa6c1d94f3ff0da9ed7172f56bc3ebd2a4ebe88eb51d"
+        }
+      ],
+      "summary": {
+        "frame_count": 6126,
+        "nominal_fps": 30,
+        "nominal_recording_s": 204.2,
+        "device_first_to_last_s": 203.966655,
+        "duplicate_timestamp_intervals": 6,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 25,
+            "frame_count": 25,
+            "nominal_duration_s": 0.8333333333333334,
+            "device_duration_s": 0.633322
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 25,
+            "end_frame_exclusive": 105,
+            "frame_count": 80,
+            "nominal_duration_s": 2.6666666666666665,
+            "device_duration_s": 2.666667
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 105,
+            "end_frame_exclusive": 184,
+            "frame_count": 79,
+            "nominal_duration_s": 2.6333333333333333,
+            "device_duration_s": 2.633344
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 184,
+            "end_frame_exclusive": 245,
+            "frame_count": 61,
+            "nominal_duration_s": 2.033333333333333,
+            "device_duration_s": 2.033334
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 245,
+            "end_frame_exclusive": 386,
+            "frame_count": 141,
+            "nominal_duration_s": 4.7,
+            "device_duration_s": 4.7
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 386,
+            "end_frame_exclusive": 464,
+            "frame_count": 78,
+            "nominal_duration_s": 2.6,
+            "device_duration_s": 2.6
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 464,
+            "end_frame_exclusive": 538,
+            "frame_count": 74,
+            "nominal_duration_s": 2.466666666666667,
+            "device_duration_s": 2.466666
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 538,
+            "end_frame_exclusive": 623,
+            "frame_count": 85,
+            "nominal_duration_s": 2.8333333333333335,
+            "device_duration_s": 2.833334
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 623,
+            "end_frame_exclusive": 839,
+            "frame_count": 216,
+            "nominal_duration_s": 7.2,
+            "device_duration_s": 7.199988
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 839,
+            "end_frame_exclusive": 943,
+            "frame_count": 104,
+            "nominal_duration_s": 3.466666666666667,
+            "device_duration_s": 3.466678
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 943,
+            "end_frame_exclusive": 1069,
+            "frame_count": 126,
+            "nominal_duration_s": 4.2,
+            "device_duration_s": 4.199989
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 1069,
+            "end_frame_exclusive": 1217,
+            "frame_count": 148,
+            "nominal_duration_s": 4.933333333333334,
+            "device_duration_s": 4.933333
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1217,
+            "end_frame_exclusive": 1527,
+            "frame_count": 310,
+            "nominal_duration_s": 10.333333333333334,
+            "device_duration_s": 10.333345
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1527,
+            "end_frame_exclusive": 3482,
+            "frame_count": 1955,
+            "nominal_duration_s": 65.16666666666667,
+            "device_duration_s": 65.166667
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 3482,
+            "end_frame_exclusive": 3817,
+            "frame_count": 335,
+            "nominal_duration_s": 11.166666666666666,
+            "device_duration_s": 11.166666
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 3817,
+            "end_frame_exclusive": 4304,
+            "frame_count": 487,
+            "nominal_duration_s": 16.233333333333334,
+            "device_duration_s": 16.233334
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 4304,
+            "end_frame_exclusive": 4615,
+            "frame_count": 311,
+            "nominal_duration_s": 10.366666666666667,
+            "device_duration_s": 10.366655
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 4615,
+            "end_frame_exclusive": 6103,
+            "frame_count": 1488,
+            "nominal_duration_s": 49.6,
+            "device_duration_s": 49.600011
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 6103,
+            "end_frame_exclusive": 6126,
+            "frame_count": 23,
+            "nominal_duration_s": 0.7666666666666667,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU006V001"
+      }
+    },
+    {
+      "id": "IDU007V001",
+      "video": "IDU007V001/sparse-preview.mp4",
+      "labels": "IDU007V001/Labels.txt",
+      "rgb_index": "IDU007V001/rgb-index.json",
+      "frame_count": 3013,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 229017700,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID000000_DeviceTimeStamp229017700us.png",
+          "original_png_sha256": "77d10878ff257e61e9d40e9ccfd2b2503a22eeb89112e1feb3384281a0f32850"
+        },
+        {
+          "frame_id": 274,
+          "timestamp_us": 237917688,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID000274_DeviceTimeStamp237917688us.png",
+          "original_png_sha256": "6ae5afe3b7ec2ab92125fff0d8acdb9287ba59b65512e1a023e7d06262facb91"
+        },
+        {
+          "frame_id": 548,
+          "timestamp_us": 247051022,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID000548_DeviceTimeStamp247051022us.png",
+          "original_png_sha256": "a83c79b80055aa2f4dda19bc52ef41629d9c66c8cc808e08b38093c90e2bb654"
+        },
+        {
+          "frame_id": 821,
+          "timestamp_us": 256151033,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID000821_DeviceTimeStamp256151033us.png",
+          "original_png_sha256": "177009080bc56b246dc0fba08303522be13f3c468d7152b600d5926868ac7c87"
+        },
+        {
+          "frame_id": 1095,
+          "timestamp_us": 265284377,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID001095_DeviceTimeStamp265284377us.png",
+          "original_png_sha256": "a40360d56d6024c3176aa7106895758aac03a7243a824eaf281b59035f317f89"
+        },
+        {
+          "frame_id": 1369,
+          "timestamp_us": 274417700,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID001369_DeviceTimeStamp274417700us.png",
+          "original_png_sha256": "a22b8d97295b7154c4d4b6010da4cb5d7b7bae420d89f31d6891b83ababe18d4"
+        },
+        {
+          "frame_id": 1643,
+          "timestamp_us": 283551033,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID001643_DeviceTimeStamp283551033us.png",
+          "original_png_sha256": "2696614f34ffd721f3a85bec0ffd777662e9eb2ea480874d4c446507100bc517"
+        },
+        {
+          "frame_id": 1917,
+          "timestamp_us": 292684366,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID001917_DeviceTimeStamp292684366us.png",
+          "original_png_sha256": "898412db3f352395050a2e42326754e6d3cb83cbda2ed45e556524806b672a62"
+        },
+        {
+          "frame_id": 2191,
+          "timestamp_us": 301817700,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID002191_DeviceTimeStamp301817700us.png",
+          "original_png_sha256": "46060f8ea8f0c0d3e8f7540c95f77a6b1cbbf25a764aab3ddc562c3be0fe2bf4"
+        },
+        {
+          "frame_id": 2464,
+          "timestamp_us": 310917688,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID002464_DeviceTimeStamp310917688us.png",
+          "original_png_sha256": "503eb4e13f3b90a9b97a395e4a1d56524e4eb1a752de046d91e1adee6a963b35"
+        },
+        {
+          "frame_id": 2738,
+          "timestamp_us": 320051022,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID002738_DeviceTimeStamp320051022us.png",
+          "original_png_sha256": "ef06a703d6df207264c5954fa8813692117a8f41a971c5d6dce12e9ec409b0ac"
+        },
+        {
+          "frame_id": 3012,
+          "timestamp_us": 329184366,
+          "source_path": "/owncloud/public.php/webdav/IDU007V001/Color/000124702712/FrameID003012_DeviceTimeStamp329184366us.png",
+          "original_png_sha256": "d582d20c104eb2e174e9a0f9cf7ac172558791d5000ce48dc12acb02fce5e1ed"
+        }
+      ],
+      "summary": {
+        "frame_count": 3013,
+        "nominal_fps": 30,
+        "nominal_recording_s": 100.43333333333334,
+        "device_first_to_last_s": 100.166666,
+        "duplicate_timestamp_intervals": 7,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 55,
+            "frame_count": 55,
+            "nominal_duration_s": 1.8333333333333333,
+            "device_duration_s": 1.6
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 55,
+            "end_frame_exclusive": 171,
+            "frame_count": 116,
+            "nominal_duration_s": 3.8666666666666667,
+            "device_duration_s": 3.866666
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 171,
+            "end_frame_exclusive": 258,
+            "frame_count": 87,
+            "nominal_duration_s": 2.9,
+            "device_duration_s": 2.899989
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 258,
+            "end_frame_exclusive": 336,
+            "frame_count": 78,
+            "nominal_duration_s": 2.6,
+            "device_duration_s": 2.6
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 336,
+            "end_frame_exclusive": 420,
+            "frame_count": 84,
+            "nominal_duration_s": 2.8,
+            "device_duration_s": 2.8
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 420,
+            "end_frame_exclusive": 509,
+            "frame_count": 89,
+            "nominal_duration_s": 2.966666666666667,
+            "device_duration_s": 2.966678
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 509,
+            "end_frame_exclusive": 581,
+            "frame_count": 72,
+            "nominal_duration_s": 2.4,
+            "device_duration_s": 2.400011
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 581,
+            "end_frame_exclusive": 649,
+            "frame_count": 68,
+            "nominal_duration_s": 2.2666666666666666,
+            "device_duration_s": 2.266656
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 649,
+            "end_frame_exclusive": 834,
+            "frame_count": 185,
+            "nominal_duration_s": 6.166666666666667,
+            "device_duration_s": 6.166655
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 834,
+            "end_frame_exclusive": 952,
+            "frame_count": 118,
+            "nominal_duration_s": 3.933333333333333,
+            "device_duration_s": 3.933333
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 952,
+            "end_frame_exclusive": 1057,
+            "frame_count": 105,
+            "nominal_duration_s": 3.5,
+            "device_duration_s": 3.500012
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 1057,
+            "end_frame_exclusive": 1152,
+            "frame_count": 95,
+            "nominal_duration_s": 3.1666666666666665,
+            "device_duration_s": 3.166666
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1152,
+            "end_frame_exclusive": 1461,
+            "frame_count": 309,
+            "nominal_duration_s": 10.3,
+            "device_duration_s": 10.3
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1461,
+            "end_frame_exclusive": 1799,
+            "frame_count": 338,
+            "nominal_duration_s": 11.266666666666667,
+            "device_duration_s": 11.266667
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 1799,
+            "end_frame_exclusive": 2065,
+            "frame_count": 266,
+            "nominal_duration_s": 8.866666666666667,
+            "device_duration_s": 8.866678
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 2065,
+            "end_frame_exclusive": 2227,
+            "frame_count": 162,
+            "nominal_duration_s": 5.4,
+            "device_duration_s": 5.399989
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 2227,
+            "end_frame_exclusive": 2393,
+            "frame_count": 166,
+            "nominal_duration_s": 5.533333333333333,
+            "device_duration_s": 5.533333
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 2393,
+            "end_frame_exclusive": 3003,
+            "frame_count": 610,
+            "nominal_duration_s": 20.333333333333332,
+            "device_duration_s": 20.333333
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 3003,
+            "end_frame_exclusive": 3013,
+            "frame_count": 10,
+            "nominal_duration_s": 0.3333333333333333,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU007V001"
+      }
+    },
+    {
+      "id": "IDU008V001",
+      "video": "IDU008V001/sparse-preview.mp4",
+      "labels": "IDU008V001/Labels.txt",
+      "rgb_index": "IDU008V001/rgb-index.json",
+      "frame_count": 4887,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 347117688,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID000000_DeviceTimeStamp347117688us.png",
+          "original_png_sha256": "eb7a562658427c3a22900e270f71ebd36bdd6e61f7c866573c9be2a96d6ce93f"
+        },
+        {
+          "frame_id": 444,
+          "timestamp_us": 361684366,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID000444_DeviceTimeStamp361684366us.png",
+          "original_png_sha256": "23899456847467a9a9d21a7c0e57b45ce7563ad72bd4400a42c550956b55cf2d"
+        },
+        {
+          "frame_id": 888,
+          "timestamp_us": 376484366,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID000888_DeviceTimeStamp376484366us.png",
+          "original_png_sha256": "95682bc396e6b071e25798511a31b868ade58f15e4b3e9e2ebfb77f4626ce9bf"
+        },
+        {
+          "frame_id": 1333,
+          "timestamp_us": 391317688,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID001333_DeviceTimeStamp391317688us.png",
+          "original_png_sha256": "eb97240a10ba77aee3600d720559e00656a5d302709ba65b0ffd88735c45d340"
+        },
+        {
+          "frame_id": 1777,
+          "timestamp_us": 406117700,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID001777_DeviceTimeStamp406117700us.png",
+          "original_png_sha256": "719dd3de002fc17403e358193aa9f15a68e9ada90a313063c1172189e8e437a9"
+        },
+        {
+          "frame_id": 2221,
+          "timestamp_us": 420917700,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID002221_DeviceTimeStamp420917700us.png",
+          "original_png_sha256": "5f6897bb6777fad52b305a89fa920c72f34c9d0ee5ba1a8ffa5269b7d50d793f"
+        },
+        {
+          "frame_id": 2665,
+          "timestamp_us": 435717688,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID002665_DeviceTimeStamp435717688us.png",
+          "original_png_sha256": "8a935e2ab3c559aa5351e786b27e98c57ecc249dc175892f8b8709a655e14479"
+        },
+        {
+          "frame_id": 3109,
+          "timestamp_us": 450517688,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID003109_DeviceTimeStamp450517688us.png",
+          "original_png_sha256": "51200b07f7df7def1b8f0774709b5c661b01cd44cf19de7de9cfb23b6dc8a870"
+        },
+        {
+          "frame_id": 3553,
+          "timestamp_us": 465317688,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID003553_DeviceTimeStamp465317688us.png",
+          "original_png_sha256": "ce657d0041705f7f36e95cea7aa3e2bf6a1abc92aa0d0ebd30d40a39e0dd17e4"
+        },
+        {
+          "frame_id": 3998,
+          "timestamp_us": 480151033,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID003998_DeviceTimeStamp480151033us.png",
+          "original_png_sha256": "be5106ee8a39bcc51f499213cb3e3e93acc730c2290706a5e0fe4fab71a823bb"
+        },
+        {
+          "frame_id": 4442,
+          "timestamp_us": 494951033,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID004442_DeviceTimeStamp494951033us.png",
+          "original_png_sha256": "7bb2420cb484418ee6aab9b26082fb8d2a5155b4e6f53afda9e666c7351f16b8"
+        },
+        {
+          "frame_id": 4886,
+          "timestamp_us": 509751033,
+          "source_path": "/owncloud/public.php/webdav/IDU008V001/Color/000124702712/FrameID004886_DeviceTimeStamp509751033us.png",
+          "original_png_sha256": "73985a85b4dc0c07ba044e777955d488dfe1f29f340e850ee717f447b6348018"
+        }
+      ],
+      "summary": {
+        "frame_count": 4887,
+        "nominal_fps": 30,
+        "nominal_recording_s": 162.9,
+        "device_first_to_last_s": 162.633345,
+        "duplicate_timestamp_intervals": 7,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 49,
+            "frame_count": 49,
+            "nominal_duration_s": 1.6333333333333333,
+            "device_duration_s": 1.400012
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 49,
+            "end_frame_exclusive": 226,
+            "frame_count": 177,
+            "nominal_duration_s": 5.9,
+            "device_duration_s": 5.9
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 226,
+            "end_frame_exclusive": 338,
+            "frame_count": 112,
+            "nominal_duration_s": 3.7333333333333334,
+            "device_duration_s": 3.733333
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 338,
+            "end_frame_exclusive": 428,
+            "frame_count": 90,
+            "nominal_duration_s": 3.0,
+            "device_duration_s": 3.0
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 428,
+            "end_frame_exclusive": 537,
+            "frame_count": 109,
+            "nominal_duration_s": 3.6333333333333333,
+            "device_duration_s": 3.633322
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 537,
+            "end_frame_exclusive": 627,
+            "frame_count": 90,
+            "nominal_duration_s": 3.0,
+            "device_duration_s": 3.0
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 627,
+            "end_frame_exclusive": 720,
+            "frame_count": 93,
+            "nominal_duration_s": 3.1,
+            "device_duration_s": 3.100011
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 720,
+            "end_frame_exclusive": 818,
+            "frame_count": 98,
+            "nominal_duration_s": 3.2666666666666666,
+            "device_duration_s": 3.266678
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 818,
+            "end_frame_exclusive": 1001,
+            "frame_count": 183,
+            "nominal_duration_s": 6.1,
+            "device_duration_s": 6.099989
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 1001,
+            "end_frame_exclusive": 1205,
+            "frame_count": 204,
+            "nominal_duration_s": 6.8,
+            "device_duration_s": 6.799989
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 1205,
+            "end_frame_exclusive": 1356,
+            "frame_count": 151,
+            "nominal_duration_s": 5.033333333333333,
+            "device_duration_s": 5.033344
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 1356,
+            "end_frame_exclusive": 1500,
+            "frame_count": 144,
+            "nominal_duration_s": 4.8,
+            "device_duration_s": 4.8
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1500,
+            "end_frame_exclusive": 1881,
+            "frame_count": 381,
+            "nominal_duration_s": 12.7,
+            "device_duration_s": 12.699989
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1881,
+            "end_frame_exclusive": 3305,
+            "frame_count": 1424,
+            "nominal_duration_s": 47.46666666666667,
+            "device_duration_s": 47.466678
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 3305,
+            "end_frame_exclusive": 3622,
+            "frame_count": 317,
+            "nominal_duration_s": 10.566666666666666,
+            "device_duration_s": 10.566667
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 3622,
+            "end_frame_exclusive": 4039,
+            "frame_count": 417,
+            "nominal_duration_s": 13.9,
+            "device_duration_s": 13.9
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 4039,
+            "end_frame_exclusive": 4406,
+            "frame_count": 367,
+            "nominal_duration_s": 12.233333333333333,
+            "device_duration_s": 12.233333
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 4406,
+            "end_frame_exclusive": 4821,
+            "frame_count": 415,
+            "nominal_duration_s": 13.833333333333334,
+            "device_duration_s": 13.833322
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 4821,
+            "end_frame_exclusive": 4887,
+            "frame_count": 66,
+            "nominal_duration_s": 2.2,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU008V001"
+      }
+    },
+    {
+      "id": "IDU009V001",
+      "video": "IDU009V001/sparse-preview.mp4",
+      "labels": "IDU009V001/Labels.txt",
+      "rgb_index": "IDU009V001/rgb-index.json",
+      "frame_count": 4138,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 338217700,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID000000_DeviceTimeStamp338217700us.png",
+          "original_png_sha256": "8f5213c2ffecbb1bba96873add8c98076c322e989362042348639a5e0a82f3da"
+        },
+        {
+          "frame_id": 376,
+          "timestamp_us": 350517688,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID000376_DeviceTimeStamp350517688us.png",
+          "original_png_sha256": "507535dcb880f5a1b66d5f79f9087c1f24b8085f36fa1d624e4d4da8db9d663a"
+        },
+        {
+          "frame_id": 752,
+          "timestamp_us": 363051022,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID000752_DeviceTimeStamp363051022us.png",
+          "original_png_sha256": "5b15e5b23da857e05c9819bf399fe9e3f2ce2620420f0d187953edc91c6a647f"
+        },
+        {
+          "frame_id": 1128,
+          "timestamp_us": 375584355,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID001128_DeviceTimeStamp375584355us.png",
+          "original_png_sha256": "a610d426731df85d0dfb028cd376ff3d3dfbdd8f745a908fa8f9d3a422996b02"
+        },
+        {
+          "frame_id": 1504,
+          "timestamp_us": 388117688,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID001504_DeviceTimeStamp388117688us.png",
+          "original_png_sha256": "6ee0bbc1a92f462a58b0a3d4b2c61e60ebe1c58cb21a3a772cac96d6d974c8e6"
+        },
+        {
+          "frame_id": 1880,
+          "timestamp_us": 400651022,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID001880_DeviceTimeStamp400651022us.png",
+          "original_png_sha256": "a2c8ff2fba24061d9129afbd4f5d4e8eae1c21b5be316a602d100bfee4f5fbc5"
+        },
+        {
+          "frame_id": 2257,
+          "timestamp_us": 413217700,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID002257_DeviceTimeStamp413217700us.png",
+          "original_png_sha256": "ff612cccc0b2b7707015889e76a1d3b47b9fe1905bfbfd3fd02e8c160d960a9f"
+        },
+        {
+          "frame_id": 2633,
+          "timestamp_us": 425751033,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID002633_DeviceTimeStamp425751033us.png",
+          "original_png_sha256": "ae83c0d224b66b18f0407134757f2b34877c06cc12acbfc20d63dd1251201891"
+        },
+        {
+          "frame_id": 3009,
+          "timestamp_us": 438284366,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID003009_DeviceTimeStamp438284366us.png",
+          "original_png_sha256": "c5b08a7c3ebb2e27b99e1456fe773c93b08875d52275b0318b707ce50f9b37d5"
+        },
+        {
+          "frame_id": 3385,
+          "timestamp_us": 450817711,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID003385_DeviceTimeStamp450817711us.png",
+          "original_png_sha256": "4be0cf23ad0b4327b27edb733197f5bdc36414efe7a0e1a46730b6b3e43489e9"
+        },
+        {
+          "frame_id": 3761,
+          "timestamp_us": 463351033,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID003761_DeviceTimeStamp463351033us.png",
+          "original_png_sha256": "492345c82f1c8ef1013450d14e1b91c69907348240eb42249604fd171e995d01"
+        },
+        {
+          "frame_id": 4137,
+          "timestamp_us": 475884366,
+          "source_path": "/owncloud/public.php/webdav/IDU009V001/Color/000124702712/FrameID004137_DeviceTimeStamp475884366us.png",
+          "original_png_sha256": "4b44381a46a742f8d93231afae1fdb5d6517251412b8887ca61d79f3ddf3b9f6"
+        }
+      ],
+      "summary": {
+        "frame_count": 4138,
+        "nominal_fps": 30,
+        "nominal_recording_s": 137.93333333333334,
+        "device_first_to_last_s": 137.666666,
+        "duplicate_timestamp_intervals": 7,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 48,
+            "frame_count": 48,
+            "nominal_duration_s": 1.6,
+            "device_duration_s": 1.366655
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 48,
+            "end_frame_exclusive": 202,
+            "frame_count": 154,
+            "nominal_duration_s": 5.133333333333334,
+            "device_duration_s": 5.133333
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 202,
+            "end_frame_exclusive": 278,
+            "frame_count": 76,
+            "nominal_duration_s": 2.533333333333333,
+            "device_duration_s": 2.533334
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 278,
+            "end_frame_exclusive": 327,
+            "frame_count": 49,
+            "nominal_duration_s": 1.6333333333333333,
+            "device_duration_s": 1.633344
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 327,
+            "end_frame_exclusive": 384,
+            "frame_count": 57,
+            "nominal_duration_s": 1.9,
+            "device_duration_s": 1.899989
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 384,
+            "end_frame_exclusive": 486,
+            "frame_count": 102,
+            "nominal_duration_s": 3.4,
+            "device_duration_s": 3.400011
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 486,
+            "end_frame_exclusive": 572,
+            "frame_count": 86,
+            "nominal_duration_s": 2.8666666666666667,
+            "device_duration_s": 2.866656
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 572,
+            "end_frame_exclusive": 640,
+            "frame_count": 68,
+            "nominal_duration_s": 2.2666666666666666,
+            "device_duration_s": 2.266666
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 640,
+            "end_frame_exclusive": 774,
+            "frame_count": 134,
+            "nominal_duration_s": 4.466666666666667,
+            "device_duration_s": 4.466667
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 774,
+            "end_frame_exclusive": 995,
+            "frame_count": 221,
+            "nominal_duration_s": 7.366666666666666,
+            "device_duration_s": 7.366678
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 995,
+            "end_frame_exclusive": 1259,
+            "frame_count": 264,
+            "nominal_duration_s": 8.8,
+            "device_duration_s": 8.8
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 1259,
+            "end_frame_exclusive": 1355,
+            "frame_count": 96,
+            "nominal_duration_s": 3.2,
+            "device_duration_s": 3.2
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1355,
+            "end_frame_exclusive": 1663,
+            "frame_count": 308,
+            "nominal_duration_s": 10.266666666666667,
+            "device_duration_s": 10.266667
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1663,
+            "end_frame_exclusive": 2262,
+            "frame_count": 599,
+            "nominal_duration_s": 19.966666666666665,
+            "device_duration_s": 19.966655
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 2262,
+            "end_frame_exclusive": 2626,
+            "frame_count": 364,
+            "nominal_duration_s": 12.133333333333333,
+            "device_duration_s": 12.133333
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 2626,
+            "end_frame_exclusive": 3191,
+            "frame_count": 565,
+            "nominal_duration_s": 18.833333333333332,
+            "device_duration_s": 18.833345
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 3191,
+            "end_frame_exclusive": 3603,
+            "frame_count": 412,
+            "nominal_duration_s": 13.733333333333333,
+            "device_duration_s": 13.733333
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 3603,
+            "end_frame_exclusive": 4096,
+            "frame_count": 493,
+            "nominal_duration_s": 16.433333333333334,
+            "device_duration_s": 16.433322
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 4096,
+            "end_frame_exclusive": 4138,
+            "frame_count": 42,
+            "nominal_duration_s": 1.4,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU009V001"
+      }
+    },
+    {
+      "id": "IDU010V001",
+      "video": "IDU010V001/sparse-preview.mp4",
+      "labels": "IDU010V001/Labels.txt",
+      "rgb_index": "IDU010V001/rgb-index.json",
+      "frame_count": 5418,
+      "sampled_frames": [
+        {
+          "frame_id": 0,
+          "timestamp_us": 347251022,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID000000_DeviceTimeStamp347251022us.png",
+          "original_png_sha256": "734295725b00ff54c7faac7b2b659d7061760c1edc1a4248b49e50b2c39e2341"
+        },
+        {
+          "frame_id": 492,
+          "timestamp_us": 363451033,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID000492_DeviceTimeStamp363451033us.png",
+          "original_png_sha256": "b0f7a04925d569428be9ab358eaa0c8c2d7eba4bb23c5c404a587d278e202367"
+        },
+        {
+          "frame_id": 985,
+          "timestamp_us": 379884366,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID000985_DeviceTimeStamp379884366us.png",
+          "original_png_sha256": "2e2fd440a1c71479e2cf842ad3e401129a94a95b3199d7807aac95be4586c5c9"
+        },
+        {
+          "frame_id": 1477,
+          "timestamp_us": 396284366,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID001477_DeviceTimeStamp396284366us.png",
+          "original_png_sha256": "011a5cfd54910779452bf2236465a21ebc6372a5d4441beed4f6b6da6fbbb5bb"
+        },
+        {
+          "frame_id": 1970,
+          "timestamp_us": 412717688,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID001970_DeviceTimeStamp412717688us.png",
+          "original_png_sha256": "18a1e48d93093de157506b1ec0d2986043624d49fc11b1f839881b9ff1e4b686"
+        },
+        {
+          "frame_id": 2462,
+          "timestamp_us": 429117688,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID002462_DeviceTimeStamp429117688us.png",
+          "original_png_sha256": "2387c540227b7a87f81426cf4b9876c640975892c36fa092012195399ad77005"
+        },
+        {
+          "frame_id": 2955,
+          "timestamp_us": 445551044,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID002955_DeviceTimeStamp445551044us.png",
+          "original_png_sha256": "f4b55036ded071a26f54c6e9f5a4413978bbd53521f21c3deb0a32c1190e9160"
+        },
+        {
+          "frame_id": 3447,
+          "timestamp_us": 461951033,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID003447_DeviceTimeStamp461951033us.png",
+          "original_png_sha256": "a5725f550afe485544bb4b12b94a7d6ffc448334d4df1153048e863312752a9e"
+        },
+        {
+          "frame_id": 3940,
+          "timestamp_us": 478384355,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID003940_DeviceTimeStamp478384355us.png",
+          "original_png_sha256": "f52f2e3e5439f1c4c88c68ba70525b49bc2203bffa955742dd87a46e33cd2dd8"
+        },
+        {
+          "frame_id": 4432,
+          "timestamp_us": 494784355,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID004432_DeviceTimeStamp494784355us.png",
+          "original_png_sha256": "2cac1a2c35217d63f494aec28ef890244751fe85321d73c6195305784c1e4975"
+        },
+        {
+          "frame_id": 4925,
+          "timestamp_us": 511217700,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID004925_DeviceTimeStamp511217700us.png",
+          "original_png_sha256": "93426a2a11eb8016e1b44ead71242c4b848a6c4fbe93514efcbee521059cb4bb"
+        },
+        {
+          "frame_id": 5417,
+          "timestamp_us": 527617711,
+          "source_path": "/owncloud/public.php/webdav/IDU010V001/Color/000124702712/FrameID005417_DeviceTimeStamp527617711us.png",
+          "original_png_sha256": "e07bab32e426d7b2e69a573fae64bc0d519398ef5c1cb4864370173622b23878"
+        }
+      ],
+      "summary": {
+        "frame_count": 5418,
+        "nominal_fps": 30,
+        "nominal_recording_s": 180.6,
+        "device_first_to_last_s": 180.366689,
+        "duplicate_timestamp_intervals": 6,
+        "large_timestamp_gaps": 0,
+        "label_rgb_index_alignment": true,
+        "visual_label_accuracy_verified": false,
+        "missing_action_repetitions": [],
+        "fragmented_action_repetitions": [],
+        "segments": [
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 0,
+            "end_frame_exclusive": 19,
+            "frame_count": 19,
+            "nominal_duration_s": 0.6333333333333333,
+            "device_duration_s": 0.433344
+          },
+          {
+            "action_id": 1,
+            "description": "Pick up/place carrier",
+            "repetition": 0,
+            "start_frame": 19,
+            "end_frame_exclusive": 216,
+            "frame_count": 197,
+            "nominal_duration_s": 6.566666666666666,
+            "device_duration_s": 6.566656
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 0,
+            "start_frame": 216,
+            "end_frame_exclusive": 367,
+            "frame_count": 151,
+            "nominal_duration_s": 5.033333333333333,
+            "device_duration_s": 5.033344
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 1,
+            "start_frame": 367,
+            "end_frame_exclusive": 458,
+            "frame_count": 91,
+            "nominal_duration_s": 3.033333333333333,
+            "device_duration_s": 3.033334
+          },
+          {
+            "action_id": 2,
+            "description": "Pick up/place gear bearing",
+            "repetition": 2,
+            "start_frame": 458,
+            "end_frame_exclusive": 577,
+            "frame_count": 119,
+            "nominal_duration_s": 3.966666666666667,
+            "device_duration_s": 3.966666
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 0,
+            "start_frame": 577,
+            "end_frame_exclusive": 677,
+            "frame_count": 100,
+            "nominal_duration_s": 3.3333333333333335,
+            "device_duration_s": 3.333334
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 1,
+            "start_frame": 677,
+            "end_frame_exclusive": 778,
+            "frame_count": 101,
+            "nominal_duration_s": 3.3666666666666667,
+            "device_duration_s": 3.366655
+          },
+          {
+            "action_id": 3,
+            "description": "Pick up/place planet gear",
+            "repetition": 2,
+            "start_frame": 778,
+            "end_frame_exclusive": 879,
+            "frame_count": 101,
+            "nominal_duration_s": 3.3666666666666667,
+            "device_duration_s": 3.366678
+          },
+          {
+            "action_id": 4,
+            "description": "Pick up/place carrier shaft",
+            "repetition": 0,
+            "start_frame": 879,
+            "end_frame_exclusive": 1083,
+            "frame_count": 204,
+            "nominal_duration_s": 6.8,
+            "device_duration_s": 6.8
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 1083,
+            "end_frame_exclusive": 1163,
+            "frame_count": 80,
+            "nominal_duration_s": 2.6666666666666665,
+            "device_duration_s": 2.666667
+          },
+          {
+            "action_id": 5,
+            "description": "Pick up/place sun shaft",
+            "repetition": 0,
+            "start_frame": 1163,
+            "end_frame_exclusive": 1329,
+            "frame_count": 166,
+            "nominal_duration_s": 5.533333333333333,
+            "device_duration_s": 5.533333
+          },
+          {
+            "action_id": 6,
+            "description": "Pick up/place sun gear",
+            "repetition": 0,
+            "start_frame": 1329,
+            "end_frame_exclusive": 1547,
+            "frame_count": 218,
+            "nominal_duration_s": 7.266666666666667,
+            "device_duration_s": 7.266678
+          },
+          {
+            "action_id": 7,
+            "description": "Pick up/place sun gear bearing",
+            "repetition": 0,
+            "start_frame": 1547,
+            "end_frame_exclusive": 1697,
+            "frame_count": 150,
+            "nominal_duration_s": 5.0,
+            "device_duration_s": 4.999989
+          },
+          {
+            "action_id": 8,
+            "description": "Pick up/place ring bear",
+            "repetition": 0,
+            "start_frame": 1697,
+            "end_frame_exclusive": 1937,
+            "frame_count": 240,
+            "nominal_duration_s": 8.0,
+            "device_duration_s": 8.0
+          },
+          {
+            "action_id": 9,
+            "description": "Place block 2 on block 1",
+            "repetition": 0,
+            "start_frame": 1937,
+            "end_frame_exclusive": 2631,
+            "frame_count": 694,
+            "nominal_duration_s": 23.133333333333333,
+            "device_duration_s": 23.133333
+          },
+          {
+            "action_id": 10,
+            "description": "Pick up/place cover",
+            "repetition": 0,
+            "start_frame": 2631,
+            "end_frame_exclusive": 3009,
+            "frame_count": 378,
+            "nominal_duration_s": 12.6,
+            "device_duration_s": 12.6
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 0,
+            "start_frame": 3009,
+            "end_frame_exclusive": 3756,
+            "frame_count": 747,
+            "nominal_duration_s": 24.9,
+            "device_duration_s": 24.899989
+          },
+          {
+            "action_id": 11,
+            "description": "Pick up/place screw",
+            "repetition": 1,
+            "start_frame": 3756,
+            "end_frame_exclusive": 4111,
+            "frame_count": 355,
+            "nominal_duration_s": 11.833333333333334,
+            "device_duration_s": 11.833344
+          },
+          {
+            "action_id": 12,
+            "description": "Pick up Allen key, turn screws, return key and EGT",
+            "repetition": 0,
+            "start_frame": 4111,
+            "end_frame_exclusive": 5303,
+            "frame_count": 1192,
+            "nominal_duration_s": 39.733333333333334,
+            "device_duration_s": 39.733334
+          },
+          {
+            "action_id": 0,
+            "description": "Don't care / transition",
+            "repetition": 0,
+            "start_frame": 5303,
+            "end_frame_exclusive": 5418,
+            "frame_count": 115,
+            "nominal_duration_s": 3.8333333333333335,
+            "device_duration_s": null
+          }
+        ],
+        "accepted_count": null,
+        "labor_s": null,
+        "recording_id": "IDU010V001"
+      }
+    }
+  ]
+}
