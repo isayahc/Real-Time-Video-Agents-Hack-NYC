@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "kind": "humanoid-gpu-replay",
+  "run_id": "g1-local-preflight-20261030",
+  "recorded_at": "2026-10-30T00:02:09Z",
+  "status": "blocked",
+  "evidence": "no_execution",
+  "task": "Planned workflow: observations and task → GR00T actions → SONIC humanoid simulation → saved Vercel playback. No task has been executed.",
+  "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU; 8188 MiB VRAM; driver 576.02",
+  "source_revision": "b85434c (preflight baseline; exporter added subsequently)",
+  "limitations": [
+    "The inspected laptop has 8 GiB VRAM. NVIDIA documents 16 GB+ for GR00T N1.7 inference. No reduced-memory configuration has been tested here.",
+    "No task-compatible UNITREE_G1_SONIC GR00T checkpoint has been selected or run. The published NVIDIA base checkpoint's embodiment_id.json does not list unitree_g1_sonic.",
+    "A matching SONIC checkpoint, observation configuration and simulator are still required. SONIC latent spaces are checkpoint-specific.",
+    "Third-party G1/SONIC checkpoints exist, but their task scope, licenses and controller compatibility have not been validated for this project.",
+    "Neither GR00T inference nor SONIC simulation has run in this project. There are no humanoid results, measured latencies or physical execution claims.",
+    "Nebius AI Cloud deployment remains paused at billing activation. This page launches no paid resources."
+  ],
+  "attribution": [
+    "Architecture reference: NVIDIA Isaac-GR00T https://github.com/NVIDIA/Isaac-GR00T",
+    "Controller workflow: https://nvlabs.github.io/GR00T-WholeBodyControl/tutorials/vla_workflow.html",
+    "Checkpoint compatibility reference: https://nvlabs.github.io/GR00T-WholeBodyControl/tutorials/vla_inference.html"
+  ]
+}

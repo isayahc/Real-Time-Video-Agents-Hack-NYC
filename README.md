@@ -135,6 +135,15 @@ corrections; they are distinct from opening a saved snapshot in the UI. The spec
 stacking GIF above is an authored demonstration, not a promise that a fresh run will
 reproduce the identical geometry or animation. See [the scripted E2E guide](docs/scripted-e2e.md).
 
+### GPU inference with static Vercel playback
+
+The [GPU-run replay exporter](docs/gpu-inference-static-replay.md) packages selected
+recordings, frames, model provenance and checksummed action/controller artifacts
+for a static Vercel viewer. A [recorded local diagnostic](https://mapped-assembly-judge-demo.vercel.app/humanoid/index.html)
+ran one GR00T action chunk through SONIC in MuJoCo: **40 steps / 0.8 simulated
+seconds; task success not evaluated**. The included example receipt preserves the
+earlier blocked preflight. Exporting or viewing a snapshot makes no inference calls.
+
 ### Tests
 
 ```bash
