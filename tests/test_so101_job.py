@@ -13,7 +13,7 @@ from scripts import run_so101_job as job
 def test_job_preserves_receipt_and_failure(tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
                                           fail: bool) -> None:
     """Failed simulation steps remain failed and retain their diagnostic output."""
-    output = tmp_path / "mounted"
+    output = tmp_path / "output"
     output.mkdir()
     calls: list[list[str]] = []
 
@@ -41,7 +41,7 @@ def test_job_preserves_receipt_and_failure(tmp_path: Path, monkeypatch: pytest.M
 
 
 def test_missing_output_fails_before_simulation(tmp_path: Path) -> None:
-    """Never silently create an output mount that might be ephemeral."""
-    with pytest.raises(ValueError, match="mount"):
+    """Require an explicit output directory before beginning expensive evaluation."""
+    with pytest.raises(ValueError, match="Output root must already exist"):
         job.run_job(tmp_path, tmp_path, tmp_path / "missing", tmp_path / "work")
     assert not (tmp_path / "work").exists()

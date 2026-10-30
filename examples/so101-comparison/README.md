@@ -112,3 +112,22 @@ biological success is claimed. The stock moving-link convex hulls, contact
 margins, seed rigidity and grasp approach still require investigation before
 hardware conclusions. Tooling revisions and cloud execution remain separate
 work under the parent epic.
+
+## Local batch runner
+
+Install the native Python 3.11 simulation dependencies, pinned robot sources and
+Node.js/Open-Industries runtime following the reproduction instructions above and
+the [simulation guide](../so101-simulation/README.md#reproduce). From the repository
+root, run the complete comparison and verification sequence:
+
+```bash
+mkdir -p runs/so101-output
+python scripts/run_so101_job.py --source-root runs/so101-source --oi-root runs/oi-runtime --output-root runs/so101-output
+```
+
+Run directly in Linux/WSL with paths valid in that environment. The runner uses
+`runs/so101-jobs` for working files and copies evidence into a unique directory
+under the existing output root. The default evaluation budget is 45 minutes.
+Failed runs retain diagnostics and exit nonzero; `job.json` is copied last to
+indicate the copy completed. Process completion does not establish task success.
+No cloud resources or live inference are required by this runner.

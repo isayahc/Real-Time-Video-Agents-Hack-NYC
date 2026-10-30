@@ -1,4 +1,4 @@
-"""Run the existing SO-101 comparison and persist evidence to a mounted volume."""
+"""Run the existing SO-101 comparison and preserve evidence in local directories."""
 from __future__ import annotations
 
 import argparse
@@ -43,13 +43,13 @@ def run_job(source: Path, oi: Path, output_root: Path, work_root: Path,
             timeout_seconds: int = 2700) -> Path:
     """Run once; copy successful or failed evidence before propagating errors.
 
-    The caller must mount durable storage at output_root. Successful execution
+    The caller must create a writable output_root. Successful execution
     means verified simulation evidence, not successful planting or hardware proof.
     """
     if timeout_seconds <= 0:
         raise ValueError("timeout_seconds must be positive")
     if not output_root.is_dir():
-        raise ValueError("Output root must already exist; mount a writable bucket/volume")
+        raise ValueError("Output root must already exist; create a writable local directory")
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ-") + uuid.uuid4().hex
     destination = output_root / run_id
     destination.mkdir()  # Verify storage is writable before starting expensive work.
@@ -95,16 +95,16 @@ def run_job(source: Path, oi: Path, output_root: Path, work_root: Path,
 
 
 def main() -> None:
-    """Read paths for baked inputs and the required persistent output mount."""
+    """Read native source, replay runtime and local evidence directory paths."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source-root", type=Path, default=Path("/opt/so101-source"))
-    parser.add_argument("--oi-root", type=Path, default=Path("/opt/oi-runtime"))
-    parser.add_argument("--output-root", type=Path, default=Path("/output"))
-    parser.add_argument("--work-root", type=Path, default=Path("runs/serverless"))
+    parser.add_argument("--source-root", type=Path, default=Path("runs/so101-source"))
+    parser.add_argument("--oi-root", type=Path, default=Path("runs/oi-runtime"))
+    parser.add_argument("--output-root", type=Path, default=Path("runs/so101-output"))
+    parser.add_argument("--work-root", type=Path, default=Path("runs/so101-jobs"))
     parser.add_argument("--timeout-seconds", type=int, default=2700)
     args = parser.parse_args()
-    run_job(args.source_root, args.oi_root, args.output_root,
-            args.work_root, args.timeout_seconds)
+    run_job(args.source_root.resolve(), args.oi_root.resolve(), args.output_root.resolve(),
+            args.work_root.resolve(), args.timeout_seconds)
 
 
 if __name__ == "__main__":
