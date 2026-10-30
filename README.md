@@ -457,7 +457,6 @@ The [executed SO-101 simulation baseline](examples/so101-simulation/README.md) c
 
 The [matched SO-101 tooling comparison](examples/so101-comparison/README.md) diagnoses the virtual-TCP/closure mismatch and compares a reference pocket with the OpenCAD seat under shared corrected controls. Failed attempts, resource unknowns and evidence hashes feed the existing accounting contract; no winner is inferred.
 
-The [Nebius Serverless Job setup](deploy/nebius/README.md) packages that comparison,
-video generation and OI evidence checks in a CPU container, with results and failure
-logs copied to a mounted output volume. Cloud execution requires a published image
-and configured Nebius project; the container configuration alone is not live proof.
+The [local batch runner](examples/so101-comparison/README.md#local-batch-runner) runs
+that comparison with native Python and Node.js dependencies, retaining recordings,
+OI evidence checks and failure logs in local run directories.
